@@ -5,7 +5,7 @@
 
 </div>
 
-LiquidBounce is a free and open-source mcp-based hacked client for Minecraft.
+SunClient is a free and open-source mcp-based hacked client for Minecraft.
 
 ## Issues
 
