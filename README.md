@@ -52,4 +52,4 @@ submit a pull request.
 
 ## Stats
 
-![Alt](https://repobeats.axiom.co/api/embed/ad3a9161793c4dfe50934cd4442d25dc3ca93128.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/876175c0802027fc753a19eba30a7e02cda0f8f4.svg "Repobeats analytics image")
