@@ -37,12 +37,11 @@ nor legally binding.
 
 ## Setting up a Workspace
 
-LiquidBounce uses Gradle, to make sure that it is installed properly you can
-check [Gradle's website](https://gradle.org/install/). It also requires Node.js and Python to be installed for
+SunClient uses Gradle, to make sure that it is installed properly you can
 
-1. Clone the repository using `git clone --recurse-submodules https://github.com/CCBlueX/LiquidBounce`.
+1. Clone the repository using `git clone --recurse-submodules https://github.com/Nel1yMinecraft/SunClient`.
 2. CD into the local repository.
-3. Run `./gradlew genSources`.
+3. Run `Start`.
 4. Open the folder as a Gradle project in your preferred IDE.
 5. Run the client.
 
