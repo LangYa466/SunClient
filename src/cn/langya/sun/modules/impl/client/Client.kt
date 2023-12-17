@@ -16,7 +16,7 @@ class Client: Module("客户端",true,Category.Client) {
 
     @Event
     override fun onUpdate() {
-        if(!state) return
+      //  if(!state) return
         ClientUtils.loginfo("Test")
     }
 

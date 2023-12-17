@@ -38,6 +38,8 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
     private val circleAlpha = FloatValue("CircleAlpha", 255F, 0F, 255F)
     private val circleAccuracy = FloatValue("CircleAccuracy", 15F, 0F, 60F)
 
+
+
     //打人光环显示
     private val mark = BoolValue("Mark", true)
 
@@ -47,7 +49,8 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
 
     @Event
     override fun onUpdate() {
-        if(!state) return
+
+
 
         /*
         if (target!!.getDistanceToEntity(mc.player) <= rangeValue.get()) {
@@ -82,7 +85,6 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
 
     @Event
     fun onRender3D() {
-        if(!state) return
 
         if (circleValue.get()) {
             GL11.glPushMatrix()
