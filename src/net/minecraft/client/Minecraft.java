@@ -636,7 +636,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
         this.renderGlobal.makeEntityOutlineShader();
 
-        Sun.INSTANCE.initClient();
+        Sun.initClient();
 
     }
 

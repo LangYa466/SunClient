@@ -1,7 +1,6 @@
 package net.minecraft.command;
 
 import cn.langya.sun.modules.impl.client.Client;
-import cn.langya.sun.ui.screen.ClickGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 

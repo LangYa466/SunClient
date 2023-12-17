@@ -51,9 +51,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
         this.defaultInputFieldText = defaultText;
     }
 
-    private boolean dragTH;
-    private int x1,y1;
-
     /**
      * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
      * window resizes, the buttonList is cleared beforehand.
@@ -182,15 +179,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
         if (mouseButton == 0)
         {
 
-            int x = getScaledMouseCoordinates(mc, mouseX, mouseY)[0];
-            int y = getScaledMouseCoordinates(mc, mouseX, mouseY)[1];
-            UIManager uimanager = Sun.INSTANCE.getUiManager();
-            if (uimanager.hover(mouseX, mouseY)){
-                x1 = uimanager.getX() - x;
-                y1 = uimanager.getY() - y;
-                dragTH = true;
-            }
-
 
             ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
@@ -268,7 +256,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        final UIManager uiManager = Sun.INSTANCE.getUiManager();
      //   uiManager.addNotification("Notification","Test", NotificationType.INFO);
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
@@ -279,25 +266,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
             this.handleComponentHover(itextcomponent, mouseX, mouseY);
         }
 
-        ScaledResolution sr = new ScaledResolution(mc);
-        int x = getScaledMouseCoordinates(mc, mouseX, mouseY)[0];
-        int y = getScaledMouseCoordinates(mc, mouseX, mouseY)[1];
-
-        if (dragTH){
-            uiManager.setX(MathHelper.clamp(x1 + x,1, (int) ((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - uiManager.getWidth())));
-            uiManager.setY(MathHelper.clamp(y1 + y, 1, (int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2) - uiManager.getHeight())));
-        }
-        if (uiManager.hover(uiManager.getX(), uiManager.getY())) {
-            if (uiManager.getX() > sr.getScaledWidth() - 50) {
-                uiManager.setX(sr.getScaledWidth() - 50);
-            }
-
-            if (uiManager.getY() > sr.getScaledHeight() - 50) {
-                uiManager.setY(sr.getScaledHeight() - 50);
-            }
-            scale(mc);
-            RenderUtils.INSTANCE.drawBorderedRect(uiManager.getX(), uiManager.getY(), uiManager.getX() + uiManager.getWidth(), uiManager.getY() + uiManager.getHeight(), 1, -1,0);
-        }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
@@ -363,29 +331,5 @@ public class GuiChat extends GuiScreen implements ITabCompleter
         }
     }
 
-    protected void mouseReleased(int mouseX, int mouseY, int state) {
-        if (state == 0){
-            dragTH = false;
-        }
-    }
-
-    private int[] getScaledMouseCoordinates(Minecraft mc, int mouseX, int mouseY){
-        int x = mouseX;
-        int y = mouseY;
-        switch (mc.gameSettings.guiScale){
-            case 0:
-                x*=2;
-                y*=2;
-                break;
-            case 1:
-                x*=0.5;
-                y*=0.5;
-                break;
-            case 3:
-                x*=1.4999999999999999998;
-                y*=1.4999999999999999998;
-        }
-        return new int[]{x,y};
-    }
 
 }
