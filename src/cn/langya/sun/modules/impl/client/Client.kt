@@ -1,11 +1,9 @@
 package cn.langya.sun.modules.impl.client
 
-import cn.langya.sun.events.Event
-import cn.langya.sun.events.UpdateEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
 import cn.langya.sun.utils.ClientUtils
-import org.lwjgl.input.Keyboard
+import com.darkmagician6.eventapi.EventTarget
 
 
 /**
@@ -17,8 +15,8 @@ import org.lwjgl.input.Keyboard
 
 class Client: Module("客户端",true,Category.Client) {
 
-    @Event
-    fun onUpdate(event: UpdateEvent) {
+    @EventTarget
+    override fun onUpdate() {
         ClientUtils.loginfo("Test")
     }
 

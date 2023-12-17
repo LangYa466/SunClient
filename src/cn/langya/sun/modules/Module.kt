@@ -46,6 +46,8 @@ open class Module(val name: String, val array: Boolean,val category: Category): 
 
         }
 
+    open fun onUpdate() {}
+
     open fun onEnable() {}
 
     open fun onDisable() {}

@@ -18,4 +18,4 @@ open class ValueManager {
     }
 }
 
-open class Value()
+open class Value
