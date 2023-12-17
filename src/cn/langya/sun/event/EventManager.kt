@@ -1,6 +1,7 @@
 package cn.langya.sun.event
 
 import cn.langya.sun.modules.impl.client.Client
+import cn.langya.sun.modules.impl.combat.KillAura
 
 
 /**
@@ -14,6 +15,7 @@ class EventManager {
 
     fun onUpdate() {
         Client().onUpdate()
+        KillAura().onUpdate()
     }
 
     fun onMove() {

@@ -47,6 +47,7 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
 
     @Event
     override fun onUpdate() {
+        if(!state) return
 
         /*
         if (target!!.getDistanceToEntity(mc.player) <= rangeValue.get()) {
@@ -81,6 +82,8 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
 
     @Event
     fun onRender3D() {
+        if(!state) return
+
         if (circleValue.get()) {
             GL11.glPushMatrix()
             GL11.glTranslated(
