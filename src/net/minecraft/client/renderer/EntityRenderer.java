@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
-import cn.langya.sun.event.EventManager;
+import cn.langya.sun.events.impl.Render3DEvent;
+import com.darkmagician6.eventapi.EventManager;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
@@ -1484,7 +1485,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
             this.renderCloudsCheck(renderglobal, partialTicks, pass, d0, d1, d2);
         }
 
-        new EventManager().onRender3D();
+        EventManager.call(new Render3DEvent());
 
         this.mc.mcProfiler.endStartSection("hand");
 

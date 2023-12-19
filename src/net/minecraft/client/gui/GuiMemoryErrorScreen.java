@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import java.io.IOException;
 
-import cn.langya.sun.ui.lunar.ui.MainMenu;
+import cn.langya.sun.ui.screen.mainmenu.MainMenu;
 import net.minecraft.client.resources.I18n;
 
 public class GuiMemoryErrorScreen extends GuiScreen

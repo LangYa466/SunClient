@@ -1,10 +1,10 @@
-package cn.langya.sun.ui.lunar.ui;
+package cn.langya.sun.ui.screen.mainmenu;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.ui.FontManager;
-import cn.langya.sun.ui.lunar.ui.buttons.ImageButton;
-import cn.langya.sun.ui.lunar.ui.buttons.MainButton;
-import cn.langya.sun.ui.lunar.ui.buttons.QuitButton;
+import cn.langya.sun.ui.screen.mainmenu.buttons.ImageButton;
+import cn.langya.sun.ui.screen.mainmenu.buttons.MainButton;
+import cn.langya.sun.ui.screen.mainmenu.buttons.QuitButton;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;

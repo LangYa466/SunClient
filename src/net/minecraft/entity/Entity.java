@@ -1,6 +1,7 @@
 package net.minecraft.entity;
 
-import cn.langya.sun.event.EventManager;
+import cn.langya.sun.events.impl.MoveEvent;
+import com.darkmagician6.eventapi.EventManager;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -725,9 +726,8 @@ public abstract class Entity implements ICommandSender
     public void moveEntity(MoverType x, double p_70091_2_, double p_70091_4_, double p_70091_6_)
     {
 
-        boolean isPlayer = this == Minecraft.getMinecraft().player;
-        if(isPlayer){
-            new EventManager().onMove();
+        if(this == Minecraft.getMinecraft().player){
+            EventManager.call(new MoveEvent());
         }
 
 

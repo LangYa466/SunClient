@@ -1,6 +1,7 @@
 package net.minecraft.client.gui;
 
-import cn.langya.sun.event.EventManager;
+import cn.langya.sun.events.impl.Render2DEvent;
+import com.darkmagician6.eventapi.EventManager;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -391,7 +392,9 @@ public class GuiIngame extends Gui
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
         GlStateManager.enableAlpha();
-        new EventManager().onRender2D();
+
+        EventManager.call(new Render2DEvent());
+
     }
 
     private void renderAttackIndicator(float p_184045_1_, ScaledResolution p_184045_2_)

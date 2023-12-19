@@ -1,13 +1,5 @@
 package net.minecraft.client.gui;
 
-import java.awt.*;
-import java.io.IOException;
-import javax.annotation.Nullable;
-
-import cn.langya.sun.Sun;
-import cn.langya.sun.ui.UIManager;
-import cn.langya.sun.ui.impl.notification.NotificationType;
-import cn.langya.sun.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ITabCompleter;
@@ -21,6 +13,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+
+import javax.annotation.Nullable;
+import java.io.IOException;
 
 public class GuiChat extends GuiScreen implements ITabCompleter
 {
@@ -256,7 +251,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-     //   uiManager.addNotification("Notification","Test", NotificationType.INFO);
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
         ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());

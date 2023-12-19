@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleManager {
-private List<Module> modules = new ArrayList<>();
+    public final List<Module> modules = new ArrayList<>();
 
-private void registerModule(Module module) {
-    modules.add(module);
-}
+    private void registerModule(Module module) {
+        modules.add(module);
+    }
 
-public void registerModules() {
-    registerModule(new Client());
-    registerModule(new KillAura());
-}
+    public void registerModules() {
+        registerModule(new Client());
+        registerModule(new KillAura());
+    }
 
-public void init() {
-    ClientUtils.loginfo("[模块系统] 加载模块中...");
-    registerModules();
-    ClientUtils.loginfo("[模块系统] 已加载模块: " + modules.size());
-}
+    public void init() {
+        ClientUtils.loginfo("[模块系统] 加载模块中...");
+        registerModules();
+        ClientUtils.loginfo("[模块系统] 已加载模块: " + modules.size());
+    }
 }

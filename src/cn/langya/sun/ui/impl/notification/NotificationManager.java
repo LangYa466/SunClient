@@ -1,7 +1,6 @@
 package cn.langya.sun.ui.impl.notification;
 
 import cn.langya.sun.ui.FontManager;
-import cn.langya.sun.ui.UIManager;
 import cn.langya.sun.utils.ClientUtils;
 import net.minecraft.client.gui.Gui;
 
@@ -9,13 +8,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationManager extends UIManager {
+public class NotificationManager {
 
     private List<Notification> notifications = new ArrayList<>();
 
-    public NotificationManager(int x, int y, int width, int height) {
-        super(x, y, width, height);
-    }
 
     public void add(String title, String content, NotificationType type) {
         Notification notification = new Notification(title, content, type);

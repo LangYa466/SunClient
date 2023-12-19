@@ -2,6 +2,7 @@ package cn.langya.sun.modules;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.ui.impl.notification.NotificationType;
+import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.Utils;
 import org.lwjgl.input.Keyboard;
 
@@ -51,11 +52,10 @@ public class Module extends Utils {
     public void setState(boolean value) {
         if (state == value) return;
 
-        Sun.uiManager.addNotification(
-                "Notifications",
-                (value ? "Enabled " : "Disabled ") + name,
-                (value ? NotificationType.SUCCESS : NotificationType.ERROR)
-        );
+
+        ClientUtils.loginfo(name + (value ? "-开启 " : "-关闭 "));
+
+
 
         // Call on enabled or disabled
         if (value) {
@@ -66,8 +66,6 @@ public class Module extends Utils {
 
         state = value;
     }
-
-    public void onUpdate() {}
 
     public void onEnable() {}
 

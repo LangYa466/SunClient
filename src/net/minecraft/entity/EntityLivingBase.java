@@ -1,5 +1,7 @@
 package net.minecraft.entity;
 
+import cn.langya.sun.events.impl.UpdateEvent;
+import com.darkmagician6.eventapi.EventManager;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -2459,7 +2461,7 @@ public abstract class EntityLivingBase extends Entity
             this.ticksElytraFlying = 0;
         }
 
-        new cn.langya.sun.event.EventManager().onUpdate();
+        EventManager.call(new UpdateEvent());
 
     }
 

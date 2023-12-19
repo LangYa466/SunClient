@@ -1,7 +1,7 @@
 package net.minecraft.client;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.ui.lunar.ui.MainMenu;
+import cn.langya.sun.ui.screen.mainmenu.MainMenu;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
@@ -37,9 +37,6 @@ import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;

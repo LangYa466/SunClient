@@ -76,7 +76,7 @@ public class FontManager extends Utils {
 
     public static void drawCenteredTextScaled(String text, int givenX, int givenY, int color, double givenScale) {
         GL11.glPushMatrix();
-        GL11.glTranslated((double) givenX, (double) givenY, 0.0);
+        GL11.glTranslated(givenX, givenY, 0.0);
         GL11.glScaled(givenScale, givenScale, givenScale);
         drawStringWithShadow(text, 0.0f, 0.0f, color);
         GL11.glPopMatrix();

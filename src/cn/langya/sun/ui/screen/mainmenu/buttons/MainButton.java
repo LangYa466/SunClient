@@ -1,4 +1,4 @@
-package cn.langya.sun.ui.lunar.ui.buttons;
+package cn.langya.sun.ui.screen.mainmenu.buttons;
 
 import cn.langya.sun.ui.FontManager;
 import cn.langya.sun.utils.render.RenderUtils;
