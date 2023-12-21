@@ -1,6 +1,6 @@
 package cn.langya.sun;
 
-import cn.langya.sun.events.EventManager;
+import cn.langya.sun.event.EventProtocol;
 import cn.langya.sun.modules.ModuleManager;
 import cn.langya.sun.utils.ClientUtils;
 
@@ -12,10 +12,11 @@ public class Sun {
 
     // Manager
     public static ModuleManager moduleManager;
+    public static EventProtocol eventProtocol;
 
     public static void initClient() {
         ClientUtils.loginfo("太阳客户端加载中!!!");
-        EventManager.INSTANCE.init();
+        eventProtocol = new EventProtocol();
         moduleManager = new ModuleManager();
         moduleManager.init();
         ClientUtils.loginfo("太阳客户端加载完毕!!!");

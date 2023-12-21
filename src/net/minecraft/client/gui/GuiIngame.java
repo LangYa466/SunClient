@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
-import cn.langya.sun.events.impl.Render2DEvent;
-import com.darkmagician6.eventapi.EventManager;
+import cn.langya.sun.Sun;
+import cn.langya.sun.event.impl.render.Render2DEvent;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -393,7 +393,7 @@ public class GuiIngame extends Gui
         GlStateManager.disableLighting();
         GlStateManager.enableAlpha();
 
-        EventManager.call(new Render2DEvent());
+        Sun.eventProtocol.handleEvent(new Render2DEvent(scaledresolution));
 
     }
 

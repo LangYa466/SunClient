@@ -1,6 +1,5 @@
 package cn.langya.sun.utils.render;
 
-import cn.langya.sun.ui.lunar.util.ClientMathUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

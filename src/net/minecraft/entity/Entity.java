@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
-import cn.langya.sun.events.impl.MoveEvent;
-import com.darkmagician6.eventapi.EventManager;
+import cn.langya.sun.Sun;
+import cn.langya.sun.event.impl.player.UpdateEvent;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -727,7 +727,7 @@ public abstract class Entity implements ICommandSender
     {
 
         if(this == Minecraft.getMinecraft().player){
-            EventManager.call(new MoveEvent());
+            Sun.eventProtocol.handleEvent(new UpdateEvent());
         }
 
 
