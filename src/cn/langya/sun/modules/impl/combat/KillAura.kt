@@ -2,30 +2,23 @@ package cn.langya.sun.modules.impl.combat;
 
 import cn.enaium.cf4m.annotation.Event
 import cn.langya.sun.Sun
-import cn.langya.sun.events.AttackEvent
-import cn.langya.sun.events.Render3DEvent
-import cn.langya.sun.events.UpdateEvent
+import cn.langya.sun.events.impl.AttackEvent
+import cn.langya.sun.events.impl.Render3DEvent
+import cn.langya.sun.events.impl.UpdateEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
-import cn.langya.sun.utils.render.RenderUtils
 import cn.langya.sun.values.BoolValue
 import cn.langya.sun.values.FloatValue
-import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.CPacketPlayerDigging
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
 import org.lwjgl.opengl.GL11
-import java.awt.Color
-import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
 
-class KillAura : Module("杀人气质",true,Category.Combat) {
+class KillAura : Module("杀人气质", "客户端", true, Category.Combat) {
 
     //攻击距离
     val rangeValue = FloatValue("Range", 3F, 3F, 8F)
@@ -41,7 +34,6 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
     var target: Entity? = null
     var click = 0
     var blocking = false
-
     @Event
     fun onUpdate(event: UpdateEvent) {
 

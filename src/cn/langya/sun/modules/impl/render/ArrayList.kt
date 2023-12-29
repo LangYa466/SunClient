@@ -2,14 +2,11 @@ package cn.langya.sun.modules.impl.render
 
 import cn.enaium.cf4m.annotation.Event
 import cn.langya.sun.Sun
-import cn.langya.sun.events.Render2DEvent
-import cn.langya.sun.events.UpdateEvent
+import cn.langya.sun.events.impl.Render2DEvent
 import cn.langya.sun.ui.FontManager
 import cn.langya.sun.ui.Ui
-import cn.langya.sun.utils.render.RenderUtils
 import cn.langya.sun.values.BoolValue
 import cn.langya.sun.values.IntValue
-import java.awt.Color
 
 
 /**

@@ -10,6 +10,6 @@ import net.minecraft.client.Minecraft;
  */
 
 public class FileManager {
-    public static String clientPath = Minecraft.getMinecraft().mcDataDir.toString() + "/" + "SunClient";
+   public static final String clientPath = Minecraft.getMinecraft().mcDataDir.toString() + "/" + "SunClient";
 
 }

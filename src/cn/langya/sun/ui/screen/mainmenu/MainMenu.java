@@ -64,7 +64,7 @@ public class MainMenu extends GuiScreen {
         this.btnQuit.drawButton(mouseX, mouseY);
         
         String s = "版权归 狼牙土豆工作室 所有！";
-        FontManager.drawString("太阳客户端 1.12.2 ("+ Sun.version +"/master)", 7, this.height - 11, new Color(255, 255, 255, 100).getRGB());
+        FontManager.drawString("太阳客户端 1.12.2 ("+ Sun.version +")", 7, this.height - 11, new Color(255, 255, 255, 100).getRGB());
         FontManager.drawString(s, this.width - FontManager.getStringWidth(s) - 6, this.height - 11, new Color(255, 255, 255, 100).getRGB());
         
         super.drawScreen(mouseX, mouseY, partialTicks);

@@ -2,7 +2,7 @@ package net.minecraft.entity;
 
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.MoveEvent;
+import cn.langya.sun.events.impl.MoveEvent;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

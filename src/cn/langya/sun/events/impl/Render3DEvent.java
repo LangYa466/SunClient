@@ -1,4 +1,4 @@
-package cn.langya.sun.events;
+package cn.langya.sun.events.impl;
 
 /**
  * @author LangYa

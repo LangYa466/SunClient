@@ -5,7 +5,6 @@ import cn.enaium.cf4m.container.EventContainer;
 import cn.langya.sun.files.FileManager;
 import cn.langya.sun.modules.ModuleManager;
 import cn.langya.sun.ui.UIManager;
-import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.ClientUtils;
 
 public class Sun {

@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.UpdateEvent;
+import cn.langya.sun.events.impl.UpdateEvent;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 import net.minecraft.advancements.CriteriaTriggers;

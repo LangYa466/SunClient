@@ -3,37 +3,36 @@ package cn.langya.sun.modules;
 import cn.langya.sun.Sun;
 import cn.langya.sun.ui.impl.notification.NotificationType;
 import cn.langya.sun.utils.Utils;
-import org.lwjgl.input.Keyboard;
 
 public class Module extends Utils {
 
     public final String name;
+    public final String tag;
     public final boolean array;
     public final Category category;
 
-    /*
-    private int keyBind;
-
-    public void setKeyBind(int key) {
-        keyBind = key;
-        if (Keyboard.isKeyDown(keyBind)) {
-            state = !state;
-        }
-    }
-
-     */
-
-    // Current state of module
     public boolean state;
 
-    public Module(String name, boolean array, Category category) {
+    public Module(String name, String tag, Category category) {
         this.name = name;
+        this.tag = tag;
+        this.array = true;
+        this.category = category;
+    }
+
+    public Module(String name, String tag, Boolean array, Category category) {
+        this.name = name;
+        this.tag = tag;
         this.array = array;
         this.category = category;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     public boolean isArray() {
@@ -66,8 +65,6 @@ public class Module extends Utils {
 
         state = value;
     }
-
-    public void onUpdate() {}
 
     public void onEnable() {}
 

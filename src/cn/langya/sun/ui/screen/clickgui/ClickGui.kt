@@ -48,7 +48,7 @@ class ClickGui : GuiScreen() {
         for ((module, position) in modulePositions) {
             val (x, y) = position
             if (mouseX >= x && mouseY >= y && mouseX < x + fontRendererObj.getStringWidth(module.name) && mouseY < y + 10) {
-                module.state = !module.state
+                module.setState(!module.state)
 
                 mc.soundHandler.playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f))
             }

@@ -205,8 +205,8 @@ public class GuiChat extends GuiScreen implements ITabCompleter
                 } else {
                     double setX = mouseX - m.moveX;
                     double setY = mouseY - m.moveY;
-                    setX = Math.min(Math.max(0.0, setX), RenderUtils.width() - m.width);
-                    setY = Math.min(Math.max(0.0, setY), RenderUtils.height() - m.height);
+                    setX = Math.min(Math.max(0.0, setX), RenderUtils.getWidth() - m.width);
+                    setY = Math.min(Math.max(0.0, setY), RenderUtils.getHeight() - m.height);
                     m.x = (int) setX;
                     m.y = (int) setY;
                 }

@@ -3,6 +3,7 @@ package cn.langya.sun.modules;
 public enum Category {
     Combat("战斗"),
     Move("移动"),
+    WORLD("世界"),
     Render("视觉"),
     Client("客户端"),
     Misc("其他");

@@ -54,7 +54,7 @@ public final class ItemStack
     public static final DecimalFormat DECIMALFORMAT = new DecimalFormat("#.##");
 
     /** Size of the stack. */
-    private int stackSize;
+    public int stackSize;
 
     /**
      * Number of animation frames to go when receiving an item (by walking into it, for example).

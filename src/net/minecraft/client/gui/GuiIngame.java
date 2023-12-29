@@ -2,7 +2,7 @@ package net.minecraft.client.gui;
 
 import cn.langya.sun.Sun;
 
-import cn.langya.sun.events.Render2DEvent;
+import cn.langya.sun.events.impl.Render2DEvent;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;

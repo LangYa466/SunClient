@@ -1,5 +1,6 @@
 package cn.langya.sun.utils.render;
 
+import cn.langya.sun.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -21,23 +22,15 @@ import static java.lang.Math.sin;
  * @Version 1.0
  */
 
-public class RenderUtils {
+public class RenderUtils extends Utils {
 
 
-    public static int width() {
-        return new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth();
+    public static int getWidth() {
+        return new ScaledResolution(mc).getScaledWidth();
     }
 
-    public static int height() {
-        return new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight();
-    }
-
-    public static void glColor(Color color) {
-        float red = color.getRed() / 255f;
-        float green = color.getGreen() / 255f;
-        float blue = color.getBlue() / 255f;
-        float alpha = color.getAlpha() / 255f;
-        GlStateManager.color(red, green, blue, alpha);
+    public static int getHeight() {
+        return new ScaledResolution(mc).getScaledHeight();
     }
 
     public static void glColor(int hex) {
