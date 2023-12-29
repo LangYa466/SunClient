@@ -1,7 +1,8 @@
 package net.minecraft.entity;
 
+
 import cn.langya.sun.Sun;
-import cn.langya.sun.event.impl.player.UpdateEvent;
+import cn.langya.sun.events.MoveEvent;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -725,10 +726,7 @@ public abstract class Entity implements ICommandSender
      */
     public void moveEntity(MoverType x, double p_70091_2_, double p_70091_4_, double p_70091_6_)
     {
-
-        if(this == Minecraft.getMinecraft().player){
-            Sun.eventProtocol.handleEvent(new UpdateEvent());
-        }
+        if(this == Minecraft.getMinecraft().player) Sun.eventManager.post(new MoveEvent());
 
 
         if (this.noClip)

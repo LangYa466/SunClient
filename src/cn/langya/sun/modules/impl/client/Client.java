@@ -1,6 +1,7 @@
 package cn.langya.sun.modules.impl.client;
 
-import cn.langya.sun.event.impl.player.UpdateEvent;
+import cn.enaium.cf4m.annotation.Event;
+import cn.langya.sun.events.Render2DEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.utils.ClientUtils;
@@ -11,20 +12,11 @@ public class Client extends Module {
         super("客户端", true, Category.Client);
     }
 
-    @Override
-    public void onUpdateEvent(UpdateEvent event) {
-        ClientUtils.loginfo("UpdateEventTest");
+
+    @Event
+    public void onRender2D(Render2DEvent event) {
+        if(!getState()) return;
+      //  ClientUtils.loginfo("OHOHOH Render2DEventRender2DEventRender2DEventRender2DEventRender2DEvent");
     }
 
-    @Override
-    public void onEnable() {
-        ClientUtils.loginfo("onEnable");
-        super.onEnable();
-    }
-
-    @Override
-    public void onDisable() {
-        ClientUtils.loginfo("onDisable");
-        super.onDisable();
-    }
 }

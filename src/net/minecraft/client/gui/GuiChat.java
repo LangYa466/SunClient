@@ -1,5 +1,14 @@
 package net.minecraft.client.gui;
 
+import java.awt.*;
+import java.io.IOException;
+import javax.annotation.Nullable;
+
+import cn.langya.sun.Sun;
+import cn.langya.sun.ui.UIManager;
+import cn.langya.sun.ui.Ui;
+import cn.langya.sun.ui.impl.notification.NotificationType;
+import cn.langya.sun.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ITabCompleter;
@@ -13,9 +22,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
-import javax.annotation.Nullable;
-import java.io.IOException;
 
 public class GuiChat extends GuiScreen implements ITabCompleter
 {
@@ -169,19 +175,51 @@ public class GuiChat extends GuiScreen implements ITabCompleter
     /**
      * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
      */
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
-    {
-        if (mouseButton == 0)
-        {
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        if (mouseButton == 0) {
 
 
             ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
-            if (itextcomponent != null && this.handleComponentClick(itextcomponent))
-            {
+            if (itextcomponent != null && this.handleComponentClick(itextcomponent)) {
                 return;
             }
         }
+
+        for (Ui m : Sun.uiManager.ui) {
+
+            if (!m.state) {
+                continue;
+            }
+
+            final double xpos = m.x;
+            final double ypos = m.y;
+            final double mwidth = m.width;
+            final double mheight = m.height;
+
+            if (mouseX > xpos && mouseY > ypos && mouseX < xpos + mwidth && mouseY < ypos + mheight && Mouse.isButtonDown(0)) {
+                RenderUtils.drawBorderedRect((float) xpos, (float) ypos, (float) (xpos + mwidth), (float) (ypos + mheight), 2.0f, new Color(225, 225, 225).getRGB(), 0);
+                if (m.moveX == 0.0 && m.moveY == 0.0) {
+                    m.moveX = (int) (mouseX - xpos);
+                    m.moveY = (int) (mouseY - ypos);
+                } else {
+                    double setX = mouseX - m.moveX;
+                    double setY = mouseY - m.moveY;
+                    setX = Math.min(Math.max(0.0, setX), RenderUtils.width() - m.width);
+                    setY = Math.min(Math.max(0.0, setY), RenderUtils.height() - m.height);
+                    m.x = (int) setX;
+                    m.y = (int) setY;
+                }
+            } else {
+                if (m.moveX == 0.0 && m.moveY == 0.0) {
+                    continue;
+                }
+                m.moveX = 0;
+                m.moveY = 0;
+            }
+
+        }
+
 
         this.inputField.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -251,6 +289,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
+     //   uiManager.addNotification("Notification","Test", NotificationType.INFO);
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
         ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());

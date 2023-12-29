@@ -2,7 +2,6 @@ package cn.langya.sun.ui;
 
 import cn.langya.sun.utils.Utils;
 import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
 
@@ -75,11 +74,11 @@ public class FontManager extends Utils {
     }
 
     public static void drawCenteredTextScaled(String text, int givenX, int givenY, int color, double givenScale) {
-        GL11.glPushMatrix();
-        GL11.glTranslated(givenX, givenY, 0.0);
-        GL11.glScaled(givenScale, givenScale, givenScale);
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(givenX, givenY, 0.0);
+        GlStateManager.scale(givenScale, givenScale, givenScale);
         drawStringWithShadow(text, 0.0f, 0.0f, color);
-        GL11.glPopMatrix();
+        GlStateManager.popMatrix();
     }
 
     public static void drawCenteredString(String text, float x, float y, int color) {
@@ -89,4 +88,5 @@ public class FontManager extends Utils {
     public static int getStringWidth(String text) {
         return mc.fontRendererObj.getStringWidth(text);
     }
+
 }

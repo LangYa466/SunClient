@@ -1,24 +1,35 @@
 package cn.langya.sun;
 
-import cn.langya.sun.event.EventProtocol;
+import cn.enaium.cf4m.CF4M;
+import cn.enaium.cf4m.container.EventContainer;
+import cn.langya.sun.files.FileManager;
 import cn.langya.sun.modules.ModuleManager;
+import cn.langya.sun.ui.UIManager;
+import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.ClientUtils;
 
 public class Sun {
 
     public static final String name = "太阳客户端";
     public static final String version = "1.0";
-    public static final String author = "狼牙466";
+    public static final String author = "LangYa";
 
     // Manager
     public static ModuleManager moduleManager;
-    public static EventProtocol eventProtocol;
+    public static UIManager uiManager;
+    public static FileManager fileManager;
+    public static EventContainer eventManager;
 
-    public static void initClient() {
-        ClientUtils.loginfo("太阳客户端加载中!!!");
-        eventProtocol = new EventProtocol();
+    public void initClient() {
+        ClientUtils.loginfo("太阳客户端 加载中..");
+        CF4M.run(this, fileManager.clientPath);
+        eventManager = CF4M.EVENT;
         moduleManager = new ModuleManager();
         moduleManager.init();
-        ClientUtils.loginfo("太阳客户端加载完毕!!!");
+        uiManager = new UIManager();
+        uiManager.init();
+        ClientUtils.loginfo("太阳客户端 加载完毕!!");
     }
+
+
 }

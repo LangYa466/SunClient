@@ -1,7 +1,8 @@
 package net.minecraft.client.multiplayer;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.event.impl.player.AttackEvent;
+
+import cn.langya.sun.events.AttackEvent;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;
@@ -532,7 +533,7 @@ public class PlayerControllerMP
      */
     public void attackEntity(EntityPlayer playerIn, Entity targetEntity)
     {
-        Sun.eventProtocol.handleEvent(new AttackEvent(playerIn));
+        Sun.eventManager.post(new AttackEvent());
 
 
         this.syncCurrentPlayItem();

@@ -89,6 +89,7 @@ public class ServerCommandManager extends CommandHandler implements ICommandList
         this.registerCommand(new CommandLocate());
         this.registerCommand(new CommandReload());
         this.registerCommand(new CommandFunction());
+        this.registerCommand(new CommandClickGui());
         this.registerCommand(new CommandState());
 
         if (serverIn.isDedicatedServer())

@@ -1,15 +1,15 @@
-package cn.langya.sun.modules.impl.combat
+package cn.langya.sun.modules.impl.combat;
 
-
+import cn.enaium.cf4m.annotation.Event
 import cn.langya.sun.Sun
-import cn.langya.sun.event.impl.player.AttackEvent
-import cn.langya.sun.event.impl.player.UpdateEvent
-import cn.langya.sun.event.impl.render.Render3DEvent
+import cn.langya.sun.events.AttackEvent
+import cn.langya.sun.events.Render3DEvent
+import cn.langya.sun.events.UpdateEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
 import cn.langya.sun.utils.render.RenderUtils
-import cn.langya.sun.value.BoolValue
-import cn.langya.sun.value.FloatValue
+import cn.langya.sun.values.BoolValue
+import cn.langya.sun.values.FloatValue
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
@@ -28,10 +28,7 @@ import kotlin.math.sin
 class KillAura : Module("杀人气质",true,Category.Combat) {
 
     //攻击距离
-    private val rangeValue = FloatValue("Range", 3F, 3F, 8F)
-
-    //视角
-    private val fovValue = FloatValue("FOV", 180f, 0f, 180f)
+    val rangeValue = FloatValue("Range", 3F, 3F, 8F)
 
     //距离光环显示
     private val circleValue = BoolValue("Circle", true)
@@ -41,41 +38,24 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
     private val circleAlpha = FloatValue("CircleAlpha", 255F, 0F, 255F)
     private val circleAccuracy = FloatValue("CircleAccuracy", 15F, 0F, 60F)
 
-
-    //打人光环显示
-    private val mark = BoolValue("Mark", true)
-
-    var target: EntityLivingBase? = null
+    var target: Entity? = null
     var click = 0
     var blocking = false
 
-    override fun onUpdateEvent(event: UpdateEvent?) {
+    @Event
+    fun onUpdate(event: UpdateEvent) {
+
+        if (mc.player == null || mc.world == null) return
 
 
-
-        /*
-        if (target!!.getDistanceToEntity(mc.player) <= rangeValue.get()) {
-            setRotation(
-                Rotation(
-                    (RotationUtils.getAngles(target).yaw + Math.random() * 4f - 4f / 2).toFloat(),
-                    (RotationUtils.getAngles(target).pitch + Math.random() * 4f - 4f / 2).toFloat()
-                )
-            )
-            attackEntity()
-        }
-
-         */
-
-
-        mc.world.loadedEntityList
-            .asSequence()
-            .filterIsInstance<EntityLivingBase>()
-            .filter { mc.player.getDistanceToEntity(it) <= rangeValue.get() }
-            .forEach {
-                target = it
-                setRotation(it)
-                attackEntity(it)
+        for (entity in mc.world.loadedEntityList) {
+            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get()) {
+                target = entity
+                attackEntity(entity)
+            } else {
+                target = null
             }
+        }
 
         if (target == null) {
             stopBlocking()
@@ -84,7 +64,8 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
 
     }
 
-    override fun onRender3DEvent(event: Render3DEvent?) {
+    @Event
+    fun onRender3D(event: Render3DEvent) {
 
         if (circleValue.get()) {
             GL11.glPushMatrix()
@@ -133,84 +114,24 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
     }
 
 
-    //视角
-    private fun isFovInRange(entity: Entity? = target, fov: Float = fovValue.get()): Boolean {
-
-        var fov = fov
-        fov *= 0.5.toFloat()
-        val v: Double =
-            ((mc.player.rotationYaw - getPlayerRotation(entity)) % 360.0 + 540.0) % 360.0 - 180.0
-        return v > 0.0 && v < fov || -fov < v && v < 0.0
-    }
-
-    //获取玩家转头
-    private fun getPlayerRotation(entity: Entity?): Float {
-        val x: Double = entity!!.posX - mc.player.posX
-        val z: Double = entity.posZ - mc.player.posZ
-        var yaw = atan2(x, z) * 57.2957795
-        yaw = -yaw
-        return yaw.toFloat()
-    }
-
-    private fun getRotationtoEntityYaw(entity: EntityLivingBase): Float {
-        val xDiff: Double = entity.posX - mc.player.posX
-        val zDiff: Double = entity.posZ - mc.player.posZ
-        val yaw = (atan2(zDiff, xDiff) * 180.0 / Math.PI).toFloat() - 90.0f
-        return yaw
-    }
-
-    private fun getRotationtoEntityPitch(entity: EntityLivingBase): Float {
-        val xDiff: Double = entity.posX - mc.player.posX
-        val zDiff: Double = entity.posZ - mc.player.posZ
-        val yDiff: Double =
-            entity.posY + entity.eyeHeight * 0.9 - (mc.player.posY + mc.player.getEyeHeight())
-        val distance: Float = MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff)
-        val pitch = (-(atan2(yDiff, distance.toDouble()) * 180.0 / Math.PI)).toFloat()
-        return pitch
-    }
-
-
     //  攻击
-    private fun attackEntity(entity: EntityLivingBase) {
+    private fun attackEntity(entity: Entity) {
 
         // 防止连续发送攻击包
         if (mc.player.attackingEntity != null) {
             return
         }
 
-        if(!isFovInRange()) {
-            return
-        }
-
-        drawEntityESP(entity, Color(255, 255, 255).rgb)
-
         // 停止防砍
         stopBlocking()
 
         // 注册AttackEvent
-       // Sun.eventProtocol.handleEvent(AttackEvent(entity))
- //Kotlin: Too many arguments for public constructor AttackEvent() defined in cn.langya.sun.event.impl.player.AttackEvent
+        Sun.eventManager.post(AttackEvent())
+
         mc.playerController.attackEntity(mc.player, entity)
 
     }
 
-    //  转头
-    fun setRotation(target: EntityLivingBase) {
-
-        var yaw1 = 0F
-        var pitch1 = 0F
-
-        yaw1 =  mc.player.rotationYaw
-        pitch1 = mc.player.rotationPitch
-
-        mc.player.rotationYaw = getRotationtoEntityYaw(target)
-        mc.player.rotationPitch = getRotationtoEntityPitch(target)
-
-        mc.player.renderArmYaw = yaw1
-        mc.player.renderYawOffset = yaw1
-        mc.player.renderArmPitch = pitch1
-
-    }
 
     private fun stopBlocking() {
 
@@ -225,74 +146,5 @@ class KillAura : Module("杀人气质",true,Category.Combat) {
         }
 
     }
-
-    private fun drawEntityESP(entity: Entity?, color: Int) {
-
-        if(!mark.get()) {
-            return
-        }
-
-        GL11.glPushMatrix()
-        GL11.glDisable(3553)
-        GL11.glEnable(2848)
-        GL11.glEnable(2832)
-        GL11.glEnable(3042)
-        GL11.glBlendFunc(770, 771)
-        GL11.glHint(3154, 4354)
-        GL11.glHint(3155, 4354)
-        GL11.glHint(3153, 4354)
-        GL11.glDepthMask(false)
-        GL11.glEnable(2929)
-        GlStateManager.alphaFunc(516, 0.0f)
-        GL11.glShadeModel(7425)
-        GlStateManager.disableCull()
-        GL11.glBegin(5)
-        val entity2 = entity!!
-        val x: Double =
-            entity2.lastTickPosX + (entity2.posX - entity2.lastTickPosX) * mc.timer.field_194147_b - Minecraft.getMinecraft().renderManager.renderPosX
-        val y: Double =
-            entity2.lastTickPosY + (entity2.posY - entity2.lastTickPosY) * mc.timer.field_194147_b - Minecraft.getMinecraft().renderManager.renderPosY + sin(
-                System.currentTimeMillis() / 200.0
-            ) * (entity2.height / 2.0f) + 1.0f * (entity2.height / 2.0f)
-        val z: Double =
-            entity2.lastTickPosZ + (entity2.posZ - entity2.lastTickPosZ) * mc.timer.field_194147_b - Minecraft.getMinecraft().renderManager.renderPosZ
-        var i = 0.0f
-        while (i < 6.283185307179586) {
-            val vecX = x + 0.67 * cos(i.toDouble())
-            val vecZ = z + 0.67 * sin(i.toDouble())
-            RenderUtils.glColor(
-                Color(
-                    RenderUtils.getColor(color).red,
-                    RenderUtils.getColor(color).green,
-                    RenderUtils.getColor(color).blue,
-                    0
-                ).rgb
-            )
-            GL11.glVertex3d(vecX, y - cos(System.currentTimeMillis() / 200.0) * (entity2.height / 2.0f) / 2.0, vecZ)
-            RenderUtils.glColor(
-                Color(
-                    RenderUtils.getColor(color).red,
-                    RenderUtils.getColor(color).green,
-                    RenderUtils.getColor(color).blue,
-                    160
-                ).rgb
-            )
-            GL11.glVertex3d(vecX, y, vecZ)
-            i += 0.09817477042468103.toFloat()
-        }
-        GL11.glEnd()
-        GL11.glShadeModel(7424)
-        GL11.glDepthMask(true)
-        GL11.glEnable(2929)
-        GlStateManager.alphaFunc(516, 0.1f)
-        GlStateManager.enableCull()
-        GL11.glDisable(2848)
-        GL11.glDisable(2848)
-        GL11.glEnable(2832)
-        GL11.glEnable(3553)
-        GL11.glPopMatrix()
-        GL11.glColor3f(255.0f, 255.0f, 255.0f)
-    }
-
 
 }

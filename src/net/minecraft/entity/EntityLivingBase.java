@@ -1,7 +1,7 @@
 package net.minecraft.entity;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.event.impl.player.UpdateEvent;
+import cn.langya.sun.events.UpdateEvent;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -2461,8 +2461,8 @@ public abstract class EntityLivingBase extends Entity
             this.ticksElytraFlying = 0;
         }
 
+        Sun.eventManager.post(new UpdateEvent());
 
-        Sun.eventProtocol.handleEvent(new UpdateEvent());
     }
 
     protected float updateDistance(float p_110146_1_, float p_110146_2_)

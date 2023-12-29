@@ -1,6 +1,8 @@
 package cn.langya.sun.ui.impl.notification;
 
 import cn.langya.sun.ui.FontManager;
+import cn.langya.sun.ui.UIManager;
+import cn.langya.sun.ui.Ui;
 import cn.langya.sun.utils.ClientUtils;
 import net.minecraft.client.gui.Gui;
 
@@ -8,12 +10,15 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationManager {
+public class NotificationManager extends Ui {
 
-    private List<Notification> notifications = new ArrayList<>();
+    public static final List<Notification> notifications = new ArrayList<>();
 
+    public NotificationManager(int x, int y, int width, int height) {
+        super(x, y, width, height);
+    }
 
-    public void add(String title, String content, NotificationType type) {
+    public static void add(String title, String content, NotificationType type) {
         Notification notification = new Notification(title, content, type);
         notifications.add(notification);
 
@@ -23,7 +28,7 @@ public class NotificationManager {
         drawXylitol(title, content, type);
     }
 
-    private void drawXylitol(String title, String content, NotificationType type) {
+    private static void drawXylitol(String title, String content, NotificationType type) {
         long nowTime = System.currentTimeMillis();
         long displayTime = System.currentTimeMillis();
         int width = 100;

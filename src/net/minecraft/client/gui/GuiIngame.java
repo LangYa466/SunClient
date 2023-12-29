@@ -1,7 +1,8 @@
 package net.minecraft.client.gui;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.event.impl.render.Render2DEvent;
+
+import cn.langya.sun.events.Render2DEvent;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -392,9 +393,7 @@ public class GuiIngame extends Gui
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
         GlStateManager.enableAlpha();
-
-        Sun.eventProtocol.handleEvent(new Render2DEvent(scaledresolution));
-
+        Sun.eventManager.post(new Render2DEvent());
     }
 
     private void renderAttackIndicator(float p_184045_1_, ScaledResolution p_184045_2_)
