@@ -5,6 +5,7 @@ import cn.langya.sun.ui.FontManager;
 import cn.langya.sun.ui.screen.mainmenu.buttons.ImageButton;
 import cn.langya.sun.ui.screen.mainmenu.buttons.MainButton;
 import cn.langya.sun.ui.screen.mainmenu.buttons.QuitButton;
+import cn.langya.sun.utils.render.RenderUtil;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -22,12 +23,10 @@ public class MainMenu extends GuiScreen {
 	private ImageButton btnLanguage;
 	
 	private QuitButton btnQuit;
-    private ResourceLocation backgroundTexture;
 
     @Override
     public void initGui() {
-        this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", new DynamicTexture(256, 256));
-        
+
         this.logo = new ResourceLocation("lunar/logo.png");
         
         this.btnSingleplayer = new MainButton("单人世界", this.width / 2 - 66, this.height / 2);
@@ -42,7 +41,7 @@ public class MainMenu extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        drawLunarBackground(mouseX, mouseY, partialTicks,backgroundTexture);
+        drawLunarBackground(mouseX, mouseY, partialTicks, RenderUtil.backgroundTexture);
 
         GlStateManager.enableBlend();
         GlStateManager.color(1.0F, 1.0F, 1.0F);

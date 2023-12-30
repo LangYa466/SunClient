@@ -2,7 +2,7 @@ package cn.langya.sun.ui.screen.clickgui;
 
 import cn.langya.sun.Sun
 import cn.langya.sun.modules.Module
-import cn.langya.sun.utils.render.RenderUtils
+import cn.langya.sun.utils.render.RenderUtil
 import net.minecraft.client.audio.PositionedSoundRecord
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.init.SoundEvents
@@ -35,7 +35,7 @@ class ClickGui : GuiScreen() {
 
         for ((module, position) in modulePositions) {
             val category = module.category.displayName
-            RenderUtils.drawRoundedRect(position.first - 2, position.second - 2, fontRendererObj.getStringWidth("${module.name}: ${if (module.state) "开启" else "关闭"}") + 4, fontRendererObj.FONT_HEIGHT + 4, 5, Color(0, 0, 0, 150))
+            RenderUtil.drawRoundedRect(position.first - 2, position.second - 2, fontRendererObj.getStringWidth("${module.name}: ${if (module.state) "开启" else "关闭"}") + 4, fontRendererObj.FONT_HEIGHT + 4, 5, Color(0, 0, 0, 150))
             drawString(mc.fontRendererObj, "$category > ${module.name}: ${if (module.state) "开启" else "关闭"}", position.first, position.second, -1)
         }
 

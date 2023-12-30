@@ -1,13 +1,14 @@
 package cn.langya.sun.utils.render;
 
 import cn.langya.sun.utils.Utils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
@@ -22,8 +23,9 @@ import static java.lang.Math.sin;
  * @Version 1.0
  */
 
-public class RenderUtils extends Utils {
+public class RenderUtil extends Utils {
 
+    public final static ResourceLocation backgroundTexture = mc.getTextureManager().getDynamicTextureLocation("background", new DynamicTexture(256, 256));
 
     public static int getWidth() {
         return new ScaledResolution(mc).getScaledWidth();
