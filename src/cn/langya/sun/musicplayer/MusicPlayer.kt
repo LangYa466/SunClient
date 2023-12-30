@@ -2,8 +2,8 @@ package cn.langya.sun.musicplayer
 
 import cn.langya.sun.utils.misc.JsonUtils
 import cn.langya.sun.utils.misc.WebUtils
-import com.google.gson.Gson
-import com.google.gson.JsonObject
+import java.io.IOException
+import javax.swing.JOptionPane
 
 
 /**
@@ -16,18 +16,20 @@ import com.google.gson.JsonObject
 class MusicPlayer {
 
     // 搜索歌曲返回Json
-    fun search(name: String): String? {
-        val jsonObject: JsonObject = Gson().fromJson(WebUtils.get("https://music-api.heheda.top/search?keywords=${name}A&limit=1&type=1&offset=0"), JsonObject::class.java)
-        val songsArray = jsonObject.getAsJsonObject("result").getAsJsonArray("songs")
+    fun search(id: String): String {
+        var json = ""
+        try {
+            json = WebUtils.get("https://api.baka.fun/netease?id=$id")
+        } catch (e: IOException) {
+           e.printStackTrace()
+        }
 
-        val songObject: JsonObject? = songsArray.asJsonObject
-
-        return WebUtils.get("https://api.baka.fun/netease?id=${songObject?.get("id")}")
+        return json
     }
 
     // 获取歌曲文件
     fun getSongFile(json: String): String {
-        return JsonUtils.getString(search(json), "url")
+        return WebUtils.get(JsonUtils.getString(search(json), "url"))
     }
 
     // 获取歌曲图标
@@ -38,7 +40,7 @@ class MusicPlayer {
 
     // 获取歌曲名称
     fun getSongName(json: String): String {
-       return JsonUtils.getString(search(json),"title")
+        return JsonUtils.getString(search(json),"title")
     }
 
     //获取歌手名称

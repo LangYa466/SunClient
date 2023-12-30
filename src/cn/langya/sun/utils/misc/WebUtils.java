@@ -11,23 +11,31 @@ import java.net.URL;
 public class WebUtils {
 
     public static String get(String url) throws IOException {
-        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+        String web = "";
 
-        con.setRequestMethod("GET");
-        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        try {
+            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-        while((inputLine = in.readLine())!= null) {
-            response.append(inputLine);
-            response.append("\n");
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+                response.append("\n");
+            }
+
+            in.close();
+
+            web = response.toString();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
 
-        in.close();
-
-        return response.toString();
+        return web;
     }
 
 }

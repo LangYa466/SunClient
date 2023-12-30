@@ -2,9 +2,14 @@ package cn.langya.sun.musicplayer
 
 import cn.langya.sun.ui.FontManager
 import cn.langya.sun.utils.render.RenderUtil
+import javazoom.jl.player.Player
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.GuiTextField
 import java.awt.Color
+import java.io.BufferedInputStream
+import java.io.FileInputStream
+import java.io.InputStream
+import java.net.URL
 
 
 /**
@@ -16,32 +21,37 @@ import java.awt.Color
 
 class MusicPlayerScreen: GuiScreen() {
 
-    val text = GuiTextField(0,mc.fontRendererObj,RenderUtil.getWidth() / 2 - 30,RenderUtil.getHeight() / 2 - 20,100,20)
+    val musicPlayer = MusicPlayer()
+    var text: GuiTextField? = null
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        // 绘制背景
-        RenderUtil.drawRoundedRect(0,0,RenderUtil.getWidth(),RenderUtil.getHeight(),0, Color(0,0,0,150))
-        RenderUtil.drawRoundedRect(0,0,RenderUtil.getWidth() / 2,RenderUtil.getHeight() / 2,0, Color.WHITE)
+        text = GuiTextField(0,mc.fontRendererObj,RenderUtil.getWidth() / 2 - 30,RenderUtil.getHeight() / 2 - 20,100,20)
 
-        FontManager.drawString("Music Player",RenderUtil.getWidth() / 2 - 100,RenderUtil.getHeight() / 2,-1)
-        text.drawTextBox()
-        text.text
+        // 绘制背景
+        RenderUtil.drawRoundedRect(0,0,RenderUtil.getWidth(),RenderUtil.getHeight(),0, Color(0,0,0,40))
+        RenderUtil.drawRoundedRect(0,0,RenderUtil.getWidth() / 2,RenderUtil.getHeight() / 2,4, Color.WHITE)
+
+        FontManager.drawString("音乐播放器",RenderUtil.getWidth() / 2 - 100,RenderUtil.getHeight() / 2,-1)
+        text!!.drawTextBox()
     }
 
     override fun mouseClicked(mouseX: Int, mouseY: Int, button: Int) {
-        text.mouseClicked(mouseX, mouseY, button)
-    }
-
-    override fun updateScreen() {
-        text.updateCursorCounter()
+        text!!.mouseClicked(mouseX, mouseY, button)
     }
 
     override fun keyTyped(typedChar: Char, keyCode: Int) {
-        text.textboxKeyTyped(typedChar, keyCode)
-        if (keyCode == 28 && text.text.isNotEmpty()) { // 回车键
-            val musicPlayer = MusicPlayer()
-            val json = musicPlayer.search("text")
+        text!!.textboxKeyTyped(typedChar, keyCode)
+
+        if (keyCode == 28 && text!!.text.isNotEmpty()) { // 回车键
+            val music = musicPlayer.search(text!!.text)
+            FontManager.drawString("${musicPlayer.getSongName(music)}-${musicPlayer.getSingerName(music)}",RenderUtil.getWidth() / 2 - 40,RenderUtil.getHeight() / 2 - 20,-1)
+            val url = URL(musicPlayer.getSongFile(music))
+            val `in`: InputStream = url.openStream()
+            val bufIn = BufferedInputStream(`in`)
+            val player = Player(bufIn)
+            player.play()
         }
+
     }
 
 }
