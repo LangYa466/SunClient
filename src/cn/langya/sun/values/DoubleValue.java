@@ -1,24 +1,23 @@
 package cn.langya.sun.values;
 
-public class FloatValue extends AbstractValue<Float> {
+public class DoubleValue extends AbstractValue<Double> {
     private final String name;
-    private float number;
-    private float maximum;
-    private float minimum;
-    public FloatValue(String name, float defaultValue, float maximum, float minimum) {
+    private Double number;
+    private double maximum;
+    private double minimum;
+    public DoubleValue(String name, double defaultValue, int maximum, int minimum) {
         this.name = name;
         this.number = defaultValue;
         this.maximum = maximum;
         this.minimum = minimum;
     }
-
     @Override
-    public Float get() {
+    public Double get() {
         return this.number;
     }
 
     @Override
-    public void set(Float value) {
+    public void set(Double value) {
         this.number = value;
     }
 
@@ -26,11 +25,11 @@ public class FloatValue extends AbstractValue<Float> {
         return name;
     }
 
-    public float getMaximum() {
+    public double getMaximum() {
         return maximum;
     }
 
-    public float getMinimum() {
+    public double getMinimum() {
         return minimum;
     }
 }

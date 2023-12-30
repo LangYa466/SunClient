@@ -1,6 +1,7 @@
 package net.minecraft.client;
 
 import cn.langya.sun.Sun;
+import cn.langya.sun.events.impl.KeyPressEvent;
 import cn.langya.sun.ui.screen.mainmenu.MainMenu;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
@@ -2044,6 +2045,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             if (this.currentScreen != null)
             {
                 this.currentScreen.handleKeyboardInput();
+            }else {
+                Sun.eventManager.register(new KeyPressEvent(i));
             }
 
             boolean flag = Keyboard.getEventKeyState();

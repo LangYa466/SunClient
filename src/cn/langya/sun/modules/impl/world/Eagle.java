@@ -20,7 +20,7 @@ import java.awt.*;
 public class Eagle extends Module {
 
     public Eagle() {
-        super("安全搭路", "", true, Category.WORLD);
+        super("安全搭路", true, Category.WORLD);
     }
 
 
@@ -35,7 +35,7 @@ public class Eagle extends Module {
     @Event
     public void onUpdate(UpdateEvent event) {
 
-        if(!getState()) return;
+        if(!isEnabled()) return;
 
         if (getBlockUnderPlayer(mc.player) instanceof BlockAir) {
             if (mc.player.onGround) {
@@ -51,7 +51,7 @@ public class Eagle extends Module {
 
     @Event
     public void onRender2D(Render2DEvent event) {
-        if(!getState()) return;
+        if(!isEnabled()) return;
 
         final Item helditem = mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem();
         final int y = sr.getScaledHeight() - 90 + 19;

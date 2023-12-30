@@ -24,7 +24,6 @@ public class Sun {
         CF4M.run(this, fileManager.clientPath);
         eventManager = CF4M.EVENT;
         moduleManager = new ModuleManager();
-        moduleManager.init();
         uiManager = new UIManager();
         uiManager.init();
         ClientUtils.loginfo("太阳客户端 加载完毕!!");

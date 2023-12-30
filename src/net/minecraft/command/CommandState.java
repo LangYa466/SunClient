@@ -1,7 +1,6 @@
 package net.minecraft.command;
 
 import cn.langya.sun.modules.impl.client.Client;
-import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 
 public class CommandState extends CommandBase {
@@ -19,7 +18,7 @@ public class CommandState extends CommandBase {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         final Client client = new Client();
-        client.setState(!client.getState());
+        client.setState(!client.isEnabled());
     }
 
 }

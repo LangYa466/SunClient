@@ -1,19 +1,20 @@
 package cn.langya.sun.values;
 
-public class BoolValue extends ValueManager {
-    public boolean state = false;
-    public String name = null;
+public class BoolValue extends AbstractValue<Boolean> {
+    private boolean state = false;
+    private final String name;
 
     public BoolValue(String name, boolean state) {
         this.name = name;
         this.state = state;
     }
-
-    public void set(boolean value) {
+    @Override
+    public void set(Boolean value) {
         this.state = value;
     }
 
-    public boolean get() {
-        return this.state;
+    @Override
+    public Boolean get() {
+        return state;
     }
 }
