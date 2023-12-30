@@ -4,6 +4,7 @@ import cn.enaium.cf4m.annotation.Event;
 import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.KeyPressEvent;
 import cn.langya.sun.modules.impl.client.Client;
+import cn.langya.sun.modules.impl.client.MusicPlayer;
 import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.modules.impl.world.Eagle;
 import cn.langya.sun.utils.ClientUtils;
@@ -31,5 +32,6 @@ public class ModuleManager {
     public void registerModules() {
         registerModule(new Client());
         registerModule(new Eagle());
+        registerModule(new MusicPlayer());
     }
 }

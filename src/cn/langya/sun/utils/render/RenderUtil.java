@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.Color;
+import java.awt.*;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -34,6 +34,8 @@ public class RenderUtil extends Utils {
     public static int getHeight() {
         return new ScaledResolution(mc).getScaledHeight();
     }
+
+
 
     public static void glColor(int hex) {
         float alpha = ((hex >> 24) & 0xFF) / 255f;
