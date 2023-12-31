@@ -21,7 +21,7 @@ import kotlin.math.sin
 class KillAura : Module("杀人气质", true, Category.Combat) {
 
     //攻击距离
-    val rangeValue = FloatValue("Range", 3F, 3F, 8F)
+    private val rangeValue = FloatValue("Range", 3F, 3F, 8F)
 
     //距离光环显示
     private val circleValue = BoolValue("Circle", true)
@@ -33,7 +33,8 @@ class KillAura : Module("杀人气质", true, Category.Combat) {
 
     var target: Entity? = null
     var click = 0
-    var blocking = false
+    private var blocking = false
+
     @Event
     fun onUpdate(event: UpdateEvent) {
 

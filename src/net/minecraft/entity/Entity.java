@@ -726,7 +726,7 @@ public abstract class Entity implements ICommandSender
      */
     public void moveEntity(MoverType x, double p_70091_2_, double p_70091_4_, double p_70091_6_)
     {
-        if(this == Minecraft.getMinecraft().player) Sun.eventManager.post(new MoveEvent());
+        if(this == Minecraft.getMinecraft().player) Sun.eventManager.post(new MoveEvent(p_70091_2_,p_70091_4_,p_70091_6_));
 
 
         if (this.noClip)

@@ -8,4 +8,14 @@ package cn.langya.sun.events.impl;
  */
 
 public class MoveEvent {
+    public double x;
+    public double y;
+    public double z;
+
+    public MoveEvent(final double x, final double y, final double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
 }

@@ -1,5 +1,6 @@
 package cn.langya.sun.events.impl;
 
+
 /**
  * @author LangYa
  * @ClassName Render2DEvent
@@ -8,4 +9,10 @@ package cn.langya.sun.events.impl;
  */
 
 public class Render2DEvent {
+    public float partialTicks;
+
+    public Render2DEvent(final float partialTicks) {
+        this.partialTicks = partialTicks;
+    }
+
 }

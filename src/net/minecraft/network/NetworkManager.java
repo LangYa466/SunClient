@@ -1,5 +1,8 @@
 package net.minecraft.network;
 
+import cn.langya.sun.Sun;
+import cn.langya.sun.events.impl.PacketReadEvent;
+import cn.langya.sun.events.impl.PacketSendEvent;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.bootstrap.Bootstrap;
@@ -148,6 +151,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
         {
             try
             {
+                Sun.eventManager.post(new PacketReadEvent(p_channelRead0_2_));
                 ((Packet<INetHandler>)p_channelRead0_2_).processPacket(this.packetListener);
             }
             catch (ThreadQuickExitException var4)
@@ -218,6 +222,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     private void dispatchPacket(final Packet<?> inPacket, @Nullable final GenericFutureListener <? extends Future <? super Void >> [] futureListeners)
     {
+        Sun.eventManager.post(new PacketSendEvent(inPacket));
         final EnumConnectionState enumconnectionstate = EnumConnectionState.getFromPacket(inPacket);
         final EnumConnectionState enumconnectionstate1 = (EnumConnectionState)this.channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();
 

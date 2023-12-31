@@ -8,4 +8,8 @@ package cn.langya.sun.events.impl;
  */
 
 public class Render3DEvent {
+    public float ticks;
+    public Render3DEvent(final float ticks) {
+        this.ticks = ticks;
+    }
 }

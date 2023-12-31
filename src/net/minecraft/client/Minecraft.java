@@ -2,6 +2,7 @@ package net.minecraft.client;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.KeyPressEvent;
+import cn.langya.sun.events.impl.WorldLoadEvent;
 import cn.langya.sun.ui.screen.mainmenu.MainMenu;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
@@ -2606,6 +2607,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             this.player.movementInput = new MovementInputFromOptions(this.gameSettings);
             this.playerController.setPlayerCapabilities(this.player);
             this.renderViewEntity = this.player;
+            WorldLoadEvent reloadEvent = new WorldLoadEvent(worldClientIn);
+            Sun.eventManager.post(reloadEvent);
         }
         else
         {
