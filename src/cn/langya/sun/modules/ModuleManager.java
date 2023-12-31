@@ -6,6 +6,7 @@ import cn.langya.sun.events.impl.KeyPressEvent;
 import cn.langya.sun.modules.impl.client.Client;
 import cn.langya.sun.modules.impl.client.MusicPlayer;
 import cn.langya.sun.modules.impl.combat.AntiKB;
+import cn.langya.sun.modules.impl.combat.AutoClicker;
 import cn.langya.sun.modules.impl.combat.Criticals;
 import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.modules.impl.move.Fly;
@@ -38,5 +39,6 @@ public class ModuleManager {
         registerModule(new AntiKB());
         registerModule(new Criticals());
         registerModule(new Fly());
+        registerModule(new AutoClicker());
     }
 }

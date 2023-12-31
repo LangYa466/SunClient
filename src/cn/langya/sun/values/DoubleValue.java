@@ -5,7 +5,7 @@ public class DoubleValue extends AbstractValue<Double> {
     private Double number;
     private double maximum;
     private double minimum;
-    public DoubleValue(String name, double defaultValue, int maximum, int minimum) {
+    public DoubleValue(String name, double defaultValue, double maximum, double minimum) {
         this.name = name;
         this.number = defaultValue;
         this.maximum = maximum;

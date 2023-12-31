@@ -98,7 +98,7 @@ class AntiKB : Module("防击退", true, Category.Combat) {
         if (e.packet is SPacketEntityVelocity ) {
             spey = e.packet as SPacketEntityVelocity
             if (spey.entityID != mc.player.entityId || mc.player == null) return
-            
+
             when (modes.get()) {
 
                 "JumpRester" -> {
