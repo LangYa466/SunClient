@@ -17,7 +17,7 @@ import java.net.URL
  * @date 2023/12/30 20:15
  * @Version 1.0
  */
-class MusicPlayer : Module("音乐播放器", "1", true, Category.Client) {
+class MusicPlayer : Module("音乐播放器", true, Category.Client) {
     override fun onEnable() {
         val musicPlayer = MusicPlayer()
 

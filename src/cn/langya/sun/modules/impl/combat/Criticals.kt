@@ -16,7 +16,7 @@ import cn.langya.sun.values.StringValue
 
 class Criticals: Module("Criticals",true,Category.Combat) {
 
-    val modes = StringValue("Modes","Jump")
+    private val modes = StringValue("Modes","Jump")
 
     init {
         modes.values.add("Jump")
@@ -26,6 +26,7 @@ class Criticals: Module("Criticals",true,Category.Combat) {
     @Event
     fun onAttack(event: AttackEvent) {
         when(modes.get()) {
+
             "Jump" -> {
                 if(mc.player.onGround) {
                     mc.player.jump()
@@ -35,7 +36,8 @@ class Criticals: Module("Criticals",true,Category.Combat) {
             "Fake" -> {
                 mc.player.onCriticalHit(event.target)
             }
+
         }
     }
-    
+
 }

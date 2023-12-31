@@ -119,7 +119,7 @@ class KillAura : Module("杀人气质", true, Category.Combat) {
         stopBlocking()
 
         // 注册AttackEvent
-        Sun.eventManager.post(AttackEvent())
+        Sun.eventManager.post(AttackEvent(entity))
 
         mc.playerController.attackEntity(mc.player, entity)
 
