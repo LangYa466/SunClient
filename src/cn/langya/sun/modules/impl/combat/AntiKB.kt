@@ -93,80 +93,80 @@ class AntiKB : Module("防击退", true, Category.Combat) {
 
     @Event
     fun onPacketRead(e: PacketReadEvent) {
-        val spey = e.packet as SPacketEntityVelocity
+        var spey = e.packet
 
-        if (spey is SPacketEntityVelocity && spey.entityID != mc.player.entityId || mc.player == null) {
-            return
-        }
+        if (e.packet is SPacketEntityVelocity ) {
+            spey = e.packet as SPacketEntityVelocity
+            if (spey.entityID != mc.player.entityId || mc.player == null) return
+            
+            when (modes.get()) {
 
-        when (modes.get()) {
-
-            "JumpRester" -> {
-                if (mc.player.onGround && mc.player.hurtTime > 0) {
-                    mc.player.setSprinting(false)
-                    mc.player.movementInput.jump = true
+                "JumpRester" -> {
+                    if (mc.player.onGround && mc.player.hurtTime > 0) {
+                        mc.player.setSprinting(false)
+                        mc.player.movementInput.jump = true
+                    }
                 }
-            }
 
-            "GrimY" -> {
-                velocityInput = true
-                val movingObjectPosition = mc.objectMouseOver
-                val targets =
-                    (grimRayCastValue.get() && movingObjectPosition != null && KillAura().target != null) as EntityLivingBase
-                if (mc.player!!.getDistanceToEntity(targets) <= grimCheckRangeValue.get()
-                ) {
-                    for (i in 0 until grimAttackPacketCountValue.get().toInt()) {
-                        if (mc.player.serverSprintState && MoveUtils.isMoving()) {
-                            sendPacketC0F()
-                            mc.connection!!.sendPacket(
-                                CPacketUseEntity(
-                                    targets as Entity,
-                                    EnumHand.MAIN_HAND
+                "GrimY" -> {
+                    velocityInput = true
+                    val movingObjectPosition = mc.objectMouseOver
+                    val targets =
+                        (grimRayCastValue.get() && movingObjectPosition != null && KillAura().target != null) as EntityLivingBase
+                    if (mc.player!!.getDistanceToEntity(targets) <= grimCheckRangeValue.get()
+                    ) {
+                        for (i in 0 until grimAttackPacketCountValue.get().toInt()) {
+                            if (mc.player.serverSprintState && MoveUtils.isMoving()) {
+                                sendPacketC0F()
+                                mc.connection!!.sendPacket(
+                                    CPacketUseEntity(
+                                        targets as Entity,
+                                        EnumHand.MAIN_HAND
+                                    )
                                 )
-                            )
-                            mc.connection!!.sendPacket(CPacketAnimation())
-                        } else {
-                            sendPacketC0F()
-                            mc.connection!!.sendPacket(
-                                CPacketEntityAction(
-                                    mc.player as Entity,
-                                    CPacketEntityAction.Action.START_SPRINTING
+                                mc.connection!!.sendPacket(CPacketAnimation())
+                            } else {
+                                sendPacketC0F()
+                                mc.connection!!.sendPacket(
+                                    CPacketEntityAction(
+                                        mc.player as Entity,
+                                        CPacketEntityAction.Action.START_SPRINTING
+                                    )
                                 )
-                            )
-                            mc.player.setSprinting(false)
-                            mc.connection!!.sendPacket(
-                                CPacketUseEntity(
-                                    targets as Entity,
-                                    EnumHand.MAIN_HAND
+                                mc.player.setSprinting(false)
+                                mc.connection!!.sendPacket(
+                                    CPacketUseEntity(
+                                        targets as Entity,
+                                        EnumHand.MAIN_HAND
+                                    )
                                 )
-                            )
-                            mc.connection!!.sendPacket(CPacketAnimation())
-                            mc.connection!!.sendPacket(
-                                CPacketEntityAction(
-                                    mc.player as Entity,
-                                    CPacketEntityAction.Action.STOP_SPRINTING
+                                mc.connection!!.sendPacket(CPacketAnimation())
+                                mc.connection!!.sendPacket(
+                                    CPacketEntityAction(
+                                        mc.player as Entity,
+                                        CPacketEntityAction.Action.STOP_SPRINTING
+                                    )
                                 )
-                            )
+                            }
+                        }
+                        attacked = true
+                        KillAura().blocking = false
+                        motionNoXZ = getMotionNoXZ(spey)
+                    }
+                }
+
+                "Hypixel" -> {
+                    if (e.packet is SPacketEntityVelocity) {
+                        e.cancel()
+                        if (mc.player.onGround || spey.motionY / 8000.0 < 0.2 || spey.motionY / 8000.0 > 0.41995) {
+                            mc.player.motionY = spey.motionY / 8000.0
                         }
                     }
-                    attacked = true
-                    KillAura().blocking = false
-                    motionNoXZ = getMotionNoXZ(spey)
                 }
-            }
 
-            "Hypixel" -> {
-                if (e.packet is SPacketEntityVelocity) {
-                    e.cancel()
-                    if (mc.player.onGround || spey.motionY / 8000.0 < 0.2 || spey.motionY / 8000.0 > 0.41995) {
-                        mc.player.motionY = spey.motionY / 8000.0
-                    }
-                }
             }
 
         }
-
-
     }
 
     fun sendPacketC0F() {
