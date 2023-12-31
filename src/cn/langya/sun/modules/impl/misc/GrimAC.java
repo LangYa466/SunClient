@@ -38,14 +38,14 @@ public class GrimAC
 
     @Event
     public void onPacket(PacketReadEvent event) {
-        if (GrimAC.mc.player.ticksExisted % 6 == 0) {
+        if (mc.player.ticksExisted % 6 == 0) {
             SPacketEntityStatus s19;
             if (event.packet instanceof SPacketEntityStatus && this.reachValue.get() && (s19 = (SPacketEntityStatus)event.packet).getOpCode() == 2) {
-                new Thread(() -> this.checkCombatHurt(s19.getEntity(GrimAC.mc.world))).start();
+                new Thread(() -> this.checkCombatHurt(s19.getEntity(mc.world))).start();
             }
             if (event.packet instanceof SPacketEntity && this.noslowAValue.get()) {
                 SPacketEntity packet = (SPacketEntity)event.packet;
-                Entity entity = packet.getEntity(GrimAC.mc.world);
+                Entity entity = packet.getEntity(mc.world);
                 if (!(entity instanceof EntityPlayer)) {
                     return;
                 }
@@ -60,7 +60,7 @@ public class GrimAC
         }
         EntityPlayer attacker = null;
         int attackerCount = 0;
-        for (Entity worldEntity : GrimAC.mc.world.getLoadedEntityList()) {
+        for (Entity worldEntity : mc.world.getLoadedEntityList()) {
             if (!(worldEntity instanceof EntityPlayer) || worldEntity.getDistanceToEntity(entity) > 7.0f || (worldEntity).equals(entity)) continue;
             ++attackerCount;
             attacker = (EntityPlayer)worldEntity;
@@ -76,7 +76,7 @@ public class GrimAC
     }
 
     private void checkPlayer(EntityPlayer player) {
-        if (player.equals(GrimAC.mc.player)) {
+        if (player.equals(mc.player)) {
             return;
         }
         String prefix =  TextFormatting.GRAY + "[" +  TextFormatting.AQUA + "GrimAC" +  TextFormatting.GRAY + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + player.getName() + (TextFormatting.WHITE) + " failed ";
@@ -85,7 +85,7 @@ public class GrimAC
             ++this.vl;
 
         }
-        if (!GrimAC.mc.world.loadedEntityList.contains(player) || !player.isEntityAlive()) {
+        if (!mc.world.loadedEntityList.contains(player) || !player.isEntityAlive()) {
             this.vl = 0;
         }
     }

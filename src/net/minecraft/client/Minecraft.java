@@ -2,6 +2,7 @@ package net.minecraft.client;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.KeyPressEvent;
+import cn.langya.sun.events.impl.TickEvent;
 import cn.langya.sun.events.impl.WorldLoadEvent;
 import cn.langya.sun.ui.screen.mainmenu.MainMenu;
 import com.google.common.collect.Lists;
@@ -1811,6 +1812,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo
         if (this.rightClickDelayTimer > 0)
         {
             --this.rightClickDelayTimer;
+        }
+        if (this.player != null) {
+            Sun.eventManager.post(new TickEvent());
         }
 
         this.mcProfiler.startSection("gui");
