@@ -33,7 +33,7 @@ class KillAura : Module("杀人气质", true, Category.Combat) {
 
     var target: Entity? = null
     var click = 0
-    private var blocking = false
+    var blocking = false
 
     @Event
     fun onUpdate(event: UpdateEvent) {

@@ -222,7 +222,11 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
      */
     private void dispatchPacket(final Packet<?> inPacket, @Nullable final GenericFutureListener <? extends Future <? super Void >> [] futureListeners)
     {
-        Sun.eventManager.post(new PacketSendEvent(inPacket));
+        PacketSendEvent packetSent = new PacketSendEvent(inPacket);
+        Sun.eventManager.post(packetSent);
+        if (packetSent.cancelled) {
+            return;
+        }
         final EnumConnectionState enumconnectionstate = EnumConnectionState.getFromPacket(inPacket);
         final EnumConnectionState enumconnectionstate1 = (EnumConnectionState)this.channel.attr(PROTOCOL_ATTRIBUTE_KEY).get();
 
