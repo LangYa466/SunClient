@@ -73,12 +73,12 @@ class AntiKB : Module("防击退", true, Category.Combat) {
         when (modes.get()) {
             "GrimY" -> {
                 if (packet is CPacketEntityAction && velocityInput) {
-                    if (packet.getAction() === CPacketEntityAction.Action.START_SPRINTING) {
+                    if (packet.action === CPacketEntityAction.Action.START_SPRINTING) {
                         if (lastSprinting) {
                             e.cancel()
                         }
                         lastSprinting = true
-                    } else if (packet.getAction() === CPacketEntityAction.Action.STOP_SPRINTING) {
+                    } else if (packet.action === CPacketEntityAction.Action.STOP_SPRINTING) {
                         if (!lastSprinting) {
                             e.cancel()
                         }
