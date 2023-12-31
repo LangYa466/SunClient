@@ -11,8 +11,12 @@ import net.minecraft.network.Packet;
 
 public class PacketReadEvent {
     public Packet packet;
+    public boolean cancelled;
 
     public PacketReadEvent(final Packet packet) {
         this.packet = packet;
+    }
+    public void cancel() {
+        this.cancelled = true;
     }
 }

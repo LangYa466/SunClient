@@ -151,7 +151,11 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
         {
             try
             {
-                Sun.eventManager.post(new PacketReadEvent(p_channelRead0_2_));
+                PacketReadEvent packetRead = new PacketReadEvent(p_channelRead0_2_);
+                Sun.eventManager.post(packetRead);
+                if (packetRead.cancelled) {
+                    return;
+                }
                 ((Packet<INetHandler>)p_channelRead0_2_).processPacket(this.packetListener);
             }
             catch (ThreadQuickExitException var4)

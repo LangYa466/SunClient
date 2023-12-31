@@ -41,6 +41,7 @@ class AntiKB : Module("防击退", true, Category.Combat) {
     init {
         modes.values.add("JumpRester")
         modes.values.add("GrimY")
+        modes.values.add("Hypixel")
     }
 
     @Event
@@ -91,8 +92,8 @@ class AntiKB : Module("防击退", true, Category.Combat) {
 
 
     @Event
-    fun onPacketRead(event: PacketReadEvent) {
-        val spey = event.packet as SPacketEntityVelocity
+    fun onPacketRead(e: PacketReadEvent) {
+        val spey = e.packet as SPacketEntityVelocity
 
         if (spey is SPacketEntityVelocity && spey.entityID != mc.player.entityId || mc.player == null) {
             return
@@ -154,6 +155,15 @@ class AntiKB : Module("防击退", true, Category.Combat) {
                 }
             }
 
+            "Hypixel" -> {
+                if (e.packet is SPacketEntityVelocity) {
+                    e.cancel()
+                    if (mc.player.onGround || spey.motionY / 8000.0 < 0.2 || spey.motionY / 8000.0 > 0.41995) {
+                        mc.player.motionY = spey.motionY / 8000.0
+                    }
+                }
+            }
+
         }
 
 
@@ -172,9 +182,9 @@ class AntiKB : Module("防击退", true, Category.Combat) {
 
     private fun getMotionNoXZ(packetEntityVelocity: SPacketEntityVelocity): Double {
         val strength: Double = Vec3d(
-            packetEntityVelocity.getMotionX().toDouble(),
-            packetEntityVelocity.getMotionY().toDouble(),
-            packetEntityVelocity.getMotionZ().toDouble()
+            packetEntityVelocity.motionX.toDouble(),
+            packetEntityVelocity.motionY.toDouble(),
+            packetEntityVelocity.motionZ.toDouble()
         ).lengthVector()
         val motionNoXZ: Double = if (strength >= 20000.0) {
             if (mc.player.onGround) {

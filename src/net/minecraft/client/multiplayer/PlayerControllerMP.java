@@ -533,7 +533,7 @@ public class PlayerControllerMP
      */
     public void attackEntity(EntityPlayer playerIn, Entity targetEntity)
     {
-        Sun.eventManager.post(new AttackEvent());
+        Sun.eventManager.post(new AttackEvent(targetEntity));
 
 
         this.syncCurrentPlayItem();
