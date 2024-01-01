@@ -20,7 +20,6 @@ import java.net.URL
  */
 
 class MusicPlayerScreen: GuiScreen() {
-
     val musicPlayer = MusicPlayer()
     var text: GuiTextField? = null
 
