@@ -23,7 +23,7 @@ public class GrimAC
     int vl;
 
     public GrimAC() {
-        super("GrimAC", Category.Misc);
+        super("反作弊", Category.Misc);
     }
 
     @Override

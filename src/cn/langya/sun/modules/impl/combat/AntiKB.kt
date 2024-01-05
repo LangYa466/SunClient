@@ -71,7 +71,7 @@ class AntiKB : Module("防击退", true, Category.Combat) {
     fun onPacketSend(e: PacketSendEvent) {
 
         val packet = e.packet
-        
+
         when (modes.get()) {
             "GrimY" -> {
                 if (packet is CPacketEntityAction && velocityInput) {
