@@ -23,7 +23,6 @@ public class Eagle extends Module {
         super("安全搭路", true, Category.WORLD);
     }
 
-
     public static Block getBlock(final BlockPos pos) {
         return mc.world.getBlockState(pos).getBlock();
     }
@@ -45,9 +44,6 @@ public class Eagle extends Module {
             KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), false);
         }
     }
-
-
-
 
     @Event
     public void onRender2D(Render2DEvent event) {

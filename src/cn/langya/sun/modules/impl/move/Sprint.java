@@ -8,7 +8,7 @@ import cn.langya.sun.modules.Module;
 public class Sprint extends Module
 {
     public Sprint() {
-        super("Sprint", Category.Move);
+        super("自动疾跑", Category.Move);
         this.setState(true);
     }
     

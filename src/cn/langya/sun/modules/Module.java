@@ -91,7 +91,7 @@ public class Module extends Utils {
 
     public void setState(boolean value) {
         if (state == value) return;
-
+        
         Sun.uiManager.addNotification(
                 "Notifications",
                 (value ? "Enabled " : "Disabled ") + name,

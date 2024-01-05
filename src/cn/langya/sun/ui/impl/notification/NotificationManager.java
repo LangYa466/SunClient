@@ -25,10 +25,10 @@ public class NotificationManager extends Ui {
         ClientUtils.loginfo("[Notification] " + notification.getType() + ": " +
                 notification.getTitle() + " - " + notification.getContent());
 
-        drawXylitol(title, content, type);
+        drawNotification(title, content, type);
     }
 
-    private static void drawXylitol(String title, String content, NotificationType type) {
+    private static void drawNotification(String title, String content, NotificationType type) {
         long nowTime = System.currentTimeMillis();
         long displayTime = System.currentTimeMillis();
         int width = 100;

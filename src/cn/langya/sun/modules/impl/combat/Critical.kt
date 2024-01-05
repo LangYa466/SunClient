@@ -9,12 +9,12 @@ import cn.langya.sun.values.StringValue
 
 /**
  * @author LangYa
- * @ClassName Criticals
+ * @ClassName Critical
  * @date 2023/12/31 10:34
  * @Version 1.0
  */
 
-class Criticals: Module("Criticals",true,Category.Combat) {
+class Critical: Module("刀刀暴击",true,Category.Combat) {
 
     private val modes = StringValue("Modes","Jump")
 

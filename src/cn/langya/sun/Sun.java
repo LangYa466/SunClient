@@ -31,7 +31,8 @@ public class Sun {
         uiManager = new UIManager();
         uiManager.init();
         ClientUtils.loginfo("太阳客户端 加载完毕!!");
-        Display.setTitle("太阳客户端 | " + WebUtils.get("http://125.77.177.104:40565/").trim());
+  //      Display.setTitle("太阳客户端 | " + WebUtils.get("http://125.77.177.104:40565/").trim());
+        Display.setTitle("太阳客户端");
     }
 
 

@@ -14,9 +14,9 @@ import cn.langya.sun.values.StringValue
  * @Version 1.0
  */
 
-class Fly: Module("Fly",true,Category.Combat) {
+class Fly: Module("飞行",true,Category.Combat) {
 
-    private val modes = StringValue("Modes","Jump")
+    private val modes = StringValue("Modes","Vanilla")
 
     init {
         modes.values.add("Jump")
@@ -30,7 +30,7 @@ class Fly: Module("Fly",true,Category.Combat) {
 
             "Vanilla" -> {
                 if(mc.gameSettings.keyBindJump.isKeyDown) {
-                    mc.player.motionY += 0.42
+                    mc.player.motionY += 0.042
                 }
             }
 

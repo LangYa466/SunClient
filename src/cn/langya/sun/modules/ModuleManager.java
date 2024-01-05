@@ -7,7 +7,8 @@ import cn.langya.sun.events.impl.Render2DEvent;
 import cn.langya.sun.modules.impl.client.Client;
 import cn.langya.sun.modules.impl.combat.AntiKB;
 import cn.langya.sun.modules.impl.combat.AutoClicker;
-import cn.langya.sun.modules.impl.combat.Criticals;
+import cn.langya.sun.modules.impl.combat.Critical;
+import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.modules.impl.misc.GrimAC;
 import cn.langya.sun.modules.impl.move.Fly;
 import cn.langya.sun.modules.impl.world.Eagle;
@@ -51,9 +52,10 @@ public class ModuleManager {
 
     public void registerModules() {
         registerModule(new Client());
+        registerModule(new KillAura());
         registerModule(new Eagle());
         registerModule(new AntiKB());
-        registerModule(new Criticals());
+        registerModule(new Critical());
         registerModule(new Fly());
         registerModule(new AutoClicker());
         registerModule(new GrimAC());

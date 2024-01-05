@@ -28,28 +28,30 @@ public class GrimAC
 
     @Override
     public void onEnable() {
-        this.vl = 0;
+        vl = 0;
     }
 
     @Event
     public void onWorld(WorldLoadEvent event) {
-        this.vl = 0;
+        vl = 0;
     }
 
     @Event
     public void onPacket(PacketReadEvent event) {
+        if(mc.player == null) return;
+
         if (mc.player.ticksExisted % 6 == 0) {
             SPacketEntityStatus s19;
-            if (event.packet instanceof SPacketEntityStatus && this.reachValue.get() && (s19 = (SPacketEntityStatus)event.packet).getOpCode() == 2) {
-                new Thread(() -> this.checkCombatHurt(s19.getEntity(mc.world))).start();
+            if (event.packet instanceof SPacketEntityStatus && reachValue.get() && (s19 = (SPacketEntityStatus)event.packet).getOpCode() == 2) {
+                new Thread(() -> checkCombatHurt(s19.getEntity(mc.world))).start();
             }
-            if (event.packet instanceof SPacketEntity && this.noslowAValue.get()) {
+            if (event.packet instanceof SPacketEntity && noslowAValue.get()) {
                 SPacketEntity packet = (SPacketEntity)event.packet;
                 Entity entity = packet.getEntity(mc.world);
-                if (!(entity instanceof EntityPlayer)) {
+                    if (!(entity instanceof EntityPlayer && entity.getName().equals(mc.player.getName()))) {
                     return;
                 }
-                new Thread(() -> this.checkPlayer((EntityPlayer)entity)).start();
+                new Thread(() -> checkPlayer((EntityPlayer)entity)).start();
             }
         }
     }
@@ -81,12 +83,12 @@ public class GrimAC
         }
         String prefix =  TextFormatting.GRAY + "[" +  TextFormatting.AQUA + "GrimAC" +  TextFormatting.GRAY + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + player.getName() + (TextFormatting.WHITE) + " failed ";
         if (player.isUsingItem() && (player.posX - player.lastTickPosX > 0.2 || player.posZ - player.lastTickPosZ > 0.2)) {
-            ClientUtils.chatlog(prefix +  TextFormatting.AQUA + "NoSlowA (Prediction)" +  TextFormatting.WHITE + " (vl:" + this.vl + ".0)");
-            ++this.vl;
+            ClientUtils.chatlog(prefix +  TextFormatting.AQUA + "NoSlowA (Prediction)" +  TextFormatting.WHITE + " (vl:" + vl + ".0)");
+            ++vl;
 
         }
         if (!mc.world.loadedEntityList.contains(player) || !player.isEntityAlive()) {
-            this.vl = 0;
+            vl = 0;
         }
     }
 }
