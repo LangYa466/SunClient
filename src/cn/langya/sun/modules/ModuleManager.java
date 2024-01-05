@@ -52,7 +52,7 @@ public class ModuleManager {
 
     public void registerModules() {
         registerModule(new Client());
-        registerModule(new KillAura());
+        // registerModule(new KillAura());
         registerModule(new Eagle());
         registerModule(new AntiKB());
         registerModule(new Critical());
