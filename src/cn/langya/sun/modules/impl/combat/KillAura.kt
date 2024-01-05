@@ -62,7 +62,7 @@ class KillAura : Module("KillAura",Category.Combat) {
     private val mark = BoolValue("Mark", true)
 
 
-    var target: Entity? = null
+    var target: EntityLivingBase? = null
     var click = 0
     var blocking = false
 
@@ -70,23 +70,9 @@ class KillAura : Module("KillAura",Category.Combat) {
     @Event
     fun onUpdate(event: UpdateEvent) {
 
-        /*
-        if (target!!.getDistanceToEntity(mc.player) <= rangeValue.get()) {
-            setRotation(
-                Rotation(
-                    (RotationUtils.getAngles(target).yaw + Math.random() * 4f - 4f / 2).toFloat(),
-                    (RotationUtils.getAngles(target).pitch + Math.random() * 4f - 4f / 2).toFloat()
-                )
-            )
-            attackEntity()
-        }
-
-         */
-
-
-        for(it in mc.world.loadedEntityList) {
-            if (mc.player.getDistanceToEntity(it) <= rangeValue.get()) {
-                target = it
+        for(entity in mc.world.loadedEntityList) {
+            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get()) {
+                target = entity as EntityLivingBase?
                 attackEntity(target)
             } else {
                 target = null
@@ -169,7 +155,7 @@ class KillAura : Module("KillAura",Category.Combat) {
         return yaw.toFloat()
     }
 
-    fun startBlock(entity: Entity?) {
+    fun startBlock() {
 
         if(!isFovInRange()) {
             return
@@ -187,8 +173,6 @@ class KillAura : Module("KillAura",Category.Combat) {
     //  攻击
     private fun attackEntity(entity: Entity?, swing: Boolean = swingValue.get()) {
 
-
-        // 防止连续发送攻击包
         if (mc.player.attackingEntity != null) {
             return
         }
@@ -197,12 +181,11 @@ class KillAura : Module("KillAura",Category.Combat) {
             return
         }
 
-        drawEntityESP(entity, Color(255, 255, 255).rgb)
+      //  drawEntityESP(entity, Color(255, 255, 255).rgb)
 
-        // 停止防砍
         stopBlocking()
 
-        mc.playerController.attackEntity(mc.player, entity)
+        mc.playerController.attackEntity(mc.player, entity!!)
 
     }
 
