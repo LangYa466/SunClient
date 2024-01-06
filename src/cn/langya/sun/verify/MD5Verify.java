@@ -1,5 +1,6 @@
 package cn.langya.sun.verify;
 
+import cn.langya.sun.Sun;
 import cn.langya.sun.utils.misc.WebUtils;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class MD5Verify {
     public static String getMD5() {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            File jarFile = new File(MD5Verify.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            File jarFile = new File(Sun.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             FileInputStream fis = new FileInputStream(jarFile);
             DigestInputStream dis = new DigestInputStream(fis, md);
 
@@ -49,6 +50,6 @@ public class MD5Verify {
             e.printStackTrace();
         }
 
-        return "";
+        return "sb";
     }
 }
