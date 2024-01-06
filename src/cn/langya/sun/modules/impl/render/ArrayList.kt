@@ -18,7 +18,7 @@ import cn.langya.sun.values.IntValue
  */
 
 
-class ArrayList(x: Int, y: Int, witdh: Int, height: Int): Ui("Arraylist",x,y, witdh, height) {
+class ArrayList(): Ui("Arraylist",0,0,0,0) {
 
 
     val shadow = BoolValue("Shaddow",false)

@@ -4,6 +4,7 @@ import cn.enaium.cf4m.annotation.Event;
 import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.KeyPressEvent;
 import cn.langya.sun.events.impl.Render2DEvent;
+import cn.langya.sun.events.impl.UpdateEvent;
 import cn.langya.sun.modules.impl.client.Client;
 import cn.langya.sun.modules.impl.client.MusicPlayer;
 import cn.langya.sun.modules.impl.combat.AntiKB;
@@ -36,15 +37,17 @@ public class ModuleManager {
     }
 
     @Event
-    public void onRender2D(Render2DEvent event) {
-        for (Module module : Sun.moduleManager.modules){
-            Sun.uiManager.addNotification(
-                    "Notifications",
-                    (module.isEnabled() ? "Enabled " : "Disabled ") + module.name,
-                    (module.isEnabled() ? NotificationType.SUCCESS : NotificationType.ERROR)
-            );
-            break;
+    private void onUpdate(UpdateEvent event) {
+        for(Module module : modules) {
+            if(module.state) {
+                Sun.eventManager.register(module);
+            }
         }
+    }
+
+    @Event
+    public void onRender2D(Render2DEvent event) {
+
     }
 
     private void registerModule(Module module) {
@@ -62,6 +65,5 @@ public class ModuleManager {
         registerModule(new AutoClicker());
         registerModule(new GrimAC());
         registerModule(new InvMove());
-        registerModule(new MusicPlayer());
     }
 }

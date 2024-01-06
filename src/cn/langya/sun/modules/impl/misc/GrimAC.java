@@ -13,8 +13,11 @@ import cn.langya.sun.values.BoolValue;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketEntity;
 import net.minecraft.network.play.server.SPacketEntityStatus;
+import net.minecraft.network.play.server.SPacketEntityVelocity;
+import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.text.TextFormatting;
 
 public class GrimAC
@@ -59,6 +62,7 @@ public class GrimAC
         }
     }
 
+
     private void checkCombatHurt(Entity entity) {
         if (!(entity instanceof EntityLivingBase)) {
             return;
@@ -77,13 +81,9 @@ public class GrimAC
             return;
         }
         double reach = attacker.getDistanceToEntity(entity);
-        String prefix = ( TextFormatting.GRAY) + "[" + (TextFormatting.AQUA) + "黑客检测器" + (TextFormatting.GRAY) + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + attacker.getName() + (TextFormatting.WHITE) + " failed ";
+        String prefix = ( TextFormatting.GRAY) + "[" + (TextFormatting.AQUA) + "黑客检测器" + (TextFormatting.GRAY) + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + attacker.getName() + (TextFormatting.WHITE) + " 触发了 ";
         if (reach > 3.0) {
             ClientUtils.chatlog(prefix + (TextFormatting.AQUA) + "长臂猿" + (TextFormatting.WHITE) + " (次数:" + attackerCount + ".0)" + (TextFormatting.GRAY) + ": " + DF_1.format(reach) + " blocks");
-        }
-
-        if(mc.player.hurtTime > 0 && mc.player.motionY >= 0 && velocityValue.get()) {
-            ClientUtils.chatlog(prefix + (TextFormatting.AQUA) + "防击退" + (TextFormatting.WHITE) + " (次数:" + attackerCount + ".0)" + (TextFormatting.GRAY) + ": " + DF_1.format(mc.player.motionY) + " blocks");
         }
 
     }
@@ -92,12 +92,17 @@ public class GrimAC
         if (player.equals(mc.player)) {
             return;
         }
-        String prefix =  TextFormatting.GRAY + "[" +  TextFormatting.AQUA + "黑客检测器" +  TextFormatting.GRAY + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + player.getName() + (TextFormatting.WHITE) + " failed ";
+        String prefix =  TextFormatting.GRAY + "[" +  TextFormatting.AQUA + "黑客检测器" +  TextFormatting.GRAY + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + player.getName() + (TextFormatting.WHITE) + " 触发了 ";
         if (player.isUsingItem() && (player.posX - player.lastTickPosX > 0.2 || player.posZ - player.lastTickPosZ > 0.2)) {
             ClientUtils.chatlog(prefix +  TextFormatting.AQUA + "无减速" +  TextFormatting.WHITE + " (次数:" + vl + ".0)");
             ++vl;
 
         }
+
+        if(player.motionY >= 0 && player.hurtTime > 0 && velocityValue.get()) {
+            ClientUtils.chatlog(prefix + (TextFormatting.AQUA) + "防击退" + (TextFormatting.WHITE) + " (次数:" + vl + ".0)" + (TextFormatting.GRAY) + ": " + DF_1.format(mc.player.motionY) + " blocks");
+        }
+
         if (!mc.world.loadedEntityList.contains(player) || !player.isEntityAlive()) {
             vl = 0;
         }

@@ -16,6 +16,12 @@ public class StringValue extends AbstractValue<String>{
         this.values = new ObjectArrayList<>(values);
     }
 
+    public StringValue(String name, String text) {
+        this.name = name;
+        this.value = text;
+        this.values = new ObjectArrayList<>();
+    }
+
     @Override
     public String get() {
         return value;

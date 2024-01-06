@@ -64,9 +64,11 @@ class ModuleConfig: Config() {
 
                 val name = jsonObject.get("Name")?.asString ?: continue
                 val state = jsonObject.get("State")?.asBoolean ?: continue
+                val array = jsonObject.get("Array")?.asBoolean ?: continue
 
                 moduleMap[name]?.apply {
                     this.state = state
+                    this.array = array
                 }
             }
         } catch (e: IOException) {

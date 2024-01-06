@@ -1,9 +1,8 @@
 package cn.langya.sun.ui;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.modules.impl.render.ArrayList;
-import cn.langya.sun.ui.impl.notification.NotificationManager;
-import cn.langya.sun.ui.impl.notification.NotificationType;
+import cn.langya.sun.modules.impl.render.*;
+import cn.langya.sun.ui.impl.notification.*;
 import cn.langya.sun.values.AbstractValue;
 
 import java.util.List;
@@ -20,8 +19,9 @@ public class UIManager {
         Sun.eventManager.register(uI);
     }
 
-    public void init() {
-        addUi(new ArrayList(0,0,0,0));
+    public void init() throws InstantiationException, IllegalAccessException {
+        addUi(new ArrayList());
+        addUi(new Text());
     }
 
     public void addNotification(String title, String content, NotificationType type) {

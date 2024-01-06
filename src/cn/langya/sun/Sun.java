@@ -22,7 +22,7 @@ public class Sun {
     public static UIManager uiManager;
     public static EventContainer eventManager;
 
-    public void initClient() throws IOException {
+    public void initClient() throws IOException, InstantiationException, IllegalAccessException {
         ClientUtils.loginfo("太阳客户端 加载中..");
         CF4M.run(this, FileManager.clientPath);
         eventManager = CF4M.EVENT;
