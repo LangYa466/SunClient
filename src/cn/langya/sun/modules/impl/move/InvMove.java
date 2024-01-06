@@ -21,8 +21,8 @@ public class InvMove extends Module
     }
     
     public static void updateStates() {
-        if (InvMove.mc.currentScreen != null) {
-            for (final KeyBinding k : InvMove.keys) {
+        if (mc.currentScreen != null) {
+            for (final KeyBinding k : keys) {
                 k.pressed =GameSettings.isKeyDown(k);
                 if (Keyboard.isKeyDown(Keyboard.KEY_UP) && mc.player.rotationPitch > -90.0f) {
                     final EntityPlayerSP thePlayer = mc.player;
@@ -46,12 +46,12 @@ public class InvMove extends Module
     
     @Event
     public void onMotion(final UpdateEvent event) {
-        if (InvMove.mc.currentScreen instanceof GuiContainer || InvMove.mc.currentScreen instanceof ClickGui ) {
+        if (mc.currentScreen instanceof GuiContainer || mc.currentScreen instanceof ClickGui ) {
             updateStates();
         }
     }
     
     static {
-        keys = Arrays.asList(InvMove.mc.gameSettings.keyBindForward, InvMove.mc.gameSettings.keyBindBack, InvMove.mc.gameSettings.keyBindLeft, InvMove.mc.gameSettings.keyBindRight, InvMove.mc.gameSettings.keyBindJump);
+        keys = Arrays.asList(mc.gameSettings.keyBindForward, mc.gameSettings.keyBindBack, mc.gameSettings.keyBindLeft, mc.gameSettings.keyBindRight, mc.gameSettings.keyBindJump);
     }
 }

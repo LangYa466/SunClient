@@ -15,7 +15,7 @@ public class Sun {
 
     public static final String name = "太阳客户端";
     public static final String version = "1.0";
-    public static final String author = "LangYa";
+    public static final String author = "LangYa,PaiMon,Eovo";
 
     // Manager
     public static ModuleManager moduleManager;
