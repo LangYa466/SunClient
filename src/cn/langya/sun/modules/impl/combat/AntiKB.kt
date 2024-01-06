@@ -18,6 +18,7 @@ import net.minecraft.network.play.client.CPacketConfirmTransaction
 import net.minecraft.network.play.client.CPacketEntityAction
 import net.minecraft.network.play.client.CPacketUseEntity
 import net.minecraft.network.play.server.SPacketEntityVelocity
+import net.minecraft.network.play.server.SPacketExplosion
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.Vec3d
 
@@ -42,6 +43,7 @@ class AntiKB : Module("防击退", true, Category.Combat) {
         modes.values.add("JumpRester")
         modes.values.add("GrimY")
         modes.values.add("Hypixel")
+        modes.values.add("Cancel")
     }
 
     @Event
@@ -162,6 +164,19 @@ class AntiKB : Module("防击退", true, Category.Combat) {
                         if (mc.player.onGround || spey.motionY / 8000.0 < 0.2 || spey.motionY / 8000.0 > 0.41995) {
                             mc.player.motionY = spey.motionY / 8000.0
                         }
+                    }
+                }
+
+                "Cancel" -> {
+                    if (e.packet is SPacketEntityVelocity) {
+                        val packetEntityVelocity: SPacketEntityVelocity = e.packet as SPacketEntityVelocity
+                        if (packetEntityVelocity.getEntityID() !== mc.player.getEntityId()) {
+                            return
+                        }
+                        e.cancel()
+                    }
+                    if (e.packet is SPacketExplosion) {
+                        e.cancel()
                     }
                 }
 
