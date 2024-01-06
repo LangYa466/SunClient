@@ -1,5 +1,7 @@
 package cn.langya.sun.modules.impl.misc;
 
+// 魔改了派蒙神的东西
+
 import java.text.DecimalFormat;
 import cn.enaium.cf4m.annotation.Event;
 import cn.langya.sun.events.impl.PacketReadEvent;
@@ -69,6 +71,9 @@ public class GrimAC
             attacker = (EntityPlayer)worldEntity;
         }
         if (attacker == null || attacker.equals(entity)) {
+            return;
+        }
+        if(entity.getName().equals(mc.player.getName())) {
             return;
         }
         double reach = attacker.getDistanceToEntity(entity);
