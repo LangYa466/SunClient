@@ -70,6 +70,8 @@ class KillAura : Module("KillAura",Category.Combat) {
     @Event
     fun onUpdate(event: UpdateEvent) {
 
+        if(!state) return
+
         for(entity in mc.world.loadedEntityList) {
             if (mc.player.getDistanceToEntity(entity) <= rangeValue.get()) {
                 target = entity as EntityLivingBase?

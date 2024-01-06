@@ -42,13 +42,9 @@ class MusicPlayerScreen: GuiScreen() {
         text!!.textboxKeyTyped(typedChar, keyCode)
 
         if (keyCode == 28 && text!!.text.isNotEmpty()) { // 回车键
-            val music = musicPlayer.search(text!!.text)
-            FontManager.drawString("${musicPlayer.getSongName(music)}-${musicPlayer.getSingerName(music)}",RenderUtil.getWidth() / 2 - 40,RenderUtil.getHeight() / 2 - 20,-1)
-            val url = URL(musicPlayer.getSongFile(music))
-            val `in`: InputStream = url.openStream()
-            val bufIn = BufferedInputStream(`in`)
-            val player = Player(bufIn)
-            player.play()
+            val musicid = musicPlayer.search(text!!.text)
+            FontManager.drawString("${musicPlayer.getSongName(musicid)}-${musicPlayer.getSingerName(musicid)}",RenderUtil.getWidth() / 2 - 40,RenderUtil.getHeight() / 2 - 20,-1)
+            musicPlayer.playUrlMusic(musicPlayer.getSongFile(musicid))
         }
 
     }

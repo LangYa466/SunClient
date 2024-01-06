@@ -21,11 +21,7 @@ class MusicPlayer : Module("音乐播放器", true, Category.Client) {
     override fun onEnable() {
         val musicPlayer = MusicPlayer()
 
-        val music = musicPlayer.search("346089")
-        val url = URL(musicPlayer.getSongFile(music))
-        val `in`: InputStream = url.openStream()
-        val bufIn = BufferedInputStream(`in`)
-        val player = Player(bufIn)
-        player.play()
+        val music = musicPlayer.search("1342954499")
+        musicPlayer.playUrlMusic(musicPlayer.getSongFile(music))
     }
 }

@@ -19,6 +19,7 @@ public class GrimAC
         extends Module {
     public BoolValue reachValue = new BoolValue("Reach", true);
     public BoolValue noslowAValue = new BoolValue("NoSlowA", true);
+    public BoolValue velocityValue = new BoolValue("Velocity", true);
     public static final DecimalFormat DF_1 = new DecimalFormat("0.000000");
     int vl;
 
@@ -71,19 +72,24 @@ public class GrimAC
             return;
         }
         double reach = attacker.getDistanceToEntity(entity);
-        String prefix = ( TextFormatting.GRAY) + "[" + (TextFormatting.AQUA) + "GrimAC" + (TextFormatting.GRAY) + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + attacker.getName() + (TextFormatting.WHITE) + " failed ";
+        String prefix = ( TextFormatting.GRAY) + "[" + (TextFormatting.AQUA) + "黑客检测器" + (TextFormatting.GRAY) + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + attacker.getName() + (TextFormatting.WHITE) + " failed ";
         if (reach > 3.0) {
-            ClientUtils.chatlog(prefix + (TextFormatting.AQUA) + "Reach" + (TextFormatting.WHITE) + " (vl:" + attackerCount + ".0)" + (TextFormatting.GRAY) + ": " + DF_1.format(reach) + " blocks");
+            ClientUtils.chatlog(prefix + (TextFormatting.AQUA) + "长臂猿" + (TextFormatting.WHITE) + " (次数:" + attackerCount + ".0)" + (TextFormatting.GRAY) + ": " + DF_1.format(reach) + " blocks");
         }
+
+        if(mc.player.hurtTime > 0 && mc.player.motionY >= 0 && velocityValue.get()) {
+            ClientUtils.chatlog(prefix + (TextFormatting.AQUA) + "防击退" + (TextFormatting.WHITE) + " (次数:" + attackerCount + ".0)" + (TextFormatting.GRAY) + ": " + DF_1.format(mc.player.motionY) + " blocks");
+        }
+
     }
 
     private void checkPlayer(EntityPlayer player) {
         if (player.equals(mc.player)) {
             return;
         }
-        String prefix =  TextFormatting.GRAY + "[" +  TextFormatting.AQUA + "GrimAC" +  TextFormatting.GRAY + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + player.getName() + (TextFormatting.WHITE) + " failed ";
+        String prefix =  TextFormatting.GRAY + "[" +  TextFormatting.AQUA + "黑客检测器" +  TextFormatting.GRAY + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + player.getName() + (TextFormatting.WHITE) + " failed ";
         if (player.isUsingItem() && (player.posX - player.lastTickPosX > 0.2 || player.posZ - player.lastTickPosZ > 0.2)) {
-            ClientUtils.chatlog(prefix +  TextFormatting.AQUA + "NoSlowA (Prediction)" +  TextFormatting.WHITE + " (vl:" + vl + ".0)");
+            ClientUtils.chatlog(prefix +  TextFormatting.AQUA + "无减速" +  TextFormatting.WHITE + " (次数:" + vl + ".0)");
             ++vl;
 
         }

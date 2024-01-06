@@ -13,7 +13,7 @@ public class Module extends Utils {
     public final String name;
     public int keyCode;
     public String tag;
-    public final boolean array;
+    public boolean array;
     public final Category category;
     public boolean state;
     private List<AbstractValue> values = new ArrayList<>();

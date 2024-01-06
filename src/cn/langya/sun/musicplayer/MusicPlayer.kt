@@ -3,7 +3,8 @@ package cn.langya.sun.musicplayer
 import cn.langya.sun.utils.misc.JsonUtils
 import cn.langya.sun.utils.misc.WebUtils
 import java.io.IOException
-import javax.swing.JOptionPane
+import java.net.URL
+import javax.sound.sampled.*
 
 
 /**
@@ -14,6 +15,42 @@ import javax.swing.JOptionPane
  */
 
 class MusicPlayer {
+
+    fun playUrlMusic(url: String?) {
+        try {
+            // 创建音频流对象
+            val audioInputStream: AudioInputStream = AudioSystem.getAudioInputStream(URL(url))
+            // 获取音频格式
+            val audioFormat = audioInputStream.format
+            // 转换音频格式
+            val info = DataLine.Info(SourceDataLine::class.java, audioFormat)
+            // 打开音频设备
+            val line = AudioSystem.getLine(info) as SourceDataLine
+
+            // 开始音频流播放
+            line.open(audioFormat)
+            line.start()
+
+            // 读取数据到缓冲区
+            val bufferSize = audioFormat.sampleRate.toInt() * audioFormat.frameSize
+            val buffer = ByteArray(bufferSize)
+            var bytesRead = -1
+            while (audioInputStream.read(buffer).also { bytesRead = it } != -1) {
+                line.write(buffer, 0, bytesRead)
+            }
+
+            // 停止音频流播放
+            line.stop()
+            line.close()
+            audioInputStream.close()
+        } catch (e: UnsupportedAudioFileException) {
+            e.printStackTrace()
+        } catch (e: LineUnavailableException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
 
     // 搜索歌曲返回Json
     fun search(id: String): String {
@@ -29,7 +66,7 @@ class MusicPlayer {
 
     // 获取歌曲文件
     fun getSongFile(json: String): String {
-        return WebUtils.get(JsonUtils.getString(search(json), "url"))
+        return JsonUtils.getString(search(json), "url")
     }
 
     // 获取歌曲图标

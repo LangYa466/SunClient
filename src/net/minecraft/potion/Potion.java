@@ -334,7 +334,7 @@ public class Potion
     }
 
     /**
-     * Get if the potion is beneficial to the player. Beneficial potions are shown on the first row of the HUD
+     * Get if the potion is beneficial to the player. Beneficial potions are shown on the first row of the HUDConfig
      */
     public boolean isBeneficial()
     {
@@ -342,7 +342,7 @@ public class Potion
     }
 
     /**
-     * Set that the potion is beneficial to the player. Beneficial potions are shown on the first row of the HUD
+     * Set that the potion is beneficial to the player. Beneficial potions are shown on the first row of the HUDConfig
      */
     public Potion setBeneficial()
     {

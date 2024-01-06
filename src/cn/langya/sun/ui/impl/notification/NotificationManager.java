@@ -15,7 +15,7 @@ public class NotificationManager extends Ui {
     public static final List<Notification> notifications = new ArrayList<>();
 
     public NotificationManager(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super("Notification",x, y, width, height);
     }
 
     public static void add(String title, String content, NotificationType type) {

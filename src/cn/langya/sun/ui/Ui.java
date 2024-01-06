@@ -9,6 +9,7 @@ package cn.langya.sun.ui;
 
 public class Ui extends UIManager {
 
+    public String name;
     public int x;
     public int y;
     public int width;
@@ -18,7 +19,8 @@ public class Ui extends UIManager {
     public boolean state;
 
 
-    public Ui(int x, int y, int width, int height) {
+    public Ui(String name, int x, int y, int width, int height) {
+        this.name = name;
         this.x = x;
         this.y = y;
         this.width = width;

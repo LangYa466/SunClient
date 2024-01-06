@@ -20,19 +20,17 @@ public class Sun {
     // Manager
     public static ModuleManager moduleManager;
     public static UIManager uiManager;
-    public static FileManager fileManager;
     public static EventContainer eventManager;
 
     public void initClient() throws IOException {
         ClientUtils.loginfo("太阳客户端 加载中..");
-        CF4M.run(this, fileManager.clientPath);
+        CF4M.run(this, FileManager.clientPath);
         eventManager = CF4M.EVENT;
         moduleManager = new ModuleManager();
         uiManager = new UIManager();
         uiManager.init();
         ClientUtils.loginfo("太阳客户端 加载完毕!!");
-  //      Display.setTitle("太阳客户端 | " + WebUtils.get("http://125.77.177.104:40565/").trim());
-        Display.setTitle("太阳客户端");
+        Display.setTitle("太阳客户端 | " + WebUtils.get("https://v1.hitokoto.cn/?c=a&encode=text"));
     }
 
 
