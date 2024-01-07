@@ -73,9 +73,9 @@ class KillAura : Module("KillAura",Category.Combat) {
         if(!state) return
 
         for(entity in mc.world.loadedEntityList) {
-            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get()) {
+            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get() && entity != mc.player) {
                 target = entity as EntityLivingBase?
-                attackEntity(target)
+                attackEntity(entity)
             } else {
                 target = null
             }
