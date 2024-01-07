@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.combat
 
-import cn.enaium.cf4m.annotation.Event
+import com.cubk.event.annotations.EventTarget
 import cn.langya.sun.events.impl.Render3DEvent
 import cn.langya.sun.events.impl.UpdateEvent
 import cn.langya.sun.modules.Category
@@ -67,7 +67,7 @@ class KillAura : Module("KillAura",Category.Combat) {
     var blocking = false
 
 
-    @Event
+    @EventTarget
     fun onUpdate(event: UpdateEvent) {
 
         if(!state) return
@@ -88,7 +88,7 @@ class KillAura : Module("KillAura",Category.Combat) {
 
     }
 
-    @Event
+    @EventTarget
     fun onRender3D(event: Render3DEvent) {
 
         if (circleValue.get()) {

@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.render
 
-import cn.enaium.cf4m.annotation.Event
+import com.cubk.event.annotations.EventTarget
 import cn.langya.sun.Sun
 import cn.langya.sun.events.impl.Render2DEvent
 import cn.langya.sun.ui.FontManager
@@ -26,7 +26,7 @@ class ArrayList(): Ui("Arraylist",0,0,0,0) {
 
     var yPosition = 50
 
-    @Event
+    @EventTarget
     fun onRender2D(event: Render2DEvent) {
 
         var initialYPosition = yPosition

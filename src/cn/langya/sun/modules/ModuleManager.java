@@ -1,12 +1,10 @@
 package cn.langya.sun.modules;
 
-import cn.enaium.cf4m.annotation.Event;
 import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.KeyPressEvent;
 import cn.langya.sun.events.impl.Render2DEvent;
 import cn.langya.sun.events.impl.UpdateEvent;
 import cn.langya.sun.modules.impl.client.Client;
-import cn.langya.sun.modules.impl.client.MusicPlayer;
 import cn.langya.sun.modules.impl.combat.AntiKB;
 import cn.langya.sun.modules.impl.combat.AutoClicker;
 import cn.langya.sun.modules.impl.combat.Critical;
@@ -15,8 +13,8 @@ import cn.langya.sun.modules.impl.misc.GrimAC;
 import cn.langya.sun.modules.impl.move.Fly;
 import cn.langya.sun.modules.impl.move.InvMove;
 import cn.langya.sun.modules.impl.world.Eagle;
-import cn.langya.sun.ui.impl.notification.NotificationType;
 import cn.langya.sun.utils.ClientUtils;
+import com.cubk.event.annotations.EventTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,21 +29,15 @@ public class ModuleManager {
         Sun.eventManager.register(this);
     }
 
-    @Event
+    @EventTarget
     private void onKeyPress(KeyPressEvent event) {
         modules.stream().filter(module -> module.getKeyCode() == event.getKeyCode()).forEach(Module::toggle);
     }
 
-    @Event
-    private void onUpdate(UpdateEvent event) {
-        for(Module module : modules) {
-            if(module.state) {
-                Sun.eventManager.register(module);
-            }
-        }
-    }
+    @EventTarget
+    private void onUpdate(UpdateEvent event) {}
 
-    @Event
+    @EventTarget
     public void onRender2D(Render2DEvent event) {
 
     }

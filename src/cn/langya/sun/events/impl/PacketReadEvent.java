@@ -1,5 +1,6 @@
 package cn.langya.sun.events.impl;
 
+import com.cubk.event.impl.Event;
 import net.minecraft.network.Packet;
 
 /**
@@ -9,7 +10,7 @@ import net.minecraft.network.Packet;
  * @Version 1.0
  */
 
-public class PacketReadEvent {
+public class PacketReadEvent implements Event {
     public Packet packet;
     public boolean cancelled;
 

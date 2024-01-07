@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.move
 
-import cn.enaium.cf4m.annotation.Event
+import com.cubk.event.annotations.EventTarget
 import cn.langya.sun.events.impl.MoveEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
@@ -23,7 +23,7 @@ class Fly: Module("飞行",true,Category.Move) {
         modes.values.add("Vanilla")
     }
 
-    @Event
+    @EventTarget
     fun onMove(e: MoveEvent) {
 
         when(modes.get()) {

@@ -1,5 +1,6 @@
 package cn.langya.sun.events.impl;
 
+import com.cubk.event.impl.Event;
 import net.minecraft.entity.Entity;
 
 /**
@@ -9,7 +10,7 @@ import net.minecraft.entity.Entity;
  * @Version 1.0
  */
 
-public class AttackEvent {
+public class AttackEvent implements Event {
     public Entity target;
 
     public AttackEvent(final Entity entity) {

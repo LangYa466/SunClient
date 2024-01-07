@@ -1,7 +1,7 @@
 // By PaiMon
 package cn.langya.sun.modules.impl.move;
 
-import cn.enaium.cf4m.annotation.Event;
+import com.cubk.event.annotations.EventTarget;
 import cn.langya.sun.events.impl.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
@@ -44,7 +44,7 @@ public class InvMove extends Module
         }
     }
     
-    @Event
+    @EventTarget
     public void onMotion(final UpdateEvent event) {
         if (mc.currentScreen instanceof GuiContainer || mc.currentScreen instanceof ClickGui ) {
             updateStates();

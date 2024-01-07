@@ -3,7 +3,7 @@ package cn.langya.sun.modules.impl.misc;
 // 魔改了派蒙神的东西
 
 import java.text.DecimalFormat;
-import cn.enaium.cf4m.annotation.Event;
+import com.cubk.event.annotations.EventTarget;
 import cn.langya.sun.events.impl.PacketReadEvent;
 import cn.langya.sun.events.impl.WorldLoadEvent;
 import cn.langya.sun.modules.Category;
@@ -37,12 +37,12 @@ public class GrimAC
         vl = 0;
     }
 
-    @Event
+    @EventTarget
     public void onWorld(WorldLoadEvent event) {
         vl = 0;
     }
 
-    @Event
+    @EventTarget
     public void onPacket(PacketReadEvent event) {
         if(mc.player == null) return;
 

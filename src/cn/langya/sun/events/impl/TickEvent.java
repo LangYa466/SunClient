@@ -1,5 +1,7 @@
 package cn.langya.sun.events.impl;
 
+import com.cubk.event.impl.Event;
+
 /**
  * @author LangYa
  * @ClassName TickEvent
@@ -7,5 +9,5 @@ package cn.langya.sun.events.impl;
  * @Version 1.0
  */
 
-public class TickEvent {
+public class TickEvent implements Event {
 }

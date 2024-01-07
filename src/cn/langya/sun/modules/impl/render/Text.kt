@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.render
 
-import cn.enaium.cf4m.annotation.Event
+import com.cubk.event.annotations.EventTarget
 import cn.langya.sun.events.impl.Render2DEvent
 import cn.langya.sun.ui.FontManager
 import cn.langya.sun.ui.Ui
@@ -20,7 +20,7 @@ class Text: Ui("Text",0,0,100,100) {
 
     var text = StringValue("Text","SunClient")
 
-    @Event
+    @EventTarget
     fun onRender2D(e: Render2DEvent) {
         FontManager.drawStringWithShadow(text.get(),x.toFloat(),y.toFloat(),-1)
         RenderUtil.drawRoundedRect(x,y,FontManager.getStringWidth(text.get()),FontManager.height,3,Color(0,0,0,150))

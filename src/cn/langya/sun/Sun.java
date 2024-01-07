@@ -1,12 +1,11 @@
 package cn.langya.sun;
 
-import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.container.EventContainer;
 import cn.langya.sun.files.FileManager;
 import cn.langya.sun.modules.ModuleManager;
 import cn.langya.sun.ui.UIManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.WebUtils;
+import com.cubk.event.EventManager;
 import org.lwjgl.opengl.Display;
 
 import java.io.IOException;
@@ -20,12 +19,11 @@ public class Sun {
     // Manager
     public static ModuleManager moduleManager;
     public static UIManager uiManager;
-    public static EventContainer eventManager;
+    public static EventManager eventManager;
 
     public void initClient() throws IOException, InstantiationException, IllegalAccessException {
         ClientUtils.loginfo("太阳客户端 加载中..");
-        CF4M.run(this, FileManager.clientPath);
-        eventManager = CF4M.EVENT;
+        eventManager = new EventManager();
         moduleManager = new ModuleManager();
         uiManager = new UIManager();
         uiManager.init();

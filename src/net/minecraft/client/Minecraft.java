@@ -1813,7 +1813,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             --this.rightClickDelayTimer;
         }
         if (this.player != null) {
-            Sun.eventManager.post(new TickEvent());
+            Sun.eventManager.call(new TickEvent());
         }
 
         this.mcProfiler.startSection("gui");
@@ -2611,7 +2611,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             this.playerController.setPlayerCapabilities(this.player);
             this.renderViewEntity = this.player;
             WorldLoadEvent reloadEvent = new WorldLoadEvent(worldClientIn);
-            Sun.eventManager.post(reloadEvent);
+            Sun.eventManager.call(reloadEvent);
         }
         else
         {

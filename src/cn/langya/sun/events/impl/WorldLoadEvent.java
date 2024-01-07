@@ -1,5 +1,6 @@
 package cn.langya.sun.events.impl;
 
+import com.cubk.event.impl.Event;
 import net.minecraft.client.multiplayer.WorldClient;
 
 /**
@@ -9,7 +10,7 @@ import net.minecraft.client.multiplayer.WorldClient;
  * @Version 1.0
  */
 
-public class WorldLoadEvent {
+public class WorldLoadEvent implements Event {
     public WorldClient worldClient;
 
     public WorldLoadEvent(final WorldClient worldClient) {

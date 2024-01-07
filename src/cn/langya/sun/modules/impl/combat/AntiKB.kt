@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.combat
 
-import cn.enaium.cf4m.annotation.Event
+import com.cubk.event.annotations.EventTarget
 import cn.langya.sun.events.impl.PacketReadEvent
 import cn.langya.sun.events.impl.PacketSendEvent
 import cn.langya.sun.events.impl.UpdateEvent
@@ -46,7 +46,7 @@ class AntiKB : Module("防击退", true, Category.Combat) {
         modes.values.add("Cancel")
     }
 
-    @Event
+    @EventTarget
     fun onUpdate(event: UpdateEvent) {
 
         when (modes.get()) {
@@ -69,7 +69,7 @@ class AntiKB : Module("防击退", true, Category.Combat) {
         }
     }
 
-    @Event
+    @EventTarget
     fun onPacketSend(e: PacketSendEvent) {
 
         val packet = e.packet
@@ -94,7 +94,7 @@ class AntiKB : Module("防击退", true, Category.Combat) {
     }
 
 
-    @Event
+    @EventTarget
     fun onPacketRead(e: PacketReadEvent) {
         var spey = e.packet
 

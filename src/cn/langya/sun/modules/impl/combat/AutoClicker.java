@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.combat;
 
-import cn.enaium.cf4m.annotation.Event;
+import com.cubk.event.annotations.EventTarget;
 import cn.langya.sun.events.impl.Render3DEvent;
 import cn.langya.sun.events.impl.TickEvent;
 import cn.langya.sun.events.impl.UpdateEvent;
@@ -42,14 +42,14 @@ public class AutoClicker extends Module {
     private long leftDelay = randomClickDelay(minCPSValue.get(), maxCPSValue.get());
     private long leftLastSwing = 0L;
 
-    @Event
+    @EventTarget
     public void onTick(TickEvent e) {
         if(maxCPSValue.get() > minCPSValue.get()) {
             maxCPSValue.set(minCPSValue.get() + 1);
         }
     }
 
-    @Event
+    @EventTarget
     public void onRender3D(Render3DEvent event) {
 
         if (onlyBlock.get() && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemBlock) {
@@ -91,7 +91,7 @@ public class AutoClicker extends Module {
         }
     }
 
-    @Event
+    @EventTarget
     public void onUpdate(UpdateEvent event) {
         if (jitterValue.get() && (leftValue.get() && mc.gameSettings.keyBindAttack.isKeyDown() && mc.playerController.curBlockDamageMP == 0F
                 || rightValue.get() && mc.gameSettings.keyBindUseItem.isKeyDown() && !mc.player.isUsingItem())) {

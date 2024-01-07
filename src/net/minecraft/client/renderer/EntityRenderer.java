@@ -1486,7 +1486,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
             this.renderCloudsCheck(renderglobal, partialTicks, pass, d0, d1, d2);
         }
 
-        Sun.eventManager.post(new Render3DEvent(partialTicks));
+        Sun.eventManager.call(new Render3DEvent(partialTicks));
 
         this.mc.mcProfiler.endStartSection("hand");
 

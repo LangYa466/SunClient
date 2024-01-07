@@ -2461,7 +2461,7 @@ public abstract class EntityLivingBase extends Entity
             this.ticksElytraFlying = 0;
         }
 
-        Sun.eventManager.post(new UpdateEvent());
+        Sun.eventManager.call(new UpdateEvent());
 
     }
 

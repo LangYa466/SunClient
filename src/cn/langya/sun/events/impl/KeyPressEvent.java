@@ -1,6 +1,8 @@
 package cn.langya.sun.events.impl;
 
-public class KeyPressEvent {
+import com.cubk.event.impl.Event;
+
+public class KeyPressEvent implements Event {
     private int keyCode;
 
     public KeyPressEvent(int keyCode) {

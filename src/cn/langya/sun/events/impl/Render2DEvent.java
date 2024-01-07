@@ -1,6 +1,8 @@
 package cn.langya.sun.events.impl;
 
 
+import com.cubk.event.impl.Event;
+
 /**
  * @author LangYa
  * @ClassName Render2DEvent
@@ -8,7 +10,7 @@ package cn.langya.sun.events.impl;
  * @Version 1.0
  */
 
-public class Render2DEvent {
+public class Render2DEvent implements Event {
     public float partialTicks;
 
     public Render2DEvent(final float partialTicks) {

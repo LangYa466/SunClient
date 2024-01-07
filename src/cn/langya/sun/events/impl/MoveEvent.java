@@ -1,5 +1,7 @@
 package cn.langya.sun.events.impl;
 
+import com.cubk.event.impl.Event;
+
 /**
  * @author LangYa
  * @ClassName MoveEvent
@@ -7,7 +9,7 @@ package cn.langya.sun.events.impl;
  * @Version 1.0
  */
 
-public class MoveEvent {
+public class MoveEvent implements Event {
     public double x;
     public double y;
     public double z;

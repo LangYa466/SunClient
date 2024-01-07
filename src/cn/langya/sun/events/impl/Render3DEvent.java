@@ -1,5 +1,7 @@
 package cn.langya.sun.events.impl;
 
+import com.cubk.event.impl.Event;
+
 /**
  * @author LangYa
  * @ClassName Render3DEvent
@@ -7,7 +9,7 @@ package cn.langya.sun.events.impl;
  * @Version 1.0
  */
 
-public class Render3DEvent {
+public class Render3DEvent implements Event {
     public float ticks;
     public Render3DEvent(final float ticks) {
         this.ticks = ticks;

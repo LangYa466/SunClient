@@ -1,10 +1,10 @@
 package cn.langya.sun.modules.impl.combat
 
-import cn.enaium.cf4m.annotation.Event
 import cn.langya.sun.events.impl.AttackEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
 import cn.langya.sun.values.StringValue
+import com.cubk.event.annotations.EventTarget
 
 
 /**
@@ -23,7 +23,7 @@ class Critical: Module("刀刀暴击",true,Category.Combat) {
         modes.values.add("Fake")
     }
 
-    @Event
+    @EventTarget
     fun onAttack(event: AttackEvent) {
         when(modes.get()) {
 

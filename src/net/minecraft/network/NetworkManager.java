@@ -152,7 +152,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
             try
             {
                 PacketReadEvent packetRead = new PacketReadEvent(p_channelRead0_2_);
-                Sun.eventManager.post(packetRead);
+                Sun.eventManager.call(packetRead);
                 if (packetRead.cancelled) {
                     return;
                 }
@@ -227,7 +227,7 @@ public class NetworkManager extends SimpleChannelInboundHandler < Packet<? >>
     private void dispatchPacket(final Packet<?> inPacket, @Nullable final GenericFutureListener <? extends Future <? super Void >> [] futureListeners)
     {
         PacketSendEvent packetSent = new PacketSendEvent(inPacket);
-        Sun.eventManager.post(packetSent);
+        Sun.eventManager.call(packetSent);
         if (packetSent.cancelled) {
             return;
         }
