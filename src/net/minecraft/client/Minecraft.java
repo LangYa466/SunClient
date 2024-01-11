@@ -688,7 +688,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("太阳客户端-1.12.2");
+        Display.setTitle("SunClient");
 
         try
         {

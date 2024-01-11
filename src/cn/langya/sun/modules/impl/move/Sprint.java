@@ -4,11 +4,13 @@ import com.cubk.event.annotations.EventTarget;
 import cn.langya.sun.events.impl.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
+import net.minecraft.client.settings.KeyBinding;
+import org.lwjgl.input.Keyboard;
 
 public class Sprint extends Module
 {
     public Sprint() {
-        super("自动疾跑", Category.Move);
+        super("Sprint", Category.Move, Keyboard.KEY_Z);
         this.setState(true);
     }
     

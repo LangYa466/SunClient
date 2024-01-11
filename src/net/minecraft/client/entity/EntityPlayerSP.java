@@ -1,7 +1,12 @@
 package net.minecraft.client.entity;
 
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
+
+import cn.langya.sun.Sun;
+import cn.langya.sun.command.Command;
+import cn.langya.sun.events.impl.ChatEvent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ElytraSound;
@@ -77,6 +82,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
@@ -363,9 +370,21 @@ public class EntityPlayerSP extends AbstractClientPlayer
     /**
      * Sends a chat message from the player.
      */
-    public void sendChatMessage(String message)
-    {
-        this.connection.sendPacket(new CPacketChatMessage(message));
+    public void sendChatMessage(final String message) {
+        final ChatEvent event = new ChatEvent(message);
+        Sun.eventManager.call(event);
+        if (message.startsWith(Sun.commandManager.prefix)) {
+            final String[] args = message.trim().substring(1).split(" ");
+            final Command c = Sun.commandManager.getCommand(args[0]);
+            if (c != null) {
+                c.run(Arrays.copyOfRange(args, 1, args.length));
+            } else {
+                this.addChatMessage(new TextComponentString(TextFormatting.RED + "Unknown Command! Use .help to view usages."));
+            }
+        }
+        else {
+            this.connection.sendPacket(new CPacketChatMessage(message));
+        }
     }
 
     public void swingArm(EnumHand hand)

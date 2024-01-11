@@ -12,4 +12,8 @@ import net.minecraft.client.Minecraft;
 public class FileManager {
     public static final String clientPath = Minecraft.getMinecraft().mcDataDir.toString() + "/" + "SunClient";
 
+    FileManager() {
+
+    }
+
 }

@@ -2,6 +2,7 @@ package net.minecraft.command;
 
 import cn.langya.sun.modules.impl.client.Client;
 import cn.langya.sun.ui.screen.clickgui.ClickGui;
+import cn.langya.sun.ui.screen.clickgui.DropdownClickGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 
@@ -19,7 +20,7 @@ public class CommandClickGui extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        Minecraft.getMinecraft().displayGuiScreen(new ClickGui());
+        Minecraft.getMinecraft().displayGuiScreen(new DropdownClickGUI());
     }
 
 }

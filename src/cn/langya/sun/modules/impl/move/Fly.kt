@@ -14,7 +14,7 @@ import cn.langya.sun.values.StringValue
  * @Version 1.0
  */
 
-class Fly: Module("飞行",true,Category.Move) {
+class Fly: Module("Fly",true,Category.Move) {
 
     private val modes = StringValue("Modes","Vanilla")
 

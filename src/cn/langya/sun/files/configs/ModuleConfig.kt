@@ -21,7 +21,7 @@ import java.io.IOException
 
 class ModuleConfig: Config() {
 
-    fun save() {
+    override fun save() {
         val jsonArray = JsonArray()
 
         for (modules in Sun.moduleManager.modules) {
@@ -46,7 +46,8 @@ class ModuleConfig: Config() {
 
     }
 
-    fun load() {
+    override fun load() {
+
 
         try {
             val jsonString = File(FileManager.clientPath + File.separator + "modules.json").readText()

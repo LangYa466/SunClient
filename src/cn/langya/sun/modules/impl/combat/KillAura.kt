@@ -1,18 +1,22 @@
 package cn.langya.sun.modules.impl.combat
 
-import com.cubk.event.annotations.EventTarget
 import cn.langya.sun.events.impl.Render3DEvent
 import cn.langya.sun.events.impl.UpdateEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
+import cn.langya.sun.utils.misc.TimeUtil
 import cn.langya.sun.utils.render.RenderUtil
-import cn.langya.sun.values.*
+import cn.langya.sun.values.BoolValue
+import cn.langya.sun.values.FloatValue
+import cn.langya.sun.values.IntValue
+import com.cubk.event.annotations.EventTarget
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.CPacketPlayerDigging
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import org.lwjgl.opengl.GL11
 import java.awt.Color
@@ -22,6 +26,11 @@ import kotlin.math.sin
 
 
 class KillAura : Module("KillAura",Category.Combat) {
+    //最大攻击速度
+    private val maxCPSValue = IntValue("MaxCPS", 8, 20, 0)
+
+    //最小攻击速度
+    private val minCPSValue = IntValue("MinCPS", 5, 19, 0)
 
     //攻击距离
     val rangeValue = FloatValue("Range", 3F, 8F, 3F)
@@ -61,6 +70,7 @@ class KillAura : Module("KillAura",Category.Combat) {
     //打人光环显示
     private val mark = BoolValue("Mark", true)
 
+    val attackTimer = TimeUtil()
 
     var target: EntityLivingBase? = null
     var click = 0
@@ -73,13 +83,15 @@ class KillAura : Module("KillAura",Category.Combat) {
         if(!state) return
 
         for(entity in mc.world.loadedEntityList) {
-            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get() && entity != mc.player) {
+            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get() && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get()))) {
                 target = entity as EntityLivingBase?
+                attackTimer.reset()
                 attackEntity(entity)
             } else {
                 target = null
             }
         }
+
 
         if (target == null) {
             stopBlocking()
@@ -90,6 +102,7 @@ class KillAura : Module("KillAura",Category.Combat) {
 
     @EventTarget
     fun onRender3D(event: Render3DEvent) {
+        if(!state) return
 
         if (circleValue.get()) {
             GL11.glPushMatrix()
@@ -137,9 +150,13 @@ class KillAura : Module("KillAura",Category.Combat) {
 
     }
 
+    // CPS
+    fun randomClickDelay(minCPS: Int, maxCPS: Int): Long {
+        return (Math.random() * (1000 / minCPS - 1000 / maxCPS + 1) + 1000 / maxCPS).toLong()
+    }
 
     //视角
-    fun isFovInRange(entity: Entity? = target, fov: Float = fovValue.get()): Boolean {
+    private fun isFovInRange(entity: Entity? = target, fov: Float = fovValue.get()): Boolean {
 
         var fov = fov
         fov *= 0.5.toFloat()
@@ -149,7 +166,7 @@ class KillAura : Module("KillAura",Category.Combat) {
     }
 
     //获取玩家转头
-    fun getPlayerRotation(entity: Entity?): Float {
+    private fun getPlayerRotation(entity: Entity?): Float {
         val x: Double = entity!!.posX - mc.player.posX
         val z: Double = entity.posZ - mc.player.posZ
         var yaw = atan2(x, z) * 57.2957795
@@ -160,6 +177,10 @@ class KillAura : Module("KillAura",Category.Combat) {
     fun startBlock() {
 
         if(!isFovInRange()) {
+            return
+        }
+
+        if(!autoBlockvalue.get()) {
             return
         }
 
@@ -183,11 +204,14 @@ class KillAura : Module("KillAura",Category.Combat) {
             return
         }
 
+
       //  drawEntityESP(entity, Color(255, 255, 255).rgb)
 
         stopBlocking()
 
+        mc.player.swingArm(EnumHand.MAIN_HAND)
         mc.playerController.attackEntity(mc.player, entity!!)
+
 
     }
 

@@ -29,7 +29,7 @@ public class GrimAC
     int vl;
 
     public GrimAC() {
-        super("反作弊", Category.Misc);
+        super("GrimAC", Category.Misc);
     }
 
     @Override
@@ -67,6 +67,9 @@ public class GrimAC
         if (!(entity instanceof EntityLivingBase)) {
             return;
         }
+        if(entity == mc.player) {
+            return;
+        }
         EntityPlayer attacker = null;
         int attackerCount = 0;
         for (Entity worldEntity : mc.world.getLoadedEntityList()) {
@@ -81,9 +84,9 @@ public class GrimAC
             return;
         }
         double reach = attacker.getDistanceToEntity(entity);
-        String prefix = ( TextFormatting.GRAY) + "[" + (TextFormatting.AQUA) + "黑客检测器" + (TextFormatting.GRAY) + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + attacker.getName() + (TextFormatting.WHITE) + " 触发了 ";
+        String prefix = (Object)((Object)TextFormatting.GRAY) + "[" + TextFormatting.AQUA + "GrimAC" + TextFormatting.GRAY + "] " + TextFormatting.RESET + TextFormatting.GRAY + ((EntityPlayer)attacker).getName() + TextFormatting.WHITE + " failed ";
         if (reach > 3.0) {
-            ClientUtils.chatlog(prefix + (TextFormatting.AQUA) + "长臂猿" + (TextFormatting.WHITE) + " (次数:" + attackerCount + ".0)" + (TextFormatting.GRAY) + ": " + DF_1.format(reach) + " blocks");
+            ClientUtils.chatlog(prefix + TextFormatting.AQUA + "Reach" + TextFormatting.WHITE + " (vl:" + attackerCount + ".0)" + TextFormatting.GRAY + ": " + DF_1.format(reach) + " blocks");
         }
 
     }
@@ -92,15 +95,18 @@ public class GrimAC
         if (player.equals(mc.player)) {
             return;
         }
-        String prefix =  TextFormatting.GRAY + "[" +  TextFormatting.AQUA + "黑客检测器" +  TextFormatting.GRAY + "] " + (TextFormatting.RESET) + (TextFormatting.GRAY) + player.getName() + (TextFormatting.WHITE) + " 触发了 ";
+        if(player == mc.player) {
+            return;
+        }
+        String prefix = (Object)((Object)TextFormatting.GRAY) + "[" + TextFormatting.AQUA + "GrimAC" + TextFormatting.GRAY + "] " + TextFormatting.RESET + TextFormatting.GRAY + player.getName() + TextFormatting.WHITE + " failed ";
         if (player.isUsingItem() && (player.posX - player.lastTickPosX > 0.2 || player.posZ - player.lastTickPosZ > 0.2)) {
-            ClientUtils.chatlog(prefix +  TextFormatting.AQUA + "无减速" +  TextFormatting.WHITE + " (次数:" + vl + ".0)");
+            ClientUtils.chatlog(prefix + TextFormatting.AQUA + "NoSlowA (Prediction)" + (Object)TextFormatting.WHITE + " (vl:" + this.vl + ".0)");
             ++vl;
 
         }
 
         if(player.motionY >= 0 && player.hurtTime > 0 && velocityValue.get()) {
-            ClientUtils.chatlog(prefix + (TextFormatting.AQUA) + "防击退" + (TextFormatting.WHITE) + " (次数:" + vl + ".0)" + (TextFormatting.GRAY) + ": " + DF_1.format(mc.player.motionY) + " blocks");
+            ClientUtils.chatlog(prefix + TextFormatting.AQUA + "VelocityA" + TextFormatting.WHITE + " (vl:" + this.vl + ".0)");
         }
 
         if (!mc.world.loadedEntityList.contains(player) || !player.isEntityAlive()) {

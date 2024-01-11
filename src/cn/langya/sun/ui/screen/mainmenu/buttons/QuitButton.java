@@ -13,7 +13,7 @@ import java.awt.*;
 public class QuitButton extends ImageButton {
 
 	public QuitButton(int x, int y) {
-		super("退出", new ResourceLocation("lunar/icons/exit.png"), x, y);
+		super("Quit", new ResourceLocation("lunar/icons/exit.png"), x, y);
 	}
 	
 	@Override

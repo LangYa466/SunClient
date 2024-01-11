@@ -5,6 +5,8 @@ import cn.langya.sun.modules.impl.render.*;
 import cn.langya.sun.ui.impl.notification.*;
 import cn.langya.sun.values.AbstractValue;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 
 public class UIManager {
@@ -24,7 +26,7 @@ public class UIManager {
         addUi(new Text());
     }
 
-    public void addNotification(String title, String content, NotificationType type) {
+    public void addNotification(String title, String content, TrayIcon.MessageType type) throws IOException, AWTException {
         NotificationManager.add(title, content, type);
     }
 

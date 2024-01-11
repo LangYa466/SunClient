@@ -1,6 +1,7 @@
 // By PaiMon
 package cn.langya.sun.modules.impl.move;
 
+import cn.langya.sun.ui.screen.clickgui.DropdownClickGUI;
 import com.cubk.event.annotations.EventTarget;
 import cn.langya.sun.events.impl.UpdateEvent;
 import cn.langya.sun.modules.Category;
@@ -46,7 +47,7 @@ public class InvMove extends Module
     
     @EventTarget
     public void onMotion(final UpdateEvent event) {
-        if (mc.currentScreen instanceof GuiContainer || mc.currentScreen instanceof ClickGui ) {
+        if (mc.currentScreen instanceof GuiContainer || mc.currentScreen instanceof ClickGui || mc.currentScreen instanceof DropdownClickGUI){
             updateStates();
         }
     }

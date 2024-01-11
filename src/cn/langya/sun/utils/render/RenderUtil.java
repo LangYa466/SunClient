@@ -1,6 +1,7 @@
 package cn.langya.sun.utils.render;
 
 import cn.langya.sun.utils.Utils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -224,5 +225,71 @@ public class RenderUtil extends Utils {
         return (float) Math.sin(Math.toRadians(angle));
     }
 
+    public static void drawTriangle(double x, double y, double x1, double y1, double x2, double y2, int color) {
+        GL11.glPushMatrix();
+        GL11.glEnable(3042);
+        GL11.glDisable(3553);
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(2848);
+        GL11.glPushMatrix();
+        RenderUtil.glColor(color);
+        GL11.glBegin(4);
+        GL11.glVertex2d(x, y);
+        GL11.glVertex2d(x1, y1);
+        GL11.glVertex2d(x2, y2);
+        GL11.glEnd();
+        GL11.glPopMatrix();
+        GL11.glEnable(3553);
+        GL11.glDisable(3042);
+        GL11.glDisable(2848);
+        GL11.glPopMatrix();
+        Gui.drawRect(0, 0, 0, 0, 0);
+    }
+
+    public static void drawModalRectWithCustomSizedTexture(float x, float y, float u, float v, float width, float height, float textureWidth, float textureHeight) {
+        float f = 1.0f / textureWidth;
+        float f1 = 1.0f / textureHeight;
+        BufferBuilder tessellator = Tessellator.getInstance().getBuffer();
+        tessellator.begin(7, DefaultVertexFormats.POSITION_TEX);
+        tessellator.pos(x, y + height, 0.0).tex(u * f, (v + height) * f1).endVertex();
+        tessellator.pos(x + width, y + height, 0.0).tex((u + width) * f, (v + height) * f1).endVertex();
+        tessellator.pos(x + width, y, 0.0).tex((u + width) * f, v * f1).endVertex();
+        tessellator.pos(x, y, 0.0).tex(u * f, v * f1).endVertex();
+        tessellator.finishDrawing();
+    }
+
+    public static void drawTexturedRect(float x, float y, float width, float height, ResourceLocation image, int color) {
+        boolean disableAlpha;
+        GL11.glPushMatrix();
+        boolean enableBlend = GL11.glIsEnabled(3042);
+        boolean bl = disableAlpha = !GL11.glIsEnabled(3008);
+        if (!enableBlend) {
+            GL11.glEnable(3042);
+        }
+        if (!disableAlpha) {
+            GL11.glDisable(3008);
+        }
+        Minecraft.getMinecraft().getTextureManager().bindTexture(image);
+        RenderUtil.glColor(color);
+        RenderUtil.drawModalRectWithCustomSizedTexture(x, y, 0.0f, 0.0f, width, height, width, height);
+        if (!enableBlend) {
+            GL11.glDisable(3042);
+        }
+        if (!disableAlpha) {
+            GL11.glEnable(3008);
+        }
+        GL11.glPopMatrix();
+    }
+
+    public static void drawShadow(float x, float y, float x2, float y2) {
+        RenderUtil.drawTexturedRect(x - 9.0f, y - 9.0f, 9.0f, 9.0f, new ResourceLocation("shaders/paneltopleft.png"), Color.white.getRGB());
+        RenderUtil.drawTexturedRect(x - 9.0f, y2, 9.0f, 9.0f, new ResourceLocation("shaders/panelbottomleft.png"), Color.white.getRGB());
+        RenderUtil.drawTexturedRect(x2, y2, 9.0f, 9.0f, new ResourceLocation("shaders/panelbottomright.png"), Color.white.getRGB());
+        RenderUtil.drawTexturedRect(x2, y - 9.0f, 9.0f, 9.0f, new ResourceLocation("shaders/paneltopright.png"), Color.white.getRGB());
+        RenderUtil.drawTexturedRect(x - 9.0f, y, 9.0f, y2 - y, new ResourceLocation("shaders/panelleft.png"), Color.white.getRGB());
+        RenderUtil.drawTexturedRect(x2, y, 9.0f, y2 - y, new ResourceLocation("shaders/panelright.png"), Color.white.getRGB());
+        RenderUtil.drawTexturedRect(x, y - 9.0f, x2 - x, 9.0f, new ResourceLocation("shaders/paneltop.png"), Color.white.getRGB());
+        RenderUtil.drawTexturedRect(x, y2, x2 - x, 9.0f, new ResourceLocation("shaders/panelbottom.png"), Color.white.getRGB());
+    }
 
 }

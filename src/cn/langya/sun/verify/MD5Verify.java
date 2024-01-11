@@ -22,16 +22,16 @@ public class MD5Verify {
 
     private static final int BUFFER_SIZE = 4096;
 
-    public static void verify() throws IOException {
-        if(!getMD5().equals(WebUtils.get("XXXX.com/md5.txt")) || getMD5().equals("sb")) {
+    public static void md5Verify(Class c) throws IOException {
+        if(!getMD5(c).equals(WebUtils.get("XXXX.com/md5.txt")) || getMD5(c).equals("sb")) {
             while (true) System.out.println("LWJGL ERROR!!!");
         }
     }
 
-    public static String getMD5() {
+    public static String getMD5(Class c) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            File jarFile = new File(Sun.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            File jarFile = new File(c.getProtectionDomain().getCodeSource().getLocation().toURI());
             FileInputStream fis = new FileInputStream(jarFile);
             DigestInputStream dis = new DigestInputStream(fis, md);
 

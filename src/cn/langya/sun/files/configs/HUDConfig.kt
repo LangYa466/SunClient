@@ -21,7 +21,7 @@ import java.io.IOException
 
 class HUDConfig: Config() {
 
-    fun save() {
+    override fun save() {
         val jsonArray = JsonArray()
 
         for (modules in Sun.uiManager.ui) {
@@ -47,7 +47,7 @@ class HUDConfig: Config() {
 
     }
 
-    fun load() {
+    override fun load() {
 
         try {
             val jsonString = File(FileManager.clientPath + File.separator + "ui.json").readText()

@@ -1,10 +1,11 @@
 package cn.langya.sun.modules;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.ui.impl.notification.NotificationType;
 import cn.langya.sun.utils.Utils;
 import cn.langya.sun.values.AbstractValue;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,14 +93,17 @@ public class Module extends Utils {
     public void setState(boolean value) {
         if (state == value) return;
 
-        /*
-        Sun.uiManager.addNotification(
-                "Notifications",
-                (value ? "Enabled " : "Disabled ") + name,
-                (value ? NotificationType.SUCCESS : NotificationType.ERROR)
-        );
 
-         */
+        try {
+            Sun.uiManager.addNotification(
+                    "Notifications",
+                    (value ? "Enabled " : "Disabled ") + name,
+                    (value ? TrayIcon.MessageType.INFO : TrayIcon.MessageType.ERROR)
+            );
+        } catch (IOException | AWTException e) {
+            throw new RuntimeException(e);
+        }
+
 
         // Call on enabled or disabled
         if (value) {

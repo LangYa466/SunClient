@@ -12,6 +12,7 @@ import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.modules.impl.misc.GrimAC;
 import cn.langya.sun.modules.impl.move.Fly;
 import cn.langya.sun.modules.impl.move.InvMove;
+import cn.langya.sun.modules.impl.move.Sprint;
 import cn.langya.sun.modules.impl.world.Eagle;
 import cn.langya.sun.utils.ClientUtils;
 import com.cubk.event.annotations.EventTarget;
@@ -23,16 +24,22 @@ public class ModuleManager {
     public List<Module> modules = new ArrayList<>();
 
     public ModuleManager() {
-        ClientUtils.loginfo("[模块系统] 加载模块中...");
+        ClientUtils.loginfo("[ModuleManager] Loading...");
+
         registerModules();
-        ClientUtils.loginfo("[模块系统] 已加载模块: " + modules.size());
+        ClientUtils.loginfo("[ModuleManager] Load Modules: " + modules.size());
         Sun.eventManager.register(this);
     }
 
     @EventTarget
     private void onKeyPress(KeyPressEvent event) {
-        modules.stream().filter(module -> module.getKeyCode() == event.getKeyCode()).forEach(Module::toggle);
+        for (final Module m : this.modules) {
+            if (m.keyCode == event.getKeyCode() && event.getKeyCode() != -1) {
+                m.toggle();
+            }
+        }
     }
+
 
     @EventTarget
     private void onUpdate(UpdateEvent event) {}
@@ -57,5 +64,26 @@ public class ModuleManager {
         registerModule(new AutoClicker());
         registerModule(new GrimAC());
         registerModule(new InvMove());
+        registerModule(new Sprint());
     }
+
+    public Module getModule(final String name) {
+        for (final Module m : modules) {
+            if (m.getName().equalsIgnoreCase(name)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public List<Module> getModsByCategory(final Category m) {
+        final List<Module> findList = new ArrayList<Module>();
+        for (final Module mod : this.modules) {
+            if (mod.getCategory() == m) {
+                findList.add(mod);
+            }
+        }
+        return findList;
+    }
+
 }

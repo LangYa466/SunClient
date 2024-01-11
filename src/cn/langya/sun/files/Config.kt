@@ -10,4 +10,8 @@ import com.google.gson.JsonArray
  * @Version 1.0
  */
 
-open class Config {}
+open class Config {
+    open fun load() {}
+    open fun save() {}
+
+}

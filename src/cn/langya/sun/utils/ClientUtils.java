@@ -2,6 +2,7 @@ package cn.langya.sun.utils;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +15,7 @@ public class ClientUtils extends Utils{
 
     public static void chatlog(String message) {
         final String text = String.valueOf(message);
-        mc.ingameGUI.getChatGUI().printChatMessage(new TextComponentString(text));
+        mc.ingameGUI.getChatGUI().printChatMessage(new TextComponentString(TextFormatting.BLUE+text));
     }
 
 }

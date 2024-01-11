@@ -1,11 +1,13 @@
 package cn.langya.sun.ui.impl.notification;
 
+import java.awt.*;
+
 public class Notification {
     private String title;
     private String content;
-    private NotificationType type;
+    private TrayIcon.MessageType type;
 
-    public Notification(String title, String content, NotificationType type) {
+    public Notification(String title, String content, TrayIcon.MessageType type) {
         this.title = title;
         this.content = content;
         this.type = type;
@@ -28,11 +30,11 @@ public class Notification {
         this.content = content;
     }
 
-    public NotificationType getType() {
+    public TrayIcon.MessageType getType() {
         return type;
     }
 
-    public void setType(NotificationType type) {
+    public void setType(TrayIcon.MessageType type) {
         this.type = type;
     }
 }

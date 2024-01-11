@@ -14,7 +14,7 @@ import com.cubk.event.annotations.EventTarget
  * @Version 1.0
  */
 
-class Critical: Module("刀刀暴击",true,Category.Combat) {
+class Critical: Module("Critical",true,Category.Combat) {
 
     private val modes = StringValue("Modes","Jump")
 

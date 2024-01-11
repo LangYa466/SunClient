@@ -139,6 +139,16 @@ public class GuiChat extends GuiScreen implements ITabCompleter
 
             this.mc.displayGuiScreen((GuiScreen)null);
         }
+        if (!this.inputField.getText().startsWith(String.valueOf(Sun.commandManager.prefix))) {
+            return;
+        }
+        Sun.commandManager.autoComplete(this.inputField.getText());
+        if (this.inputField.getText().startsWith(String.valueOf(Sun.commandManager.prefix)) || this.inputField.getText().startsWith("/")) {
+            this.inputField.setMaxStringLength(10000);
+        }
+        else {
+            this.inputField.setMaxStringLength(100);
+        }
     }
 
     /**

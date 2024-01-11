@@ -7,8 +7,10 @@ import cn.langya.sun.modules.Module;
 
 public class Client extends Module {
 
+
     public Client() {
-        super("客户端", true, Category.Client);
+        super("Client", false, Category.Client);
+        setState(true);
     }
     @EventTarget
     public void onRender2D(Render2DEvent event) {
