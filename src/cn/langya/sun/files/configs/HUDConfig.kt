@@ -70,8 +70,8 @@ class HUDConfig: Config() {
 
                 uiMap[name]?.apply {
                     this.state = state
-                    this.posX = x
-                    this.posY = y
+                    this.posX = posX
+                    this.posY = posY
                 }
             }
         } catch (e: IOException) {
