@@ -25,9 +25,7 @@ class Fly: Module("Fly",true,Category.Move) {
 
     @EventTarget
     fun onMove(e: MoveEvent) {
-
-        when(modes.get()) {
-
+        /*when(modes.get()) {
             "Vanilla" -> {
                 if(mc.gameSettings.keyBindJump.isKeyDown) {
                     mc.player.motionY += 0.042
@@ -37,9 +35,6 @@ class Fly: Module("Fly",true,Category.Move) {
             "Jump" -> {
                 mc.player.onGround = true
             }
-
-        }
-
+        }*/
     }
-
 }

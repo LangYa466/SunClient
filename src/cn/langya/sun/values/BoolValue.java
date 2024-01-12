@@ -5,6 +5,7 @@ public class BoolValue extends AbstractValue<Boolean> {
     private final String name;
 
     public BoolValue(String name, boolean state) {
+        super(name);
         this.name = name;
         this.state = state;
     }

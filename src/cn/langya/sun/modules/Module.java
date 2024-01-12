@@ -9,6 +9,7 @@ import net.minecraft.init.SoundEvents;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Module extends Utils {
@@ -20,8 +21,8 @@ public class Module extends Utils {
     public final Category category;
     public boolean state;
     private List<AbstractValue> values = new ArrayList<>();
-    public void add(AbstractValue value) {
-        values.add(value);
+    public void add(AbstractValue... value) {
+        values = Arrays.asList(value);
     }
     public Module(String name, Category category) {
         this.name = name;
@@ -96,11 +97,11 @@ public class Module extends Utils {
         if (state == value) return;
 
 
-        NotificationManager.add(
-                "Notifications",
-                (value ? "Enabled " : "Disabled ") + name,
-                (value ? TrayIcon.MessageType.INFO : TrayIcon.MessageType.ERROR)
-        );
+        //NotificationManager.add(
+        //        "Notifications",
+        //        (value ? "Enabled " : "Disabled ") + name,
+        //        (value ? TrayIcon.MessageType.INFO : TrayIcon.MessageType.ERROR)
+        //);
 
         // Call on enabled or disabled
         if (value) {

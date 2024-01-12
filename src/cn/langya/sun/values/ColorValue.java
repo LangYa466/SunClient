@@ -7,6 +7,7 @@ public class ColorValue extends AbstractValue<Integer>
     private int color;
     
     public ColorValue(final String name, final int color) {
+        super(name);
         this.set(color);
         this.color = color;
     }

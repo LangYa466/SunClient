@@ -11,17 +11,11 @@ public class StringValue extends AbstractValue<String>{
     private List<String> values;
 
     public StringValue(String name, String value, String... values) {
+        super(name);
         this.name = name;
         this.value = value;
         this.values = new ObjectArrayList<>(values);
     }
-
-    public StringValue(String name, String text) {
-        this.name = name;
-        this.value = text;
-        this.values = new ObjectArrayList<>();
-    }
-
     @Override
     public String get() {
         return value;

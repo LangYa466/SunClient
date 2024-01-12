@@ -77,7 +77,7 @@ public class DropdownClickGUI extends GuiScreen
             final float x = this.posX.get(cOrder);
             final float y = this.posY.get(cOrder);
             RenderUtil.drawRect(x, y, x + 110.0f, y + 15.0f, new Color(255, 255, 255).getRGB());
-            FontManager.drawString(category, (int) (x + 55.0f), (int) (y + 5.0f), new Color(30, 30, 30).getRGB());
+            FontManager.drawCenteredString(category, (int) (x + 55.0f), (int) (y + 5.0f), new Color(30, 30, 30).getRGB());
             int mOrder = -1;
             float settingY = 0.0f;
             for (final Module m : Sun.moduleManager.getModsByCategory(c)) {
@@ -85,7 +85,7 @@ public class DropdownClickGUI extends GuiScreen
                 final boolean isOnModule = mouseX > x && mouseY > y + 15.0f + settingY + mOrder * 20 && mouseX < x + 110.0f && mouseY < y + mOrder * 20 + 35.0f + settingY;
                 final int backgroundColor = isOnModule ? (m.state ? new Color(140, 190, 240).getRGB() : new Color(240, 240, 240).getRGB()) : (m.state ? new Color(150, 200, 250).getRGB() : new Color(250, 250, 250).getRGB());
                 RenderUtil.drawRect(x, y + 15.0f + mOrder * 20 + settingY, x + 110.0f, y + mOrder * 20 + 35.0f + settingY, backgroundColor);
-                FontManager.drawString(m.name, (int) (x + 55.0f), (int) (y + 22.0f + mOrder * 20 + settingY),  Color.BLACK.getRGB());
+                FontManager.drawCenteredString(m.name, (int) (x + 55.0f), (int) (y + 22.0f + mOrder * 20 + settingY),  Color.BLACK.getRGB());
                 if (this.inSetting.contains(m)) {
                     int currentSettingY = 0;
                     for (final AbstractValue<?> v : m.getValues()) {

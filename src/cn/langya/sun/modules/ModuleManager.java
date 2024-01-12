@@ -31,7 +31,6 @@ public class ModuleManager {
 
     public ModuleManager() {
         ClientUtils.loginfo("[ModuleManager] Loading...");
-
         registerModules();
         ClientUtils.loginfo("[ModuleManager] Load Modules: " + modules.size());
         Sun.eventManager.register(this);

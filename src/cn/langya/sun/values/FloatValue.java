@@ -6,6 +6,7 @@ public class FloatValue extends AbstractValue<Float> {
     private float maximum;
     private float minimum;
     public FloatValue(String name, float defaultValue, float maximum, float minimum) {
+        super(name);
         this.name = name;
         this.number = defaultValue;
         this.maximum = maximum;

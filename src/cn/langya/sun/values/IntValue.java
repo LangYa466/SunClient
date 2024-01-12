@@ -6,6 +6,7 @@ public class IntValue extends AbstractValue<Integer> {
     private int maximum;
     private int minimum;
     public IntValue(String name, int defaultValue, int maximum, int minimum) {
+        super(name);
         this.name = name;
         this.number = defaultValue;
         this.maximum = maximum;
