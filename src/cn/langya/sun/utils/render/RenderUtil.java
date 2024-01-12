@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -165,33 +166,31 @@ public class RenderUtil extends Utils {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
 
+
+
     public static void drawRect(double left, double top, double right, double bottom, int color) {
-        if (left > right) {
-            double cacheRight = right;
-            right = left;
-            left = cacheRight;
-        }
-        if (top > bottom) {
-            double cacheBottom = bottom;
-            bottom = top;
-            top = cacheBottom;
-        }
-        float f3 = (float) ((color >> 24) & 255) / 255.0f;
-        float f = (float) ((color >> 16) & 255) / 255.0f;
-        float f1 = (float) ((color >> 8) & 255) / 255.0f;
-        float f2 = (float) (color & 255) / 255.0f;
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glColor4f(f, f1, f2, f3);
-        GL11.glBegin(GL11.GL_QUADS);
-        GL11.glVertex2d(left, bottom);
-        GL11.glVertex2d(right, bottom);
-        GL11.glVertex2d(right, top);
-        GL11.glVertex2d(left, top);
-        GL11.glEnd();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_BLEND);
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder worldrenderer = tessellator.getBuffer();
+        double minX = Math.min(left, right);
+        double maxX = Math.max(left, right);
+        double minY = Math.min(top, bottom);
+        double maxY = Math.max(top, bottom);
+        float alpha = (float)(color >> 24 & 0xFF) / 255.0f;
+        float red = (float)(color >> 16 & 0xFF) / 255.0f;
+        float green = (float)(color >> 8 & 0xFF) / 255.0f;
+        float blue = (float)(color & 0xFF) / 255.0f;
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.color(red, green, blue, alpha);
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.pos(minX, maxY, 0.0).endVertex();
+        worldrenderer.pos(maxX, maxY, 0.0).endVertex();
+        worldrenderer.pos(maxX, minY, 0.0).endVertex();
+        worldrenderer.pos(minX, minY, 0.0).endVertex();
+        tessellator.draw();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
     }
 
     public static void drawBorderedRect(float x, float y, float x2, float y2, float width, int color1, int color2) {
@@ -290,6 +289,83 @@ public class RenderUtil extends Utils {
         RenderUtil.drawTexturedRect(x2, y, 9.0f, y2 - y, new ResourceLocation("shaders/panelright.png"), Color.white.getRGB());
         RenderUtil.drawTexturedRect(x, y - 9.0f, x2 - x, 9.0f, new ResourceLocation("shaders/paneltop.png"), Color.white.getRGB());
         RenderUtil.drawTexturedRect(x, y2, x2 - x, 9.0f, new ResourceLocation("shaders/panelbottom.png"), Color.white.getRGB());
+    }
+
+    public static void drawImage(ResourceLocation image, float x, float y, int width, int height) {
+        GL11.glDisable(2929);
+        GL11.glEnable(3042);
+        GL11.glDepthMask(false);
+        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        mc.getTextureManager().bindTexture(image);
+        float f = 1.0f / (float)width;
+        float f2 = 1.0f / (float)height;
+        BufferBuilder worldrenderer = Tessellator.getInstance().getBuffer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(x, y + (float)height, 0.0).tex(0.0f * f, (float)height * f2).endVertex();
+        worldrenderer.pos(x + (float)width, y + (float)height, 0.0).tex((float)width * f, (float)height * f2).endVertex();
+        worldrenderer.pos(x + (float)width, y, 0.0).tex((float)width * f, 0.0f * f2).endVertex();
+        worldrenderer.pos(x, y, 0.0).tex(0.0f * f, 0.0f * f2).endVertex();
+        Tessellator.getInstance().draw();
+        GL11.glDepthMask(true);
+        GL11.glDisable(3042);
+        GL11.glEnable(2929);
+    }
+
+    public static void drawImage(ResourceLocation imageLocation, double x, double y, double width, double height, int color) {
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(770, 771);
+        GlStateManager.disableAlpha();
+        mc.getTextureManager().bindTexture(imageLocation);
+        RenderUtil.glColor(color);
+        Gui.drawModalRectWithCustomSizedTexture((int) x, (int) y, 0.0f, 0.0f, (int) width, (int) height, (float) width, (float) height);
+        GlStateManager.resetColor();
+        GlStateManager.bindTexture(0);
+        GlStateManager.enableAlpha();
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+    }
+
+    public static void drawImage(ResourceLocation image, int x, int y, int width, int height) {
+        RenderUtil.drawImage(image, x, y, width, height, Color.white.getRGB());
+    }
+
+    public static void color(int color) {
+        GL11.glColor4ub((byte)(color >> 16 & 0xFF), (byte)(color >> 8 & 0xFF), (byte)(color & 0xFF), (byte)(color >> 24 & 0xFF));
+    }
+
+    public static void drawGoodCircle(double x, double y, float radius, int color) {
+        RenderUtil.color(color);
+        GLUtil.setup2DRendering(() -> {
+            GL11.glEnable(2832);
+            GL11.glHint(3153, 4354);
+            GL11.glPointSize(radius * (float)(2 * Minecraft.getMinecraft().gameSettings.guiScale));
+            GLUtil.render(0, () -> GL11.glVertex2d(x, y));
+        });
+    }
+
+    public static void drawRoundRect(double d, double e, double g, double h, int color) {
+        RenderUtil.drawRect(d + 1.0, e, g - 1.0, h, color);
+        RenderUtil.drawRect(d, e + 1.0, d + 1.0, h - 1.0, color);
+        RenderUtil.drawRect(d + 1.0, e + 1.0, d + 0.5, e + 0.5, color);
+        RenderUtil.drawRect(d + 1.0, e + 1.0, d + 0.5, e + 0.5, color);
+        RenderUtil.drawRect(g - 1.0, e + 1.0, g - 0.5, e + 0.5, color);
+        RenderUtil.drawRect(g - 1.0, e + 1.0, g, h - 1.0, color);
+        RenderUtil.drawRect(d + 1.0, h - 1.0, d + 0.5, h - 0.5, color);
+        RenderUtil.drawRect(g - 1.0, h - 1.0, g - 0.5, h - 0.5, color);
+    }
+
+    public static void startGlScissor(int x, int y, int width, int height) {
+        int scaleFactor = new ScaledResolution(mc).getScaleFactor();
+        GL11.glPushMatrix();
+        GL11.glEnable(3089);
+        GL11.glScissor(x * scaleFactor, RenderUtil.mc.displayHeight - (y + height) * scaleFactor, width * scaleFactor, (height += 14) * scaleFactor);
+    }
+
+    public static void stopGlScissor() {
+        GL11.glDisable(3089);
+        GL11.glPopMatrix();
     }
 
 }

@@ -1,11 +1,10 @@
 // by paimon
-package cn.langya.sun.shit;
+package cn.langya.sun.utils.misc;
 
 import java.text.*;
 import java.security.*;
 import java.util.*;
-import net.minecraft.client.*;
-import net.minecraft.util.*;
+
 import net.minecraft.util.math.MathHelper;
 
 import java.math.*;

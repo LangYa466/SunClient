@@ -2022,36 +2022,31 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
     private void runTickKeyboard() throws IOException
     {
-        while (Keyboard.next())
-        {
+        while (Keyboard.next()) {
             int i = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey();
 
-            if (this.debugCrashKeyPressTime > 0L)
-            {
-                if (getSystemTime() - this.debugCrashKeyPressTime >= 6000L)
-                {
+            if (this.debugCrashKeyPressTime > 0L) {
+                if (getSystemTime() - this.debugCrashKeyPressTime >= 6000L) {
                     throw new ReportedException(new CrashReport("Manually triggered debug crash", new Throwable()));
                 }
 
-                if (!Keyboard.isKeyDown(46) || !Keyboard.isKeyDown(61))
-                {
+                if (!Keyboard.isKeyDown(46) || !Keyboard.isKeyDown(61)) {
                     this.debugCrashKeyPressTime = -1L;
                 }
-            }
-            else if (Keyboard.isKeyDown(46) && Keyboard.isKeyDown(61))
-            {
+            } else if (Keyboard.isKeyDown(46) && Keyboard.isKeyDown(61)) {
                 this.actionKeyF3 = true;
                 this.debugCrashKeyPressTime = getSystemTime();
             }
 
             this.dispatchKeypresses();
 
-            if (this.currentScreen != null)
-            {
+            if (this.currentScreen != null) {
                 this.currentScreen.handleKeyboardInput();
-            }else {
-                Sun.eventManager.register(new KeyPressEvent(i));
             }
+
+            if (Keyboard.getEventKeyState() && currentScreen == null) {
+                Sun.eventManager.call(new KeyPressEvent(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey()));
+        }
 
             boolean flag = Keyboard.getEventKeyState();
 

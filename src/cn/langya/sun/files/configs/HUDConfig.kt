@@ -24,13 +24,13 @@ class HUDConfig: Config() {
     override fun save() {
         val jsonArray = JsonArray()
 
-        for (modules in Sun.uiManager.ui) {
+        for (modules in Sun.uiManager.modules) {
             val elementObject = JsonObject()
 
             elementObject.addProperty("Name", modules.name)
             elementObject.addProperty("State", modules.state)
-            elementObject.addProperty("X", modules.x)
-            elementObject.addProperty("Y", modules.y)
+            elementObject.addProperty("X", modules.posX)
+            elementObject.addProperty("Y", modules.posY)
 
             jsonArray.add(elementObject)
         }
@@ -58,7 +58,7 @@ class HUDConfig: Config() {
                 return
             }
 
-            val uiMap = Sun.uiManager.ui.associateBy { it.name }
+            val uiMap = Sun.uiManager.modules.associateBy { it.name }
 
             for (jsonElement in jsonArray) {
                 val jsonObject = jsonElement.asJsonObject
@@ -70,8 +70,8 @@ class HUDConfig: Config() {
 
                 uiMap[name]?.apply {
                     this.state = state
-                    this.x = x
-                    this.y = y
+                    this.posX = x
+                    this.posY = y
                 }
             }
         } catch (e: IOException) {

@@ -194,40 +194,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
             }
         }
 
-        for (Ui m : Sun.uiManager.ui) {
-
-            if (!m.state) {
-                continue;
-            }
-
-            final double xpos = m.x;
-            final double ypos = m.y;
-            final double mwidth = m.width;
-            final double mheight = m.height;
-
-            if (mouseX > xpos && mouseY > ypos && mouseX < xpos + mwidth && mouseY < ypos + mheight && Mouse.isButtonDown(0)) {
-                RenderUtil.drawBorderedRect((float) xpos, (float) ypos, (float) (xpos + mwidth), (float) (ypos + mheight), 2.0f, new Color(225, 225, 225).getRGB(), 0);
-                if (m.moveX == 0.0 && m.moveY == 0.0) {
-                    m.moveX = (int) (mouseX - xpos);
-                    m.moveY = (int) (mouseY - ypos);
-                } else {
-                    double setX = mouseX - m.moveX;
-                    double setY = mouseY - m.moveY;
-                    setX = Math.min(Math.max(0.0, setX), RenderUtil.getWidth() - m.width);
-                    setY = Math.min(Math.max(0.0, setY), RenderUtil.getHeight() - m.height);
-                    m.x = (int) setX;
-                    m.y = (int) setY;
-                }
-            } else {
-                if (m.moveX == 0.0 && m.moveY == 0.0) {
-                    continue;
-                }
-                m.moveX = 0;
-                m.moveY = 0;
-            }
-
-        }
-
 
         this.inputField.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);

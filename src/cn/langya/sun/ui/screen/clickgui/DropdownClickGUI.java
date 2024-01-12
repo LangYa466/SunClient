@@ -5,7 +5,7 @@ package cn.langya.sun.ui.screen.clickgui;
 import cn.langya.sun.Sun;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
-import cn.langya.sun.shit.MathUtil;
+import cn.langya.sun.utils.misc.MathUtil;
 import cn.langya.sun.ui.FontManager;
 import cn.langya.sun.utils.render.RenderUtil;
 import cn.langya.sun.values.*;

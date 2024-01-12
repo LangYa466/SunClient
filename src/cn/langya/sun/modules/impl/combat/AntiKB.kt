@@ -6,7 +6,7 @@ import cn.langya.sun.events.impl.PacketSendEvent
 import cn.langya.sun.events.impl.UpdateEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
-import cn.langya.sun.shit.MathUtil
+import cn.langya.sun.utils.misc.MathUtil
 import cn.langya.sun.utils.player.MoveUtils
 import cn.langya.sun.values.*
 import net.minecraft.client.Minecraft

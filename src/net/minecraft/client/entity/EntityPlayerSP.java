@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import cn.langya.sun.Sun;
 import cn.langya.sun.command.Command;
 import cn.langya.sun.events.impl.ChatEvent;
+import cn.langya.sun.events.impl.UpdateEvent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ElytraSound;
@@ -257,6 +258,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
                 this.onUpdateWalkingPlayer();
             }
         }
+        Sun.eventManager.call(new UpdateEvent());
     }
 
     /**

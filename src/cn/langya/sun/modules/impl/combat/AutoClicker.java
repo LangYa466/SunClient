@@ -13,7 +13,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumHand;
 import org.apache.commons.lang3.RandomUtils;
 
-import static cn.langya.sun.shit.MathUtil.random;
+import static cn.langya.sun.utils.misc.MathUtil.random;
 
 /**
  * @author LangYa

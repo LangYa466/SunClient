@@ -198,6 +198,19 @@ public class Gui
         tessellator.draw();
     }
 
+    public static void drawModalRectWithCustomSizedTexture(final float x, final float y, final float u, final float v, final float width, final float height, final float textureWidth, final float textureHeight) {
+        final float f = 1.0f / textureWidth;
+        final float f2 = 1.0f / textureHeight;
+        final Tessellator tessellator = Tessellator.getInstance();
+        final BufferBuilder worldrenderer = tessellator.getBuffer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(x, y + height, 0.0).tex(u * f, (v + height) * f2).endVertex();
+        worldrenderer.pos(x + width, y + height, 0.0).tex((u + width) * f, (v + height) * f2).endVertex();
+        worldrenderer.pos(x + width, y, 0.0).tex((u + width) * f, v * f2).endVertex();
+        worldrenderer.pos(x, y, 0.0).tex(u * f, v * f2).endVertex();
+        tessellator.draw();
+    }
+
     /**
      * Draws a scaled, textured, tiled modal rect at z = 0. This method isn't used anywhere in vanilla code.
      */

@@ -19,6 +19,7 @@ import cn.langya.sun.modules.impl.move.Sprint;
 import cn.langya.sun.modules.impl.world.Eagle;
 import cn.langya.sun.utils.ClientUtils;
 import com.cubk.event.annotations.EventTarget;
+import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,9 @@ public class ModuleManager {
             if (m.keyCode == event.getKeyCode() && event.getKeyCode() != -1) {
                 m.toggle();
             }
+        }
+        if (Keyboard.KEY_RSHIFT == event.getKeyCode() && event.getKeyCode() != -1) {
+            new ClickGui().setState(true);
         }
     }
 
