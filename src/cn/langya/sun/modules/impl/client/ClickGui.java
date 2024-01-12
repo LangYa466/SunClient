@@ -18,7 +18,7 @@ public class ClickGui extends Module {
         state = false;
     }
 
-    public ClickGui(String name, Category category) {
+    public ClickGui() {
         super("ClickGui", Category.Client);
     }
 }

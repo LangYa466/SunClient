@@ -4,6 +4,7 @@ import cn.langya.sun.events.impl.Render3DEvent
 import cn.langya.sun.events.impl.UpdateEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
+import cn.langya.sun.modules.impl.misc.Teams
 import cn.langya.sun.utils.misc.TimeUtil
 import cn.langya.sun.utils.render.RenderUtil
 import cn.langya.sun.values.BoolValue
@@ -57,7 +58,7 @@ class KillAura : Module("KillAura",Category.Combat) {
     private val movefixValue = BoolValue("MoveFix", true)
 
     //视角
-    private val fovValue = FloatValue("FOV", 180f, 0f, 180f)
+    private val fovValue = FloatValue("FOV", 180f, 180f, 0f)
 
     //距离光环显示
     private val circleValue = BoolValue("Circle", true)
@@ -72,7 +73,7 @@ class KillAura : Module("KillAura",Category.Combat) {
 
     val attackTimer = TimeUtil()
 
-    var target: EntityLivingBase? = null
+    var target: Entity? = null
     var click = 0
     var blocking = false
 
@@ -83,8 +84,8 @@ class KillAura : Module("KillAura",Category.Combat) {
         if(!state) return
 
         for(entity in mc.world.loadedEntityList) {
-            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get() && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get()))) {
-                target = entity as EntityLivingBase?
+            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get() && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get())) && !Teams.isSameTeam(entity) && isFovInRange(entity)) {
+                target = entity
                 attackTimer.reset()
                 attackEntity(entity)
             } else {
@@ -96,6 +97,10 @@ class KillAura : Module("KillAura",Category.Combat) {
         if (target == null) {
             stopBlocking()
             click = 0
+        }
+
+        if(mc.player.attackingEntity == null) {
+            startBlock()
         }
 
     }
@@ -151,12 +156,12 @@ class KillAura : Module("KillAura",Category.Combat) {
     }
 
     // CPS
-    fun randomClickDelay(minCPS: Int, maxCPS: Int): Long {
+    private fun randomClickDelay(minCPS: Int, maxCPS: Int): Long {
         return (Math.random() * (1000 / minCPS - 1000 / maxCPS + 1) + 1000 / maxCPS).toLong()
     }
 
     //视角
-    private fun isFovInRange(entity: Entity? = target, fov: Float = fovValue.get()): Boolean {
+    private fun isFovInRange(entity: Entity?, fov: Float = fovValue.get()): Boolean {
 
         var fov = fov
         fov *= 0.5.toFloat()
@@ -174,11 +179,7 @@ class KillAura : Module("KillAura",Category.Combat) {
         return yaw.toFloat()
     }
 
-    fun startBlock() {
-
-        if(!isFovInRange()) {
-            return
-        }
+    private fun startBlock() {
 
         if(!autoBlockvalue.get()) {
             return
@@ -200,25 +201,15 @@ class KillAura : Module("KillAura",Category.Combat) {
             return
         }
 
-        if(!isFovInRange()) {
-            return
-        }
-
-
-      //  drawEntityESP(entity, Color(255, 255, 255).rgb)
 
         stopBlocking()
 
         mc.player.swingArm(EnumHand.MAIN_HAND)
         mc.playerController.attackEntity(mc.player, entity!!)
 
-
     }
 
-
-
-
-    fun stopBlocking() {
+    private fun stopBlocking() {
 
         if (mc.player.isUsingItem || blocking) {
             mc.connection!!.sendPacket(
@@ -230,74 +221,6 @@ class KillAura : Module("KillAura",Category.Combat) {
             blocking = false
         }
 
-    }
-
-    private fun drawEntityESP(entity: Entity?, color: Int) {
-
-        if(!mark.get()) {
-            return
-        }
-
-        GL11.glPushMatrix()
-        GL11.glDisable(3553)
-        GL11.glEnable(2848)
-        GL11.glEnable(2832)
-        GL11.glEnable(3042)
-        GL11.glBlendFunc(770, 771)
-        GL11.glHint(3154, 4354)
-        GL11.glHint(3155, 4354)
-        GL11.glHint(3153, 4354)
-        GL11.glDepthMask(false)
-        GL11.glEnable(2929)
-        GlStateManager.alphaFunc(516, 0.0f)
-        GL11.glShadeModel(7425)
-        GlStateManager.disableCull()
-        GL11.glBegin(5)
-        val entity2 = entity!!
-        val x: Double =
-            entity2.lastTickPosX + (entity2.posX - entity2.lastTickPosX) * mc.renderPartialTicks - Minecraft.getMinecraft().renderManager.renderPosX
-        val y: Double =
-            entity2.lastTickPosY + (entity2.posY - entity2.lastTickPosY) * mc.renderPartialTicks - Minecraft.getMinecraft().renderManager.renderPosY + sin(
-                System.currentTimeMillis() / 200.0
-            ) * (entity2.height / 2.0f) + 1.0f * (entity2.height / 2.0f)
-        val z: Double =
-            entity2.lastTickPosZ + (entity2.posZ - entity2.lastTickPosZ) * mc.renderPartialTicks - Minecraft.getMinecraft().renderManager.renderPosZ
-        var i = 0.0f
-        while (i < 6.283185307179586) {
-            val vecX = x + 0.67 * cos(i.toDouble())
-            val vecZ = z + 0.67 * sin(i.toDouble())
-            RenderUtil.glColor(
-                Color(
-                    RenderUtil.getColor(color).red,
-                    RenderUtil.getColor(color).green,
-                    RenderUtil.getColor(color).blue,
-                    0
-                ).rgb
-            )
-            GL11.glVertex3d(vecX, y - cos(System.currentTimeMillis() / 200.0) * (entity2.height / 2.0f) / 2.0, vecZ)
-            RenderUtil.glColor(
-                Color(
-                    RenderUtil.getColor(color).red,
-                    RenderUtil.getColor(color).green,
-                    RenderUtil.getColor(color).blue,
-                    160
-                ).rgb
-            )
-            GL11.glVertex3d(vecX, y, vecZ)
-            i += 0.09817477042468103.toFloat()
-        }
-        GL11.glEnd()
-        GL11.glShadeModel(7424)
-        GL11.glDepthMask(true)
-        GL11.glEnable(2929)
-        GlStateManager.alphaFunc(516, 0.1f)
-        GlStateManager.enableCull()
-        GL11.glDisable(2848)
-        GL11.glDisable(2848)
-        GL11.glEnable(2832)
-        GL11.glEnable(3553)
-        GL11.glPopMatrix()
-        GL11.glColor3f(255.0f, 255.0f, 255.0f)
     }
 
 }

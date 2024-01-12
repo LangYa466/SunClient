@@ -22,14 +22,20 @@ public class NotificationManager extends Ui {
         super("Notification",x, y, width, height);
     }
 
-    public static void add(String title, String content, TrayIcon.MessageType type) throws IOException, AWTException {
+    public static void add(String title, String content, TrayIcon.MessageType type)  {
         Notification notification = new Notification(title, content, type);
         notifications.add(notification);
 
         ClientUtils.loginfo("[Notification] " + notification.getType() + ": " +
                 notification.getTitle() + " - " + notification.getContent());
 
-        drawNotification(title, content, type);
+        try {
+            drawNotification(title, content, type);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void drawNotification(String title, String text, TrayIcon.MessageType type) throws IOException, AWTException {

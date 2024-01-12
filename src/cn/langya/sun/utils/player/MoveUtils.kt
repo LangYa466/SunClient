@@ -1,4 +1,6 @@
-package cn.langya.sun.utils
+package cn.langya.sun.utils.player
+
+import cn.langya.sun.utils.Utils
 
 
 /**
