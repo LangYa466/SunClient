@@ -37,6 +37,7 @@ public class ItemBlock extends Item
      */
     public EnumActionResult onItemUse(EntityPlayer stack, World playerIn, BlockPos worldIn, EnumHand pos, EnumFacing hand, float facing, float hitX, float hitY)
     {
+
         IBlockState iblockstate = playerIn.getBlockState(worldIn);
         Block block = iblockstate.getBlock();
 

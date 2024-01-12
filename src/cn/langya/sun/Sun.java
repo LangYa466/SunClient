@@ -8,6 +8,7 @@ import cn.langya.sun.ui.UiManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.WebUtils;
 import com.cubk.event.EventManager;
+import de.florianmichael.viamcp.ViaMCP;
 import org.lwjgl.opengl.Display;
 
 import java.io.IOException;
@@ -32,6 +33,18 @@ public class Sun {
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
         commandManager.init();
+
+        // init viamcp
+        try {
+            ViaMCP.create();
+
+            // In case you want a version slider like in the Minecraft options, you can use this code here, please choose one of those:
+
+            ViaMCP.INSTANCE.initAsyncSlider(); // For top left aligned slider
+            ViaMCP.INSTANCE.initAsyncSlider(10, 7, 70, 20);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // configManager.loadAllConfigs();
         ClientUtils.loginfo("SunClient Load End!!");

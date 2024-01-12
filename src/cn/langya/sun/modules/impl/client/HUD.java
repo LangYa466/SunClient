@@ -43,7 +43,7 @@ public class HUD extends Module {
         FontManager.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
 
         // info
-        FontManager.drawStringWithShadow("X" + mc.player.posX + "Y" + mc.player.posY + "Z:" + mc.player.posZ, 3F, RenderUtil.getHeight() - (3F + FontManager.height), -1);
+        FontManager.drawStringWithShadow("X" + (int) mc.player.posX + "Y" + (int) mc.player.posY + "Z:" + (int) mc.player.posZ, 3F, RenderUtil.getHeight() - (3F + FontManager.height), -1);
         FontManager.drawStringWithShadow("FPS:" + mc.getDebugFPS(), 3F, RenderUtil.getHeight() - (3F + FontManager.height) * 2, -1);
     }
 
