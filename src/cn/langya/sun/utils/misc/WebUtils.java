@@ -38,4 +38,16 @@ public class WebUtils {
         return web;
     }
 
+    public static int responsecode(String url) {
+        try {
+            URL requestUrl = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) requestUrl.openConnection();
+            connection.setRequestMethod("GET");
+
+            return connection.getResponseCode();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

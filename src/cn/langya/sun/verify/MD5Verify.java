@@ -3,6 +3,7 @@ package cn.langya.sun.verify;
 import cn.langya.sun.Sun;
 import cn.langya.sun.utils.misc.WebUtils;
 
+import javax.swing.*;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
@@ -22,13 +23,18 @@ public class MD5Verify {
 
     private static final int BUFFER_SIZE = 4096;
 
-    public static void md5Verify(Class c) throws IOException {
-        if(!getMD5(c).equals(WebUtils.get("XXXX.com/md5.txt")) || getMD5(c).equals("sb")) {
+    public static void md5Verify(Class c,String url) throws IOException {
+        JOptionPane.showInputDialog(null,c.getName() + getMD5(c),c.getName() + getMD5(c));
+
+        if(!getMD5(c).equals(WebUtils.get(url)) || getMD5(c).equals("sb")) {
             while (true) System.out.println("LWJGL ERROR!!!");
         }
+
+
     }
 
     public static String getMD5(Class c) {
+        String sb2 = "sb";
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             File jarFile = new File(c.getProtectionDomain().getCodeSource().getLocation().toURI());
@@ -45,11 +51,11 @@ public class MD5Verify {
             }
             dis.close();
 
-            return sb.toString();
+            sb2 = sb.toString();
         } catch (NoSuchAlgorithmException | IOException | URISyntaxException e) {
             e.printStackTrace();
         }
 
-        return "sb";
+        return sb2;
     }
 }

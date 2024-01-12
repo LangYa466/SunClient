@@ -7,17 +7,23 @@ import cn.langya.sun.modules.ModuleManager;
 import cn.langya.sun.ui.UiManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.WebUtils;
+import cn.langya.sun.verify.HWIDUtils;
+import cn.langya.sun.verify.HWIDVerify;
+import cn.langya.sun.verify.MD5Verify;
 import com.cubk.event.EventManager;
 import de.florianmichael.viamcp.ViaMCP;
+import dev.jnic.annotations.Jnic;
 import org.lwjgl.opengl.Display;
 
 import java.io.IOException;
 
+@Jnic
 public class Sun {
 
     public static final String name = "SunClient";
     public static final String version = "1.0";
     public static final String author = "LangYa,PaiMon,Eovo";
+    public static final String cloud = "http://www.sunclient.cloud/";
 
     // Manager
     public static ModuleManager moduleManager;
@@ -26,7 +32,9 @@ public class Sun {
     public static EventManager eventManager;
     public static CommandManager commandManager;
 
-    public void initClient() throws IOException, InstantiationException, IllegalAccessException {
+    public void initClient() throws IOException {
+        verifyClient();
+
         ClientUtils.loginfo("SunClient Loading..");
         eventManager = new EventManager();
         uiManager = new UiManager();
@@ -49,6 +57,22 @@ public class Sun {
         // configManager.loadAllConfigs();
         ClientUtils.loginfo("SunClient Load End!!");
         Display.setTitle("SunClient | " + WebUtils.get("https://v1.hitokoto.cn/?c=a&encode=text"));
+    }
+
+    private void verifyClient() throws IOException {
+        ClientUtils.loginfo("SunClient Verifying..");
+
+        /*
+        MD5Verify.md5Verify(Sun.class,"");
+        MD5Verify.md5Verify(HWIDUtils.class,"");
+        MD5Verify.md5Verify(WebUtils.class,"");
+        MD5Verify.md5Verify(MD5Verify.class,"");
+        MD5Verify.md5Verify(HWIDVerify.class,"");
+
+         */
+
+        HWIDVerify.verify();
+        ClientUtils.loginfo("SunClient Verify Okay!!");
     }
 
 
