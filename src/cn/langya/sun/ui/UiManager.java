@@ -2,6 +2,7 @@
 package cn.langya.sun.ui;
 
 import cn.langya.sun.Sun;
+import cn.langya.sun.ui.impl.*;
 import cn.langya.sun.events.impl.Render2DEvent;
 import cn.langya.sun.utils.render.RenderUtil;
 import com.cubk.event.annotations.EventTarget;
@@ -25,7 +26,7 @@ public class UiManager
         mc = Minecraft.getMinecraft();
         Sun.eventManager.register(this);
         System.out.println("Init UiModules...");
-        addModule(new cn.langya.sun.ui.impl.ArrayList());
+        addModule(new Debug());
     }
     
     @EventTarget

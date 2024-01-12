@@ -1,6 +1,7 @@
 package cn.langya.sun.modules;
 
 import cn.langya.sun.Sun;
+import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.Utils;
 import cn.langya.sun.values.AbstractValue;
 import net.minecraft.init.SoundEvents;
@@ -95,15 +96,11 @@ public class Module extends Utils {
         if (state == value) return;
 
 
-        try {
-            Sun.uiManager.addNotification(
-                    "Notifications",
-                    (value ? "Enabled " : "Disabled ") + name,
-                    (value ? TrayIcon.MessageType.INFO : TrayIcon.MessageType.ERROR)
-            );
-        } catch (IOException | AWTException e) {
-            throw new RuntimeException(e);
-        }
+        NotificationManager.add(
+                "Notifications",
+                (value ? "Enabled " : "Disabled ") + name,
+                (value ? TrayIcon.MessageType.INFO : TrayIcon.MessageType.ERROR)
+        );
 
         // Call on enabled or disabled
         if (value) {
