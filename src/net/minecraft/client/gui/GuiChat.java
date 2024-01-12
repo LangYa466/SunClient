@@ -5,8 +5,6 @@ import java.io.IOException;
 import javax.annotation.Nullable;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.ui.Ui;
-import cn.langya.sun.utils.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ITabCompleter;
