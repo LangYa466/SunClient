@@ -11,7 +11,7 @@ import cn.langya.sun.modules.impl.combat.AutoClicker;
 import cn.langya.sun.modules.impl.combat.Critical;
 import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.modules.impl.misc.GrimAC;
-import cn.langya.sun.modules.impl.misc.PlayerWarn;
+import cn.langya.sun.modules.impl.world.PlayerWarn;
 import cn.langya.sun.modules.impl.move.Fly;
 import cn.langya.sun.modules.impl.move.InvMove;
 import cn.langya.sun.modules.impl.move.NoWater;
@@ -36,7 +36,7 @@ public class ModuleManager {
 
     @EventTarget
     private void onKeyPress(KeyPressEvent event) {
-        for (final Module m : this.modules) {
+        for (final Module m : modules) {
             if (m.keyCode == event.getKeyCode() && event.getKeyCode() != -1) {
                 m.toggle();
             }

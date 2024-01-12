@@ -1,14 +1,14 @@
 package cn.langya.sun.modules;
 
 public enum Category {
-    Combat("战斗"),
-    Move("移动"),
-    WORLD("世界"),
-    Render("视觉"),
-    Client("客户端"),
-    Misc("其他");
+    Combat("Combat"),
+    Move("Move"),
+    World("World"),
+    Render("Render"),
+    Client("Client"),
+    Misc("Misc");
 
-    private String displayName;
+    private final String displayName;
 
     private Category(String displayName) {
         this.displayName = displayName;

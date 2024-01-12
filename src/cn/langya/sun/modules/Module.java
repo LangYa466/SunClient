@@ -3,6 +3,7 @@ package cn.langya.sun.modules;
 import cn.langya.sun.Sun;
 import cn.langya.sun.utils.Utils;
 import cn.langya.sun.values.AbstractValue;
+import net.minecraft.init.SoundEvents;
 
 import java.awt.*;
 import java.io.IOException;
@@ -104,11 +105,12 @@ public class Module extends Utils {
             throw new RuntimeException(e);
         }
 
-
         // Call on enabled or disabled
         if (value) {
+            Sun.eventManager.register(this);
             onEnable();
         } else {
+            Sun.eventManager.unregister(this);
             onDisable();
         }
 

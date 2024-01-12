@@ -1,10 +1,11 @@
 // by paimon
-package cn.langya.sun.modules.impl.misc;
+package cn.langya.sun.modules.impl.world;
 
 import cn.langya.sun.events.impl.TickEvent;
 import cn.langya.sun.events.impl.WorldLoadEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
+import cn.langya.sun.modules.impl.misc.Teams;
 import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.player.HYTUtils;
 import com.cubk.event.annotations.EventTarget;
@@ -21,7 +22,7 @@ public class PlayerWarn extends Module
     public static List<Entity> flaggedEntity;
 
     public PlayerWarn() {
-        super("PlayerTracker", Category.WORLD);
+        super("PlayerTracker", Category.World);
     }
 
     @EventTarget

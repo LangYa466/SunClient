@@ -20,7 +20,7 @@ import java.awt.*;
 public class Eagle extends Module {
 
     public Eagle() {
-        super("Eagle", true, Category.WORLD);
+        super("Eagle", true, Category.World);
     }
 
     public static Block getBlock(final BlockPos pos) {

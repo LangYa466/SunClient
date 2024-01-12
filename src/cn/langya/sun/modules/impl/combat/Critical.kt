@@ -25,6 +25,7 @@ class Critical: Module("Critical",true,Category.Combat) {
 
     @EventTarget
     fun onAttack(event: AttackEvent) {
+        if(!state || mc.player == null || mc.world == null) return
         when(modes.get()) {
 
             "Jump" -> {

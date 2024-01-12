@@ -81,10 +81,10 @@ class KillAura : Module("KillAura",Category.Combat) {
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
 
-        if(!state) return
+        if(!state || mc.player == null || mc.world == null) return
 
         for(entity in mc.world.loadedEntityList) {
-            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get() && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get())) && !Teams.isSameTeam(entity) && isFovInRange(entity)) {
+            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get() && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get())) && !Teams.isSameTeam(entity) && isFovInRange(entity) && !entity.isDead) {
                 target = entity
                 attackTimer.reset()
                 attackEntity(entity)
