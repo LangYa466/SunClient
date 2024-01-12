@@ -2,6 +2,7 @@ package cn.langya.sun.verify;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.utils.misc.WebUtils;
+import nellyobfuscator.NellyClassObfuscator;
 
 import javax.swing.*;
 import java.io.File;
@@ -19,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
  * @Version 1.0
  */
 
+@NellyClassObfuscator
 public class MD5Verify {
 
     private static final int BUFFER_SIZE = 4096;

@@ -1,6 +1,7 @@
 package cn.langya.sun.verify;
 
 import dev.jnic.annotations.Jnic;
+import nellyobfuscator.NellyClassObfuscator;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -12,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
  */
 
 @Jnic
+@NellyClassObfuscator
 public class HWIDUtils {
     public static String getHWID() {
         try {

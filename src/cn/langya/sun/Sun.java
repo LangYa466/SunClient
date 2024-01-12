@@ -13,11 +13,13 @@ import cn.langya.sun.verify.MD5Verify;
 import com.cubk.event.EventManager;
 import de.florianmichael.viamcp.ViaMCP;
 import dev.jnic.annotations.Jnic;
+import nellyobfuscator.NellyClassObfuscator;
 import org.lwjgl.opengl.Display;
 
 import java.io.IOException;
 
 @Jnic
+@NellyClassObfuscator
 public class Sun {
 
     public static final String name = "SunClient";
@@ -42,7 +44,7 @@ public class Sun {
         commandManager = new CommandManager();
         commandManager.init();
 
-        // init viamcp
+        //  init viamcp
         try {
             ViaMCP.create();
 

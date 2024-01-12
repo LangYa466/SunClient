@@ -4,6 +4,7 @@ import cn.langya.sun.Sun;
 import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.misc.WebUtils;
 import dev.jnic.annotations.Jnic;
+import nellyobfuscator.NellyClassObfuscator;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -11,13 +12,14 @@ import java.awt.datatransfer.StringSelection;
 import java.net.HttpURLConnection;
 
 /**
- * @author LangYa
+ * @author LangYa1337
  * @ClassName HWIDVerify
  * @date 2024/1/12 下午 05:28
  * @Version 1.0
  */
 
 @Jnic
+@NellyClassObfuscator
 public class HWIDVerify {
 
     public static void verify() {

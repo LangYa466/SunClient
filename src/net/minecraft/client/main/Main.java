@@ -14,10 +14,11 @@ import java.util.List;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import nellyobfuscator.NellyClassObfuscator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.Session;
-
+@NellyClassObfuscator
 public class Main
 {
     public static void main(String[] p_main_0_)
