@@ -6,6 +6,7 @@ import cn.langya.sun.events.impl.Render2DEvent;
 import cn.langya.sun.events.impl.UpdateEvent;
 import cn.langya.sun.modules.impl.client.ClickGui;
 import cn.langya.sun.modules.impl.client.Client;
+import cn.langya.sun.modules.impl.client.HUD;
 import cn.langya.sun.modules.impl.combat.AntiKB;
 import cn.langya.sun.modules.impl.combat.AutoClicker;
 import cn.langya.sun.modules.impl.combat.Critical;
@@ -63,6 +64,7 @@ public class ModuleManager {
 
     public void registerModules() {
         registerModule(new Client());
+        registerModule(new HUD());
         registerModule(new ClickGui());
         registerModule(new KillAura());
         registerModule(new Eagle());

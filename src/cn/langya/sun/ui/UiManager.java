@@ -26,7 +26,7 @@ public class UiManager
         mc = Minecraft.getMinecraft();
         Sun.eventManager.register(this);
         System.out.println("Init UiModules...");
-        addModule(new Debug());
+  //      addModule(new Debug());
     }
     
     @EventTarget

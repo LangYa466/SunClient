@@ -37,7 +37,16 @@ public class RenderUtil extends Utils {
         return new ScaledResolution(mc).getScaledHeight();
     }
 
-        public static Color originalRainbow(long offset) {
+    public static void resetColor() {
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+    public static void setAlphaLimit(float limit) {
+        GlStateManager.enableAlpha();
+        GlStateManager.alphaFunc(516, (float)((double)limit * 0.01));
+    }
+
+
+    public static Color originalRainbow(long offset) {
             Color currentColor = new Color(Color.HSBtoRGB((System.nanoTime() + offset) / 10000000000F % 1, 1.0F, 1.0F));
             return new Color(
                     currentColor.getRed() / 255F * 1F,
