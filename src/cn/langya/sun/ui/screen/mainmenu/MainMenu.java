@@ -2,6 +2,7 @@ package cn.langya.sun.ui.screen.mainmenu;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.ui.FontManager;
+import cn.langya.sun.ui.screen.BestGuiMainMenu;
 import cn.langya.sun.ui.screen.mainmenu.buttons.ImageButton;
 import cn.langya.sun.ui.screen.mainmenu.buttons.MainButton;
 import cn.langya.sun.ui.screen.mainmenu.buttons.QuitButton;
@@ -19,7 +20,8 @@ public class MainMenu extends GuiScreen {
 	
 	private MainButton btnSingleplayer;
 	private MainButton btnMultiplayer;
-	private ImageButton btnMinecraftOptions;
+    private MainButton test;
+    private ImageButton btnMinecraftOptions;
 	private ImageButton btnLanguage;
 	
 	private QuitButton btnQuit;
@@ -31,6 +33,7 @@ public class MainMenu extends GuiScreen {
         
         this.btnSingleplayer = new MainButton("Singleplayer", this.width / 2 - 66, this.height / 2);
         this.btnMultiplayer = new MainButton("Multiplayer", this.width / 2 - 66, this.height / 2 + 15);
+        this.test = new MainButton("Test", this.width / 2 - 66, this.height / 2 + 15 + 15);
 
         int yPos = this.height - 20;
         this.btnMinecraftOptions = new ImageButton("Options", new ResourceLocation("lunar/icons/cog.png"), this.width / 2, yPos);
@@ -56,6 +59,7 @@ public class MainMenu extends GuiScreen {
         
         this.btnSingleplayer.drawButton(mouseX, mouseY);
         this.btnMultiplayer.drawButton(mouseX, mouseY);
+        this.test.drawButton(mouseX, mouseY);
 
         this.btnMinecraftOptions.drawButton(mouseX, mouseY);
         this.btnLanguage.drawButton(mouseX, mouseY);
@@ -78,6 +82,9 @@ public class MainMenu extends GuiScreen {
         }
         if (this.btnMultiplayer.hoverFade >0) {
             mc.displayGuiScreen(new GuiMultiplayer(this));
+        }
+        if (this.test.hoverFade >0) {
+            mc.displayGuiScreen(new BestGuiMainMenu());
         }
         if (this.btnQuit.hoverFade >0){
             mc.shutdown();

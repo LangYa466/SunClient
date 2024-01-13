@@ -6,6 +6,7 @@ import cn.langya.sun.modules.ModuleManager;
 import cn.langya.sun.ui.font.FontManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.WebUtils;
+import cn.langya.sun.utils.render.BlurUtil;
 import cn.langya.sun.utils.render.ShaderUtil;
 import cn.langya.sun.verify.HWIDVerify;
 import com.cubk.event.EventManager;
@@ -59,6 +60,8 @@ public class Sun {
         configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
 
         FontManager.initFonts();
+
+        BlurUtil.init();
 
         //  init viamcp
         try {

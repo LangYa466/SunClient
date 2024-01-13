@@ -23,8 +23,7 @@ public abstract class FontManager {
     public static FontDrawer R20;
     public static FontDrawer R25;
     public static FontDrawer R30;
-
-
+    public static FontDrawer R50;
 
     public static void initFonts() {
         LogManager.getLogger().info("Loading FontManager..");
@@ -44,6 +43,7 @@ public abstract class FontManager {
         R20 = getFont("round.ttf", 20, true);
         R25 = getFont("round.ttf", 25, true);
         R30 = getFont("round.ttf", 30, true);
+        R50 = getFont("round.ttf",50,true);
 
     }
 
@@ -58,4 +58,5 @@ public abstract class FontManager {
         }
         return new FontDrawer(font, antiAliasing);
     }
+
 }
