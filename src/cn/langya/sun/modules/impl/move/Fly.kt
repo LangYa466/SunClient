@@ -19,7 +19,7 @@ class Fly: Module("Fly",true,Category.Move) {
     private val modes = StringValue("Modes","Vanilla")
 
     init {
-
+        add(modes)
     }
 
     @EventTarget

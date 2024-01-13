@@ -12,10 +12,16 @@ import de.florianmichael.viamcp.ViaMCP;
 import dev.jnic.annotations.Jnic;
 import nellyobfuscator.NellyClassObfuscator;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
+import org.apache.commons.compress.utils.IOUtils;
 import org.lwjgl.opengl.Display;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 @Jnic
 @NellyClassObfuscator
@@ -31,12 +37,14 @@ public class Sun {
     public static ConfigManager configManager;
     public static EventManager eventManager;
     public static CommandManager commandManager;
-    public static ShaderUtil shaderUtil;
 
     public void initClient() throws IOException {
+        setWindowIcon();
+
         if (!fold.exists()){
             fold.mkdir();
         }
+
         ClientUtils.loginfo("SunClient Verifying..");
         HWIDVerify.verify();
         ClientUtils.loginfo("SunClient Verify Okay!!");
@@ -46,9 +54,9 @@ public class Sun {
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
         configManager = new ConfigManager();
-        shaderUtil.init();
 
         configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
+
         //  init viamcp
         try {
             ViaMCP.create();
@@ -61,8 +69,31 @@ public class Sun {
             e.printStackTrace();
         }
 
-        // configManager.loadAllConfigs();
         ClientUtils.loginfo("SunClient Load End!!");
         Display.setTitle("SunClient | " + WebUtils.get("https://v1.hitokoto.cn/?c=a&encode=text"));
     }
+
+    private void setWindowIcon() {
+        final Util.EnumOS util = Util.getOSType();
+        if (util != Util.EnumOS.OSX) {
+            InputStream inputstream = null;
+            InputStream inputstream2 = null;
+            Minecraft mc = Minecraft.getMinecraft();
+            try {
+                inputstream = mc.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("sunclient/icons/icon_16x16.png"));
+                inputstream2 = mc.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("sunclient/icons/icon_32x32.png"));
+                if (inputstream != null && inputstream2 != null) {
+                    Display.setIcon(new ByteBuffer[] { mc.readImageToBuffer(inputstream), mc.readImageToBuffer(inputstream2) });
+                }
+            }
+            catch (IOException ioexception) {
+                ClientUtils.logger.error("Couldn't set icon", ioexception);
+            }
+            finally {
+                IOUtils.closeQuietly(inputstream);
+                IOUtils.closeQuietly(inputstream2);
+            }
+        }
+    }
+
 }

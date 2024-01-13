@@ -62,12 +62,12 @@ public class ModuleManager {
                         }
                         modules.add(module);
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-
+            e.printStackTrace();
         }
         ClientUtils.loginfo("[ModuleManager] Load Modules: " + modules.size());
         Sun.eventManager.register(this);

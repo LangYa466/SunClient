@@ -104,7 +104,7 @@ public class ShaderUtil extends Utils {
         int fragmentShaderID = createShader(new ByteArrayInputStream(fragmentShadersrc.getBytes()), GL_FRAGMENT_SHADER);
         int vertexShaderID = 0;
         try {
-            vertexShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation("shader/vertex.vsh")).getInputStream(), GL_VERTEX_SHADER);
+            vertexShaderID = createShader(mc.getResourceManager().getResource(new ResourceLocation("sunclient/shader/vertex.vsh")).getInputStream(), GL_VERTEX_SHADER);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -124,7 +124,7 @@ public class ShaderUtil extends Utils {
     }
 
     public ShaderUtil(String fragmentShaderLoc) {
-        this(fragmentShaderLoc, "shader/vertex.vsh");
+        this(fragmentShaderLoc, "sunclient/shader/vertex.vsh");
     }
 
 
