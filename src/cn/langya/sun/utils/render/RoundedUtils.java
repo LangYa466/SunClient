@@ -93,7 +93,9 @@ public class RoundedUtils {
         GLUtil.endBlend();
     }
 
-
+    public static void drawGradientRoundLR(final float x, final float y, final float width, final float height, final float radius, final Color color1, final Color color2) {
+        drawGradientRound(x, y, width, height, radius, color1, color2, color2, color1);
+    }
     public static void drawRoundTextured(float x, float y, float width, float height, float radius, float alpha) {
         RenderUtil.resetColor();
         RenderUtil.setAlphaLimit(0);

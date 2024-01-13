@@ -9,16 +9,14 @@ import cn.langya.sun.modules.impl.misc.Teams;
 import cn.langya.sun.ui.font.FontDrawer;
 import cn.langya.sun.ui.font.FontManager;
 import cn.langya.sun.utils.misc.MathUtil;
-import cn.langya.sun.utils.render.AnimationUtil;
-import cn.langya.sun.utils.render.ColorUtils;
-import cn.langya.sun.utils.render.RenderUtil;
-import cn.langya.sun.utils.render.RoundedUtils;
+import cn.langya.sun.utils.render.*;
 import cn.langya.sun.values.*;
 import com.cubk.event.annotations.EventTarget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -53,6 +51,8 @@ public class HUD extends Module {
         add(animationSpeed,mainColor,logo,thud,gameinfo);
         thud.getValues().add("Novoline");
         thud.getValues().add("Neon");
+        thud.getValues().add("Moon");
+        thud.getValues().add("Raven");
         thud.getValues().add("None");
         gameinfo.getValues().add("Sun");
         gameinfo.getValues().add("None");
@@ -65,7 +65,7 @@ public class HUD extends Module {
         // logo
         if (logo.get()) {
             final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
-            RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 16.0f, new Color(19, 19, 19, 230).getRGB());
+            RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 19.0f, new Color(19, 19, 19, 230).getRGB());
             RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 1.0f, ColorUtils.color(8).getRGB());
             FontManager.S20.drawString(str, 11 + FontManager.S20.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
             FontManager.S20.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
@@ -114,6 +114,44 @@ public class HUD extends Module {
                         fr.drawStringWithShadow(target.getName(), (float) (x + 34.0f), (float) (y + 3.0f), mcTextColor);
                         final String healthText = MathUtil.round(healthPercentage * 100.0, 0) + "%";
                         fr.drawStringWithShadow(healthText, (float) (x + 17.0f + width / 2.0 - fr.getStringWidth(healthText) / 2.0f), (float) (y + 16.0f), mcTextColor);
+                    }
+                    if(thud.get().equals("Raven")) {
+                        final ScaledResolution sr = new ScaledResolution(mc);
+                        GlStateManager.pushMatrix();
+                        GlStateManager.translate(x, y, 0.0f);
+                        RoundedUtils.drawRound(0.0f, 0.0f, 70.0f + mc.fontRendererObj.getStringWidth(target.getName()), 40.0f, 12.0f, new Color(0, 0, 0, 92));
+                        RenderUtil.drawOutline(8.0f, 0.0f, 62.0f + mc.fontRendererObj.getStringWidth(target.getName()), 24.0f, 8.0f, 2.0f, 6.0f, firstColor.brighter(), secondColor.brighter());
+                        FontManager.R18.drawStringWithShadow(target.getName(), 7.0f, 10.0f, new Color(244, 67, 54).getRGB());
+                        FontManager.R18.drawStringWithShadow(this.DF_1.format(target.getHealth()), 7.0f + mc.fontRendererObj.getStringWidth(target.getName()) + 4.0f, 10.0f, ColorUtils.getHealthColor(target.getHealth(), target.getMaxHealth()).getRGB());
+                        RoundedUtils.drawGradientRoundLR(6.0f, 25.0f, (float)((int)((70.0f + mc.fontRendererObj.getStringWidth(target.getName()) - 5.0f) * (target.getHealth() / target.getMaxHealth())) - 6), 5.0f, 2.0f, firstColor.brighter(), secondColor.brighter());
+                        GlStateManager.resetColor();
+                        GlStateManager.enableAlpha();
+                        GlStateManager.disableBlend();
+                        GlStateManager.popMatrix();
+                    }
+                    if(thud.get().equals("Moon")) {
+                        float getMaxHel = Math.min(target.getMaxHealth(), 20.0f);
+
+                        // blur
+                            RoundedUtils.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.R18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0));
+                        // end
+
+                        RoundedUtils.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.R18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0, 100));
+                        if (target instanceof AbstractClientPlayer) {
+                            this.drawBigHeadRound((float) (x + 3.0f), (float) (y + 3.0f), 30.0f, 30.0f, (AbstractClientPlayer)target);
+                        }
+                        FontManager.R18.drawString(target.getName(), x + 36.0f, y + 6.0f, new Color(255, 255, 255).getRGB());
+                        double nmsl;
+                        if (target.getHealth() - Math.floor(target.getHealth()) >= 0.5) {
+                            nmsl = 0.5;
+                        }
+                        else {
+                            nmsl = 0.0;
+                        }
+                        FontManager.R15.drawString(Math.floor(target.getHealth()) + nmsl + " HP", x + 36.0f, y + 6.0f + FontManager.R18.getHeight(), new Color(255, 255, 255).getRGB());
+                        target.animatedHealthBar = AnimationUtil.animate(target.animatedHealthBar, target.getHealth(), 0.15f);
+                        RoundedUtils.drawRound((float) (x + 36.0f), (float) (y + 16.0f + FontManager.R15.getHeight()), target.animatedHealthBar / target.getMaxHealth() * Math.max(getMaxHel * 3.0f, (float)FontManager.R18.getStringWidth(target.getName())), 5.0f, 2.5f, ColorUtils.color(8));
+                        break;
                     }
                     if (thud.get().equals("Neon")) {
                         width = (float) Math.max(128, FontManager.C20.getStringWidth("Name: " + target.getName()) + 60);
@@ -193,6 +231,27 @@ public class HUD extends Module {
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GlStateManager.disableTexture2D();
         GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+        GlStateManager.resetColor();
+    }
+
+    protected void drawBigHeadRound(final float x, final float y, final float width, final float height, final AbstractClientPlayer player) {
+        StencilUtil.initStencilToWrite();
+        RenderUtil.renderRoundedRect(x, y, width, height, 4.0f, -1);
+        StencilUtil.readStencilBuffer(1);
+        RenderUtil.color(-1);
+        drawBigHead(x, y, width, height, player);
+        StencilUtil.uninitStencilBuffer();
+        GlStateManager.disableBlend();
+    }
+
+    protected void drawBigHead(final float x, final float y, final float width, final float height, final AbstractClientPlayer player) {
+        final double offset = -(player.hurtTime * 23);
+        RenderUtil.glColor(new Color(255, (int)(255.0 + offset), (int)(255.0 + offset)).getRGB());
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(770, 771);
+        mc.getTextureManager().bindTexture(player.getLocationSkin());
+        Gui.drawScaledCustomSizeModalRect(x, y, 8.0f, 8.0f, 8, 8, width, height, 64.0f, 64.0f);
+        GlStateManager.disableBlend();
         GlStateManager.resetColor();
     }
 

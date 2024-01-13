@@ -639,5 +639,14 @@ public class RenderUtil extends Utils {
         throw new IllegalArgumentException("Fractions and colours must have equal number of elements");
     }
 
+    public static void renderRoundedRect(float x, float y, float width, float height, float radius, int color) {
+        RenderUtil.drawGoodCircle(x + radius, y + radius, radius, color);
+        RenderUtil.drawGoodCircle(x + width - radius, y + radius, radius, color);
+        RenderUtil.drawGoodCircle(x + radius, y + height - radius, radius, color);
+        RenderUtil.drawGoodCircle(x + width - radius, y + height - radius, radius, color);
+        Gui.drawRect3(x + radius, y, width - radius * 2.0f, height, color);
+        Gui.drawRect3(x, y + radius, width, height - radius * 2.0f, color);
+    }
+
 
 }
