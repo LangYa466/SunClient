@@ -12,26 +12,36 @@ public abstract class FontManager {
     public static FontDrawer S20;
     public static FontDrawer S25;
     public static FontDrawer S30;
-    // 宋体魔改
+    // 原神字体
     public static FontDrawer C15;
     public static FontDrawer C20;
     public static FontDrawer C25;
     public static FontDrawer C30;
+    //Round 太帅了我滴妈
+    public static FontDrawer R15;
+    public static FontDrawer R20;
+    public static FontDrawer R25;
+    public static FontDrawer R30;
 
 
 
     public static void initFonts() {
         LogManager.getLogger().info("Loading FontManager..");
 
-        S15 = getFont("sfui.ttf", 15, true);
-        S20 = getFont("sfui.ttf", 20, true);
-        S25 = getFont("sfui.ttf", 25, true);
-        S30 = getFont("sfui.ttf", 30, true);
+        S15 = getFont("sfui.ttf", 7, true);
+        S20 = getFont("sfui.ttf", 10, true);
+        S25 = getFont("sfui.ttf", 12, true);
+        S30 = getFont("sfui.ttf", 15, true);
 
-        C15 = getFont("haison.ttf", 15, true);
-        C20 = getFont("haison.ttf", 20, true);
-        C25 = getFont("haison.ttf", 25, true);
-        C30 = getFont("haison.ttf", 30, true);
+        C15 = getFont("genshin.ttf", 7, true);
+        C20 = getFont("genshin.ttf", 10, true);
+        C25 = getFont("genshin.ttf", 12, true);
+        C30 = getFont("genshin.ttf", 15, true);
+
+        R15 = getFont("round.ttf", 7, true);
+        R20 = getFont("round.ttf", 10, true);
+        R25 = getFont("round.ttf", 12, true);
+        R30 = getFont("round.ttf", 15, true);
 
     }
 
