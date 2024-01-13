@@ -49,7 +49,3 @@ SunClient uses Gradle, to make sure that it is installed properly you can
 
 We appreciate contributions. So if you want to support us, feel free to make changes to LiquidBounce's source code and
 submit a pull request.
-
-## Stats
-
-![Alt](https://repobeats.axiom.co/api/embed/876175c0802027fc753a19eba30a7e02cda0f8f4.svg "Repobeats analytics image")
