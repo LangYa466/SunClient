@@ -648,5 +648,14 @@ public class RenderUtil extends Utils {
         Gui.drawRect3(x, y + radius, width, height - radius * 2.0f, color);
     }
 
+    public static void quickDrawRect(float x, float y, float x2, float y2) {
+        GL11.glBegin(7);
+        GL11.glVertex2d(x2, y);
+        GL11.glVertex2d(x, y);
+        GL11.glVertex2d(x, y2);
+        GL11.glVertex2d(x2, y2);
+        GL11.glEnd();
+    }
+
 
 }
