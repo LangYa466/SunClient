@@ -5,7 +5,6 @@ package cn.langya.sun.command.commands;
 import cn.langya.sun.Sun;
 import cn.langya.sun.command.Command;
 import cn.langya.sun.modules.Module;
-import cn.langya.sun.ui.UiModule;
 import cn.langya.sun.utils.ClientUtils;
 
 import java.util.ArrayList;
@@ -50,14 +49,6 @@ public class ToggleCommand
             } else {
                 ClientUtils.chatlog("Module not found!");
             }
-
-            UiModule u = Sun.uiManager.getModule(args[0]);
-            if (u != null) {
-                u.toggle();
-            } else {
-                ClientUtils.chatlog("UIModule not found!");
-            }
-
         } else {
             ClientUtils.chatlog("Usage: t <Module>");
         }

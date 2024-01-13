@@ -3,7 +3,6 @@ package cn.langya.sun;
 import cn.langya.sun.command.CommandManager;
 import cn.langya.sun.files.ConfigManager;
 import cn.langya.sun.modules.ModuleManager;
-import cn.langya.sun.ui.UiManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.WebUtils;
 import cn.langya.sun.utils.render.ShaderUtil;
@@ -30,7 +29,6 @@ public class Sun {
     // Manager
     public static ModuleManager moduleManager;
     public static ConfigManager configManager;
-    public static UiManager uiManager;
     public static EventManager eventManager;
     public static CommandManager commandManager;
     public static ShaderUtil shaderUtil;
@@ -45,7 +43,6 @@ public class Sun {
 
         ClientUtils.loginfo("SunClient Loading..");
         eventManager = new EventManager();
-        uiManager = new UiManager();
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
         configManager = new ConfigManager();
