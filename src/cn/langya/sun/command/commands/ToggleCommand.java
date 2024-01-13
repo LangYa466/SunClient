@@ -30,7 +30,7 @@ public class ToggleCommand
         }
         if (flag) {
             String finalPrefix = prefix;
-            return Sun.moduleManager.modules.stream().map(Module::getName).filter(name -> name.toLowerCase().startsWith(finalPrefix)).collect(Collectors.toList());
+            return Sun.moduleManager.getModules().stream().map(Module::getName).filter(name -> name.toLowerCase().startsWith(finalPrefix)).collect(Collectors.toList());
         }
         if (arg == 2) {
             ArrayList<String> arrayList = new ArrayList<String>();

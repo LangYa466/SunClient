@@ -21,13 +21,6 @@ public class CommandManager
         this.commands = new ArrayList<Command>();
         this.latestAutoComplete = new String[0];
         this.prefix = ".";
-    }
-    
-    public List<Command> getCommands() {
-        return this.commands;
-    }
-    
-    public void init() {
         this.reg(new BindCommand());
         this.reg(new ToggleCommand());
         this.reg(new ConfigCommand());
@@ -35,6 +28,9 @@ public class CommandManager
         this.reg(new HelpCommand());
     }
     
+    public List<Command> getCommands() {
+        return this.commands;
+    }
     public Collection<String> autoComplete(final String currCmd) {
         final String raw = currCmd.substring(1);
         final String[] split = raw.split(" ");

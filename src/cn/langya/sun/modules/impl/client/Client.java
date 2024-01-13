@@ -14,7 +14,7 @@ public class Client extends Module {
 
     public Client() {
         super("Client", false, Category.Client);
-        setState(true);
+        add(memoryfix);
     }
 
     @EventTarget

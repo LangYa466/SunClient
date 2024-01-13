@@ -28,7 +28,7 @@ public class HUD extends Module {
 
     public HUD() {
         super("HUD", Category.Render);
-        setState(true);
+        add(animationSpeed, mainColor);
     }
 
     @EventTarget

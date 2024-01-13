@@ -14,12 +14,14 @@ import java.util.*;
 
 public class Teams extends Module
 {
-    private static final BoolValue armorValue;
-    private static final BoolValue colorValue;
-    private static final BoolValue scoreboardValue;
+    private static BoolValue armorValue;
+    private static BoolValue colorValue;
+    private static BoolValue scoreboardValue;
     
     public Teams() {
         super("Teams", Category.Misc);
+        armorValue = new BoolValue("Armor", true); colorValue = new BoolValue("Color", true); scoreboardValue = new BoolValue("Scoreboard", true);
+        add(armorValue, colorValue, scoreboardValue);
     }
     
     public static boolean isSameTeam(final Entity entity) {

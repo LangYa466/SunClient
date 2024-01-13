@@ -30,7 +30,7 @@ public class BindCommand
         }
         if (flag) {
             String finalPrefix = prefix;
-            return Sun.moduleManager.modules.stream().filter(mod -> mod.name.toLowerCase().startsWith(finalPrefix)).map(Module::getName).collect(Collectors.toList());
+            return Sun.moduleManager.getModules().stream().filter(mod -> mod.name.toLowerCase().startsWith(finalPrefix)).map(Module::getName).collect(Collectors.toList());
         }
         if (arg == 2) {
             ArrayList<String> arrayList = new ArrayList<String>();

@@ -1511,6 +1511,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
      */
     public void shutdown()
     {
+        Sun.configManager.getConfigs().forEach(config -> Sun.configManager.saveConfig(config.name));
         this.running = false;
     }
 

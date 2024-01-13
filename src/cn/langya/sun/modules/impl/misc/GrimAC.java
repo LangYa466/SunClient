@@ -30,6 +30,7 @@ public class GrimAC
 
     public GrimAC() {
         super("GrimAC", Category.Misc);
+        add(reachValue, noslowAValue, velocityValue);
     }
 
     @Override
