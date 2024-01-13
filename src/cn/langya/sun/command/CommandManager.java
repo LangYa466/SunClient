@@ -16,7 +16,7 @@ public class CommandManager
     private final List<Command> commands;
     public String[] latestAutoComplete;
     public String prefix;
-    
+
     public CommandManager() {
         this.commands = new ArrayList<Command>();
         this.latestAutoComplete = new String[0];
@@ -27,7 +27,7 @@ public class CommandManager
         this.reg(new BindsCommand());
         this.reg(new HelpCommand());
     }
-    
+
     public List<Command> getCommands() {
         return this.commands;
     }
@@ -56,11 +56,11 @@ public class CommandManager
             return ret;
         }
     }
-    
+
     public void reg(final Command command) {
         this.commands.add(command);
     }
-    
+
     public Command getCommand(final String name) {
         for (final Command c : this.commands) {
             for (final String s : c.getNames()) {
