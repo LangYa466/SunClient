@@ -6,9 +6,13 @@ import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.StringValue;
 import com.cubk.event.annotations.EventTarget;
+import io.netty.buffer.Unpooled;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.client.CPacketCustomPayload;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.util.EnumHand;
 
 /**
@@ -22,9 +26,7 @@ public class NoSlow extends Module {
 
     public final StringValue mode = new StringValue("Mode", "Hyt");
 
-    public boolean helditem() {
-        return mc.player.getHeldItem(EnumHand.MAIN_HAND) instanceof ItemStack;
-    }
+
 
     public NoSlow() {
         super("NoSlow", Category.Move);
@@ -34,7 +36,7 @@ public class NoSlow extends Module {
 
     @EventTarget
     public void onSlowDown(SlowDownEvent e) {
-        if (mode.get().equals("Vanilla") && helditem()) {
+        if (mc.player.getHeldItem(EnumHand.MAIN_HAND) instanceof ItemStack) {
             e.forward = 1.0f;
             e.strafe = 1.0f;
         }
@@ -43,7 +45,9 @@ public class NoSlow extends Module {
     @EventTarget
     public void onMove(MoveEvent e) {
         if (mode.get().equals("Hyt")) {
-
+            mc.getConnection().sendPacket(new CPacketHeldItemChange((mc.player.inventory.currentItem + 1) % 9));
+            mc.getConnection().sendPacket(new CPacketCustomPayload("test", new PacketBuffer(Unpooled.wrappedBuffer(new byte[]{1}))));
+            mc.getConnection().sendPacket(new CPacketHeldItemChange((mc.player.inventory.currentItem)));
         }
     }
 }
