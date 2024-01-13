@@ -11,7 +11,6 @@ public class Sprint extends Module
 {
     public Sprint() {
         super("Sprint", Category.Move, Keyboard.KEY_Z);
-        this.setState(true);
     }
     
     @EventTarget

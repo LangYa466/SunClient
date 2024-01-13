@@ -23,7 +23,7 @@ public class BindsCommand extends Command
     }
     
     public void run(final String[] args) {
-        for (final Module module : Sun.moduleManager.modules) {
+        for (final Module module : Sun.moduleManager.getModules()) {
             if (module.keyCode == -1) {
                 continue;
             }

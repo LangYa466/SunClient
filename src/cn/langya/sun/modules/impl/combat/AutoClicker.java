@@ -25,7 +25,8 @@ import static cn.langya.sun.utils.misc.MathUtil.random;
 public class AutoClicker extends Module {
 
     public AutoClicker() {
-    super("AutoClicker", true, Category.Combat);
+        super("AutoClicker", true, Category.Combat);
+        add(maxCPSValue, minCPSValue, rightValue, leftValue,jitterValue,onlyBlock);
     }
 
     private final IntValue maxCPSValue = new IntValue("MaxCPS", 8, 1, 20) ;
@@ -41,6 +42,7 @@ public class AutoClicker extends Module {
     private long rightLastSwing = 0L;
     private long leftDelay = randomClickDelay(minCPSValue.get(), maxCPSValue.get());
     private long leftLastSwing = 0L;
+
 
     @EventTarget
     public void onTick(TickEvent e) {

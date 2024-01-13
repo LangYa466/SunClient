@@ -71,7 +71,7 @@ class KillAura : Module("KillAura",Category.Combat) {
     //打人光环显示
     private val mark = BoolValue("Mark", true)
     init {
-        add(maxCPSValue,minCPSValue,rangeValue)
+        add(maxCPSValue,minCPSValue,rangeValue,throughWalls,swingValue,autoBlockvalue,silentrotationValue,maxTurnSpeed,minTurnSpeed,movefixValue,fovValue,circleValue,circleRed,circleGreen,circleBlue,circleAlpha,circleAccuracy,mark)
     }
 
     val attackTimer = TimeUtil()

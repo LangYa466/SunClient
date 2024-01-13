@@ -16,11 +16,10 @@ import com.cubk.event.annotations.EventTarget
 
 class Critical: Module("Critical",true,Category.Combat) {
 
-    private val modes = StringValue("Modes","Jump")
+    private val modes = StringValue("Modes","Jump","Jump","Fake")
 
     init {
-        modes.values.add("Jump")
-        modes.values.add("Fake")
+        add(modes)
     }
 
     @EventTarget
