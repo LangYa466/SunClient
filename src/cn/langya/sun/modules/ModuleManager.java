@@ -13,6 +13,7 @@ import cn.langya.sun.modules.impl.combat.Critical;
 import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.modules.impl.misc.GrimAC;
 import cn.langya.sun.modules.impl.misc.Teams;
+import cn.langya.sun.modules.impl.render.FullBright;
 import cn.langya.sun.modules.impl.world.PlayerWarn;
 import cn.langya.sun.modules.impl.move.Fly;
 import cn.langya.sun.modules.impl.move.InvMove;
@@ -78,6 +79,7 @@ public class ModuleManager {
         registerModule(new NoWater());
         registerModule(new PlayerWarn());
         registerModule(new Teams());
+        registerModule(new FullBright());
     }
 
     public <T extends Module> T getModule(final Class<T> cls) {

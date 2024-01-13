@@ -25,7 +25,7 @@ public class UiManager
         UiModules = new ArrayList<UiModule>();
         mc = Minecraft.getMinecraft();
         Sun.eventManager.register(this);
-        System.out.println("Init UiModules...");
+        System.out.println("Init UiModules...");   
   //      addModule(new Debug());
     }
     

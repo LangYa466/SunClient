@@ -364,7 +364,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
     private IReloadableResourceManager mcResourceManager;
     private final MetadataSerializer metadataSerializer_ = new MetadataSerializer();
     private final List<IResourcePack> defaultResourcePacks = Lists.<IResourcePack>newArrayList();
-    private final DefaultResourcePack mcDefaultResourcePack;
+    public final DefaultResourcePack mcDefaultResourcePack;
     private ResourcePackRepository mcResourcePackRepository;
     private LanguageManager mcLanguageManager;
     private BlockColors blockColors;
@@ -899,7 +899,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
         }
     }
 
-    private ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException
+    public ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException
     {
         BufferedImage bufferedimage = ImageIO.read(imageStream);
         int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), (int[])null, 0, bufferedimage.getWidth());

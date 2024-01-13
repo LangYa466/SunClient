@@ -43,6 +43,10 @@ public class BufferBuilder
         this.rawFloatBuffer = this.byteBuffer.asFloatBuffer();
     }
 
+    public BufferBuilder color(final int colorHex) {
+        return this.color(colorHex >> 16 & 0xFF, colorHex >> 8 & 0xFF, colorHex & 0xFF, colorHex >> 24 & 0xFF);
+    }
+
     private void growBuffer(int p_181670_1_)
     {
         if (MathHelper.roundUp(p_181670_1_, 4) / 4 > this.rawIntBuffer.remaining() || this.vertexCount * this.vertexFormat.getNextOffset() + p_181670_1_ > this.byteBuffer.capacity())

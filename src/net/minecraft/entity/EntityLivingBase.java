@@ -207,6 +207,7 @@ public abstract class EntityLivingBase extends Entity
     private BlockPos prevBlockpos;
     private DamageSource lastDamageSource;
     private long lastDamageStamp;
+    public float animatedHealthBar;
 
     /**
      * Called by the /kill command.
