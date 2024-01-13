@@ -3,6 +3,7 @@ package cn.langya.sun;
 import cn.langya.sun.command.CommandManager;
 import cn.langya.sun.files.ConfigManager;
 import cn.langya.sun.modules.ModuleManager;
+import cn.langya.sun.ui.font.FontManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.WebUtils;
 import cn.langya.sun.utils.render.ShaderUtil;
@@ -56,6 +57,8 @@ public class Sun {
         configManager = new ConfigManager();
 
         configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
+
+        FontManager.initFonts();
 
         //  init viamcp
         try {

@@ -6,7 +6,7 @@ import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.modules.impl.misc.Teams;
-import cn.langya.sun.ui.FontManager;
+import cn.langya.sun.ui.font.FontManager;
 import cn.langya.sun.utils.misc.MathUtil;
 import cn.langya.sun.utils.render.AnimationUtil;
 import cn.langya.sun.utils.render.ColorUtils;
@@ -65,16 +65,16 @@ public class HUD extends Module {
         // logo
         if (logo.get()) {
             final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
-            RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.getStringWidth(str) + 8 + FontManager.getStringWidth(Sun.name.toUpperCase())) + 5, 15.0f, new Color(19, 19, 19, 230).getRGB());
-            RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.getStringWidth(str) + 8 + FontManager.getStringWidth(Sun.name.toUpperCase())) + 5, 1.0f, ColorUtils.color(8).getRGB());
-            FontManager.drawString(str, 11 + FontManager.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
-            FontManager.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
+            RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 8 + FontManager.S20.getStringWidth(Sun.name.toUpperCase())) + 5, 15.0f, new Color(19, 19, 19, 230).getRGB());
+            RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 8 + FontManager.S20.getStringWidth(Sun.name.toUpperCase())) + 5, 1.0f, ColorUtils.color(8).getRGB());
+            FontManager.S20.drawString(str, 11 + FontManager.S20.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
+            FontManager.S20.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
         }
 
         if (info.get()) {
             // info
-            FontManager.drawStringWithShadow("X: " + (int) mc.player.posX + " Y: " + (int) mc.player.posY + " Z: " + (int) mc.player.posZ, 3F, RenderUtil.getHeight() - (3F + FontManager.height), -1);
-            FontManager.drawStringWithShadow("FPS:" + mc.getDebugFPS(), 3F, RenderUtil.getHeight() - (3F + FontManager.height) * 2, -1);
+            FontManager.S20.drawStringWithShadow("X: " + (int) mc.player.posX + " Y: " + (int) mc.player.posY + " Z: " + (int) mc.player.posZ, 3F, RenderUtil.getHeight() - (3F + FontManager.S20.getHeight()), -1);
+            FontManager.S20.drawStringWithShadow("FPS:" + mc.getDebugFPS(), 3F, RenderUtil.getHeight() - (3F + FontManager.S20.getHeight()) * 2, -1);
         }
 
         if (gameinfo.get().equals("Sun")) {
@@ -122,7 +122,7 @@ public class HUD extends Module {
                         fr.drawStringWithShadow(healthText, (float) (x + 17.0f + width / 2.0 - fr.getStringWidth(healthText) / 2.0f), (float) (y + 16.0f), mcTextColor);
                     }
                     if (thud.get().equals("Neon")) {
-                        width = (float) Math.max(128, FontManager.getStringWidth("Name: " + target.getName()) + 60);
+                        width = (float) Math.max(128, FontManager.S20.getStringWidth("Name: " + target.getName()) + 60);
                         height = 50.0;
                         Gui.drawRect3((double) x, (double) y, (double) width, 50.0, new Color(19, 19, 19, 180).getRGB());
                         RenderUtil.drawHGradientRect(x, y, width, 1.0, firstColor.getRGB(), secondColor.getRGB());
@@ -147,11 +147,11 @@ public class HUD extends Module {
                         }
                         final double healthNum = MathUtil.round(target.getHealth() + target.getAbsorptionAmount(), 1);
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                        FontManager.drawString(String.valueOf(healthNum), (int) (x + target.animatedHealthBar + 8.0f), (int) (y + 38.0f), textColor);
+                        FontManager.S20.drawString(String.valueOf(healthNum), (int) (x + target.animatedHealthBar + 8.0f), (int) (y + 38.0f), textColor);
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                        FontManager.drawString("Name: " + target.getName(), (int) (x + 40.0f), (int) (y + 8.0f), textColor);
+                        FontManager.S20.drawString("Name: " + target.getName(), (int) (x + 40.0f), (int) (y + 8.0f), textColor);
                         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-                        FontManager.drawString("Distance: " + MathUtil.round(mc.player.getDistanceToEntity((Entity) target), 1), (int) (x + 40.0f), (int) (y + 20.0f), textColor);
+                        FontManager.S20.drawString("Distance: " + MathUtil.round(mc.player.getDistanceToEntity((Entity) target), 1), (int) (x + 40.0f), (int) (y + 20.0f), textColor);
                         break;
                     }
                 }
