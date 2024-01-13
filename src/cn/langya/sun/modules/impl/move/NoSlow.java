@@ -23,8 +23,7 @@ public class NoSlow extends Module {
     public final StringValue mode = new StringValue("Mode", "Hyt");
 
     public boolean helditem() {
-        ItemStack helditem = mc.player.getHeldItem(EnumHand.MAIN_HAND);
-        return helditem instanceof ItemStack || helditem instanceof ItemBow || helditem instanceof ItemFood;
+        return mc.player.getHeldItem(EnumHand.MAIN_HAND) instanceof ItemStack;
     }
 
     public NoSlow() {
