@@ -1,6 +1,7 @@
 package net.minecraft.entity;
 
 import cn.langya.sun.Sun;
+import cn.langya.sun.events.impl.SlowDownEvent;
 import cn.langya.sun.events.impl.UpdateEvent;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
@@ -2582,6 +2583,9 @@ public abstract class EntityLivingBase extends Entity
         {
             this.jumpTicks = 0;
         }
+
+        SlowDownEvent slowdown = new SlowDownEvent(moveForward,moveStrafing);
+        Sun.eventManager.call(slowdown);
 
         this.world.theProfiler.endSection();
         this.world.theProfiler.startSection("travel");
