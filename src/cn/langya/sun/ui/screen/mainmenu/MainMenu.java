@@ -3,6 +3,7 @@ package cn.langya.sun.ui.screen.mainmenu;
 import cn.langya.sun.Sun;
 import cn.langya.sun.ui.FontManager;
 import cn.langya.sun.ui.screen.BestGuiMainMenu;
+import cn.langya.sun.ui.screen.GuiMainMenu;
 import cn.langya.sun.ui.screen.mainmenu.buttons.ImageButton;
 import cn.langya.sun.ui.screen.mainmenu.buttons.MainButton;
 import cn.langya.sun.ui.screen.mainmenu.buttons.QuitButton;
@@ -84,7 +85,7 @@ public class MainMenu extends GuiScreen {
             mc.displayGuiScreen(new GuiMultiplayer(this));
         }
         if (this.test.hoverFade >0) {
-            mc.displayGuiScreen(new BestGuiMainMenu());
+            mc.displayGuiScreen(new GuiMainMenu());
         }
         if (this.btnQuit.hoverFade >0){
             mc.shutdown();
