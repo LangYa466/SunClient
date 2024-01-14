@@ -76,7 +76,7 @@ class KillAura : Module("KillAura",Category.Combat) {
 
     val attackTimer = TimeUtil()
 
-    var target: Entity? = null
+    public var target: Entity? = null
     var click = 0
     var blocking = false
 

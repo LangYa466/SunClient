@@ -1,5 +1,8 @@
 package net.minecraft.client.renderer;
 
+import cn.langya.sun.Sun;
+import cn.langya.sun.modules.impl.client.Animations;
+import cn.langya.sun.modules.impl.combat.KillAura;
 import com.google.common.base.MoreObjects;
 import java.util.Objects;
 import net.minecraft.block.Block;
@@ -20,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumHand;
@@ -297,6 +301,7 @@ public class ItemRenderer
         GlStateManager.rotate((float)i * -45.0F, 0.0F, 1.0F, 0.0F);
     }
 
+
     private void transformSideFirstPerson(EnumHandSide p_187459_1_, float p_187459_2_)
     {
         int i = p_187459_1_ == EnumHandSide.RIGHT ? 1 : -1;
@@ -436,6 +441,15 @@ public class ItemRenderer
                 GlStateManager.translate((float)i * f, f1, f2);
                 this.transformSideFirstPerson(enumhandside, p_187457_7_);
                 this.transformFirstPerson(enumhandside, p_187457_5_);
+            }
+
+            float SP = (Animations.progressValue.get() ? p_187457_7_ : 0);
+
+            if (mc.player.getHeldItemMainhand().getItem() != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemSword
+                && mc.gameSettings.keyBindUseItem.pressed && Sun.moduleManager.getModule(Animations.class).state) {
+            //    transformSideFirstPersonBlock(enumhandside, SP, p_187457_5_);
+                GlStateManager.translate(0, 1, 0);
+                transformSideFirstPersonBlock(enumhandside, -0.1F + SP, p_187457_5_);
             }
 
             this.renderItemSide(p_187457_1_, p_187457_6_, flag1 ? ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND : ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, !flag1);
@@ -642,4 +656,21 @@ public class ItemRenderer
             this.equippedProgressOffHand = 0.0F;
         }
     }
+
+    private static void transformSideFirstPersonBlock(EnumHandSide p_187459_1_, float equippedProg, float swingProgress) {
+        int side = p_187459_1_ == EnumHandSide.RIGHT ? 1 : -1;
+        GlStateManager.translate(side * 0.56, -0.52 + equippedProg * -0.6, -0.72);
+        GlStateManager.translate(side * -0.1414214, 0.08, 0.1414214);
+        GlStateManager.rotate(-102.25F, 1, 0, 0);
+        GlStateManager.rotate(side * 13.365F, 0, 1, 0);
+        GlStateManager.rotate(side * 78.050003F, 0, 0, 1);
+        double f = Math.sin(swingProgress * swingProgress * Math.PI);
+        double f1 = Math.sin(Math.sqrt(swingProgress) * Math.PI);
+        GlStateManager.rotate((float) (f * -20.0F), 0, 1, 0);
+        GlStateManager.rotate((float) (f1 * -20.0F), 0, 0, 1);
+        GlStateManager.rotate((float) (f1 * -80.0F), 1, 0, 0);
+    }
+
+
+
 }

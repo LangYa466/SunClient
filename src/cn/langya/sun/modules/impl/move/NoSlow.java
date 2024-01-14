@@ -26,12 +26,11 @@ public class NoSlow extends Module {
 
     public final StringValue mode = new StringValue("Mode", "Hyt");
 
-
-
     public NoSlow() {
         super("NoSlow", Category.Move);
         mode.getValues().add("Hyt");
         mode.getValues().add("Vanilla");
+        add(mode);
     }
 
     @EventTarget

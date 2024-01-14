@@ -69,27 +69,29 @@ public class HUD extends Module {
             final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
             RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 19.0f, new Color(19, 19, 19, 230).getRGB());
             RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 1.0f, ColorUtils.color(8).getRGB());
+            RenderUtil.resetColor();
             FontManager.S20.drawString(str, 11 + FontManager.S20.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
             FontManager.S20.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
         }
 
         if (gameinfo.get().equals("Sun")) {
-            RoundedUtils.drawRound(80, 80, 130, 60, 0, new Color(49,49,49));
-            RoundedUtils.drawRound(80, 80, 130, 15, 0, new Color(19,19,19));
-            RoundedUtils.drawRound(80, 80, 130, 3, 0, new Color(30,126,190));
-            ShadowUtil.drawShadow(80, 80, 130, 60);
+            RoundedUtils.drawRound(80, 120, 130, 60, 0, new Color(49,49,49));
+            RoundedUtils.drawRound(80, 120, 130, 15, 0, new Color(19,19,19));
+            RoundedUtils.drawRound(80, 120, 130, 3, 0, new Color(30,126,190));
+            RenderUtil.resetColor();
+            ShadowUtil.drawShadow(80, 120, 130, 60);
 
             // 绘制文本
-            FontManager.T25.drawCenteredString("Info",98, 83,-1);
+            FontManager.T25.drawCenteredString("Info",98, 123,-1);
 
-            FontManager.T20.drawCenteredString("Player ID:",106, 98,-1);
-            FontManager.T20.drawCenteredString(getPlayerName(),180, 98,-1);
+            FontManager.T20.drawCenteredString("Player ID",106, 138,-1);
+            FontManager.T20.drawCenteredString(getPlayerName(),180, 138,-1);
 
-            FontManager.T20.drawCenteredString("Health:",101, 98 + FontManager.T20.FONT_HEIGHT - 5,-1);
-            FontManager.T20.drawCenteredString(getPlayerHealth(),200, 98 + FontManager.T20.FONT_HEIGHT - 5,-1);
+            FontManager.T20.drawCenteredString("Health",101, 138 + FontManager.T20.FONT_HEIGHT - 5,-1);
+            FontManager.T20.drawCenteredString(getPlayerHealth(),200, 138 + FontManager.T20.FONT_HEIGHT - 5,-1);
 
-            FontManager.T20.drawCenteredString("Kills:",95, 98 + FontManager.T20.FONT_HEIGHT - 5 + FontManager.T20.FONT_HEIGHT - 5,-1);
-            FontManager.T20.drawCenteredString(String.valueOf(AutoL.kill),200, 98 + FontManager.T20.FONT_HEIGHT - 5 + FontManager.T20.FONT_HEIGHT - 5,-1);
+            FontManager.T20.drawCenteredString("Kills",95, 138 + FontManager.T20.FONT_HEIGHT - 5 + FontManager.T20.FONT_HEIGHT - 5,-1);
+            FontManager.T20.drawCenteredString(String.valueOf(AutoL.kill),200, 138 + FontManager.T20.FONT_HEIGHT - 5 + FontManager.T20.FONT_HEIGHT - 5,-1);
 
         }
 
@@ -209,14 +211,8 @@ public class HUD extends Module {
     }
 
     private String getPlayerHealth() {
-        String health;
-        if(mc.player.getActivePotionEffect(MobEffects.REGENERATION) == null) {
-            health = ((int) mc.player.getHealth() * 5) + "%";
-        } else {
-            health = ((int) mc.player.getHealth() * 4.1) + "%";
-        }
 
-        return health;
+        return ( (int) (mc.player.getHealth() / mc.player.getMaxHealth() * 100)) + "%";
     }
 
     private String getPlayerName() {
