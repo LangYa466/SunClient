@@ -18,12 +18,12 @@ public abstract class FontManager {
     public static FontDrawer C25;
     public static FontDrawer C30;
     //Round 太帅了我滴妈
-    public static FontDrawer R15;
-    public static FontDrawer R18;
-    public static FontDrawer R20;
-    public static FontDrawer R25;
-    public static FontDrawer R30;
-    public static FontDrawer R50;
+    public static FontDrawer T15;
+    public static FontDrawer T18;
+    public static FontDrawer T20;
+    public static FontDrawer T25;
+    public static FontDrawer T30;
+    public static FontDrawer T50;
 
     public static void initFonts() {
         LogManager.getLogger().info("Loading FontManager..");
@@ -38,12 +38,12 @@ public abstract class FontManager {
         C25 = getFont("genshin.ttf", 25, true);
         C30 = getFont("genshin.ttf", 30, true);
 
-        R15 = getFont("round.ttf", 15, true);
-        R18 = getFont("round.ttf", 18, true);
-        R20 = getFont("round.ttf", 20, true);
-        R25 = getFont("round.ttf", 25, true);
-        R30 = getFont("round.ttf", 30, true);
-        R50 = getFont("round.ttf",50,true);
+        T15 = getFont("tenacity.ttf", 15, true);
+        T18 = getFont("tenacity.ttf", 18, true);
+        T20 = getFont("tenacity.ttf", 20, true);
+        T25 = getFont("tenacity.ttf", 25, true);
+        T30 = getFont("tenacity.ttf", 30, true);
+        T50 = getFont("tenacity.ttf",50,true);
 
     }
 

@@ -22,7 +22,7 @@ public class BestGuiMainMenu extends GuiScreen {
         drawLunarBackground(mouseX,mouseY,partialTicks,RenderUtil.backgroundTexture);
 
         RoundedUtils.drawRound(0,0,130,1980,0, new Color(0,0,0,120));
-        FontManager.R50.drawString("SunClient",6,20,-1);
+        FontManager.T50.drawString("SunClient",6,20,-1);
 
         final int sbcolor = new Color(175,169,169).getRGB();
 
@@ -42,14 +42,14 @@ public class BestGuiMainMenu extends GuiScreen {
 
         RoundedUtils.drawRound(370,80,800,80,5, new Color(0,0,0,200));
         RenderUtil.drawImage(new ResourceLocation("sunclient/icons/img.png"),390,108,32,32);
-        FontManager.R25.drawCenteredString("Fake Hypixel",500,109,sbcolor);
+        FontManager.T25.drawCenteredString("Fake Hypixel",500,109,sbcolor);
 
-        FontManager.R50.drawCenteredString("05:20 PM",1200,20,-1);
+        FontManager.T50.drawCenteredString("05:20 PM",1200,20,-1);
 
         // button
         RoundedUtils.drawRound(0,130,130,40,0,new Color(14,102,173));
         RoundedUtils.drawRound(0,130,30,40,0,new Color(11,71,123));
-        FontManager.R30.drawString("Test",43,140,-1);
+        FontManager.T30.drawString("Test",43,140,-1);
 
 
         super.drawScreen(mouseX, mouseY, partialTicks);

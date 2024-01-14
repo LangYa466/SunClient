@@ -5,6 +5,7 @@ import cn.langya.sun.events.impl.Render2DEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.combat.KillAura;
+import cn.langya.sun.modules.impl.misc.AutoL;
 import cn.langya.sun.modules.impl.misc.Teams;
 import cn.langya.sun.ui.font.FontDrawer;
 import cn.langya.sun.ui.font.FontManager;
@@ -23,6 +24,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
@@ -72,16 +74,29 @@ public class HUD extends Module {
         }
 
         if (gameinfo.get().equals("Sun")) {
-            RoundedUtils.drawRound(80, 80, 100, 50, 0, new Color(0, 0, 0, 50));
-            RoundedUtils.drawRound(80, 80, 50, 50, 5, new Color(0, 0, 0, 50));
-            RoundedUtils.drawRound(80, 80, 50, 50, 5, new Color(0, 0, 0, 50));
-            ShadowUtil.drawShadow(80, 80, 50, 50);
+            RoundedUtils.drawRound(80, 80, 130, 60, 0, new Color(49,49,49));
+            RoundedUtils.drawRound(80, 80, 130, 15, 0, new Color(19,19,19));
+            RoundedUtils.drawRound(80, 80, 130, 3, 0, new Color(30,126,190));
+            ShadowUtil.drawShadow(80, 80, 130, 60);
+
+            // 绘制文本
+            FontManager.T25.drawCenteredString("Info",98, 83,-1);
+
+            FontManager.T20.drawCenteredString("Player ID:",106, 98,-1);
+            FontManager.T20.drawCenteredString(getPlayerName(),180, 98,-1);
+
+            FontManager.T20.drawCenteredString("Health:",101, 98 + FontManager.T20.FONT_HEIGHT - 5,-1);
+            FontManager.T20.drawCenteredString(getPlayerHealth(),200, 98 + FontManager.T20.FONT_HEIGHT - 5,-1);
+
+            FontManager.T20.drawCenteredString("Kills:",95, 98 + FontManager.T20.FONT_HEIGHT - 5 + FontManager.T20.FONT_HEIGHT - 5,-1);
+            FontManager.T20.drawCenteredString(String.valueOf(AutoL.kill),200, 98 + FontManager.T20.FONT_HEIGHT - 5 + FontManager.T20.FONT_HEIGHT - 5,-1);
+
         }
 
         if (mc.player != null && mc.world != null) {
             for (Entity target1 : mc.world.loadedEntityList) {
                 final FloatValue rangeValue = Sun.moduleManager.getModule(KillAura.class).getRangeValue();
-                if (mc.player.getDistanceToEntity(target1) <= rangeValue.get() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead) {
+                if (mc.player.getDistanceToEntity(target1) <= rangeValue.get() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
                     EntityLivingBase target = (EntityLivingBase) target1;
                     final Color firstColor = ColorUtils.color(1);
                     final Color secondColor = ColorUtils.color(6);
@@ -123,8 +138,8 @@ public class HUD extends Module {
                         GlStateManager.translate(x, y, 0.0f);
                         RoundedUtils.drawRound(0.0f, 0.0f, 70.0f + mc.fontRendererObj.getStringWidth(target.getName()), 40.0f, 12.0f, new Color(0, 0, 0, 92));
                         RenderUtil.drawOutline(8.0f, 0.0f, 62.0f + mc.fontRendererObj.getStringWidth(target.getName()), 24.0f, 8.0f, 2.0f, 6.0f, firstColor.brighter(), secondColor.brighter());
-                        FontManager.R18.drawStringWithShadow(target.getName(), 7.0f, 10.0f, new Color(244, 67, 54).getRGB());
-                        FontManager.R18.drawStringWithShadow(this.DF_1.format(target.getHealth()), 7.0f + mc.fontRendererObj.getStringWidth(target.getName()) + 4.0f, 10.0f, ColorUtils.getHealthColor(target.getHealth(), target.getMaxHealth()).getRGB());
+                        FontManager.T18.drawStringWithShadow(target.getName(), 7.0f, 10.0f, new Color(244, 67, 54).getRGB());
+                        FontManager.T18.drawStringWithShadow(this.DF_1.format(target.getHealth()), 7.0f + mc.fontRendererObj.getStringWidth(target.getName()) + 4.0f, 10.0f, ColorUtils.getHealthColor(target.getHealth(), target.getMaxHealth()).getRGB());
                         RoundedUtils.drawGradientRoundLR(6.0f, 25.0f, (float)((int)((70.0f + mc.fontRendererObj.getStringWidth(target.getName()) - 5.0f) * (target.getHealth() / target.getMaxHealth())) - 6), 5.0f, 2.0f, firstColor.brighter(), secondColor.brighter());
                         GlStateManager.resetColor();
                         GlStateManager.enableAlpha();
@@ -135,14 +150,14 @@ public class HUD extends Module {
                         float getMaxHel = Math.min(target.getMaxHealth(), 20.0f);
 
                         // blur
-                            RoundedUtils.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.R18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0));
+                        RoundedUtils.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.T18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0));
                         // end
 
-                        RoundedUtils.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.R18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0, 100));
+                        RoundedUtils.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.T18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0, 100));
                         if (target instanceof AbstractClientPlayer) {
                             this.drawBigHeadRound((float) (x + 3.0f), (float) (y + 3.0f), 30.0f, 30.0f, (AbstractClientPlayer)target);
                         }
-                        FontManager.R18.drawString(target.getName(), x + 36.0f, y + 6.0f, new Color(255, 255, 255).getRGB());
+                        FontManager.T18.drawString(target.getName(), x + 36.0f, y + 6.0f, new Color(255, 255, 255).getRGB());
                         double nmsl;
                         if (target.getHealth() - Math.floor(target.getHealth()) >= 0.5) {
                             nmsl = 0.5;
@@ -150,9 +165,9 @@ public class HUD extends Module {
                         else {
                             nmsl = 0.0;
                         }
-                        FontManager.R15.drawString(Math.floor(target.getHealth()) + nmsl + " HP", x + 36.0f, y + 6.0f + FontManager.R18.getHeight(), new Color(255, 255, 255).getRGB());
+                        FontManager.T15.drawString(Math.floor(target.getHealth()) + nmsl + " HP", x + 36.0f, y + 6.0f + FontManager.T18.getHeight(), new Color(255, 255, 255).getRGB());
                         target.animatedHealthBar = AnimationUtil.animate(target.animatedHealthBar, target.getHealth(), 0.15f);
-                        RoundedUtils.drawRound((float) (x + 36.0f), (float) (y + 16.0f + FontManager.R15.getHeight()), target.animatedHealthBar / target.getMaxHealth() * Math.max(getMaxHel * 3.0f, (float)FontManager.R18.getStringWidth(target.getName())), 5.0f, 2.5f, ColorUtils.color(8));
+                        RoundedUtils.drawRound((float) (x + 36.0f), (float) (y + 16.0f + FontManager.T15.getHeight()), target.animatedHealthBar / target.getMaxHealth() * Math.max(getMaxHel * 3.0f, (float)FontManager.T18.getStringWidth(target.getName())), 5.0f, 2.5f, ColorUtils.color(8));
                         break;
                     }
                     if (thud.get().equals("Neon")) {
@@ -193,6 +208,27 @@ public class HUD extends Module {
         }
     }
 
+    private String getPlayerHealth() {
+        String health;
+        if(mc.player.getActivePotionEffect(MobEffects.REGENERATION) == null) {
+            health = ((int) mc.player.getHealth() * 5) + "%";
+        } else {
+            health = ((int) mc.player.getHealth() * 4.1) + "%";
+        }
+
+        return health;
+    }
+
+    private String getPlayerName() {
+        String name;
+        String playername = mc.player.getName();
+        if(playername.length() > 11) {
+            name = playername.substring(0, playername.length() - 3) + "??";
+        } else {
+            name = playername;
+        }
+        return name;
+    }
 
 
     public void drawModel(final float yaw, final float pitch, final EntityLivingBase entityLivingBase) {

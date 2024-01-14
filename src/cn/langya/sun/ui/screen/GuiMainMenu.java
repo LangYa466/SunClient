@@ -43,7 +43,7 @@ public class GuiMainMenu extends GuiScreen {
         drawLunarBackground(mouseX,mouseY,partialTicks ,RenderUtil.backgroundTexture);
 
         // 绘制标题
-        FontManager.R50.drawCenteredString("SunClient",width / 2 + 23 ,height / 2 - 180,-1);
+        FontManager.T50.drawCenteredString("SunClient",width / 2 + 23 ,height / 2 - 180,-1);
 
         // 绘制小背景
         RoundedUtils.drawRound(width / 2 - 100,height / 2 - 200,height / 2 - 100,width / 2 - 300,8,new Color(255,255,255,20));
@@ -53,7 +53,7 @@ public class GuiMainMenu extends GuiScreen {
         multiPlayerButton.draw("Multiplayer",FontManager.S30,mouseX,mouseY);
 
         // 绘制时间文本
-        FontManager.R50.drawCenteredString(TimeUtil.getTime(),1200,20,-1);
+        FontManager.T50.drawCenteredString(TimeUtil.getTime(),1200,20,-1);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
