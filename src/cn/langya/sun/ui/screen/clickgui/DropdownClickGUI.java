@@ -8,6 +8,7 @@ import cn.langya.sun.modules.Module;
 import cn.langya.sun.utils.misc.MathUtil;
 import cn.langya.sun.ui.FontManager;
 import cn.langya.sun.utils.render.RenderUtil;
+import cn.langya.sun.utils.render.ShadowUtil;
 import cn.langya.sun.values.*;
 import net.minecraft.client.gui.*;
 import java.awt.*;
@@ -101,7 +102,7 @@ public class DropdownClickGUI extends GuiScreen
                             }
                             FontManager.drawString(v.get().toString(), (int) (x + 75), (int) (y + mOrder * 20 + 40 + settingY + currentSettingY), new Color(30, 30, 30).getRGB());
                             if (this.inMode.contains(v)) {
-                                RenderUtil.drawShadow(x + 115.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY, x + 160.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY + ((StringValue)v).getValues().size() * 10);
+                                ShadowUtil.drawShadow(x + 115.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY, x + 160.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY + ((StringValue)v).getValues().size() * 10);
                                 int modeOrder = 0;
                                 for (final String e : ((StringValue)v).getValues()) {
                                     RenderUtil.drawRect(x + 115.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY + modeOrder * 10, x + 160.0f, y + mOrder * 20 + 47.0f + settingY + currentSettingY + modeOrder * 10, m.state ? new Color(140, 190, 240).getRGB() : new Color(240, 240, 240).getRGB());
@@ -177,7 +178,7 @@ public class DropdownClickGUI extends GuiScreen
                     settingY += currentSettingY;
                 }
             }
-            RenderUtil.drawShadow(x, y, x + 110.0f, y + mOrder * 20 + 35.0f + settingY);
+            ShadowUtil.drawShadow(x, y, x + 110.0f, y + mOrder * 20 + 35.0f + settingY);
             RenderUtil.drawTexturedRect(x, y + 15.0f, 110.0f, 9.0f, new ResourceLocation("shaders/panelbottom.png"), Color.white.getRGB());
             final boolean isOnCategory = mouseX > x && mouseY > y && mouseX < x + 110.0f && mouseY < y + 15.0f;
             if (Mouse.isButtonDown(0) && isOnCategory) {

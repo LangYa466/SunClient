@@ -61,7 +61,6 @@ public class Sun {
 
         FontManager.initFonts();
 
-        BlurUtil.init();
 
         //  init viamcp
         try {

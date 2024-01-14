@@ -72,7 +72,10 @@ public class HUD extends Module {
         }
 
         if (gameinfo.get().equals("Sun")) {
-         //   RoundedUtils.drawRound(80, 80, 50, 50, 5, new Color(0, 0, 0, 50));
+            RoundedUtils.drawRound(80, 80, 100, 50, 0, new Color(0, 0, 0, 50));
+            RoundedUtils.drawRound(80, 80, 50, 50, 5, new Color(0, 0, 0, 50));
+            RoundedUtils.drawRound(80, 80, 50, 50, 5, new Color(0, 0, 0, 50));
+            ShadowUtil.drawShadow(80, 80, 50, 50);
         }
 
         if (mc.player != null && mc.world != null) {
@@ -116,7 +119,6 @@ public class HUD extends Module {
                         fr.drawStringWithShadow(healthText, (float) (x + 17.0f + width / 2.0 - fr.getStringWidth(healthText) / 2.0f), (float) (y + 16.0f), mcTextColor);
                     }
                     if(thud.get().equals("Raven")) {
-                        final ScaledResolution sr = new ScaledResolution(mc);
                         GlStateManager.pushMatrix();
                         GlStateManager.translate(x, y, 0.0f);
                         RoundedUtils.drawRound(0.0f, 0.0f, 70.0f + mc.fontRendererObj.getStringWidth(target.getName()), 40.0f, 12.0f, new Color(0, 0, 0, 92));

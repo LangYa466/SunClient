@@ -1,5 +1,8 @@
 package cn.langya.sun.utils.misc;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public final class TimeUtil {
 
     private long time = -1L;
@@ -14,5 +17,12 @@ public final class TimeUtil {
 
     public void reset() {
         time = System.currentTimeMillis();
+    }
+
+    public static String getTime() {
+        LocalTime time = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+
+        return formatter.format(time);
     }
 }

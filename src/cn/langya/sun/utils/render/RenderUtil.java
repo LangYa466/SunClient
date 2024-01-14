@@ -477,16 +477,6 @@ public class RenderUtil extends Utils {
         GL11.glPopMatrix();
     }
 
-    public static void drawShadow(float x, float y, float x2, float y2) {
-        RenderUtil.drawTexturedRect(x - 9.0f, y - 9.0f, 9.0f, 9.0f, new ResourceLocation("shaders/paneltopleft.png"), Color.white.getRGB());
-        RenderUtil.drawTexturedRect(x - 9.0f, y2, 9.0f, 9.0f, new ResourceLocation("shaders/panelbottomleft.png"), Color.white.getRGB());
-        RenderUtil.drawTexturedRect(x2, y2, 9.0f, 9.0f, new ResourceLocation("shaders/panelbottomright.png"), Color.white.getRGB());
-        RenderUtil.drawTexturedRect(x2, y - 9.0f, 9.0f, 9.0f, new ResourceLocation("shaders/paneltopright.png"), Color.white.getRGB());
-        RenderUtil.drawTexturedRect(x - 9.0f, y, 9.0f, y2 - y, new ResourceLocation("shaders/panelleft.png"), Color.white.getRGB());
-        RenderUtil.drawTexturedRect(x2, y, 9.0f, y2 - y, new ResourceLocation("shaders/panelright.png"), Color.white.getRGB());
-        RenderUtil.drawTexturedRect(x, y - 9.0f, x2 - x, 9.0f, new ResourceLocation("shaders/paneltop.png"), Color.white.getRGB());
-        RenderUtil.drawTexturedRect(x, y2, x2 - x, 9.0f, new ResourceLocation("shaders/panelbottom.png"), Color.white.getRGB());
-    }
 
     public static void drawImage(ResourceLocation image, float x, float y, int width, int height) {
         GL11.glDisable(2929);
