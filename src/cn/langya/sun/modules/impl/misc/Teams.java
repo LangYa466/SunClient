@@ -26,7 +26,7 @@ public class Teams extends Module
     
     public static boolean isSameTeam(final Entity entity) {
         if (entity instanceof EntityPlayer) {
-            final EntityPlayer entityPlayer = (EntityPlayer)entity;
+            final EntityPlayer entityPlayer = (EntityPlayer) entity;
             return Objects.requireNonNull(Sun.moduleManager.getModule("Teams")).state && ((armorValue.get() && armorTeam(entityPlayer)) || (colorValue.get() && colorTeam(entityPlayer)) || (scoreboardValue.get() && scoreTeam(entityPlayer)));
         }
         return false;
@@ -41,13 +41,16 @@ public class Teams extends Module
     public static boolean armorTeam(EntityPlayer entityPlayer) {
         if (entityPlayer.inventory.armorInventory.get(3) != null) {
             ItemStack myHead = mc.player.inventory.armorInventory.get(3);
-            ItemArmor myItemArmor = (ItemArmor)myHead.getItem();
-            ItemStack entityHead = entityPlayer.inventory.armorInventory.get(3);
-            ItemArmor entityItemArmor = (ItemArmor)entityHead.getItem();
-            if (String.valueOf(entityItemArmor.getColor(entityHead)).equals("10511680")) {
-                return true;
+            if (myHead.getItem() instanceof ItemArmor) {
+                ItemArmor myItemArmor = (ItemArmor) myHead.getItem();
+                ItemStack entityHead = entityPlayer.inventory.armorInventory.get(3);
+                ItemArmor entityItemArmor = (ItemArmor) entityHead.getItem();
+                if (String.valueOf(entityItemArmor.getColor(entityHead)).equals("10511680")) {
+                    return true;
+                }
+                return myItemArmor.getColor(myHead) == entityItemArmor.getColor(entityHead);
             }
-            return myItemArmor.getColor(myHead) == entityItemArmor.getColor(entityHead);
+            return false;
         }
         return false;
     }

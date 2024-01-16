@@ -40,7 +40,7 @@ import java.text.DecimalFormat;
  */
 
 public class HUD extends Module {
-    public static final BoolValue logo = new BoolValue("Logo", true);
+    public static final StringValue logo = new StringValue("Logo", "Sun");
     public static final StringValue thud = new StringValue("TargetHud", "Neon");
     public static final StringValue gameinfo = new StringValue("GameInfo", "Sun");
     public static final DoubleValue animationSpeed = new DoubleValue("Animation Speed", 4.0, 10.0, 1.0);
@@ -55,9 +55,14 @@ public class HUD extends Module {
         thud.getValues().add("Neon");
         thud.getValues().add("Moon");
         thud.getValues().add("Raven");
+        thud.getValues().add("Style");
         thud.getValues().add("None");
         gameinfo.getValues().add("Sun");
         gameinfo.getValues().add("None");
+        gameinfo.getValues().add("Sun");
+        logo.getValues().add("Sun2");
+        logo.getValues().add("Sun");
+        logo.getValues().add("None");
     }
 
 
@@ -65,10 +70,18 @@ public class HUD extends Module {
     public void onRender2D(Render2DEvent event) {
 
         // logo
-        if (logo.get()) {
+        if (logo.get().equals("Sun")) {
             final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
             RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 19.0f, new Color(19, 19, 19, 230).getRGB());
             RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 1.0f, ColorUtils.color(8).getRGB());
+            RenderUtil.resetColor();
+            FontManager.S20.drawString(str, 11 + FontManager.S20.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
+            FontManager.S20.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
+        }
+
+        if (logo.get().equals("Sun2")) {
+            final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
+            RenderUtil.drawBorderedRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 25), 19.0f,3f, new Color(0,0,0, 120).getRGB(),new Color(0,0,0, 120).getRGB());
             RenderUtil.resetColor();
             FontManager.S20.drawString(str, 11 + FontManager.S20.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
             FontManager.S20.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
@@ -96,6 +109,28 @@ public class HUD extends Module {
         }
 
         if (mc.player != null && mc.world != null) {
+            if(thud.get().equals("Style")) {
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(10, 15, 0.0f);
+
+                // draw rect
+                RoundedUtils.drawRound(10, 10, 90 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 60, 3, new Color(0,0,0,80));
+                RoundedUtils.drawRound(10, 10, 90 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 10, 3, new Color(0,0,0,130));
+
+                // draw string
+                FontManager.S20.drawCenteredString("Session",45, 10,-1);
+                FontManager.S15.drawCenteredString("Played for 52m 52s",82, 25,Color.GRAY.getRGB());
+                FontManager.S25.drawCenteredString(mc.player.getName(),90f, 38f,Color.GRAY.getRGB());
+                FontManager.S20.drawCenteredString("0 Kills, 0 Game won.",93f, 55f,Color.GRAY.getRGB());
+
+                // draw head
+                RenderUtil.drawBigHead(13.5f, 38f, 28.0f, 28.0f, mc.player);
+
+                GlStateManager.resetColor();
+                GlStateManager.enableAlpha();
+                GlStateManager.disableBlend();
+                GlStateManager.popMatrix();
+            }
             for (Entity target1 : mc.world.loadedEntityList) {
                 final FloatValue rangeValue = Sun.moduleManager.getModule(KillAura.class).getRangeValue();
                 if (mc.player.getDistanceToEntity(target1) <= rangeValue.get() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){

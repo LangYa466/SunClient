@@ -10,6 +10,7 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
@@ -26,6 +27,8 @@ public class NoSlow extends Module {
 
     public final StringValue mode = new StringValue("Mode", "Hyt");
 
+    boolean slow = false;
+
     public NoSlow() {
         super("NoSlow", Category.Move);
         mode.getValues().add("Hyt");
@@ -35,15 +38,18 @@ public class NoSlow extends Module {
 
     @EventTarget
     public void onSlowDown(SlowDownEvent e) {
-        if (mc.player.getHeldItem(EnumHand.MAIN_HAND) instanceof ItemStack) {
+        if (mc.player.getHeldItem(EnumHand.MAIN_HAND) != null && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword){
             e.forward = 1.0f;
             e.strafe = 1.0f;
+            slow = true;
+        } else {
+            slow = false;
         }
     }
 
     @EventTarget
     public void onMove(MoveEvent e) {
-        if (mode.get().equals("Hyt")) {
+        if (mode.get().equals("Hyt") && mc.player.getHeldItem(EnumHand.MAIN_HAND) != null && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword && slow) {
             mc.getConnection().sendPacket(new CPacketHeldItemChange((mc.player.inventory.currentItem + 1) % 9));
             mc.getConnection().sendPacket(new CPacketCustomPayload("test", new PacketBuffer(Unpooled.wrappedBuffer(new byte[]{1}))));
             mc.getConnection().sendPacket(new CPacketHeldItemChange((mc.player.inventory.currentItem)));

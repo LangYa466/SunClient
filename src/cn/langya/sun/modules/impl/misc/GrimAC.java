@@ -13,11 +13,13 @@ import cn.langya.sun.values.BoolValue;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemSword;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketEntity;
 import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketExplosion;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 
 public class GrimAC
@@ -86,7 +88,7 @@ public class GrimAC
         }
         double reach = attacker.getDistanceToEntity(entity);
         String prefix = (Object)((Object)TextFormatting.GRAY) + "[" + TextFormatting.AQUA + "GrimAC" + TextFormatting.GRAY + "] " + TextFormatting.RESET + TextFormatting.GRAY + ((EntityPlayer)attacker).getName() + TextFormatting.WHITE + " failed ";
-        if (reach > 3.0) {
+        if (reach > 3.0 && ((EntityLivingBase) entity).getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword) {
             ClientUtils.chatlog(prefix + TextFormatting.AQUA + "Reach" + TextFormatting.WHITE + " (vl:" + attackerCount + ".0)" + TextFormatting.GRAY + ": " + DF_1.format(reach) + " blocks");
         }
 

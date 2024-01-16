@@ -18,6 +18,9 @@ public class RoundedUtils {
     public static void drawRound(float x, float y, float width, float height, float radius, Color color) {
         drawRound(x, y, width, height, radius, false, color);
     }
+    public static void drawRound(float x, float y, float width, float height, float radius, int color) {
+        drawRound(x, y, width, height, radius, false, color);
+    }
 
     public static void drawGradientHorizontal(float x, float y, float width, float height, float radius, Color left, Color right) {
         drawGradientRound(x, y, width, height, radius, left, left, right, right);
@@ -54,6 +57,9 @@ public class RoundedUtils {
         GLUtil.endBlend();
     }
 
+    public static void drawRound(float x, float y, float width, float height, float radius, boolean blur, int color) {
+        drawRound(x,y,width,height,radius,blur,new Color(color));
+    }
 
 
     public static void drawRound(float x, float y, float width, float height, float radius, boolean blur, Color color) {
