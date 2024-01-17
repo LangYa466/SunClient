@@ -3,6 +3,7 @@ package cn.langya.sun.ui.font;
 import cn.langya.sun.utils.misc.StringUtils;
 import cn.langya.sun.utils.render.ColorUtils;
 import cn.langya.sun.utils.render.RenderUtil;
+import cn.langya.sun.utils.render.RoundedUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;

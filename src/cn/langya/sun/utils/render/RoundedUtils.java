@@ -18,6 +18,9 @@ public class RoundedUtils {
     public static void drawRound(float x, float y, float width, float height, float radius, Color color) {
         drawRound(x, y, width, height, radius, false, color);
     }
+    public static void drawRound(double x, double y, double width, double height, double radius, Color color) {
+        drawRound((float) x, (float) y, (float) width, (float) height, (float) radius, false, color);
+    }
     public static void drawRound(float x, float y, float width, float height, float radius, int color) {
         drawRound(x, y, width, height, radius, false, color);
     }

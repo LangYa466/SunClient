@@ -40,6 +40,7 @@ import java.text.DecimalFormat;
  */
 
 public class HUD extends Module {
+    public static final BoolValue arraylist = new BoolValue("Arraylist",true);
     public static final StringValue logo = new StringValue("Logo", "Sun");
     public static final StringValue thud = new StringValue("TargetHud", "Neon");
     public static final StringValue gameinfo = new StringValue("GameInfo", "Sun");
@@ -50,7 +51,7 @@ public class HUD extends Module {
     public HUD() {
         super("HUD", Category.Render);
         setState(true);
-        add(animationSpeed,mainColor,logo,thud,gameinfo);
+        add(animationSpeed,mainColor,logo,thud,gameinfo,arraylist);
         thud.getValues().add("Novoline");
         thud.getValues().add("Neon");
         thud.getValues().add("Moon");
@@ -68,6 +69,19 @@ public class HUD extends Module {
 
     @EventTarget
     public void onRender2D(Render2DEvent event) {
+
+        // arraylist
+        if(arraylist.get()) {
+            float sb = 0;
+            for (final Module m :Sun.moduleManager.getModules()) {
+                if (m.state) {
+                    sb += FontManager.S20.getHeight() - 5;
+                    RoundedUtils.drawRound(RenderUtil.getWidth() - 50 - (double) FontManager.S20.getStringWidth(m.getName()) / 2.0D,sb,FontManager.S20.getStringWidth(m.getName()), FontManager.S20.getHeight() - 8, 2,new Color(0,0,0,130));
+                    RenderUtil.resetColor();
+                    FontManager.S20.drawCenteredStringWithShadow(m.getName(),RenderUtil.getWidth() - 50,sb,-1);
+                }
+            }
+        }
 
         // logo
         if (logo.get().equals("Sun")) {
