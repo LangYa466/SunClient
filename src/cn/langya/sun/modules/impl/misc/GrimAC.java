@@ -87,7 +87,7 @@ public class GrimAC
             return;
         }
         double reach = attacker.getDistanceToEntity(entity);
-        String prefix = (Object)((Object)TextFormatting.GRAY) + "[" + TextFormatting.AQUA + "GrimAC" + TextFormatting.GRAY + "] " + TextFormatting.RESET + TextFormatting.GRAY + ((EntityPlayer)attacker).getName() + TextFormatting.WHITE + " failed ";
+        String prefix = TextFormatting.GRAY + "[" + TextFormatting.AQUA + "GrimAC" + TextFormatting.GRAY + "] " + TextFormatting.RESET + TextFormatting.GRAY + attacker.getName() + TextFormatting.WHITE + " failed ";
         if (reach > 3.0 && ((EntityLivingBase) entity).getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword) {
             ClientUtils.chatlog(prefix + TextFormatting.AQUA + "Reach" + TextFormatting.WHITE + " (vl:" + attackerCount + ".0)" + TextFormatting.GRAY + ": " + DF_1.format(reach) + " blocks");
         }
@@ -98,12 +98,9 @@ public class GrimAC
         if (player.equals(mc.player)) {
             return;
         }
-        if(player == mc.player) {
-            return;
-        }
-        String prefix = (Object)((Object)TextFormatting.GRAY) + "[" + TextFormatting.AQUA + "GrimAC" + TextFormatting.GRAY + "] " + TextFormatting.RESET + TextFormatting.GRAY + player.getName() + TextFormatting.WHITE + " failed ";
+        String prefix = TextFormatting.GRAY + "[" + TextFormatting.AQUA + "GrimAC" + TextFormatting.GRAY + "] " + TextFormatting.RESET + TextFormatting.GRAY + player.getName() + TextFormatting.WHITE + " failed ";
         if (player.isUsingItem() && (player.posX - player.lastTickPosX > 0.2 || player.posZ - player.lastTickPosZ > 0.2)) {
-            ClientUtils.chatlog(prefix + TextFormatting.AQUA + "NoSlowA (Prediction)" + (Object)TextFormatting.WHITE + " (vl:" + this.vl + ".0)");
+            ClientUtils.chatlog(prefix + TextFormatting.AQUA + "NoSlowA (Prediction)" + TextFormatting.WHITE + " (vl:" + this.vl + ".0)");
             ++vl;
 
         }
