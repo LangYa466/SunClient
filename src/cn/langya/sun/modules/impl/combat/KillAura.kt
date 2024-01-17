@@ -6,13 +6,11 @@ import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
 import cn.langya.sun.modules.impl.misc.Teams
 import cn.langya.sun.utils.misc.TimeUtil
-import cn.langya.sun.utils.render.RenderUtil
+import cn.langya.sun.utils.player.RotationUtil
 import cn.langya.sun.values.BoolValue
 import cn.langya.sun.values.FloatValue
 import cn.langya.sun.values.IntValue
 import com.cubk.event.annotations.EventTarget
-import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.CPacketPlayerDigging
@@ -20,7 +18,6 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import org.lwjgl.opengl.GL11
-import java.awt.Color
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -88,7 +85,7 @@ class KillAura : Module("KillAura",Category.Combat) {
         if(!state || mc.player == null || mc.world == null) return
 
         for(entity in mc.world.loadedEntityList) {
-            if (mc.player.getDistanceToEntity(entity) <= getRange() && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get())) && !Teams.isSameTeam(entity) && isFovInRange(entity) && !entity.isDead) {
+            if (mc.player.getDistanceToEntity(entity) <= getRange() && !Teams.isSameTeam(entity) && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get())) && !Teams.isSameTeam(entity) && isFovInRange(entity) && !entity.isDead) {
                 target = entity
                 attackTimer.reset()
                 attackEntity(entity)
@@ -217,11 +214,23 @@ class KillAura : Module("KillAura",Category.Combat) {
             return
         }
 
+        doRotation(target as EntityLivingBase)
+
         stopBlocking()
 
-        mc.player.swingArm(EnumHand.MAIN_HAND)
+        if(swing) {
+            mc.player.swingArm(EnumHand.MAIN_HAND)
+        }
+
         mc.playerController.attackEntity(mc.player, entity!!)
 
+    }
+
+    private fun doRotation(target: EntityLivingBase) {
+        RotationUtil.setVisualRotations(mc.player.rotationYaw)
+        val rotations: FloatArray = RotationUtil.getGrimRotations(target)
+        mc.player.rotationYaw = rotations[0]
+        mc.player.rotationPitch = rotations[1]
     }
 
     private fun stopBlocking() {

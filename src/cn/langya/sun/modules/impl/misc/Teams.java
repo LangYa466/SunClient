@@ -20,7 +20,9 @@ public class Teams extends Module
     
     public Teams() {
         super("Teams", Category.Misc);
-        armorValue = new BoolValue("Armor", true); colorValue = new BoolValue("Color", true); scoreboardValue = new BoolValue("Scoreboard", true);
+        armorValue = new BoolValue("Armor", true);
+        colorValue = new BoolValue("Color", true);
+        scoreboardValue = new BoolValue("Scoreboard", true);
         add(armorValue, colorValue, scoreboardValue);
     }
     
