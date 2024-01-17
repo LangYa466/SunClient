@@ -146,8 +146,7 @@ public class HUD extends Module {
                 GlStateManager.popMatrix();
             }
             for (Entity target1 : mc.world.loadedEntityList) {
-                final FloatValue rangeValue = Sun.moduleManager.getModule(KillAura.class).getRangeValue();
-                if (mc.player.getDistanceToEntity(target1) <= rangeValue.get() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
+                if (mc.player.getDistanceToEntity(target1) <= Sun.moduleManager.getModule(KillAura.class).getRange() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
                     EntityLivingBase target = (EntityLivingBase) target1;
                     final Color firstColor = ColorUtils.color(1);
                     final Color secondColor = ColorUtils.color(6);

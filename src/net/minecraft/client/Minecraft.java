@@ -289,7 +289,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
     public DebugRenderer debugRenderer;
 
     /** Mouse left click counter */
-    private int leftClickCounter;
+    public int leftClickCounter;
 
     /** Display width */
     private final int tempDisplayWidth;

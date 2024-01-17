@@ -34,7 +34,8 @@ class KillAura : Module("KillAura",Category.Combat) {
     private val minCPSValue = IntValue("MinCPS", 5, 19, 0)
 
     //攻击距离
-    val rangeValue = FloatValue("Range", 3F, 8F, 3F)
+    val groundrangeValue = FloatValue("GroundRange", 3F, 8F, 3F)
+    val airrangeValue = FloatValue("AirRange", 3F, 8F, 3F)
 
     //攻击是否穿墙
     private val throughWalls = BoolValue("ThroughWalls", true)
@@ -71,7 +72,7 @@ class KillAura : Module("KillAura",Category.Combat) {
     //打人光环显示
     private val mark = BoolValue("Mark", true)
     init {
-        add(maxCPSValue,minCPSValue,rangeValue,throughWalls,swingValue,autoBlockvalue,silentrotationValue,maxTurnSpeed,minTurnSpeed,movefixValue,fovValue,circleValue,circleRed,circleGreen,circleBlue,circleAlpha,circleAccuracy,mark)
+        add(maxCPSValue,minCPSValue,groundrangeValue,airrangeValue,throughWalls,swingValue,autoBlockvalue,silentrotationValue,maxTurnSpeed,minTurnSpeed,movefixValue,fovValue,circleValue,circleRed,circleGreen,circleBlue,circleAlpha,circleAccuracy,mark)
     }
 
     val attackTimer = TimeUtil()
@@ -87,7 +88,7 @@ class KillAura : Module("KillAura",Category.Combat) {
         if(!state || mc.player == null || mc.world == null) return
 
         for(entity in mc.world.loadedEntityList) {
-            if (mc.player.getDistanceToEntity(entity) <= rangeValue.get() && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get())) && !Teams.isSameTeam(entity) && isFovInRange(entity) && !entity.isDead) {
+            if (mc.player.getDistanceToEntity(entity) <= getRange() && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get())) && !Teams.isSameTeam(entity) && isFovInRange(entity) && !entity.isDead) {
                 target = entity
                 attackTimer.reset()
                 attackEntity(entity)
@@ -137,13 +138,13 @@ class KillAura : Module("KillAura",Category.Combat) {
 
             for (i in 0..360 step 61 - circleAccuracy.get()) { // You can change circle accuracy  (60 - accuracy)
                 GL11.glVertex2f(
-                    (cos(i * Math.PI / 180.0).toFloat() * rangeValue.get()),
-                    ((sin(i * Math.PI / 180.0).toFloat() * rangeValue.get()))
+                    (cos(i * Math.PI / 180.0).toFloat() * getRange()),
+                    ((sin(i * Math.PI / 180.0).toFloat() * getRange()))
                 )
             }
             GL11.glVertex2f(
-                (cos(360 * Math.PI / 180.0).toFloat() * rangeValue.get()).toFloat(),
-                ((sin(360 * Math.PI / 180.0).toFloat() * rangeValue.get()).toFloat())
+                (cos(360 * Math.PI / 180.0).toFloat() * getRange()).toFloat(),
+                ((sin(360 * Math.PI / 180.0).toFloat() * getRange()).toFloat())
             )
 
             GL11.glEnd()
@@ -156,6 +157,14 @@ class KillAura : Module("KillAura",Category.Combat) {
             GL11.glPopMatrix()
         }
 
+    }
+
+    public fun getRange(): Float {
+        return if(mc.player.onGround) {
+            groundrangeValue.get()
+        } else {
+            airrangeValue.get()
+        }
     }
 
     // CPS
@@ -204,6 +213,9 @@ class KillAura : Module("KillAura",Category.Combat) {
             return
         }
 
+        if(!isFovInRange(entity)) {
+            return
+        }
 
         stopBlocking()
 
