@@ -1,7 +1,7 @@
 package cn.langya.sun.modules.impl.combat
 
-import cn.langya.sun.events.impl.Render3DEvent
-import cn.langya.sun.events.impl.UpdateEvent
+import cn.langya.sun.events.impl.render.Render3DEvent
+import cn.langya.sun.events.impl.player.UpdateEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
 import cn.langya.sun.modules.impl.misc.Teams

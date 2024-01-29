@@ -32,12 +32,12 @@ public class ToggleCommand
             return Sun.moduleManager.getModules().stream().map(Module::getName).filter(name -> name.toLowerCase().startsWith(finalPrefix)).collect(Collectors.toList());
         }
         if (arg == 2) {
-            ArrayList<String> arrayList = new ArrayList<String>();
+            ArrayList<String> arrayList = new ArrayList<>();
             arrayList.add("none");
             arrayList.add("show");
             return arrayList;
         }
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @Override

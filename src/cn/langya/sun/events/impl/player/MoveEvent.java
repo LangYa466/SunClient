@@ -1,4 +1,4 @@
-package cn.langya.sun.events.impl;
+package cn.langya.sun.events.impl.player;
 
 import com.cubk.event.impl.Event;
 
@@ -13,11 +13,16 @@ public class MoveEvent implements Event {
     public double x;
     public double y;
     public double z;
+    public boolean pre;
+    public boolean post;
 
-    public MoveEvent(final double x, final double y, final double z) {
+
+    public MoveEvent(final double x, final double y, final double z, final boolean pre, final boolean post) {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.pre = pre;
+        this.post = post;
     }
 
 }

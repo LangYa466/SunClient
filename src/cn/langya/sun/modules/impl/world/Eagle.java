@@ -1,8 +1,8 @@
 package cn.langya.sun.modules.impl.world;
 
 import com.cubk.event.annotations.EventTarget;
-import cn.langya.sun.events.impl.Render2DEvent;
-import cn.langya.sun.events.impl.UpdateEvent;
+import cn.langya.sun.events.impl.render.Render2DEvent;
+import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.ui.FontManager;

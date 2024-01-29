@@ -1,7 +1,5 @@
 package net.minecraft.client.settings;
 
-import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.KeyPressEvent;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import java.util.Map;

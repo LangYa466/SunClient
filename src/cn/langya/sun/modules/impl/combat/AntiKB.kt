@@ -1,9 +1,9 @@
 package cn.langya.sun.modules.impl.combat
 
 import com.cubk.event.annotations.EventTarget
-import cn.langya.sun.events.impl.PacketReadEvent
-import cn.langya.sun.events.impl.PacketSendEvent
-import cn.langya.sun.events.impl.UpdateEvent
+import cn.langya.sun.events.impl.misc.PacketReadEvent
+import cn.langya.sun.events.impl.misc.PacketSendEvent
+import cn.langya.sun.events.impl.player.UpdateEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
 import cn.langya.sun.utils.misc.MathUtil

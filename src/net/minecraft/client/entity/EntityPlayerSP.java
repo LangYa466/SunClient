@@ -6,8 +6,9 @@ import javax.annotation.Nullable;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.command.Command;
-import cn.langya.sun.events.impl.ChatEvent;
-import cn.langya.sun.events.impl.UpdateEvent;
+import cn.langya.sun.events.impl.misc.ChatEvent;
+import cn.langya.sun.events.impl.player.MoveEvent;
+import cn.langya.sun.events.impl.player.UpdateEvent;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ElytraSound;
@@ -281,6 +282,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
             this.serverSprintState = flag;
         }
+        Sun.eventManager.call(new MoveEvent(posX,posY,posZ,true,false));
 
         boolean flag1 = this.isSneaking();
 
@@ -348,6 +350,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
             this.prevOnGround = this.onGround;
             this.autoJumpEnabled = this.mc.gameSettings.autoJump;
+
+            Sun.eventManager.call(new MoveEvent(posX,posY,posZ,false,true));
         }
     }
 

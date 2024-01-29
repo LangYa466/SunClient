@@ -1,9 +1,9 @@
 package net.minecraft.client;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.KeyPressEvent;
-import cn.langya.sun.events.impl.TickEvent;
-import cn.langya.sun.events.impl.WorldLoadEvent;
+import cn.langya.sun.events.impl.misc.KeyPressEvent;
+import cn.langya.sun.events.impl.misc.TickEvent;
+import cn.langya.sun.events.impl.world.WorldLoadEvent;
 import cn.langya.sun.ui.screen.mainmenu.MainMenu;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;

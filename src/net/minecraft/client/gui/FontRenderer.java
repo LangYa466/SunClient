@@ -1,5 +1,7 @@
 package net.minecraft.client.gui;
 
+import cn.langya.sun.Sun;
+import cn.langya.sun.events.impl.misc.TextEvent;
 import com.ibm.icu.text.ArabicShaping;
 import com.ibm.icu.text.ArabicShapingException;
 import com.ibm.icu.text.Bidi;
@@ -558,6 +560,15 @@ public class FontRenderer implements IResourceManagerReloadListener
         }
     }
 
+    public String getEventString(String string){
+        if (string == null || Sun.eventManager == null)
+            return string;
+
+        final TextEvent textEvent = new TextEvent(string);
+        Sun.eventManager.call(textEvent);
+        return textEvent.text;
+    }
+
     /**
      * Render string either left or right aligned depending on bidiFlag
      */
@@ -577,6 +588,8 @@ public class FontRenderer implements IResourceManagerReloadListener
      */
     private int renderString(String text, float x, float y, int color, boolean dropShadow)
     {
+        text = getEventString(text);
+
         if (text == null)
         {
             return 0;
@@ -615,6 +628,8 @@ public class FontRenderer implements IResourceManagerReloadListener
      */
     public int getStringWidth(String text)
     {
+        text = getEventString(text);
+
         if (text == null)
         {
             return 0;

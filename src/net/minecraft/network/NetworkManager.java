@@ -1,8 +1,8 @@
 package net.minecraft.network;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.PacketReadEvent;
-import cn.langya.sun.events.impl.PacketSendEvent;
+import cn.langya.sun.events.impl.misc.PacketReadEvent;
+import cn.langya.sun.events.impl.misc.PacketSendEvent;
 import com.google.common.collect.Queues;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.viaversion.viaversion.api.connection.UserConnection;

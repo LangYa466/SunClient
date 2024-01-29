@@ -1,8 +1,6 @@
 package net.minecraft.entity;
 
 
-import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.MoveEvent;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -25,7 +23,6 @@ import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.crash.CrashReport;
@@ -726,8 +723,6 @@ public abstract class Entity implements ICommandSender
      */
     public void moveEntity(MoverType x, double p_70091_2_, double p_70091_4_, double p_70091_6_)
     {
-        if(this == Minecraft.getMinecraft().player) Sun.eventManager.call(new MoveEvent(p_70091_2_,p_70091_4_,p_70091_6_));
-
 
         if (this.noClip)
         {

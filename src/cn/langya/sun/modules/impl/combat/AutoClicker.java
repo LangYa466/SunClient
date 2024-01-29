@@ -1,9 +1,9 @@
 package cn.langya.sun.modules.impl.combat;
 
 import com.cubk.event.annotations.EventTarget;
-import cn.langya.sun.events.impl.Render3DEvent;
-import cn.langya.sun.events.impl.TickEvent;
-import cn.langya.sun.events.impl.UpdateEvent;
+import cn.langya.sun.events.impl.render.Render3DEvent;
+import cn.langya.sun.events.impl.misc.TickEvent;
+import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.BoolValue;

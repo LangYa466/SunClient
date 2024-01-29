@@ -2,8 +2,8 @@
 package cn.langya.sun.modules.impl.move;
 
  
-import cn.langya.sun.events.impl.UpdateEvent;
-import cn.langya.sun.events.impl.WorldLoadEvent;
+import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.world.WorldLoadEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.StringValue;

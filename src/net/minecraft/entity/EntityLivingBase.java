@@ -1,8 +1,7 @@
 package net.minecraft.entity;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.SlowDownEvent;
-import cn.langya.sun.events.impl.UpdateEvent;
+import cn.langya.sun.events.impl.player.SlowDownEvent;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 import net.minecraft.advancements.CriteriaTriggers;

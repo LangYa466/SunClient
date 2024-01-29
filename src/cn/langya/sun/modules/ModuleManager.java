@@ -1,9 +1,9 @@
 package cn.langya.sun.modules;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.KeyPressEvent;
-import cn.langya.sun.events.impl.Render2DEvent;
-import cn.langya.sun.events.impl.UpdateEvent;
+import cn.langya.sun.events.impl.misc.KeyPressEvent;
+import cn.langya.sun.events.impl.render.Render2DEvent;
+import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.impl.client.ClickGui;
 import cn.langya.sun.modules.impl.client.Client;
 import cn.langya.sun.modules.impl.client.HUD;
@@ -21,9 +21,7 @@ import cn.langya.sun.modules.impl.move.NoWater;
 import cn.langya.sun.modules.impl.move.Sprint;
 import cn.langya.sun.modules.impl.world.Eagle;
 import cn.langya.sun.utils.ClientUtils;
-import cn.langya.sun.values.AbstractValue;
 import com.cubk.event.annotations.EventTarget;
-import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.lwjgl.input.Keyboard;
 
 import java.io.File;

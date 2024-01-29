@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.misc;
 
-import cn.langya.sun.events.impl.PacketSendEvent;
+import cn.langya.sun.events.impl.misc.PacketSendEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import com.cubk.event.annotations.EventTarget;

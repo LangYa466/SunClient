@@ -1,8 +1,8 @@
 package cn.langya.sun.files;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.files.Config;
 import cn.langya.sun.files.configs.ModuleConfig;
+import cn.langya.sun.utils.ClientUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
@@ -37,28 +37,28 @@ public class ConfigManager {
     public void loadConfig(String name) {
         File file = new File(dir, name);
         if (file.exists()) {
-            System.out.println("Loading config: " + name);
+            ClientUtils.logger.info("Loading config: " + name);
             for (Config config : configs) {
                 if (config.name.equals(name)) {
                     try {
                         config.load(new JsonParser().parse(new FileReader(file)).getAsJsonObject());
                         break;
                     } catch (FileNotFoundException e) {
-                        System.out.println("Failed to load config: " + name);
+                        ClientUtils.logger.error("Failed to load config: " + name);
                         e.printStackTrace();
                         break;
                     }
                 }
             }
         } else {
-            System.out.println("Config " + name + " doesn't exist, creating a new one...");
+            ClientUtils.logger.error("Config " + name + " doesn't exist, creating a new one...");
             saveConfig(name);
         }
     }
     public void saveConfig(String name) {
         File file = new File(dir, name);
         try {
-            System.out.println("Saving config: " + name);
+            ClientUtils.logger.info("Saving config: " + name);
             file.createNewFile();
             for (Config config : configs) {
                 if (config.name.equals(name)) {
@@ -67,7 +67,7 @@ public class ConfigManager {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Failed to save config: " + name);
+            ClientUtils.logger.error("Failed to save config: " + name);
         }
     }
     public List<Config> getConfigs() {

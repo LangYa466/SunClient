@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.combat
 
-import cn.langya.sun.events.impl.AttackEvent
+import cn.langya.sun.events.impl.player.AttackEvent
 import cn.langya.sun.modules.Category
 import cn.langya.sun.modules.Module
 import cn.langya.sun.values.StringValue

@@ -1,8 +1,8 @@
 // by paimon
 package cn.langya.sun.modules.impl.world;
 
-import cn.langya.sun.events.impl.TickEvent;
-import cn.langya.sun.events.impl.WorldLoadEvent;
+import cn.langya.sun.events.impl.misc.TickEvent;
+import cn.langya.sun.events.impl.world.WorldLoadEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.misc.Teams;

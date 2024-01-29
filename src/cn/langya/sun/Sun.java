@@ -5,6 +5,7 @@ import cn.langya.sun.files.ConfigManager;
 import cn.langya.sun.modules.ModuleManager;
 import cn.langya.sun.ui.font.FontManager;
 import cn.langya.sun.utils.ClientUtils;
+import cn.langya.sun.utils.misc.JsonUtils;
 import cn.langya.sun.utils.misc.WebUtils;
 import cn.langya.sun.utils.render.ShaderUtil;
 import cn.langya.sun.verify.HWIDVerify;
@@ -73,7 +74,8 @@ public class Sun {
         }
 
         ClientUtils.loginfo("SunClient Load End!!");
-        Display.setTitle("SunClient | " + WebUtils.get("https://v1.hitokoto.cn/?c=a&encode=text"));
+    //    Display.setTitle("SunClient | " + WebUtils.get("https://v1.hitokoto.cn/?c=a&encode=text"));
+        Display.setTitle("SunClient | [" + JsonUtils.getDataString(WebUtils.get("https://yuym.cn/ipregion"),"regionName") +"]»À");
     }
 
     private void setWindowIcon() {

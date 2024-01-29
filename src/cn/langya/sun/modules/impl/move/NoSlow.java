@@ -1,20 +1,13 @@
 package cn.langya.sun.modules.impl.move;
 
-import cn.langya.sun.events.impl.MoveEvent;
-import cn.langya.sun.events.impl.SlowDownEvent;
+import cn.langya.sun.events.impl.player.MoveEvent;
+import cn.langya.sun.events.impl.player.SlowDownEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.StringValue;
 import com.cubk.event.annotations.EventTarget;
-import io.netty.buffer.Unpooled;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.CPacketConfirmTransaction;
-import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.util.EnumFacing;

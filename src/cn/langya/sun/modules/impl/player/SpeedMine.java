@@ -1,8 +1,8 @@
 package cn.langya.sun.modules.impl.player;
 
-import cn.langya.sun.events.impl.PacketReadEvent;
-import cn.langya.sun.events.impl.PacketSendEvent;
-import cn.langya.sun.events.impl.UpdateEvent;
+import cn.langya.sun.events.impl.misc.PacketReadEvent;
+import cn.langya.sun.events.impl.misc.PacketSendEvent;
+import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.BoolValue;

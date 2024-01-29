@@ -2,7 +2,7 @@ package net.minecraft.client.multiplayer;
 
 import cn.langya.sun.Sun;
 
-import cn.langya.sun.events.impl.AttackEvent;
+import cn.langya.sun.events.impl.player.AttackEvent;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;

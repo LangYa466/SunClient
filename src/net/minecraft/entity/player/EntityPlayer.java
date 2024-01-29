@@ -1,7 +1,5 @@
 package net.minecraft.entity.player;
 
-import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.SlowDownEvent;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;

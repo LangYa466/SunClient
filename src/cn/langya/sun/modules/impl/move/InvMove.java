@@ -3,7 +3,7 @@ package cn.langya.sun.modules.impl.move;
 
 import cn.langya.sun.ui.screen.clickgui.DropdownClickGUI;
 import com.cubk.event.annotations.EventTarget;
-import cn.langya.sun.events.impl.UpdateEvent;
+import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.ui.screen.clickgui.ClickGui;

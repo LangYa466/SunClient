@@ -1,4 +1,4 @@
-package cn.langya.sun.events.impl;
+package cn.langya.sun.events.impl.misc;
 
 import com.cubk.event.impl.Event;
 import net.minecraft.network.Packet;

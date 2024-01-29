@@ -2,7 +2,7 @@
 package cn.langya.sun.modules.impl.misc;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.UpdateEvent;
+import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.combat.AntiKB;
@@ -11,7 +11,6 @@ import cn.langya.sun.values.*;
 import com.cubk.event.annotations.EventTarget;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraft.inventory.ClickType;
-import net.minecraft.network.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.network.play.client.*;
 

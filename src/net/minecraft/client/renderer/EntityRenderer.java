@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.Render3DEvent;
+import cn.langya.sun.events.impl.render.Render3DEvent;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
