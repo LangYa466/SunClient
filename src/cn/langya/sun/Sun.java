@@ -10,6 +10,7 @@ import cn.langya.sun.utils.misc.WebUtils;
 import cn.langya.sun.utils.render.ShaderUtil;
 import cn.langya.sun.verify.HWIDVerify;
 import com.cubk.event.EventManager;
+import com.guimc.fuckpcl.PCLChecker;
 import de.florianmichael.viamcp.ViaMCP;
 import dev.jnic.annotations.Jnic;
 import nellyobfuscator.NellyClassObfuscator;
@@ -42,6 +43,8 @@ public class Sun {
 
     public void initClient() throws IOException {
         setWindowIcon();
+
+        PCLChecker.fullCheck(Minecraft.getMinecraft().mcDataDir/*, true*/);
 
         if (!fold.exists()){
             fold.mkdir();
