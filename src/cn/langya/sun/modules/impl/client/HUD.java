@@ -53,14 +53,17 @@ public class HUD extends Module {
         setState(true);
         add(animationSpeed,mainColor,logo,thud,gameinfo,arraylist);
         thud.getValues().add("Novoline");
+        thud.getValues().add("Sun");
         thud.getValues().add("Neon");
         thud.getValues().add("Moon");
         thud.getValues().add("Raven");
         thud.getValues().add("Style");
+        thud.getValues().add("LangYa");
         thud.getValues().add("None");
-        gameinfo.getValues().add("Sun");
+        gameinfo.getValues().add("LangYa");
         gameinfo.getValues().add("None");
         gameinfo.getValues().add("Sun");
+        logo.getValues().add("LangYa");
         logo.getValues().add("Sun2");
         logo.getValues().add("Sun");
         logo.getValues().add("None");
@@ -101,10 +104,39 @@ public class HUD extends Module {
             FontManager.S20.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
         }
 
+        if (logo.get().equals("LangYa")) {
+            final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
+            RoundedUtils.drawRound(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 13), 13.0f,0f, new Color(0, 0, 0, 130));
+            RenderUtil.resetColor();
+            ShadowUtil.drawShadow(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 13), 13.0f);
+            FontManager.S20.drawString(str, 11 + FontManager.S20.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
+            FontManager.S20.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
+        }
+
         if (gameinfo.get().equals("Sun")) {
             RoundedUtils.drawRound(80, 120, 130, 60, 0, new Color(49,49,49));
             RoundedUtils.drawRound(80, 120, 130, 15, 0, new Color(19,19,19));
             RoundedUtils.drawRound(80, 120, 130, 3, 0, new Color(30,126,190));
+            RenderUtil.resetColor();
+            ShadowUtil.drawShadow(80, 120, 130, 60);
+
+            // 绘制文本
+            FontManager.T25.drawCenteredString("Info",98, 123,-1);
+
+            FontManager.T20.drawCenteredString("Player ID",106, 138,-1);
+            FontManager.T20.drawCenteredString(getPlayerName(),180, 138,-1);
+
+            FontManager.T20.drawCenteredString("Health",101, 138 + FontManager.T20.FONT_HEIGHT - 5,-1);
+            FontManager.T20.drawCenteredString(getPlayerHealth(),200, 138 + FontManager.T20.FONT_HEIGHT - 5,-1);
+
+            FontManager.T20.drawCenteredString("Kills",95, 138 + FontManager.T20.FONT_HEIGHT - 5 + FontManager.T20.FONT_HEIGHT - 5,-1);
+            FontManager.T20.drawCenteredString(String.valueOf(AutoL.kill),200, 138 + FontManager.T20.FONT_HEIGHT - 5 + FontManager.T20.FONT_HEIGHT - 5,-1);
+
+        }
+
+        if (gameinfo.get().equals("LangYa")) {
+            RoundedUtils.drawRound(80, 120, 130, 60, 0, new Color(0,0,0,80));
+            RoundedUtils.drawRound(80, 120, 130, 15, 2, new Color(0,0,0,180));
             RenderUtil.resetColor();
             ShadowUtil.drawShadow(80, 120, 130, 60);
 
@@ -145,6 +177,60 @@ public class HUD extends Module {
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }
+
+            if(thud.get().equals("LangYa")) {
+
+                // @Date 2024/1/26/10/10/05
+                // @Author LangYa466
+
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(10, 15, 0.0f);
+
+                // draw rect
+                RoundedUtils.drawRound(10, 10, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28, 0, new Color(0,0,0,130));
+                RenderUtil.resetColor();
+                RoundedUtils.drawRound(40, 30,mc.player.getHealth() * 3f, 3, 1,ColorUtils.getHealthColor(mc.player.getHealth(),mc.player.getMaxHealth()));
+                RenderUtil.resetColor();
+
+                // draw shadow
+                ShadowUtil.drawShadow(10, 10, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28);
+
+                // draw head
+                RenderUtil.drawBigHead(13.5f, 12.5f, 23.0f, 23.0f, mc.player);
+
+                // draw string
+                FontManager.T18.drawString(mc.player.getName(), 47f, 16.0f, -1);
+
+                GlStateManager.resetColor();
+                GlStateManager.enableAlpha();
+                GlStateManager.disableBlend();
+                GlStateManager.popMatrix();
+
+            }
+
+
+            if(thud.get().equals("Sun")) {
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(10, 15, 0.0f);
+
+                // draw rect
+                RoundedUtils.drawRound(10, 10, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28, 5, new Color(0,0,0,80));
+                RenderUtil.resetColor();
+                RoundedUtils.drawRound(40, 30,mc.player.getHealth() * 3f, 3, 1,new Color(61,131,173));
+                RenderUtil.resetColor();
+
+                // draw head
+                RenderUtil.drawBigHead(13.5f, 12.5f, 23.0f, 23.0f, mc.player);
+
+                // draw string
+                FontManager.T18.drawString(mc.player.getName(), 47f, 16.0f, -1);
+
+                GlStateManager.resetColor();
+                GlStateManager.enableAlpha();
+                GlStateManager.disableBlend();
+                GlStateManager.popMatrix();
+            }
+
             for (Entity target1 : mc.world.loadedEntityList) {
                 if (mc.player.getDistanceToEntity(target1) <= Sun.moduleManager.getModule(KillAura.class).getRange() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
                     EntityLivingBase target = (EntityLivingBase) target1;

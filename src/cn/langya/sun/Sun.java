@@ -31,7 +31,7 @@ public class Sun {
     public static final String name = "SunClient";
     public static final String version = "1.0";
     public static final String author = "LangYa,PaiMon,Eternity_";
-    public static final String cloud = "http://www.sunclient.cloud/";
+    public static final String cloud = "https://sunclient.cloud/";
     public static final File fold = new File(Minecraft.getMinecraft().mcDataDir, "Sun");
     // Manager
     public static ModuleManager moduleManager;
@@ -59,7 +59,6 @@ public class Sun {
         configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
 
         FontManager.initFonts();
-
 
         //  init viamcp
         try {

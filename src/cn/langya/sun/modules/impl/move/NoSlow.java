@@ -11,10 +11,15 @@ import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.client.CPacketConfirmTransaction;
 import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
+import net.minecraft.network.play.client.CPacketPlayerDigging;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * @author LangYa
@@ -50,8 +55,9 @@ public class NoSlow extends Module {
     @EventTarget
     public void onMove(MoveEvent e) {
         if (mode.get().equals("Hyt") && mc.player.getHeldItem(EnumHand.MAIN_HAND) != null && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword && slow) {
+            mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
             mc.getConnection().sendPacket(new CPacketHeldItemChange((mc.player.inventory.currentItem + 1) % 9));
-            mc.getConnection().sendPacket(new CPacketCustomPayload("test", new PacketBuffer(Unpooled.wrappedBuffer(new byte[]{1}))));
+            mc.getConnection().sendPacket(new CPacketConfirmTransaction(Integer.MAX_VALUE, (short)32767, true));
             mc.getConnection().sendPacket(new CPacketHeldItemChange((mc.player.inventory.currentItem)));
         }
     }

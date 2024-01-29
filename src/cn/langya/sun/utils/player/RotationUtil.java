@@ -2,6 +2,7 @@ package cn.langya.sun.utils.player;
 
 import cn.langya.sun.utils.Utils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -36,6 +37,17 @@ public class RotationUtil extends Utils {
         float yaw = (float) ((Math.atan2(zSize, xSize) * 180 / Math.PI) - 90);
         float pitch = (float) (-(Math.atan2(ySize, theta) * 180 / Math.PI));
         return new float[]{mc.player.rotationYaw + MathHelper.wrapDegrees(yaw - mc.player.rotationYaw), mc.player.rotationPitch + MathHelper.wrapDegrees(pitch - mc.player.rotationPitch)};
+    }
+
+    /**
+     * Allows you to check if your crosshair is over your target entity
+     *
+     * @param targetEntity       your target entity
+     * @param blockReachDistance your reach
+     * @return if crosshair is over target
+     */
+    public static Entity isFaced(final Entity targetEntity, double blockReachDistance) {
+    return RaycastUtils.raycastEntity(blockReachDistance, entity -> targetEntity != null);
     }
 
 }

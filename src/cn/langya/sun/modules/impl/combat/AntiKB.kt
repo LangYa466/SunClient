@@ -30,7 +30,7 @@ import net.minecraft.util.math.Vec3d
  */
 
 class AntiKB : Module("Velocity", true, Category.Combat) {
-    private val modes = StringValue("Velocity", "JumpRester","JumpRester", "Velocity", "Hypixel", "Hypixel-Velocity")
+    private val modes = StringValue("Velocity", "JumpRester","JumpRester", "Cancel", "Hypixel", "GrimY")
     private val grimRayCastValue = BoolValue("Grim-RayCast", false)
     private val grimCheckRangeValue = FloatValue("Grim-CheckRange", 4.0F, 2.0F, 6.0F)
     private val grimAttackPacketCountValue = FloatValue("Grim-AttackPacket-Count", 12.0F, 5.0F, 50.0F)
