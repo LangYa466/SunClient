@@ -1,8 +1,6 @@
 package net.minecraft.client.gui;
 
 import cn.langya.sun.ui.font.FontManager;
-import cn.langya.sun.utils.render.RenderUtil;
-import cn.langya.sun.utils.render.RoundedUtils;
 import com.google.common.collect.Lists;
 
 import java.awt.*;
@@ -86,10 +84,10 @@ public class GuiNewChat extends Gui
                             {
                                 int i2 = 0;
                                 int j2 = -i1 * 9;
-                                RoundedUtils.drawRound(-2, j2 - 9, 0 + k + 4, j2, 2,new Color(l1 / 2 << 24));
+                                Gui.drawRect3(-2, j2 - 9f, 0 + k + 4f, j2,new Color(0,0,0,80).getRGB());
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                FontManager.C15.drawStringWithShadow(s, 0.0F, (float)(j2 - 8), 16777215 + (l1 << 24));
+                                FontManager.C15.drawString(s, 0.0F, (float)(j2 - 8), 16777215 + (l1 << 24));
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }

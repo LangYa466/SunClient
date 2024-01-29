@@ -9,6 +9,8 @@ import cn.langya.sun.modules.impl.misc.AutoL;
 import cn.langya.sun.modules.impl.misc.Teams;
 import cn.langya.sun.ui.font.FontDrawer;
 import cn.langya.sun.ui.font.FontManager;
+import cn.langya.sun.ui.impl.notification.Notification;
+import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.misc.MathUtil;
 import cn.langya.sun.utils.render.*;
 import cn.langya.sun.values.*;
@@ -16,6 +18,7 @@ import com.cubk.event.annotations.EventTarget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -70,15 +73,19 @@ public class HUD extends Module {
     @EventTarget
     public void onRender2D(Render2DEvent event) {
 
+
         // arraylist
         if(arraylist.get()) {
             float sb = 0;
             for (final Module m :Sun.moduleManager.getModules()) {
                 if (m.state) {
                     sb += FontManager.S20.getHeight() - 5;
-                    RoundedUtils.drawRound(RenderUtil.getWidth() - 50 - (double) FontManager.S20.getStringWidth(m.getName()) / 2.0D,sb,FontManager.S20.getStringWidth(m.getName()), FontManager.S20.getHeight() - 8, 2,new Color(0,0,0,130));
+                    GaussianBlur.startBlur();
+                    RoundedUtil.drawRound(RenderUtil.getWidth() - 100,sb,FontManager.S20.getStringWidth(m.getName()), FontManager.S20.getHeight() - 6, 0,new Color(0,0,0,130));
+                    GaussianBlur.endBlur(13, 0);
+                    RoundedUtil.drawRound(RenderUtil.getWidth() - 100,sb,FontManager.S20.getStringWidth(m.getName()), FontManager.S20.getHeight() - 6, 0,new Color(0,0,0,50));
                     RenderUtil.resetColor();
-                    FontManager.S20.drawCenteredStringWithShadow(m.getName(),RenderUtil.getWidth() - 50,sb,-1);
+                    FontManager.S20.drawStringWithShadow(m.getName(),RenderUtil.getWidth() - 100,sb,-1);
                 }
             }
         }
@@ -87,7 +94,7 @@ public class HUD extends Module {
         if (logo.get().equals("Sun")) {
             final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
             RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 19.0f, new Color(19, 19, 19, 230).getRGB());
-            RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 1.0f, ColorUtils.color(8).getRGB());
+            RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 1.0f, ColorUtil.color(8).getRGB());
             RenderUtil.resetColor();
             FontManager.S20.drawString(str, 11 + FontManager.S20.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
             FontManager.S20.drawString(Sun.name.toUpperCase(), (int) 10.0f, (int) 7.5f, Color.WHITE.getRGB());
@@ -103,7 +110,12 @@ public class HUD extends Module {
 
         if (logo.get().equals("LangYa")) {
             final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
-            RoundedUtils.drawRound(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 13), 13.0f,0f, new Color(0, 0, 0, 130));
+            GaussianBlur.startBlur();
+            RoundedUtil.drawRound(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 13), 13.0f,0f, new Color(0, 0, 0, 130));
+            GaussianBlur.endBlur(13, 2);
+            RoundedUtil.drawRound(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 13), 13.0f,0f, new Color(0, 0, 0, 130));
+
+
             RenderUtil.resetColor();
             ShadowUtil.drawShadow(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 13), 13.0f);
             FontManager.S20.drawString(str, 11 + FontManager.S20.getStringWidth(Sun.name.toUpperCase()), (int) 7.5f, Color.WHITE.getRGB());
@@ -111,9 +123,9 @@ public class HUD extends Module {
         }
 
         if (gameinfo.get().equals("Sun")) {
-            RoundedUtils.drawRound(80, 120, 130, 60, 0, new Color(49,49,49));
-            RoundedUtils.drawRound(80, 120, 130, 15, 0, new Color(19,19,19));
-            RoundedUtils.drawRound(80, 120, 130, 3, 0, new Color(30,126,190));
+            RoundedUtil.drawRound(80, 120, 130, 60, 0, new Color(49,49,49));
+            RoundedUtil.drawRound(80, 120, 130, 15, 0, new Color(19,19,19));
+            RoundedUtil.drawRound(80, 120, 130, 3, 0, new Color(30,126,190));
             RenderUtil.resetColor();
             ShadowUtil.drawShadow(80, 120, 130, 60);
 
@@ -132,8 +144,12 @@ public class HUD extends Module {
         }
 
         if (gameinfo.get().equals("LangYa")) {
-            RoundedUtils.drawRound(80, 120, 130, 60, 0, new Color(0,0,0,80));
-            RoundedUtils.drawRound(80, 120, 130, 15, 2, new Color(0,0,0,180));
+            GaussianBlur.startBlur();
+            RoundedUtil.drawRound(80, 120, 130, 60, 0, new Color(0,0,0,80));
+            GaussianBlur.endBlur(2, 2);
+            RoundedUtil.drawRound(80, 120, 130, 60, 0, new Color(0,0,0,80));
+
+            RoundedUtil.drawRound(80, 120, 130, 15, 2, new Color(0,0,0,180));
             RenderUtil.resetColor();
             ShadowUtil.drawShadow(80, 120, 130, 60);
 
@@ -157,8 +173,8 @@ public class HUD extends Module {
                 GlStateManager.translate(10, 15, 0.0f);
 
                 // draw rect
-                RoundedUtils.drawRound(10, 10, 90 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 60, 3, new Color(0,0,0,80));
-                RoundedUtils.drawRound(10, 10, 90 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 10, 3, new Color(0,0,0,130));
+                RoundedUtil.drawRound(10, 10, 90 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 60, 3, new Color(0,0,0,80));
+                RoundedUtil.drawRound(10, 10, 90 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 10, 3, new Color(0,0,0,130));
 
                 // draw string
                 FontManager.S20.drawCenteredString("Session",45, 10,-1);
@@ -181,22 +197,25 @@ public class HUD extends Module {
                 // @Author LangYa466
 
                 GlStateManager.pushMatrix();
-                GlStateManager.translate(10, 15, 0.0f);
 
                 // draw rect
-                RoundedUtils.drawRound(10, 10, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28, 0, new Color(0,0,0,130));
+                GaussianBlur.startBlur();
+                RoundedUtil.drawRound(10, 30, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28, 0, new Color(0,0,0,130));
+                GaussianBlur.endBlur(2, 2);
+                RoundedUtil.drawRound(10, 30, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28, 0, new Color(0,0,0,130));
+
                 RenderUtil.resetColor();
-                RoundedUtils.drawRound(40, 30,mc.player.getHealth() * 3f, 3, 1,ColorUtils.getHealthColor(mc.player.getHealth(),mc.player.getMaxHealth()));
+                RoundedUtil.drawRound(40, 50,mc.player.getHealth() * 3f, 3, 1, ColorUtil.getHealthColor(mc.player.getHealth(),mc.player.getMaxHealth()));
                 RenderUtil.resetColor();
 
                 // draw shadow
-                ShadowUtil.drawShadow(10, 10, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28);
+                ShadowUtil.drawShadow(10, 30, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28);
 
                 // draw head
-                RenderUtil.drawBigHead(13.5f, 12.5f, 23.0f, 23.0f, mc.player);
+                RenderUtil.drawBigHead(13.5f, 32.5f, 23.0f, 23.0f, mc.player);
 
                 // draw string
-                FontManager.T18.drawString(mc.player.getName(), 47f, 16.0f, -1);
+                FontManager.T18.drawString(mc.player.getName(), 47f, 36.0f, -1);
 
                 GlStateManager.resetColor();
                 GlStateManager.enableAlpha();
@@ -211,9 +230,9 @@ public class HUD extends Module {
                 GlStateManager.translate(10, 15, 0.0f);
 
                 // draw rect
-                RoundedUtils.drawRound(10, 10, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28, 5, new Color(0,0,0,80));
+                RoundedUtil.drawRound(10, 10, 60 + mc.fontRendererObj.getStringWidth(mc.player.getName()), 28, 5, new Color(0,0,0,80));
                 RenderUtil.resetColor();
-                RoundedUtils.drawRound(40, 30,mc.player.getHealth() * 3f, 3, 1,new Color(61,131,173));
+                RoundedUtil.drawRound(40, 30,mc.player.getHealth() * 3f, 3, 1,new Color(61,131,173));
                 RenderUtil.resetColor();
 
                 // draw head
@@ -231,8 +250,8 @@ public class HUD extends Module {
             for (Entity target1 : mc.world.loadedEntityList) {
                 if (mc.player.getDistanceToEntity(target1) <= Sun.moduleManager.getModule(KillAura.class).getRange() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
                     EntityLivingBase target = (EntityLivingBase) target1;
-                    final Color firstColor = ColorUtils.color(1);
-                    final Color secondColor = ColorUtils.color(6);
+                    final Color firstColor = ColorUtil.color(1);
+                    final Color secondColor = ColorUtil.color(6);
                     double width;
                     double height;
                     double x = 50;
@@ -269,11 +288,11 @@ public class HUD extends Module {
                     if(thud.get().equals("Raven")) {
                         GlStateManager.pushMatrix();
                         GlStateManager.translate(x, y, 0.0f);
-                        RoundedUtils.drawRound(0.0f, 0.0f, 70.0f + mc.fontRendererObj.getStringWidth(target.getName()), 40.0f, 12.0f, new Color(0, 0, 0, 92));
+                        RoundedUtil.drawRound(0.0f, 0.0f, 70.0f + mc.fontRendererObj.getStringWidth(target.getName()), 40.0f, 12.0f, new Color(0, 0, 0, 92));
                         RenderUtil.drawOutline(8.0f, 0.0f, 62.0f + mc.fontRendererObj.getStringWidth(target.getName()), 24.0f, 8.0f, 2.0f, 6.0f, firstColor.brighter(), secondColor.brighter());
                         FontManager.T18.drawStringWithShadow(target.getName(), 7.0f, 10.0f, new Color(244, 67, 54).getRGB());
-                        FontManager.T18.drawStringWithShadow(this.DF_1.format(target.getHealth()), 7.0f + mc.fontRendererObj.getStringWidth(target.getName()) + 4.0f, 10.0f, ColorUtils.getHealthColor(target.getHealth(), target.getMaxHealth()).getRGB());
-                        RoundedUtils.drawGradientRoundLR(6.0f, 25.0f, (float)((int)((70.0f + mc.fontRendererObj.getStringWidth(target.getName()) - 5.0f) * (target.getHealth() / target.getMaxHealth())) - 6), 5.0f, 2.0f, firstColor.brighter(), secondColor.brighter());
+                        FontManager.T18.drawStringWithShadow(this.DF_1.format(target.getHealth()), 7.0f + mc.fontRendererObj.getStringWidth(target.getName()) + 4.0f, 10.0f, ColorUtil.getHealthColor(target.getHealth(), target.getMaxHealth()).getRGB());
+                        GradientUtil.drawGradientLR(6.0f, 25.0f, (float)((int)((70.0f + mc.fontRendererObj.getStringWidth(target.getName()) - 5.0f) * (target.getHealth() / target.getMaxHealth())) - 6), 5.0f, 2.0f, firstColor.brighter(), secondColor.brighter());
                         GlStateManager.resetColor();
                         GlStateManager.enableAlpha();
                         GlStateManager.disableBlend();
@@ -283,10 +302,10 @@ public class HUD extends Module {
                         float getMaxHel = Math.min(target.getMaxHealth(), 20.0f);
 
                         // blur
-                        RoundedUtils.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.T18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0));
+                        RoundedUtil.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.T18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0));
                         // end
 
-                        RoundedUtils.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.T18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0, 100));
+                        RoundedUtil.drawRound((float) x, (float) y, Math.max(39.0f + getMaxHel * 3.0f, (float)(39 + FontManager.T18.getStringWidth(target.getName()))), 36.0f, 5.0f, new Color(0, 0, 0, 100));
                         if (target instanceof AbstractClientPlayer) {
                             this.drawBigHeadRound((float) (x + 3.0f), (float) (y + 3.0f), 30.0f, 30.0f, (AbstractClientPlayer)target);
                         }
@@ -300,7 +319,7 @@ public class HUD extends Module {
                         }
                         FontManager.T15.drawString(Math.floor(target.getHealth()) + nmsl + " HP", x + 36.0f, y + 6.0f + FontManager.T18.getHeight(), new Color(255, 255, 255).getRGB());
                         target.animatedHealthBar = AnimationUtil.animate(target.animatedHealthBar, target.getHealth(), 0.15f);
-                        RoundedUtils.drawRound((float) (x + 36.0f), (float) (y + 16.0f + FontManager.T15.getHeight()), target.animatedHealthBar / target.getMaxHealth() * Math.max(getMaxHel * 3.0f, (float)FontManager.T18.getStringWidth(target.getName())), 5.0f, 2.5f, ColorUtils.color(8));
+                        RoundedUtil.drawRound((float) (x + 36.0f), (float) (y + 16.0f + FontManager.T15.getHeight()), target.animatedHealthBar / target.getMaxHealth() * Math.max(getMaxHel * 3.0f, (float)FontManager.T18.getStringWidth(target.getName())), 5.0f, 2.5f, ColorUtil.color(8));
                         break;
                     }
                     if (thud.get().equals("Neon")) {

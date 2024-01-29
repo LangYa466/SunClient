@@ -7,7 +7,7 @@ import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RoundedUtils {
+public class RoundedUtil {
 
     public static ShaderUtil roundedShader = new ShaderUtil("roundedRect");
     public static ShaderUtil roundedOutlineShader = new ShaderUtil("roundRectOutline");
@@ -18,12 +18,6 @@ public class RoundedUtils {
     public static void drawRound(float x, float y, float width, float height, float radius, Color color) {
         drawRound(x, y, width, height, radius, false, color);
     }
-    public static void drawRound(double x, double y, double width, double height, double radius, Color color) {
-        drawRound((float) x, (float) y, (float) width, (float) height, (float) radius, false, color);
-    }
-    public static void drawRound(float x, float y, float width, float height, float radius, int color) {
-        drawRound(x, y, width, height, radius, false, color);
-    }
 
     public static void drawGradientHorizontal(float x, float y, float width, float height, float radius, Color left, Color right) {
         drawGradientRound(x, y, width, height, radius, left, left, right, right);
@@ -32,12 +26,12 @@ public class RoundedUtils {
         drawGradientRound(x, y, width, height, radius, bottom, top, bottom, top);
     }
     public static void drawGradientCornerLR(float x, float y, float width, float height, float radius, Color topLeft, Color bottomRight) {
-        Color mixedColor = ColorUtils.interpolateColorC(topLeft, bottomRight, .5f);
+        Color mixedColor = ColorUtil.interpolateColorC(topLeft, bottomRight, .5f);
         drawGradientRound(x, y, width, height, radius, mixedColor, topLeft, bottomRight, mixedColor);
     }
 
     public static void drawGradientCornerRL(float x, float y, float width, float height, float radius, Color bottomLeft, Color topRight) {
-        Color mixedColor = ColorUtils.interpolateColorC(topRight, bottomLeft, .5f);
+        Color mixedColor = ColorUtil.interpolateColorC(topRight, bottomLeft, .5f);
         drawGradientRound(x, y, width, height, radius, bottomLeft, mixedColor, mixedColor, topRight);
     }
 
@@ -60,9 +54,7 @@ public class RoundedUtils {
         GLUtil.endBlend();
     }
 
-    public static void drawRound(float x, float y, float width, float height, float radius, boolean blur, int color) {
-        drawRound(x,y,width,height,radius,blur,new Color(color));
-    }
+
 
 
     public static void drawRound(float x, float y, float width, float height, float radius, boolean blur, Color color) {
@@ -101,9 +93,7 @@ public class RoundedUtils {
         GLUtil.endBlend();
     }
 
-    public static void drawGradientRoundLR(final float x, final float y, final float width, final float height, final float radius, final Color color1, final Color color2) {
-        drawGradientRound(x, y, width, height, radius, color1, color2, color2, color1);
-    }
+
     public static void drawRoundTextured(float x, float y, float width, float height, float radius, float alpha) {
         RenderUtil.resetColor();
         RenderUtil.setAlphaLimit(0);

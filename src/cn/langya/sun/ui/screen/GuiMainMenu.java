@@ -2,10 +2,9 @@ package cn.langya.sun.ui.screen;
 
 import cn.langya.sun.ui.font.FontManager;
 import cn.langya.sun.ui.screen.button.BetterButton;
-import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.TimeUtil;
 import cn.langya.sun.utils.render.RenderUtil;
-import cn.langya.sun.utils.render.RoundedUtils;
+import cn.langya.sun.utils.render.RoundedUtil;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiWorldSelection;
@@ -46,7 +45,7 @@ public class GuiMainMenu extends GuiScreen {
         FontManager.T50.drawCenteredString("SunClient",width / 2 + 23 ,height / 2 - 180,-1);
 
         // 绘制小背景
-        RoundedUtils.drawRound(width / 2 - 100,height / 2 - 200,height / 2 - 100,width / 2 - 300,8,new Color(255,255,255,20));
+        RoundedUtil.drawRound(width / 2 - 100,height / 2 - 200,height / 2 - 100,width / 2 - 300,8,new Color(255,255,255,20));
 
         // 绘制按钮
         singlPlayerButton.draw("SinglePlayer",FontManager.S30,mouseX,mouseY);

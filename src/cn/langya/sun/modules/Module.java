@@ -1,7 +1,6 @@
 package cn.langya.sun.modules;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.Utils;
 import cn.langya.sun.values.AbstractValue;
 import net.minecraft.init.SoundEvents;

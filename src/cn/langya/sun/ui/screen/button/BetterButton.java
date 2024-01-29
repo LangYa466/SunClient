@@ -2,8 +2,7 @@ package cn.langya.sun.ui.screen.button;
 
 import cn.langya.sun.ui.font.FontDrawer;
 import cn.langya.sun.utils.render.RenderUtil;
-import cn.langya.sun.utils.render.RoundedUtils;
-import org.lwjgl.input.Keyboard;
+import cn.langya.sun.utils.render.RoundedUtil;
 
 import java.awt.*;
 
@@ -42,8 +41,8 @@ public class BetterButton extends RenderUtil {
             if (hoverFade > 0) hoverFade -= 10;
         }
 
-        RoundedUtils.drawRound(x,y,width, height,5, color);
-        RoundedUtils.drawRound(x,y + width / 5 - 4,width, 3,2, Color.white);
+        RoundedUtil.drawRound(x,y,width, height,5, color);
+        RoundedUtil.drawRound(x,y + width / 5 - 4,width, 3,2, Color.white);
         fontDrawer.drawCenteredString(text,RenderUtil.getWidth() - (x + width) + 130,y + 5,-1);
     }
 

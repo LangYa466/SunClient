@@ -1,4 +1,3 @@
-// by paimon
 package cn.langya.sun.modules.impl.world;
 
 import cn.langya.sun.events.impl.misc.TickEvent;

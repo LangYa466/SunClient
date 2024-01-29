@@ -36,6 +36,8 @@ public class NoSlow extends Module {
 
     @EventTarget
     public void onSlowDown(SlowDownEvent e) {
+        if(mc.player == null) return;
+
         if (mc.player.getHeldItem(EnumHand.MAIN_HAND) != null && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword){
             e.forward = 1.0f;
             e.strafe = 1.0f;
@@ -47,6 +49,8 @@ public class NoSlow extends Module {
 
     @EventTarget
     public void onMove(MoveEvent e) {
+        if(mc.player == null) return;
+
         if (mode.get().equals("Hyt") && mc.player.getHeldItem(EnumHand.MAIN_HAND) != null && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword && slow) {
             mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
             mc.getConnection().sendPacket(new CPacketHeldItemChange((mc.player.inventory.currentItem + 1) % 9));

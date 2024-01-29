@@ -7,7 +7,7 @@ import java.text.NumberFormat;
 import cn.langya.sun.modules.impl.client.HUD;
 import cn.langya.sun.utils.misc.MathUtil;
 
-public final class ColorUtils
+public final class ColorUtil
 {
     public static int getRGB(final int r, final int g, final int b) {
         return getRGB(r, g, b, 255);

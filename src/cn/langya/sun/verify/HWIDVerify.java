@@ -24,7 +24,6 @@ public class HWIDVerify {
 
     public static void verify() {
         if(WebUtils.responsecode(Sun.cloud + "verify/index.php?hwid=" + HWIDUtils.getHWID()) ==  HttpURLConnection.HTTP_NOT_FOUND) {
-            NotificationManager.add("Verify","AutoCopy HWID", TrayIcon.MessageType.ERROR);
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             StringSelection selection = new StringSelection(HWIDUtils.getHWID());
             clipboard.setContents(selection, null);

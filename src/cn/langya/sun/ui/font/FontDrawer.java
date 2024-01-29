@@ -1,9 +1,8 @@
 package cn.langya.sun.ui.font;
 
 import cn.langya.sun.utils.misc.StringUtils;
-import cn.langya.sun.utils.render.ColorUtils;
+import cn.langya.sun.utils.render.ColorUtil;
 import cn.langya.sun.utils.render.RenderUtil;
-import cn.langya.sun.utils.render.RoundedUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
@@ -17,7 +16,7 @@ import java.util.Map;
 public final class FontDrawer {
     private static final Map<Integer, Font> RUNTIME_FONT_MAP = new HashMap<>();
     private static final int[] COLORS = new int[32];
-    private static final int SHADOW_COLOR = ColorUtils.getRGB(0, 0, 0, 50);
+    private static final int SHADOW_COLOR = ColorUtil.getRGB(0, 0, 0, 50);
     public static boolean RuntimeFontAntiAliasing = true;
 
     static {
@@ -270,7 +269,7 @@ public final class FontDrawer {
             }
             s = StringUtils.filterEmoji(s);
             this.preDraw();
-            ColorUtils.color(color);
+            ColorUtil.color(color);
             x = (x - 2.0D) * 2.0D;
             y = (y - 1.0D) * 2.0D;
             boolean bold = false;
@@ -313,7 +312,7 @@ public final class FontDrawer {
                                 italic = false;
                                 underline = false;
                                 strikethrough = false;
-                                ColorUtils.color(color);
+                                ColorUtil.color(color);
                                 break;
                             default:
                                 if (colorIndex < 16) {
@@ -322,7 +321,7 @@ public final class FontDrawer {
                                     }
 
                                     int finalColor = COLORS[colorIndex];
-                                    GlStateManager.color(ColorUtils.getRed(finalColor), ColorUtils.getGreen(finalColor), ColorUtils.getBlue(finalColor), ColorUtils.getAlpha(color));
+                                    GlStateManager.color(ColorUtil.getRed(finalColor), ColorUtil.getGreen(finalColor), ColorUtil.getBlue(finalColor), ColorUtil.getAlpha(color));
                                 }
                         }
                     }

@@ -1,5 +1,6 @@
 package cn.langya.sun.ui.impl.notification;
 
+
 import java.awt.*;
 
 public class Notification {
@@ -37,4 +38,5 @@ public class Notification {
     public void setType(TrayIcon.MessageType type) {
         this.type = type;
     }
+
 }
