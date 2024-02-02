@@ -259,7 +259,6 @@ public class EntityPlayerSP extends AbstractClientPlayer
                 this.onUpdateWalkingPlayer();
             }
         }
-        Sun.eventManager.call(new UpdateEvent());
     }
 
     /**
@@ -268,6 +267,11 @@ public class EntityPlayerSP extends AbstractClientPlayer
     private void onUpdateWalkingPlayer()
     {
         boolean flag = this.isSprinting();
+
+        final UpdateEvent updateEvent = new UpdateEvent(true,rotationYaw,rotationPitch,onGround);
+        Sun.eventManager.call(updateEvent);
+        this.rotationYaw = updateEvent.getYaw();
+        this.rotationPitch = updateEvent.pitch;
 
         if (flag != this.serverSprintState)
         {
@@ -282,7 +286,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
             this.serverSprintState = flag;
         }
-        Sun.eventManager.call(new MoveEvent(posX,posY,posZ,true,false));
+        Sun.eventManager.call(new MoveEvent(posX,posY,posZ,true));
 
         boolean flag1 = this.isSneaking();
 
@@ -351,7 +355,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
             this.prevOnGround = this.onGround;
             this.autoJumpEnabled = this.mc.gameSettings.autoJump;
 
-            Sun.eventManager.call(new MoveEvent(posX,posY,posZ,false,true));
+            Sun.eventManager.call(new MoveEvent(posX,posY,posZ,false));
         }
     }
 
