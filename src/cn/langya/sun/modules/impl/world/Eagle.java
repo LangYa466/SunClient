@@ -33,16 +33,14 @@ public class Eagle extends Module {
 
     String sb(Item helditem) {
         if(helditem.getBlockCount() >1) {
-            return "Blocks:";
+            return "Blocks:" + helditem.getBlockCount();
         } else {
-            return "Block:";
+            return "Block:" + helditem.getBlockCount();
         }
     }
 
     @EventTarget
     public void onUpdate(UpdateEvent event) {
-
-        if(!isEnabled()) return;
 
         if (getBlockUnderPlayer(mc.player) instanceof BlockAir) {
             if (mc.player.onGround) {
@@ -51,6 +49,7 @@ public class Eagle extends Module {
         } else {
             KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), false);
         }
+
     }
 
     @EventTarget
