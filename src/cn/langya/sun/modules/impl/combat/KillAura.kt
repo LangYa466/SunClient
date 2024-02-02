@@ -88,7 +88,7 @@ class KillAura : Module("KillAura",Category.Combat) {
             if (mc.player.getDistanceToEntity(entity) <= getRange() && !Teams.isSameTeam(entity) && entity != mc.player &&  attackTimer.hasTimePassed(randomClickDelay(minCPSValue.get(), maxCPSValue.get())) && !Teams.isSameTeam(entity) && isFovInRange(entity) && !entity.isDead) {
                 target = entity
                 attackTimer.reset()
-                doRotation(target as EntityLivingBase,event)
+                doRotation(target as EntityLivingBase)
                 attackEntity(entity)
             } else {
                 target = null
@@ -229,10 +229,12 @@ class KillAura : Module("KillAura",Category.Combat) {
 
     }
 
-    private fun doRotation(target: EntityLivingBase,event: UpdateEvent) {
-        val rotations = RotationUtil.getGrimRotations(target)
-        event.setYaw(rotations[0])
-        event.pitch = rotations[1]
+    private fun doRotation(target: EntityLivingBase) {
+        val oldyaw = mc.player.rotationYaw
+        val rotations: FloatArray = RotationUtil.getGrimRotations(target)
+        mc.player.rotationYaw = rotations[0]
+        mc.player.rotationPitch = rotations[1]
+        RotationUtil.setVisualRotations(oldyaw)
     }
 
     private fun stopBlocking() {

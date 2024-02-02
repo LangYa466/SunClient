@@ -16,6 +16,10 @@ import net.minecraft.util.math.MathHelper;
 
 public class RotationUtil extends Utils {
 
+    public static void setVisualRotations(float yaw) {
+        mc.player.rotationYawHead = mc.player.renderYawOffset = yaw;
+    }
+
     public static float[] getGrimRotations(EntityLivingBase target) {
         if (target == null) {
             return null;

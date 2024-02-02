@@ -14,13 +14,15 @@ public class MoveEvent implements Event {
     public double y;
     public double z;
     public boolean pre;
+    public boolean post;
 
 
-    public MoveEvent(final double x, final double y, final double z, final boolean pre) {
+    public MoveEvent(final double x, final double y, final double z, final boolean pre, final boolean post) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.pre = pre;
+        this.post = post;
     }
 
 }
