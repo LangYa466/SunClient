@@ -31,8 +31,8 @@ public class ModuleConfig extends Config {
                     valueObj.addProperty(value.name, ((DoubleValue) value).get());
                 } else if (value instanceof BoolValue) {
                     valueObj.addProperty(value.name, ((BoolValue) value).get());
-                } else if (value instanceof StringValue) {
-                    valueObj.addProperty(value.name, ((StringValue) value).get());
+                } else if (value instanceof ListValue) {
+                    valueObj.addProperty(value.name, ((ListValue) value).get());
                 }else if (value instanceof ColorValue) {
                     valueObj.addProperty(value.name,((ColorValue) value).getColor());
                 }
@@ -66,8 +66,8 @@ public class ModuleConfig extends Config {
                                 ((DoubleValue) value).set(theValue.getAsNumber().doubleValue());
                             } else if (value instanceof BoolValue) {
                                 ((BoolValue) value).set(theValue.getAsBoolean());
-                            } else if (value instanceof StringValue) {
-                                ((StringValue) value).set(theValue.getAsString());
+                            } else if (value instanceof ListValue) {
+                                ((ListValue) value).set(theValue.getAsString());
                             } else if (value instanceof ColorValue) {
                                 Color color = new Color(theValue.getAsInt());
                                 ((ColorValue) value).set(new Color(color.getRed(), color.getGreen(),color.getBlue()).getRGB());

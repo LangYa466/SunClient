@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.modules.impl.client.Animations;
-import cn.langya.sun.modules.impl.combat.KillAura;
+
 import com.google.common.base.MoreObjects;
 import java.util.Objects;
 import net.minecraft.block.Block;

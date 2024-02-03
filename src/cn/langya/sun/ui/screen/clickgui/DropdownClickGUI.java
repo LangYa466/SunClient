@@ -92,7 +92,7 @@ public class DropdownClickGUI extends GuiScreen
                     for (final AbstractValue<?> v : m.getValues()) {
                         RenderUtil.drawRect(x, y + mOrder * 20 + 35.0f + settingY + currentSettingY, x + 110.0f, y + mOrder * 20 + 35.0f + settingY + currentSettingY + 15.0f, m.state ? new Color(140, 190, 240).getRGB() : new Color(240, 240, 240).getRGB());
                         FontManager.drawString(v.name, (int) (x + 1.0f), (int) (y + mOrder * 20 + 35.0f + settingY + currentSettingY + 5.0f), new Color(50, 50, 50).getRGB());
-                        if (v instanceof StringValue) {
+                        if (v instanceof ListValue) {
                             RenderUtil.drawRect(x + 50.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY, x + 108.0f, y + mOrder * 20 + 48.0f + settingY + currentSettingY, m.state ? new Color(155, 205, 255).getRGB() : new Color(255, 255, 255).getRGB());
                             if (this.inMode.contains(v)) {
                                 RenderUtil.drawTriangle(x + 100.0f, y + mOrder * 20 + 39.0f + settingY + currentSettingY, x + 100.0f, y + mOrder * 20 + 46.0f + settingY + currentSettingY, x + 106.0f, y + mOrder * 20 + 42.5 + settingY + currentSettingY, new Color(70, 70, 70).getRGB());
@@ -102,9 +102,8 @@ public class DropdownClickGUI extends GuiScreen
                             }
                             FontManager.drawString(v.get().toString(), (int) (x + 75), (int) (y + mOrder * 20 + 40 + settingY + currentSettingY), new Color(30, 30, 30).getRGB());
                             if (this.inMode.contains(v)) {
-                                ShadowUtil.drawShadow(x + 115.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY, x + 160.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY + ((StringValue)v).getValues().size() * 10);
                                 int modeOrder = 0;
-                                for (final String e : ((StringValue)v).getValues()) {
+                                for (final String e : ((ListValue)v).getValues()) {
                                     RenderUtil.drawRect(x + 115.0f, y + mOrder * 20 + 37.0f + settingY + currentSettingY + modeOrder * 10, x + 160.0f, y + mOrder * 20 + 47.0f + settingY + currentSettingY + modeOrder * 10, m.state ? new Color(140, 190, 240).getRGB() : new Color(240, 240, 240).getRGB());
                                     if (v.get() == e) {
                                         FontManager.drawString(e, (int) (x + 116.0f), (int) (y + mOrder * 20 + 40.5f + settingY + currentSettingY + modeOrder * 10), new Color(30, 30, 30).getRGB());
@@ -174,12 +173,9 @@ public class DropdownClickGUI extends GuiScreen
                         }
                         currentSettingY += 15;
                     }
-                    RenderUtil.drawTexturedRect(x, y + mOrder * 20 + 35.0f + settingY, 110.0f, 9.0f, new ResourceLocation("shaders/panelbottom.png"), Color.white.getRGB());
                     settingY += currentSettingY;
                 }
             }
-            ShadowUtil.drawShadow(x, y, x + 110.0f, y + mOrder * 20 + 35.0f + settingY);
-            RenderUtil.drawTexturedRect(x, y + 15.0f, 110.0f, 9.0f, new ResourceLocation("shaders/panelbottom.png"), Color.white.getRGB());
             final boolean isOnCategory = mouseX > x && mouseY > y && mouseX < x + 110.0f && mouseY < y + 15.0f;
             if (Mouse.isButtonDown(0) && isOnCategory) {
                 this.posX.set(cOrder, x + Mouse.getDX() / 2.0f);
@@ -213,7 +209,7 @@ public class DropdownClickGUI extends GuiScreen
                 if (this.inSetting.contains(m)) {
                     int currentSettingY = 0;
                     for (final AbstractValue<?> v : m.getValues()) {
-                        if (v instanceof StringValue) {
+                        if (v instanceof ListValue) {
                             if (mouseX > x + 50.0f && mouseY > y + mOrder * 20 + 37.0f + settingY + currentSettingY && mouseX < x + 108.0f && mouseY < y + mOrder * 20 + 48.0f + settingY + currentSettingY) {
                                 if (this.inMode.contains(v)) {
                                     this.inMode.remove(v);
@@ -224,9 +220,9 @@ public class DropdownClickGUI extends GuiScreen
                             }
                             if (this.inMode.contains(v)) {
                                 int modeOrder = 0;
-                                for (final String e : ((StringValue)v).getValues()) {
+                                for (final String e : ((ListValue)v).getValues()) {
                                     if (mouseX > x + 115.0f && mouseY > y + mOrder * 20 + 37.0f + settingY + currentSettingY + modeOrder * 10 && mouseX < x + 160.0f && mouseY < y + mOrder * 20 + 47.0f + settingY + currentSettingY + modeOrder * 10) {
-                                        ((StringValue)v).set(e);
+                                        ((ListValue)v).set(e);
                                     }
                                     ++modeOrder;
                                 }

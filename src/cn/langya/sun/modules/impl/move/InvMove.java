@@ -6,7 +6,6 @@ import com.cubk.event.annotations.EventTarget;
 import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
-import cn.langya.sun.ui.screen.clickgui.ClickGui;
 import net.minecraft.client.settings.*;
 import org.lwjgl.input.*;
 import net.minecraft.client.entity.*;
@@ -47,7 +46,7 @@ public class InvMove extends Module
     
     @EventTarget
     public void onMotion(final UpdateEvent event) {
-        if (mc.currentScreen instanceof GuiContainer || mc.currentScreen instanceof ClickGui || mc.currentScreen instanceof DropdownClickGUI){
+        if (mc.currentScreen instanceof GuiContainer || mc.currentScreen instanceof DropdownClickGUI){
             updateStates();
         }
     }

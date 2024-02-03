@@ -6,7 +6,6 @@ import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.combat.AntiKB;
-import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.values.*;
 import com.cubk.event.annotations.EventTarget;
 import net.minecraft.client.gui.inventory.*;
@@ -33,7 +32,7 @@ public class AutoLobby extends Module
 
     @EventTarget
     public void onUpdate(final UpdateEvent event) {
-        final KillAura killAura =  Sun.moduleManager.getModule(KillAura.class);
+     //   final KillAura killAura =  Sun.moduleManager.getModule(KillAura.class);
         final AntiKB velocity = Sun.moduleManager.getModule(AntiKB.class);
         if (!this.noHub.get()) {
             if (mc.player.getHealth() <= this.health.get().floatValue()) {
@@ -50,15 +49,15 @@ public class AutoLobby extends Module
                     mc.player.sendChatMessage("/hub");
                 }
                 if (this.disabler.get()) {
-                    assert killAura != null;
-                    killAura.state = false;
+             //       assert killAura != null;
+          //          killAura.state = false;
                     assert velocity != null;
                     velocity.state = false;
                 }
             }
         }
         else if ((mc.player.isDead || mc.player.getHealth() == 0.0f || mc.player.getHealth() <= 0.0f) && this.disabler.get()) {
-            killAura.setState(false);
+       //     killAura.setState(false);
             velocity.setState(false);
         }
     }
@@ -69,7 +68,7 @@ public class AutoLobby extends Module
             if (openInventory) {
                 mc.getConnection().sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.OPEN_INVENTORY));
             }
-            mc.playerController.windowClick(mc.player.inventoryContainer.windowId, item, 0, ClickType.PICKUP, (EntityPlayer)mc.player);
+            mc.playerController.windowClick(mc.player.inventoryContainer.windowId, item, 0, ClickType.PICKUP, mc.player);
             if (openInventory) {
                 mc.getConnection().sendPacket(new CPacketCloseWindow());
             }

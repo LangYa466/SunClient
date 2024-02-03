@@ -3,22 +3,26 @@ package cn.langya.sun.modules;
 import cn.langya.sun.Sun;
 import cn.langya.sun.utils.Utils;
 import cn.langya.sun.values.AbstractValue;
-import net.minecraft.init.SoundEvents;
+import lombok.Getter;
 
-import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Module extends Utils {
 
+    @Getter
     public final String name;
+    @Getter
     public int keyCode;
+    @Getter
     public String tag;
+    @Getter
     public boolean array;
+    @Getter
     public final Category category;
     public boolean state;
+    @Getter
     private List<AbstractValue> values = new ArrayList<>();
     public void add(AbstractValue... value) {
         values = Arrays.asList(value);
@@ -53,32 +57,9 @@ public class Module extends Utils {
         this.category = category;
         this.keyCode = keyCode;
     }
-    public String getName() {
-        return name;
-    }
-
-    public int getKeyCode() {
-        return keyCode;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public boolean isArray() {
-        return array;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
 
     public boolean isEnabled() {
         return state;
-    }
-
-    public List<AbstractValue> getValues() {
-        return values;
     }
 
     public void setKeyCode(int keyCode) {
@@ -94,13 +75,6 @@ public class Module extends Utils {
 
     public void setState(boolean value) {
         if (state == value) return;
-
-
-        //NotificationManager.add(
-        //        "Notifications",
-        //        (value ? "Enabled " : "Disabled ") + name,
-        //        (value ? TrayIcon.MessageType.INFO : TrayIcon.MessageType.ERROR)
-        //);
 
         // Call on enabled or disabled
         if (value) {

@@ -4,13 +4,10 @@ import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.render.Render2DEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
-import cn.langya.sun.modules.impl.combat.KillAura;
 import cn.langya.sun.modules.impl.misc.AutoL;
 import cn.langya.sun.modules.impl.misc.Teams;
 import cn.langya.sun.ui.font.FontDrawer;
 import cn.langya.sun.ui.font.FontManager;
-import cn.langya.sun.ui.impl.notification.Notification;
-import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.misc.MathUtil;
 import cn.langya.sun.utils.render.*;
 import cn.langya.sun.values.*;
@@ -18,7 +15,6 @@ import com.cubk.event.annotations.EventTarget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -41,9 +37,9 @@ import java.text.DecimalFormat;
 
 public class HUD extends Module {
     public static final BoolValue arraylist = new BoolValue("Arraylist",true);
-    public static final StringValue logo = new StringValue("Logo", "Sun");
-    public static final StringValue thud = new StringValue("TargetHud", "Neon");
-    public static final StringValue gameinfo = new StringValue("GameInfo", "Sun");
+    public static final ListValue logo = new ListValue("Logo", "Sun");
+    public static final ListValue thud = new ListValue("TargetHud", "Neon");
+    public static final ListValue gameinfo = new ListValue("GameInfo", "Sun");
     public static final DoubleValue animationSpeed = new DoubleValue("Animation Speed", 4.0, 10.0, 1.0);
     public static final ColorValue mainColor = new ColorValue("Main Color",Color.white.getRGB());
     public static final DecimalFormat DF_1 = new DecimalFormat("0.0");
@@ -66,6 +62,7 @@ public class HUD extends Module {
         logo.getValues().add("LangYa");
         logo.getValues().add("Sun2");
         logo.getValues().add("Sun");
+        logo.getValues().add("Tenacity");
         logo.getValues().add("None");
     }
 
@@ -90,7 +87,21 @@ public class HUD extends Module {
             }
         }
 
-        // logo
+        if (logo.get().equals("Tenacity")) {
+            float xVal = 6f;
+            float yVal = 6f;
+            float width = FontManager.T50.getStringWidth(Sun.name);
+
+
+            RenderUtil.resetColor();
+            GradientUtil.applyGradientHorizontal(xVal, yVal, width, 20, 1,new Color(236, 133, 209),  new Color(28, 167, 222), () -> {
+                RenderUtil.setAlphaLimit(0);
+                FontManager.T50.drawString(Sun.name, xVal, yVal, 0);
+            });
+        }
+
+
+            // logo
         if (logo.get().equals("Sun")) {
             final String str = TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + mc.player.getName() + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + Minecraft.getDebugFPS() + "fps" + TextFormatting.DARK_GRAY + " | " + TextFormatting.WHITE + (HUD.mc.isSingleplayer() ? "SinglePlayer" : HUD.mc.getCurrentServerData().serverIP);
             RenderUtil.drawRect(6.0f, 6.0f, (float) (FontManager.S20.getStringWidth(str) + 18), 19.0f, new Color(19, 19, 19, 230).getRGB());
@@ -248,18 +259,17 @@ public class HUD extends Module {
             }
 
             for (Entity target1 : mc.world.loadedEntityList) {
-                if (mc.player.getDistanceToEntity(target1) <= Sun.moduleManager.getModule(KillAura.class).getRange() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
+                 //                 if (mc.player.getDistanceToEntity(target1) <= Sun.moduleManager.getModule(KillAura.class).getRange() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
+                if (mc.player.getDistanceToEntity(target1) <= 3.0 && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
                     EntityLivingBase target = (EntityLivingBase) target1;
                     final Color firstColor = ColorUtil.color(1);
                     final Color secondColor = ColorUtil.color(6);
                     double width;
-                    double height;
                     double x = 50;
                     double y = 50;
                     final FontDrawer fr = FontManager.S20;
                     final double healthPercentage = MathHelper.clamp((target.getHealth() + target.getAbsorptionAmount()) / (target.getMaxHealth() + target.getAbsorptionAmount()), 0.0f, 1.0f);
                     width = Math.max(120, fr.getStringWidth(target.getName()) + 50);
-                    height = 36.0;
                     final int alphaInt = (int) (255.0f);
                     if (thud.get().equals("Novoline")) {
                         Gui.drawRect3((double) x, (double) y, width, 36.0, new Color(29, 29, 29, alphaInt).getRGB());
@@ -324,7 +334,6 @@ public class HUD extends Module {
                     }
                     if (thud.get().equals("Neon")) {
                         width = (float) Math.max(128, FontManager.C20.getStringWidth("Name: " + target.getName()) + 60);
-                        height = 50.0;
                         Gui.drawRect3((double) x, (double) y, (double) width, 50.0, new Color(19, 19, 19, 180).getRGB());
                         RenderUtil.drawHGradientRect(x, y, width, 1.0, firstColor.getRGB(), secondColor.getRGB());
                         final int textColor = -1;

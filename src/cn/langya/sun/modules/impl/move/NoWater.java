@@ -6,7 +6,7 @@ import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.events.impl.world.WorldLoadEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
-import cn.langya.sun.values.StringValue;
+import cn.langya.sun.values.ListValue;
 import com.cubk.event.annotations.EventTarget;
 import net.minecraft.block.*;
 import net.minecraft.init.*;
@@ -18,7 +18,7 @@ import java.util.*;
 
 public class NoWater extends Module
 {
-    private final StringValue modeValue = new StringValue("Mode","Vanilla");
+    private final ListValue modeValue = new ListValue("Mode","Vanilla");
     public static boolean shouldCancelWater;
     
     public NoWater() {

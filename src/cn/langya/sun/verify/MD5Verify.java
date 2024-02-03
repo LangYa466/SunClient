@@ -32,7 +32,6 @@ public class MD5Verify {
             while (true) System.out.println("LWJGL ERROR!!!");
         }
 
-
     }
 
     public static String getMD5(Class c) {

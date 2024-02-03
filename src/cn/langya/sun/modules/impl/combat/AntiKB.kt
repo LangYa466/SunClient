@@ -30,7 +30,14 @@ import net.minecraft.util.math.Vec3d
  */
 
 class AntiKB : Module("Velocity", true, Category.Combat) {
-    private val modes = StringValue("Velocity", "JumpRester","JumpRester", "Cancel", "Hypixel", "GrimY")
+    private val modes = ListValue(
+        "Velocity",
+        "JumpRester",
+        "JumpRester",
+        "Cancel",
+        "Hypixel",
+        "GrimY"
+    )
     private val grimRayCastValue = BoolValue("Grim-RayCast", false)
     private val grimCheckRangeValue = FloatValue("Grim-CheckRange", 4.0F, 2.0F, 6.0F)
     private val grimAttackPacketCountValue = FloatValue("Grim-AttackPacket-Count", 12.0F, 5.0F, 50.0F)
@@ -112,7 +119,7 @@ class AntiKB : Module("Velocity", true, Category.Combat) {
                     velocityInput = true
                     val movingObjectPosition = mc.objectMouseOver
                     val targets =
-                        (grimRayCastValue.get() && movingObjectPosition != null && KillAura().target != null) as EntityLivingBase
+                        (grimRayCastValue.get() && movingObjectPosition != null ) as EntityLivingBase // && KillAura().target != null) as EntityLivingBase
                     if (mc.player!!.getDistanceToEntity(targets) <= grimCheckRangeValue.get()
                     ) {
                         for (i in 0 until grimAttackPacketCountValue.get().toInt()) {
@@ -150,7 +157,7 @@ class AntiKB : Module("Velocity", true, Category.Combat) {
                             }
                         }
                         attacked = true
-                        KillAura().blocking = false
+                     //   KillAura().blocking = false
                         motionNoXZ = getMotionNoXZ(spey)
                     }
                 }

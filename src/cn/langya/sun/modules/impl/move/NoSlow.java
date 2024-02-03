@@ -4,7 +4,7 @@ import cn.langya.sun.events.impl.player.MoveEvent;
 import cn.langya.sun.events.impl.player.SlowDownEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
-import cn.langya.sun.values.StringValue;
+import cn.langya.sun.values.ListValue;
 import com.cubk.event.annotations.EventTarget;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.CPacketConfirmTransaction;
@@ -23,7 +23,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class NoSlow extends Module {
 
-    public final StringValue mode = new StringValue("Mode", "Hyt");
+    public final ListValue mode = new ListValue("Mode", "Hyt");
 
     boolean slow = false;
 
