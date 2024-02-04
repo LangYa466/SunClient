@@ -1,6 +1,8 @@
 package cn.langya.sun.events.impl.player;
 
 import com.cubk.event.impl.Event;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.Minecraft;
 
 /**
@@ -11,20 +13,17 @@ import net.minecraft.client.Minecraft;
  */
 
 public class UpdateEvent implements Event {
+    @Getter
     private float yaw;
+    @Setter
     public float pitch;
+    @Setter
     public boolean onGround;
-    public boolean pre;
 
-    public UpdateEvent(boolean pre,float yaw,float pitch,boolean onGround) {
-        this.pre = pre;
+    public UpdateEvent(float yaw,float pitch,boolean onGround) {
         this.yaw = yaw;
         this.pitch = pitch;
         this.onGround = onGround;
-    }
-
-    public float getYaw() {
-        return yaw;
     }
 
     public void setYaw(float yaw) {

@@ -268,7 +268,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     {
         boolean flag = this.isSprinting();
 
-        final UpdateEvent updateEvent = new UpdateEvent(true,rotationYaw,rotationPitch,onGround);
+        final UpdateEvent updateEvent = new UpdateEvent(rotationYaw,rotationPitch,onGround);
         Sun.eventManager.call(updateEvent);
         this.rotationYaw = updateEvent.getYaw();
         this.rotationPitch = updateEvent.pitch;
@@ -286,6 +286,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
             this.serverSprintState = flag;
         }
+
         Sun.eventManager.call(new MoveEvent(posX,posY,posZ,true));
 
         boolean flag1 = this.isSneaking();
@@ -356,6 +357,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
             this.autoJumpEnabled = this.mc.gameSettings.autoJump;
 
             Sun.eventManager.call(new MoveEvent(posX,posY,posZ,false));
+
         }
     }
 
