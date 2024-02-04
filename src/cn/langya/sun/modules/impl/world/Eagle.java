@@ -31,7 +31,7 @@ public class Eagle extends Module {
         return getBlock(new BlockPos(player.posX, player.posY - 1.0, player.posZ));
     }
 
-    String sb(Item helditem) {
+    String getInfoString(Item helditem) {
         if(helditem.getBlockCount() >1) {
             return "Blocks:" + helditem.getBlockCount();
         } else {
@@ -60,7 +60,7 @@ public class Eagle extends Module {
         final int y = sr.getScaledHeight() - 90 + 19;
 
         if(helditem instanceof ItemBlock) {
-            FontManager.drawString(sb(helditem), sr.getScaledWidth() / 2 - 8, y - 19, Color.WHITE);
+            FontManager.drawString(getInfoString(helditem), sr.getScaledWidth() / 2 - 8, y - 19, Color.WHITE);
         }
         
     }

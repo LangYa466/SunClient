@@ -19,14 +19,12 @@ import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 
-public class GrimAC
-        extends Module {
+public class GrimAC extends Module {
     public BoolValue reachValue = new BoolValue("Reach", true);
     public BoolValue noslowAValue = new BoolValue("NoSlowA", true);
     public BoolValue velocityValue = new BoolValue("Velocity", true);
     public static final DecimalFormat DF_1 = new DecimalFormat("0.000000");
     int vl;
-
     public GrimAC() {
         super("GrimAC", Category.Misc);
         add(reachValue, noslowAValue, velocityValue);

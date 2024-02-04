@@ -3,6 +3,7 @@ package cn.langya.sun.modules.impl.misc;
 import cn.langya.sun.events.impl.player.AttackEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
+import cn.langya.sun.utils.player.HYTUtils;
 import cn.langya.sun.values.BoolValue;
 import com.cubk.event.annotations.EventTarget;
 import net.minecraft.util.text.TextComponentString;
@@ -25,7 +26,13 @@ public class AutoL extends Module {
 
     @EventTarget
     void onAttack(AttackEvent e) {
+
+        if (HYTUtils.isInLobby()) {
+            return;
+        }
+
         if(e.target.isDead) ++ kill;
+
         if(sendMessageValue.get()) {
             mc.player.addChatMessage(new TextComponentString("Killed"+ kill + " Enemies"));
 

@@ -5,13 +5,14 @@ import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.player.UpdateEvent;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
-import cn.langya.sun.modules.impl.combat.AntiKB;
-import cn.langya.sun.values.*;
+import cn.langya.sun.modules.impl.combat.KillAura;
+import cn.langya.sun.values.BoolValue;
+import cn.langya.sun.values.DoubleValue;
 import com.cubk.event.annotations.EventTarget;
-import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.inventory.ClickType;
-import net.minecraft.entity.player.*;
-import net.minecraft.network.play.client.*;
+import net.minecraft.network.play.client.CPacketCloseWindow;
+import net.minecraft.network.play.client.CPacketEntityAction;
 
 public class AutoLobby extends Module
 {
@@ -32,8 +33,7 @@ public class AutoLobby extends Module
 
     @EventTarget
     public void onUpdate(final UpdateEvent event) {
-     //   final KillAura killAura =  Sun.moduleManager.getModule(KillAura.class);
-        final AntiKB velocity = Sun.moduleManager.getModule(AntiKB.class);
+        final KillAura killAura =  Sun.moduleManager.getModule(KillAura.class);
         if (!this.noHub.get()) {
             if (mc.player.getHealth() <= this.health.get().floatValue()) {
                 if (this.keepArmor.get()) {
@@ -49,16 +49,12 @@ public class AutoLobby extends Module
                     mc.player.sendChatMessage("/hub");
                 }
                 if (this.disabler.get()) {
-             //       assert killAura != null;
-          //          killAura.state = false;
-                    assert velocity != null;
-                    velocity.state = false;
+                   killAura.state = false;
                 }
             }
         }
         else if ((mc.player.isDead || mc.player.getHealth() == 0.0f || mc.player.getHealth() <= 0.0f) && this.disabler.get()) {
-       //     killAura.setState(false);
-            velocity.setState(false);
+           killAura.setState(false);
         }
     }
 

@@ -2,23 +2,12 @@ package cn.langya.sun.modules;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.misc.KeyPressEvent;
-import cn.langya.sun.events.impl.render.Render2DEvent;
 import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.render.Render2DEvent;
 import cn.langya.sun.modules.impl.client.ClickGui;
-import cn.langya.sun.modules.impl.client.Client;
-import cn.langya.sun.modules.impl.client.HUD;
-import cn.langya.sun.modules.impl.combat.AntiKB;
-import cn.langya.sun.modules.impl.combat.AutoClicker;
-import cn.langya.sun.modules.impl.misc.GrimAC;
-import cn.langya.sun.modules.impl.misc.Teams;
-import cn.langya.sun.modules.impl.render.FullBright;
-import cn.langya.sun.modules.impl.world.PlayerWarn;
-import cn.langya.sun.modules.impl.move.InvMove;
-import cn.langya.sun.modules.impl.move.NoWater;
-import cn.langya.sun.modules.impl.move.Sprint;
-import cn.langya.sun.modules.impl.world.Eagle;
 import cn.langya.sun.utils.ClientUtils;
 import com.cubk.event.annotations.EventTarget;
+import lombok.Getter;
 import org.lwjgl.input.Keyboard;
 
 import java.io.File;
@@ -30,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+@Getter
 public class ModuleManager {
     private final List<Module> modules = new ArrayList<>();
 
@@ -46,19 +36,9 @@ public class ModuleManager {
                             if (!field.isAccessible()) {
                                 field.setAccessible(true);
                             }
-                            /*Object obj;
-                            try {
-                                if ((obj = field.get(module)) instanceof AbstractValue) {
-                                    module.add((AbstractValue<?>) obj);
-                                }
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            }*/
                         }
                         modules.add(module);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    } catch (Exception ignored) {}
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -67,6 +47,7 @@ public class ModuleManager {
         ClientUtils.loginfo("[ModuleManager] Load Modules: " + modules.size());
         Sun.eventManager.register(this);
     }
+
     private List<Class<?>> getAllClasses(String packageName) throws ClassNotFoundException, IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = packageName.replace('.', '/');
@@ -116,9 +97,6 @@ public class ModuleManager {
                 m.toggle();
             }
         }
-        if (Keyboard.KEY_RSHIFT == event.getKeyCode() && event.getKeyCode() != -1) {
-            new ClickGui().setState(true);
-        }
     }
 
 
@@ -133,22 +111,6 @@ public class ModuleManager {
     private void registerModule(Module module) {
         modules.add(module);
         Sun.eventManager.register(module);
-    }
-
-    public void registerModules() {
-        registerModule(new Client());
-        registerModule(new HUD());
-        registerModule(new ClickGui());
-        registerModule(new Eagle());
-        registerModule(new AntiKB());
-        registerModule(new AutoClicker());
-        registerModule(new GrimAC());
-        registerModule(new InvMove());
-        registerModule(new Sprint());
-        registerModule(new NoWater());
-        registerModule(new PlayerWarn());
-        registerModule(new Teams());
-        registerModule(new FullBright());
     }
 
     public <T extends Module> T getModule(final Class<T> cls) {
@@ -177,8 +139,5 @@ public class ModuleManager {
             }
         }
         return findList;
-    }
-    public List<Module> getModules() {
-        return modules;
     }
 }

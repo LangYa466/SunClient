@@ -34,9 +34,11 @@ public class PlayerWarn extends Module
         if (mc.world == null || mc.world.loadedEntityList.isEmpty()) {
             return;
         }
+
         if (HYTUtils.isInLobby()) {
             return;
         }
+
         if (mc.player.ticksExisted % 6 == 0) {
             for (final Entity ent : mc.world.loadedEntityList) {
                 if (ent instanceof EntityPlayer && ent != mc.player) {
