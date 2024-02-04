@@ -1,8 +1,8 @@
 package cn.langya.sun.modules.impl.client;
 
-import cn.langya.sun.events.impl.misc.TextEvent;
-import cn.langya.sun.events.impl.misc.TickEvent;
-import cn.langya.sun.events.impl.world.WorldLoadEvent;
+import cn.langya.sun.events.impl.misc.EventText;
+import cn.langya.sun.events.impl.misc.EventTick;
+import cn.langya.sun.events.impl.world.EventWorldLoad;
 import cn.langya.sun.utils.misc.TimeUtil;
 import cn.langya.sun.utils.misc.WebUtils;
 import cn.langya.sun.values.BoolValue;
@@ -23,7 +23,7 @@ public class Client extends Module {
     }
 
     @EventTarget
-    void onTick(TickEvent e) throws IOException {
+    void onTick(EventTick e) throws IOException {
         TimeUtil t = new TimeUtil();
         if(t.hasTimePassed(300001)) {
             WebUtils.get("https://sunclient.cloud/updateuser.php?username=" + mc.player.getDisplayName());
@@ -31,7 +31,7 @@ public class Client extends Module {
     }
 
     @EventTarget
-    void onT(TextEvent e) {
+    void onT(EventText e) {
         new Thread(() -> {
             try {
                 if(e.text.equals(WebUtils.get("https://sunclient.cloud/user.txt"))) {
@@ -44,7 +44,7 @@ public class Client extends Module {
 
     }
     @EventTarget
-    void onWorldLoad(WorldLoadEvent e) {
+    void onWorldLoad(EventWorldLoad e) {
         if(memoryfix.get()) System.gc();
     }
 }

@@ -2,7 +2,7 @@
 package cn.langya.sun.modules.impl.misc;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.combat.KillAura;
@@ -32,7 +32,7 @@ public class AutoLobby extends Module
     }
 
     @EventTarget
-    public void onUpdate(final UpdateEvent event) {
+    public void onUpdate(final EventUpdate event) {
         final KillAura killAura =  Sun.moduleManager.getModule(KillAura.class);
         if (!this.noHub.get()) {
             if (mc.player.getHealth() <= this.health.get().floatValue()) {

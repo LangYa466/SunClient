@@ -1,7 +1,5 @@
 package net.minecraft.client.gui;
 
-import cn.langya.sun.utils.render.GLUtil;
-import cn.langya.sun.utils.render.RenderUtil;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -44,56 +42,6 @@ public class Gui
         }
 
         drawRect(x, startY + 1, x + 1, endY, color);
-    }
-    public static void drawScaledCustomSizeModalRect(final float x, final float y, final float u, final float v, final int uWidth, final int vHeight, final float width, final float height, final float tileWidth, final float tileHeight) {
-        final float f = 1.0f / tileWidth;
-        final float f2 = 1.0f / tileHeight;
-        final Tessellator tessellator = Tessellator.getInstance();
-        final BufferBuilder worldrenderer = tessellator.getBuffer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(x, y + height, 0.0).tex(u * f, (v + vHeight) * f2).endVertex();
-        worldrenderer.pos(x + width, y + height, 0.0).tex((u + uWidth) * f, (v + vHeight) * f2).endVertex();
-        worldrenderer.pos(x + width, y, 0.0).tex((u + uWidth) * f, v * f2).endVertex();
-        worldrenderer.pos(x, y, 0.0).tex(u * f, v * f2).endVertex();
-        tessellator.draw();
-    }
-    public static void drawRect3(final double x, final double y, final double width, final double height, final int color) {
-        RenderUtil.resetColor();
-        RenderUtil.setAlphaLimit(0.0f);
-        GLUtil.setup2DRendering(true);
-        final Tessellator tessellator = Tessellator.getInstance();
-        final BufferBuilder worldrenderer = tessellator.getBuffer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        worldrenderer.pos(x, y, 0.0).color(color).endVertex();
-        worldrenderer.pos(x, y + height, 0.0).color(color).endVertex();
-        worldrenderer.pos(x + width, y + height, 0.0).color(color).endVertex();
-        worldrenderer.pos(x + width, y, 0.0).color(color).endVertex();
-        tessellator.draw();
-        GLUtil.end2DRendering();
-    }
-    public static void drawRect(final double left, final double top, final double right, final double bottom, final int color) {
-        final Tessellator tessellator = Tessellator.getInstance();
-        final BufferBuilder worldrenderer = tessellator.getBuffer();
-        final double minX = Math.min(left, right);
-        final double maxX = Math.max(left, right);
-        final double minY = Math.min(top, bottom);
-        final double maxY = Math.max(top, bottom);
-        final float alpha = (color >> 24 & 0xFF) / 255.0f;
-        final float red = (color >> 16 & 0xFF) / 255.0f;
-        final float green = (color >> 8 & 0xFF) / 255.0f;
-        final float blue = (color & 0xFF) / 255.0f;
-        GlStateManager.enableBlend();
-        GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        GlStateManager.color(red, green, blue, alpha);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldrenderer.pos(minX, maxY, 0.0).endVertex();
-        worldrenderer.pos(maxX, maxY, 0.0).endVertex();
-        worldrenderer.pos(maxX, minY, 0.0).endVertex();
-        worldrenderer.pos(minX, minY, 0.0).endVertex();
-        tessellator.draw();
-        GlStateManager.enableTexture2D();
-        GlStateManager.disableBlend();
     }
 
     /**
@@ -247,19 +195,6 @@ public class Gui
         bufferbuilder.pos((double)(x + width), (double)(y + height), 0.0D).tex((double)((u + (float)width) * f), (double)((v + (float)height) * f1)).endVertex();
         bufferbuilder.pos((double)(x + width), (double)y, 0.0D).tex((double)((u + (float)width) * f), (double)(v * f1)).endVertex();
         bufferbuilder.pos((double)x, (double)y, 0.0D).tex((double)(u * f), (double)(v * f1)).endVertex();
-        tessellator.draw();
-    }
-
-    public static void drawModalRectWithCustomSizedTexture(final float x, final float y, final float u, final float v, final float width, final float height, final float textureWidth, final float textureHeight) {
-        final float f = 1.0f / textureWidth;
-        final float f2 = 1.0f / textureHeight;
-        final Tessellator tessellator = Tessellator.getInstance();
-        final BufferBuilder worldrenderer = tessellator.getBuffer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(x, y + height, 0.0).tex(u * f, (v + height) * f2).endVertex();
-        worldrenderer.pos(x + width, y + height, 0.0).tex((u + width) * f, (v + height) * f2).endVertex();
-        worldrenderer.pos(x + width, y, 0.0).tex((u + width) * f, v * f2).endVertex();
-        worldrenderer.pos(x, y, 0.0).tex(u * f, v * f2).endVertex();
         tessellator.draw();
     }
 

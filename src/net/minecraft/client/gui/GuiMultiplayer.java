@@ -4,9 +4,6 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.util.List;
-
-import de.florianmichael.viamcp.ViaMCP;
-import de.florianmichael.viamcp.gui.GuiProtocolSelector;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
@@ -146,6 +143,7 @@ public class GuiMultiplayer extends GuiScreen
         if (button.enabled)
         {
             GuiListExtended.IGuiListEntry guilistextended$iguilistentry = this.serverListSelector.getSelected() < 0 ? null : this.serverListSelector.getListEntry(this.serverListSelector.getSelected());
+
             if (button.id == 2 && guilistextended$iguilistentry instanceof ServerListEntryNormal)
             {
                 String s4 = ((ServerListEntryNormal)guilistextended$iguilistentry).getServerData().serverName;
@@ -377,8 +375,6 @@ public class GuiMultiplayer extends GuiScreen
         this.serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
         this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.title"), this.width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.buttonList.add(ViaMCP.INSTANCE.getAsyncVersionSlider());
-
 
         if (this.hoveringText != null)
         {

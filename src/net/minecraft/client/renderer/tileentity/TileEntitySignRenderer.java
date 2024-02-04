@@ -10,6 +10,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import optifine.Config;
+import optifine.CustomColors;
 
 public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntitySign>
 {
@@ -84,6 +86,11 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
         GlStateManager.depthMask(false);
         int i = 0;
 
+        if (Config.isCustomColors())
+        {
+            i = CustomColors.getSignTextColor(i);
+        }
+
         if (p_192841_9_ < 0)
         {
             for (int j = 0; j < p_192841_1_.signText.length; ++j)
@@ -97,11 +104,11 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
                     if (j == p_192841_1_.lineBeingEdited)
                     {
                         s = "> " + s + " <";
-                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - p_192841_1_.signText.length * 5, 0);
+                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - p_192841_1_.signText.length * 5, i);
                     }
                     else
                     {
-                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - p_192841_1_.signText.length * 5, 0);
+                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - p_192841_1_.signText.length * 5, i);
                     }
                 }
             }

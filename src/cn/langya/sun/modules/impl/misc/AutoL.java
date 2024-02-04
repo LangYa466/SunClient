@@ -1,13 +1,12 @@
 package cn.langya.sun.modules.impl.misc;
 
-import cn.langya.sun.events.impl.player.AttackEvent;
+import cn.langya.sun.events.impl.player.EventAttack;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.utils.player.HYTUtils;
 import cn.langya.sun.values.BoolValue;
 import com.cubk.event.annotations.EventTarget;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 
 /**
  * @author LangYa
@@ -25,7 +24,7 @@ public class AutoL extends Module {
     public static int kill;
 
     @EventTarget
-    void onAttack(AttackEvent e) {
+    void onAttack(EventAttack e) {
 
         if (HYTUtils.isInLobby()) {
             return;

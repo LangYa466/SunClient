@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.combat;
 
-import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.BoolValue;
@@ -28,7 +28,7 @@ public class KillAura extends Module {
     }
 
     @EventTarget
-    void onU(UpdateEvent e) {
+    void onU(EventUpdate e) {
 
         for (final Entity entity : mc.world.loadedEntityList) {
 

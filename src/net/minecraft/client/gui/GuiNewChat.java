@@ -1,9 +1,6 @@
 package net.minecraft.client.gui;
 
-import cn.langya.sun.ui.font.FontManager;
 import com.google.common.collect.Lists;
-
-import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -84,10 +81,10 @@ public class GuiNewChat extends Gui
                             {
                                 int i2 = 0;
                                 int j2 = -i1 * 9;
-                                Gui.drawRect3(-2, j2 - 9f, 0 + k + 4f, j2,new Color(0,0,0,80).getRGB());
+                                drawRect(-2, j2 - 9, 0 + k + 4, j2, l1 / 2 << 24);
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                FontManager.C15.drawString(s, 0.0F, (float)(j2 - 8), 16777215 + (l1 << 24));
+                                this.mc.fontRendererObj.drawStringWithShadow(s, 0.0F, (float)(j2 - 8), 16777215 + (l1 << 24));
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }
@@ -97,7 +94,7 @@ public class GuiNewChat extends Gui
 
                 if (flag)
                 {
-                    int k2 = FontManager.C15.FONT_HEIGHT;
+                    int k2 = this.mc.fontRendererObj.FONT_HEIGHT;
                     GlStateManager.translate(-3.0F, 0.0F, 0.0F);
                     int l2 = j * k2 + j;
                     int i3 = l * k2 + l;
@@ -268,7 +265,7 @@ public class GuiNewChat extends Gui
 
                 if (j <= MathHelper.floor((float)this.getChatWidth() / this.getChatScale()) && k < this.mc.fontRendererObj.FONT_HEIGHT * l + l)
                 {
-                    int i1 = k / FontManager.C15.FONT_HEIGHT + this.scrollPos;
+                    int i1 = k / this.mc.fontRendererObj.FONT_HEIGHT + this.scrollPos;
 
                     if (i1 >= 0 && i1 < this.drawnChatLines.size())
                     {
@@ -279,7 +276,7 @@ public class GuiNewChat extends Gui
                         {
                             if (itextcomponent instanceof TextComponentString)
                             {
-                                j1 += FontManager.C15.getStringWidth(GuiUtilRenderComponents.removeTextColorsIfConfigured(((TextComponentString)itextcomponent).getText(), false));
+                                j1 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.removeTextColorsIfConfigured(((TextComponentString)itextcomponent).getText(), false));
 
                                 if (j1 > j)
                                 {

@@ -14,8 +14,13 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ICrashReportDetail;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
+import optifine.Config;
+import optifine.CustomGuis;
+import optifine.RandomMobs;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import shadersmod.client.ShadersTex;
 
 public class TextureManager implements ITickable, IResourceManagerReloadListener
 {
@@ -33,6 +38,16 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 
     public void bindTexture(ResourceLocation resource)
     {
+        if (Config.isRandomMobs())
+        {
+            resource = RandomMobs.getTextureLocation(resource);
+        }
+
+        if (Config.isCustomGuis())
+        {
+            resource = CustomGuis.getTextureLocation(resource);
+        }
+
         ITextureObject itextureobject = this.mapTextureObjects.get(resource);
 
         if (itextureobject == null)
@@ -41,7 +56,14 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             this.loadTexture(resource, itextureobject);
         }
 
-        TextureUtil.bindTexture(itextureobject.getGlTextureId());
+        if (Config.isShaders())
+        {
+            ShadersTex.bindTexture(itextureobject);
+        }
+        else
+        {
+            TextureUtil.bindTexture(itextureobject.getGlTextureId());
+        }
     }
 
     public boolean loadTickableTexture(ResourceLocation textureLocation, ITickableTextureObject textureObj)
@@ -103,6 +125,11 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 
     public ResourceLocation getDynamicTextureLocation(String name, DynamicTexture texture)
     {
+        if (name.equals("logo"))
+        {
+            texture = Config.getMojangLogoTexture(texture);
+        }
+
         Integer integer = this.mapTextureCounters.get(name);
 
         if (integer == null)
@@ -134,26 +161,64 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 
         if (itextureobject != null)
         {
+            this.mapTextureObjects.remove(textureLocation);
             TextureUtil.deleteTexture(itextureobject.getGlTextureId());
         }
     }
 
     public void onResourceManagerReload(IResourceManager resourceManager)
     {
-        Iterator<Entry<ResourceLocation, ITextureObject>> iterator = this.mapTextureObjects.entrySet().iterator();
+        Config.dbg("*** Reloading textures ***");
+        Config.log("Resource packs: " + Config.getResourcePackNames());
+        Iterator iterator = this.mapTextureObjects.keySet().iterator();
 
         while (iterator.hasNext())
         {
-            Entry<ResourceLocation, ITextureObject> entry = (Entry)iterator.next();
-            ITextureObject itextureobject = entry.getValue();
+            ResourceLocation resourcelocation = (ResourceLocation)iterator.next();
+            String s = resourcelocation.getResourcePath();
 
-            if (itextureobject == TextureUtil.MISSING_TEXTURE)
+            if (s.startsWith("mcpatcher/") || s.startsWith("optifine/"))
             {
+                ITextureObject itextureobject = this.mapTextureObjects.get(resourcelocation);
+
+                if (itextureobject instanceof AbstractTexture)
+                {
+                    AbstractTexture abstracttexture = (AbstractTexture)itextureobject;
+                    abstracttexture.deleteGlTexture();
+                }
+
                 iterator.remove();
+            }
+        }
+
+        Iterator<Entry<ResourceLocation, ITextureObject>> iterator1 = this.mapTextureObjects.entrySet().iterator();
+
+        while (iterator1.hasNext())
+        {
+            Entry<ResourceLocation, ITextureObject> entry = (Entry)iterator1.next();
+            ITextureObject itextureobject1 = entry.getValue();
+
+            if (itextureobject1 == TextureUtil.MISSING_TEXTURE)
+            {
+                iterator1.remove();
             }
             else
             {
-                this.loadTexture(entry.getKey(), itextureobject);
+                this.loadTexture(entry.getKey(), itextureobject1);
+            }
+        }
+    }
+
+    public void reloadBannerTextures()
+    {
+        for (Entry<ResourceLocation, ITextureObject> entry : this.mapTextureObjects.entrySet())
+        {
+            ResourceLocation resourcelocation = entry.getKey();
+            ITextureObject itextureobject = entry.getValue();
+
+            if (itextureobject instanceof LayeredColorMaskTexture)
+            {
+                this.loadTexture(resourcelocation, itextureobject);
             }
         }
     }

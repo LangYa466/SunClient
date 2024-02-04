@@ -3,6 +3,7 @@ package net.minecraft.client.gui;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 import net.minecraft.block.Block;
@@ -15,7 +16,6 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.FrameTimer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -24,6 +24,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.Chunk;
+import optifine.Reflector;
+
 import org.lwjgl.opengl.Display;
 
 public class GuiOverlayDebug extends Gui
@@ -189,6 +191,13 @@ public class GuiOverlayDebug extends Gui
         long l = j - k;
         List<String> list = Lists.newArrayList(String.format("Java: %s %dbit", System.getProperty("java.version"), this.mc.isJava64bit() ? 64 : 32), String.format("Mem: % 2d%% %03d/%03dMB", l * 100L / i, bytesToMb(l), bytesToMb(i)), String.format("Allocated: % 2d%% %03dMB", j * 100L / i, bytesToMb(j)), "", String.format("CPU: %s", OpenGlHelper.getCpu()), "", String.format("Display: %dx%d (%s)", Display.getWidth(), Display.getHeight(), GlStateManager.glGetString(7936)), GlStateManager.glGetString(7937), GlStateManager.glGetString(7938));
 
+        if (Reflector.FMLCommonHandler_getBrandings.exists())
+        {
+            Object object = Reflector.call(Reflector.FMLCommonHandler_instance);
+            list.add("");
+            list.addAll((Collection)Reflector.call(object, Reflector.FMLCommonHandler_getBrandings, false));
+        }
+
         if (this.mc.isReducedDebug())
         {
             return list;
@@ -234,41 +243,6 @@ public class GuiOverlayDebug extends Gui
 
     private void renderLagometer()
     {
-        GlStateManager.disableDepth();
-        FrameTimer frametimer = this.mc.getFrameTimer();
-        int i = frametimer.getLastIndex();
-        int j = frametimer.getIndex();
-        long[] along = frametimer.getFrames();
-        ScaledResolution scaledresolution = new ScaledResolution(this.mc);
-        int k = i;
-        int l = 0;
-        drawRect(0, scaledresolution.getScaledHeight() - 60, 240, scaledresolution.getScaledHeight(), -1873784752);
-
-        while (k != j)
-        {
-            int i1 = frametimer.getLagometerValue(along[k], 30);
-            int j1 = this.getFrameColor(MathHelper.clamp(i1, 0, 60), 0, 30, 60);
-            this.drawVerticalLine(l, scaledresolution.getScaledHeight(), scaledresolution.getScaledHeight() - i1, j1);
-            ++l;
-            k = frametimer.parseIndex(k + 1);
-        }
-
-        drawRect(1, scaledresolution.getScaledHeight() - 30 + 1, 14, scaledresolution.getScaledHeight() - 30 + 10, -1873784752);
-        this.fontRenderer.drawString("60", 2, scaledresolution.getScaledHeight() - 30 + 2, 14737632);
-        this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 30, -1);
-        drawRect(1, scaledresolution.getScaledHeight() - 60 + 1, 14, scaledresolution.getScaledHeight() - 60 + 10, -1873784752);
-        this.fontRenderer.drawString("30", 2, scaledresolution.getScaledHeight() - 60 + 2, 14737632);
-        this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 60, -1);
-        this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 1, -1);
-        this.drawVerticalLine(0, scaledresolution.getScaledHeight() - 60, scaledresolution.getScaledHeight(), -1);
-        this.drawVerticalLine(239, scaledresolution.getScaledHeight() - 60, scaledresolution.getScaledHeight(), -1);
-
-        if (this.mc.gameSettings.limitFramerate <= 120)
-        {
-            this.drawHorizontalLine(0, 239, scaledresolution.getScaledHeight() - 60 + this.mc.gameSettings.limitFramerate / 2, -16711681);
-        }
-
-        GlStateManager.enableDepth();
     }
 
     private int getFrameColor(int p_181552_1_, int p_181552_2_, int p_181552_3_, int p_181552_4_)

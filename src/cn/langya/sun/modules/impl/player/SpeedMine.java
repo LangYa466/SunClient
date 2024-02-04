@@ -1,8 +1,8 @@
 package cn.langya.sun.modules.impl.player;
 
-import cn.langya.sun.events.impl.misc.PacketReadEvent;
-import cn.langya.sun.events.impl.misc.PacketSendEvent;
-import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.misc.EventPacketRead;
+import cn.langya.sun.events.impl.misc.EventPacketSend;
+import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.BoolValue;
@@ -52,7 +52,7 @@ public class SpeedMine extends Module
     }
     
     @EventTarget
-    private void onPacketS(PacketSendEvent e) {
+    private void onPacketS(EventPacketSend e) {
         if (e.packet instanceof CPacketPlayerDigging) {
             if (((CPacketPlayerDigging) e.packet).getAction() == CPacketPlayerDigging.Action.START_DESTROY_BLOCK) {
                 boost = true;
@@ -69,7 +69,7 @@ public class SpeedMine extends Module
     }
 
     @EventTarget
-    void onPacketR(PacketReadEvent e) {
+    void onPacketR(EventPacketRead e) {
 
         if (e.packet instanceof CPacketPlayerDigging && ((CPacketPlayerDigging) e.packet).getAction() == CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK && grim.get()) {
             mc.getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, ((CPacketPlayerDigging) e.packet).getPosition().add(0, 500, 0), ((CPacketPlayerDigging) e.packet).getFacing()));
@@ -79,7 +79,7 @@ public class SpeedMine extends Module
     }
     
     @EventTarget
-    private void onUpdate(UpdateEvent e) {
+    private void onUpdate(EventUpdate e) {
         if (speedCheckBypass.get()) {
             if (MobEffects.SPEED != null) {
                 mc.player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 89640, 2));

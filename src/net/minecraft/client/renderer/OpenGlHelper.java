@@ -11,6 +11,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.Util;
+import optifine.Config;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
@@ -100,12 +102,15 @@ public class OpenGlHelper
     private static boolean arbVbo;
     public static int GL_ARRAY_BUFFER;
     public static int GL_STATIC_DRAW;
+    public static float lastBrightnessX = 0.0F;
+    public static float lastBrightnessY = 0.0F;
 
     /**
      * Initializes the texture constants to be used when rendering lightmap values
      */
     public static void initializeTextures()
     {
+        Config.initDisplay();
         ContextCapabilities contextcapabilities = GLContext.getCapabilities();
         arbMultitexture = contextcapabilities.GL_ARB_multitexture && !contextcapabilities.OpenGL13;
         arbTextureEnvCombine = contextcapabilities.GL_ARB_texture_env_combine && !contextcapabilities.OpenGL13;
@@ -638,7 +643,14 @@ public class OpenGlHelper
 
     public static boolean useVbo()
     {
-        return vboSupported && Minecraft.getMinecraft().gameSettings.useVbo;
+        if (Config.isMultiTexture())
+        {
+            return false;
+        }
+        else
+        {
+            return vboSupported && Minecraft.getMinecraft().gameSettings.useVbo;
+        }
     }
 
     public static void glBindFramebuffer(int target, int framebufferIn)
@@ -902,6 +914,12 @@ public class OpenGlHelper
         {
             GL13.glMultiTexCoord2f(target, p_77475_1_, t);
         }
+
+        if (target == lightmapTexUnit)
+        {
+            lastBrightnessX = p_77475_1_;
+            lastBrightnessY = t;
+        }
     }
 
     public static void glBlendFunc(int sFactorRGB, int dFactorRGB, int sfactorAlpha, int dfactorAlpha)
@@ -925,7 +943,18 @@ public class OpenGlHelper
 
     public static boolean isFramebufferEnabled()
     {
-        return framebufferSupported && Minecraft.getMinecraft().gameSettings.fboEnable;
+        if (Config.isFastRender())
+        {
+            return false;
+        }
+        else if (Config.isAntialiasing())
+        {
+            return false;
+        }
+        else
+        {
+            return framebufferSupported && Minecraft.getMinecraft().gameSettings.fboEnable;
+        }
     }
 
     public static String getCpu()
@@ -1002,9 +1031,9 @@ public class OpenGlHelper
             Object object = oclass.getMethod("getDesktop").invoke((Object)null);
             oclass.getMethod("browse", URI.class).invoke(object, fileIn.toURI());
         }
-        catch (Throwable throwable)
+        catch (Throwable throwable1)
         {
-            LOGGER.error("Couldn't open link", throwable);
+            LOGGER.error("Couldn't open link", throwable1);
             flag = true;
         }
 

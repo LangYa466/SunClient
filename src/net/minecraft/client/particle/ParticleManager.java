@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import javax.annotation.Nullable;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -31,7 +32,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import optifine.Config;
+import optifine.Reflector;
 
 public class ParticleManager
 {
@@ -158,7 +162,13 @@ public class ParticleManager
 
     public void addEffect(Particle effect)
     {
-        this.queueEntityFX.add(effect);
+        if (effect != null)
+        {
+            if (!(effect instanceof ParticleFirework.Spark) || Config.isFireworkParticles())
+            {
+                this.queueEntityFX.add(effect);
+            }
+        }
     }
 
     public void updateEffects()
@@ -197,7 +207,10 @@ public class ParticleManager
                     this.fxLayers[j][k].removeFirst();
                 }
 
-                this.fxLayers[j][k].add(particle);
+                if (!(particle instanceof Barrier) || !this.reuseBarrierParticle(particle, this.fxLayers[j][k]))
+                {
+                    this.fxLayers[j][k].add(particle);
+                }
             }
         }
     }
@@ -293,15 +306,15 @@ public class ParticleManager
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.alphaFunc(516, 0.003921569F);
 
-        for (int i_nf = 0; i_nf < 3; ++i_nf)
+        for (int i = 0; i < 3; ++i)
         {
-            final int i = i_nf;
+            final int j = i;
 
-            for (int j = 0; j < 2; ++j)
+            for (int k = 0; k < 2; ++k)
             {
-                if (!this.fxLayers[i][j].isEmpty())
+                if (!this.fxLayers[j][k].isEmpty())
                 {
-                    switch (j)
+                    switch (k)
                     {
                         case 0:
                             GlStateManager.depthMask(false);
@@ -311,7 +324,7 @@ public class ParticleManager
                             GlStateManager.depthMask(true);
                     }
 
-                    switch (i)
+                    switch (j)
                     {
                         case 0:
                         default:
@@ -327,7 +340,7 @@ public class ParticleManager
                     BufferBuilder bufferbuilder = tessellator.getBuffer();
                     bufferbuilder.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 
-                    for (final Particle particle : this.fxLayers[i][j])
+                    for (final Particle particle : this.fxLayers[j][k])
                     {
                         try
                         {
@@ -348,17 +361,17 @@ public class ParticleManager
                             {
                                 public String call() throws Exception
                                 {
-                                    if (i == 0)
+                                    if (j == 0)
                                     {
                                         return "MISC_TEXTURE";
                                     }
-                                    else if (i == 1)
+                                    else if (j == 1)
                                     {
                                         return "TERRAIN_TEXTURE";
                                     }
                                     else
                                     {
-                                        return i == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + i;
+                                        return j == 3 ? "ENTITY_PARTICLE_TEXTURE" : "Unknown - " + j;
                                     }
                                 }
                             });
@@ -419,20 +432,32 @@ public class ParticleManager
 
     public void addBlockDestroyEffects(BlockPos pos, IBlockState state)
     {
-        if (state.getMaterial() != Material.AIR)
+        boolean flag;
+
+        if (Reflector.ForgeBlock_addDestroyEffects.exists() && Reflector.ForgeBlock_isAir.exists())
+        {
+            Block block = state.getBlock();
+            flag = !Reflector.callBoolean(block, Reflector.ForgeBlock_isAir, state, this.worldObj, pos) && !Reflector.callBoolean(block, Reflector.ForgeBlock_addDestroyEffects, this.worldObj, pos, this);
+        }
+        else
+        {
+            flag = state.getMaterial() != Material.AIR;
+        }
+
+        if (flag)
         {
             state = state.getActualState(this.worldObj, pos);
-            int i = 4;
+            int l = 4;
 
-            for (int j = 0; j < 4; ++j)
+            for (int i = 0; i < 4; ++i)
             {
-                for (int k = 0; k < 4; ++k)
+                for (int j = 0; j < 4; ++j)
                 {
-                    for (int l = 0; l < 4; ++l)
+                    for (int k = 0; k < 4; ++k)
                     {
-                        double d0 = ((double)j + 0.5D) / 4.0D;
-                        double d1 = ((double)k + 0.5D) / 4.0D;
-                        double d2 = ((double)l + 0.5D) / 4.0D;
+                        double d0 = ((double)i + 0.5D) / 4.0D;
+                        double d1 = ((double)j + 0.5D) / 4.0D;
+                        double d2 = ((double)k + 0.5D) / 4.0D;
                         this.addEffect((new ParticleDigging(this.worldObj, (double)pos.getX() + d0, (double)pos.getY() + d1, (double)pos.getZ() + d2, d0 - 0.5D, d1 - 0.5D, d2 - 0.5D, state)).setBlockPos(pos));
                     }
                 }
@@ -505,5 +530,34 @@ public class ParticleManager
         }
 
         return "" + i;
+    }
+
+    private boolean reuseBarrierParticle(Particle p_reuseBarrierParticle_1_, ArrayDeque<Particle> p_reuseBarrierParticle_2_)
+    {
+        for (Particle particle : p_reuseBarrierParticle_2_)
+        {
+            if (particle instanceof Barrier && p_reuseBarrierParticle_1_.prevPosX == particle.prevPosX && p_reuseBarrierParticle_1_.prevPosY == particle.prevPosY && p_reuseBarrierParticle_1_.prevPosZ == particle.prevPosZ)
+            {
+                particle.particleAge = 0;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void addBlockHitEffects(BlockPos p_addBlockHitEffects_1_, RayTraceResult p_addBlockHitEffects_2_)
+    {
+        IBlockState iblockstate = this.worldObj.getBlockState(p_addBlockHitEffects_1_);
+
+        if (iblockstate != null)
+        {
+            boolean flag = Reflector.callBoolean(iblockstate.getBlock(), Reflector.ForgeBlock_addHitEffects, iblockstate, this.worldObj, p_addBlockHitEffects_2_, this);
+
+            if (iblockstate != null && !flag)
+            {
+                this.addBlockHitEffects(p_addBlockHitEffects_1_, p_addBlockHitEffects_2_.sideHit);
+            }
+        }
     }
 }

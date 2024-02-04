@@ -49,12 +49,20 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityStructure;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import optifine.Config;
+import optifine.CustomColors;
+import optifine.CustomItems;
+import optifine.Reflector;
+import optifine.ReflectorForge;
+import shadersmod.client.Shaders;
+import shadersmod.client.ShadersRender;
 
 public class RenderItem implements IResourceManagerReloadListener
 {
@@ -68,11 +76,24 @@ public class RenderItem implements IResourceManagerReloadListener
     private final ItemModelMesher itemModelMesher;
     private final TextureManager textureManager;
     private final ItemColors itemColors;
+    private ResourceLocation modelLocation = null;
+    private boolean renderItemGui = false;
+    public ModelManager modelManager = null;
 
     public RenderItem(TextureManager p_i46552_1_, ModelManager p_i46552_2_, ItemColors p_i46552_3_)
     {
         this.textureManager = p_i46552_1_;
-        this.itemModelMesher = new ItemModelMesher(p_i46552_2_);
+        this.modelManager = p_i46552_2_;
+
+        if (Reflector.ItemModelMesherForge_Constructor.exists())
+        {
+            this.itemModelMesher = (ItemModelMesher)Reflector.newInstance(Reflector.ItemModelMesherForge_Constructor, p_i46552_2_);
+        }
+        else
+        {
+            this.itemModelMesher = new ItemModelMesher(p_i46552_2_);
+        }
+
         this.registerItems();
         this.itemColors = p_i46552_3_;
     }
@@ -107,7 +128,7 @@ public class RenderItem implements IResourceManagerReloadListener
         this.func_191967_a(p_191961_1_, -1, p_191961_2_);
     }
 
-    private void func_191965_a(IBakedModel p_191965_1_, int p_191965_2_)
+    public void func_191965_a(IBakedModel p_191965_1_, int p_191965_2_)
     {
         this.func_191967_a(p_191965_1_, p_191965_2_, ItemStack.field_190927_a);
     }
@@ -116,15 +137,29 @@ public class RenderItem implements IResourceManagerReloadListener
     {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
+        boolean flag = Minecraft.getMinecraft().getTextureMapBlocks().isTextureBound();
+        boolean flag1 = Config.isMultiTexture() && flag;
+
+        if (flag1)
+        {
+            bufferbuilder.setBlockLayer(BlockRenderLayer.SOLID);
+        }
+
         bufferbuilder.begin(7, DefaultVertexFormats.ITEM);
 
-        for (EnumFacing enumfacing : EnumFacing.values())
+        for (EnumFacing enumfacing : EnumFacing.VALUES)
         {
             this.func_191970_a(bufferbuilder, p_191967_1_.getQuads((IBlockState)null, enumfacing, 0L), p_191967_2_, p_191967_3_);
         }
 
         this.func_191970_a(bufferbuilder, p_191967_1_.getQuads((IBlockState)null, (EnumFacing)null, 0L), p_191967_2_, p_191967_3_);
         tessellator.draw();
+
+        if (flag1)
+        {
+            bufferbuilder.setBlockLayer((BlockRenderLayer)null);
+            GlStateManager.bindCurrentTexture();
+        }
     }
 
     public void renderItem(ItemStack stack, IBakedModel model)
@@ -142,9 +177,15 @@ public class RenderItem implements IResourceManagerReloadListener
             }
             else
             {
+                if (Config.isCustomItems())
+                {
+                    model = CustomItems.getCustomItemModel(stack, model, this.modelLocation, false);
+                    this.modelLocation = null;
+                }
+
                 this.func_191961_a(model, stack);
 
-                if (stack.hasEffect())
+                if (stack.hasEffect() && (!Config.isCustomItems() || !CustomItems.renderCustomEffect(this, stack, model)))
                 {
                     this.func_191966_a(model);
                 }
@@ -156,32 +197,49 @@ public class RenderItem implements IResourceManagerReloadListener
 
     private void func_191966_a(IBakedModel p_191966_1_)
     {
-        GlStateManager.depthMask(false);
-        GlStateManager.depthFunc(514);
-        GlStateManager.disableLighting();
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_COLOR, GlStateManager.DestFactor.ONE);
-        this.textureManager.bindTexture(RES_ITEM_GLINT);
-        GlStateManager.matrixMode(5890);
-        GlStateManager.pushMatrix();
-        GlStateManager.scale(8.0F, 8.0F, 8.0F);
-        float f = (float)(Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
-        GlStateManager.translate(f, 0.0F, 0.0F);
-        GlStateManager.rotate(-50.0F, 0.0F, 0.0F, 1.0F);
-        this.func_191965_a(p_191966_1_, -8372020);
-        GlStateManager.popMatrix();
-        GlStateManager.pushMatrix();
-        GlStateManager.scale(8.0F, 8.0F, 8.0F);
-        float f1 = (float)(Minecraft.getSystemTime() % 4873L) / 4873.0F / 8.0F;
-        GlStateManager.translate(-f1, 0.0F, 0.0F);
-        GlStateManager.rotate(10.0F, 0.0F, 0.0F, 1.0F);
-        this.func_191965_a(p_191966_1_, -8372020);
-        GlStateManager.popMatrix();
-        GlStateManager.matrixMode(5888);
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        GlStateManager.enableLighting();
-        GlStateManager.depthFunc(515);
-        GlStateManager.depthMask(true);
-        this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        if (!Config.isCustomItems() || CustomItems.isUseGlint())
+        {
+            if (!Config.isShaders() || !Shaders.isShadowPass)
+            {
+                GlStateManager.depthMask(false);
+                GlStateManager.depthFunc(514);
+                GlStateManager.disableLighting();
+                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_COLOR, GlStateManager.DestFactor.ONE);
+                this.textureManager.bindTexture(RES_ITEM_GLINT);
+
+                if (Config.isShaders() && !this.renderItemGui)
+                {
+                    ShadersRender.renderEnchantedGlintBegin();
+                }
+
+                GlStateManager.matrixMode(5890);
+                GlStateManager.pushMatrix();
+                GlStateManager.scale(8.0F, 8.0F, 8.0F);
+                float f = (float)(Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
+                GlStateManager.translate(f, 0.0F, 0.0F);
+                GlStateManager.rotate(-50.0F, 0.0F, 0.0F, 1.0F);
+                this.func_191965_a(p_191966_1_, -8372020);
+                GlStateManager.popMatrix();
+                GlStateManager.pushMatrix();
+                GlStateManager.scale(8.0F, 8.0F, 8.0F);
+                float f1 = (float)(Minecraft.getSystemTime() % 4873L) / 4873.0F / 8.0F;
+                GlStateManager.translate(-f1, 0.0F, 0.0F);
+                GlStateManager.rotate(10.0F, 0.0F, 0.0F, 1.0F);
+                this.func_191965_a(p_191966_1_, -8372020);
+                GlStateManager.popMatrix();
+                GlStateManager.matrixMode(5888);
+                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+                GlStateManager.enableLighting();
+                GlStateManager.depthFunc(515);
+                GlStateManager.depthMask(true);
+                this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+
+                if (Config.isShaders() && !this.renderItemGui)
+                {
+                    ShadersRender.renderEnchantedGlintEnd();
+                }
+            }
+        }
     }
 
     private void putQuadNormal(BufferBuilder renderer, BakedQuad quad)
@@ -192,8 +250,25 @@ public class RenderItem implements IResourceManagerReloadListener
 
     private void func_191969_a(BufferBuilder p_191969_1_, BakedQuad p_191969_2_, int p_191969_3_)
     {
-        p_191969_1_.addVertexData(p_191969_2_.getVertexData());
-        p_191969_1_.putColor4(p_191969_3_);
+        if (p_191969_1_.isMultiTexture())
+        {
+            p_191969_1_.addVertexData(p_191969_2_.getVertexDataSingle());
+            p_191969_1_.putSprite(p_191969_2_.getSprite());
+        }
+        else
+        {
+            p_191969_1_.addVertexData(p_191969_2_.getVertexData());
+        }
+
+        if (Reflector.ForgeHooksClient_putQuadColor.exists())
+        {
+            Reflector.call(Reflector.ForgeHooksClient_putQuadColor, p_191969_1_, p_191969_2_, p_191969_3_);
+        }
+        else
+        {
+            p_191969_1_.putColor4(p_191969_3_);
+        }
+
         this.putQuadNormal(p_191969_1_, p_191969_2_);
     }
 
@@ -210,6 +285,11 @@ public class RenderItem implements IResourceManagerReloadListener
             if (flag && bakedquad.hasTintIndex())
             {
                 k = this.itemColors.getColorFromItemstack(p_191970_4_, bakedquad.getTintIndex());
+
+                if (Config.isCustomColors())
+                {
+                    k = CustomColors.getColorFromItemStack(p_191970_4_, bakedquad.getTintIndex(), k);
+                }
 
                 if (EntityRenderer.anaglyphEnable)
                 {
@@ -243,7 +323,26 @@ public class RenderItem implements IResourceManagerReloadListener
         IBakedModel ibakedmodel = this.itemModelMesher.getItemModel(stack);
         Item item = stack.getItem();
 
-        if (item != null && item.hasCustomProperties())
+        if (Config.isCustomItems())
+        {
+            if (item != null && item.hasCustomProperties())
+            {
+                this.modelLocation = ibakedmodel.getOverrides().applyOverride(stack, worldIn, entitylivingbaseIn);
+            }
+
+            IBakedModel ibakedmodel1 = CustomItems.getCustomItemModel(stack, ibakedmodel, this.modelLocation, true);
+
+            if (ibakedmodel1 != ibakedmodel)
+            {
+                return ibakedmodel1;
+            }
+        }
+
+        if (Reflector.ForgeItemOverrideList_handleItemState.exists())
+        {
+            return (IBakedModel)Reflector.call(ibakedmodel.getOverrides(), Reflector.ForgeItemOverrideList_handleItemState, ibakedmodel, stack, worldIn, entitylivingbaseIn);
+        }
+        else if (item != null && item.hasCustomProperties())
         {
             ResourceLocation resourcelocation = ibakedmodel.getOverrides().applyOverride(stack, worldIn, entitylivingbaseIn);
             return resourcelocation == null ? ibakedmodel : this.itemModelMesher.getModelManager().getModel(new ModelResourceLocation(resourcelocation, "inventory"));
@@ -275,15 +374,25 @@ public class RenderItem implements IResourceManagerReloadListener
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             GlStateManager.pushMatrix();
-            ItemCameraTransforms itemcameratransforms = bakedmodel.getItemCameraTransforms();
-            ItemCameraTransforms.applyTransformSide(itemcameratransforms.getTransform(transform), leftHanded);
 
-            if (this.isThereOneNegativeScale(itemcameratransforms.getTransform(transform)))
+            if (Reflector.ForgeHooksClient_handleCameraTransforms.exists())
             {
-                GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
+                bakedmodel = (IBakedModel)Reflector.call(Reflector.ForgeHooksClient_handleCameraTransforms, bakedmodel, transform, leftHanded);
+            }
+            else
+            {
+                ItemCameraTransforms itemcameratransforms = bakedmodel.getItemCameraTransforms();
+                ItemCameraTransforms.applyTransformSide(itemcameratransforms.getTransform(transform), leftHanded);
+
+                if (this.isThereOneNegativeScale(itemcameratransforms.getTransform(transform)))
+                {
+                    GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
+                }
             }
 
+            CustomItems.setRenderOffHand(leftHanded);
             this.renderItem(stack, bakedmodel);
+            CustomItems.setRenderOffHand(false);
             GlStateManager.cullFace(GlStateManager.CullFace.BACK);
             GlStateManager.popMatrix();
             GlStateManager.disableRescaleNormal();
@@ -308,6 +417,7 @@ public class RenderItem implements IResourceManagerReloadListener
 
     protected void func_191962_a(ItemStack p_191962_1_, int p_191962_2_, int p_191962_3_, IBakedModel p_191962_4_)
     {
+        this.renderItemGui = true;
         GlStateManager.pushMatrix();
         this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         this.textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
@@ -318,7 +428,16 @@ public class RenderItem implements IResourceManagerReloadListener
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.setupGuiTransform(p_191962_2_, p_191962_3_, p_191962_4_.isGui3d());
-        p_191962_4_.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GUI);
+
+        if (Reflector.ForgeHooksClient_handleCameraTransforms.exists())
+        {
+            p_191962_4_ = (IBakedModel)Reflector.call(Reflector.ForgeHooksClient_handleCameraTransforms, p_191962_4_, ItemCameraTransforms.TransformType.GUI, false);
+        }
+        else
+        {
+            p_191962_4_.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GUI);
+        }
+
         this.renderItem(p_191962_1_, p_191962_4_);
         GlStateManager.disableAlpha();
         GlStateManager.disableRescaleNormal();
@@ -326,6 +445,7 @@ public class RenderItem implements IResourceManagerReloadListener
         GlStateManager.popMatrix();
         this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         this.textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
+        this.renderItemGui = false;
     }
 
     private void setupGuiTransform(int xPosition, int yPosition, boolean isGui3d)
@@ -420,9 +540,10 @@ public class RenderItem implements IResourceManagerReloadListener
                 fr.drawStringWithShadow(s, (float)(xPosition + 19 - 2 - fr.getStringWidth(s)), (float)(yPosition + 6 + 3), 16777215);
                 GlStateManager.enableLighting();
                 GlStateManager.enableDepth();
+                GlStateManager.enableBlend();
             }
 
-            if (stack.isItemDamaged())
+            if (ReflectorForge.isItemDamaged(stack))
             {
                 GlStateManager.disableLighting();
                 GlStateManager.disableDepth();
@@ -436,6 +557,33 @@ public class RenderItem implements IResourceManagerReloadListener
                 float f2 = Math.max(0.0F, (f1 - f) / f1);
                 int i = Math.round(13.0F - f * 13.0F / f1);
                 int j = MathHelper.hsvToRGB(f2 / 3.0F, 1.0F, 1.0F);
+
+                if (Reflector.ForgeItem_getDurabilityForDisplay.exists() && Reflector.ForgeItem_getRGBDurabilityForDisplay.exists())
+                {
+                    double d0 = Reflector.callDouble(stack.getItem(), Reflector.ForgeItem_getDurabilityForDisplay, stack);
+                    int k = Reflector.callInt(stack.getItem(), Reflector.ForgeItem_getRGBDurabilityForDisplay, stack);
+                    i = Math.round(13.0F - (float)d0 * 13.0F);
+                    j = k;
+                }
+
+                if (Config.isCustomColors())
+                {
+                    j = CustomColors.getDurabilityColor(f2, j);
+                }
+
+                if (Reflector.ForgeItem_getDurabilityForDisplay.exists() && Reflector.ForgeItem_getRGBDurabilityForDisplay.exists())
+                {
+                    double d1 = Reflector.callDouble(stack.getItem(), Reflector.ForgeItem_getDurabilityForDisplay, stack);
+                    int l = Reflector.callInt(stack.getItem(), Reflector.ForgeItem_getRGBDurabilityForDisplay, stack);
+                    i = Math.round(13.0F - (float)d1 * 13.0F);
+                    j = l;
+                }
+
+                if (Config.isCustomColors())
+                {
+                    j = CustomColors.getDurabilityColor(f2, j);
+                }
+
                 this.draw(bufferbuilder, xPosition + 2, yPosition + 13, 13, 2, 0, 0, 0, 255);
                 this.draw(bufferbuilder, xPosition + 2, yPosition + 13, i, 1, j >> 16 & 255, j >> 8 & 255, j & 255, 255);
                 GlStateManager.enableBlend();
@@ -1109,6 +1257,11 @@ public class RenderItem implements IResourceManagerReloadListener
         this.registerBlock(Blocks.STRUCTURE_BLOCK, TileEntityStructure.Mode.LOAD.getModeId(), "structure_block");
         this.registerBlock(Blocks.STRUCTURE_BLOCK, TileEntityStructure.Mode.CORNER.getModeId(), "structure_block");
         this.registerBlock(Blocks.STRUCTURE_BLOCK, TileEntityStructure.Mode.DATA.getModeId(), "structure_block");
+
+        if (Reflector.ModelLoader_onRegisterItems.exists())
+        {
+            Reflector.call(Reflector.ModelLoader_onRegisterItems, this.itemModelMesher);
+        }
     }
 
     public void onResourceManagerReload(IResourceManager resourceManager)

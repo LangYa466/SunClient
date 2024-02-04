@@ -1,8 +1,7 @@
 package net.minecraft.client.multiplayer;
 
 import cn.langya.sun.Sun;
-
-import cn.langya.sun.events.impl.player.AttackEvent;
+import cn.langya.sun.events.impl.player.EventAttack;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;
@@ -52,14 +51,14 @@ public class PlayerControllerMP
 {
     /** The Minecraft instance. */
     private final Minecraft mc;
-    public final NetHandlerPlayClient connection;
+    private final NetHandlerPlayClient connection;
     private BlockPos currentBlock = new BlockPos(-1, -1, -1);
 
     /** The Item currently being used to destroy a block */
     private ItemStack currentItemHittingBlock = ItemStack.field_190927_a;
 
     /** Current block damage (MP) */
-    public float curBlockDamageMP;
+    private float curBlockDamageMP;
 
     /**
      * Tick counter, when it hits 4 it resets back to 0 and plays the step sound
@@ -69,7 +68,7 @@ public class PlayerControllerMP
     /**
      * Delays the first damage on the block after the first click on the block
      */
-    public int blockHitDelay;
+    private int blockHitDelay;
 
     /** Tells if the player is hitting a block */
     private boolean isHittingBlock;
@@ -399,7 +398,7 @@ public class PlayerControllerMP
     /**
      * Syncs the current player item with the server
      */
-    public void syncCurrentPlayItem()
+    private void syncCurrentPlayItem()
     {
         int i = this.mc.player.inventory.currentItem;
 
@@ -533,8 +532,13 @@ public class PlayerControllerMP
      */
     public void attackEntity(EntityPlayer playerIn, Entity targetEntity)
     {
-        Sun.eventManager.call(new AttackEvent(targetEntity));
 
+        EventAttack attackEvent = new EventAttack(targetEntity);
+        Sun.eventManager.call(attackEvent);
+
+        if(attackEvent.cancelled) {
+            return;
+        }
 
         this.syncCurrentPlayItem();
         this.connection.sendPacket(new CPacketUseEntity(targetEntity));
@@ -544,7 +548,6 @@ public class PlayerControllerMP
             playerIn.attackTargetEntityWithCurrentItem(targetEntity);
             playerIn.resetCooldown();
         }
-
     }
 
     /**

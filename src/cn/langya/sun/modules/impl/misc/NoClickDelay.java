@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.misc;
 
-import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import com.cubk.event.annotations.EventTarget;
@@ -18,7 +18,7 @@ public class NoClickDelay extends Module {
     }
 
     @EventTarget
-    void onUpdate(UpdateEvent e) {
+    void onUpdate(EventUpdate e) {
         if (mc.player != null && mc.world != null) {
             mc.leftClickCounter = 0;
         }

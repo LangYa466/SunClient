@@ -1,14 +1,12 @@
 package net.minecraft.client.entity;
 
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.command.Command;
-import cn.langya.sun.events.impl.misc.ChatEvent;
-import cn.langya.sun.events.impl.player.MoveEvent;
-import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.misc.EventChat;
+import cn.langya.sun.events.impl.player.EventMotion;
+import cn.langya.sun.events.impl.player.EventUpdate;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ElytraSound;
@@ -84,8 +82,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
@@ -131,7 +127,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     private boolean serverSneakState;
 
     /** the last sprinting state sent to the server */
-    public boolean serverSprintState;
+    private boolean serverSprintState;
 
     /**
      * Reset to 0 every time position is sent to the server, used to send periodic updates every 20 ticks even when the
@@ -268,7 +264,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     {
         boolean flag = this.isSprinting();
 
-        final UpdateEvent updateEvent = new UpdateEvent(rotationYaw,rotationPitch,onGround);
+        final EventUpdate updateEvent = new EventUpdate(rotationYaw,rotationPitch,onGround);
         Sun.eventManager.call(updateEvent);
         this.rotationYaw = updateEvent.getYaw();
         this.rotationPitch = updateEvent.pitch;
@@ -287,7 +283,9 @@ public class EntityPlayerSP extends AbstractClientPlayer
             this.serverSprintState = flag;
         }
 
-        Sun.eventManager.call(new MoveEvent(posX,posY,posZ,true));
+        EventMotion preMoveEvent = new EventMotion(posX,posY,posZ,true);
+        Sun.eventManager.call(preMoveEvent);
+
 
         boolean flag1 = this.isSneaking();
 
@@ -356,7 +354,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
             this.prevOnGround = this.onGround;
             this.autoJumpEnabled = this.mc.gameSettings.autoJump;
 
-            Sun.eventManager.call(new MoveEvent(posX,posY,posZ,false));
+            EventMotion postMoveEvent = new EventMotion(posX,posY,posZ,false);
+            Sun.eventManager.call(postMoveEvent);
 
         }
     }
@@ -382,21 +381,11 @@ public class EntityPlayerSP extends AbstractClientPlayer
     /**
      * Sends a chat message from the player.
      */
-    public void sendChatMessage(final String message) {
-        final ChatEvent event = new ChatEvent(message);
+    public void sendChatMessage(String message)
+    {
+        final EventChat event = new EventChat(message);
         Sun.eventManager.call(event);
-        if (message.startsWith(Sun.commandManager.prefix)) {
-            final String[] args = message.trim().substring(1).split(" ");
-            final Command c = Sun.commandManager.getCommand(args[0]);
-            if (c != null) {
-                c.run(Arrays.copyOfRange(args, 1, args.length));
-            } else {
-                this.addChatMessage(new TextComponentString(TextFormatting.RED + "Unknown Command! Use .help to view usages."));
-            }
-        }
-        else {
-            this.connection.sendPacket(new CPacketChatMessage(message));
-        }
+        this.connection.sendPacket(new CPacketChatMessage(message));
     }
 
     public void swingArm(EnumHand hand)

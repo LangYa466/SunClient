@@ -1,6 +1,5 @@
 package net.minecraft.entity;
 
-
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -723,7 +722,6 @@ public abstract class Entity implements ICommandSender
      */
     public void moveEntity(MoverType x, double p_70091_2_, double p_70091_4_, double p_70091_6_)
     {
-
         if (this.noClip)
         {
             this.setEntityBoundingBox(this.getEntityBoundingBox().offset(p_70091_2_, p_70091_4_, p_70091_6_));
@@ -1152,7 +1150,6 @@ public abstract class Entity implements ICommandSender
 
             this.world.theProfiler.endSection();
         }
-
     }
 
     /**

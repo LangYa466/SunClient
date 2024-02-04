@@ -1,7 +1,7 @@
 package cn.langya.sun.modules.impl.client;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.render.Render2DEvent;
+import cn.langya.sun.events.impl.render.EventRender2D;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.misc.AutoL;
@@ -48,11 +48,13 @@ public class HUD extends Module {
         super("HUD", Category.Render);
         setState(true);
         add(animationSpeed,mainColor,logo,thud,gameinfo,arraylist);
-        thud.getValues().add("Novoline");
-        thud.getValues().add("Sun");
+        /*
         thud.getValues().add("Neon");
         thud.getValues().add("Moon");
         thud.getValues().add("Raven");
+        thud.getValues().add("Novoline");
+         */
+        thud.getValues().add("Sun");
         thud.getValues().add("Style");
         thud.getValues().add("LangYa");
         thud.getValues().add("None");
@@ -68,7 +70,7 @@ public class HUD extends Module {
 
 
     @EventTarget
-    public void onRender2D(Render2DEvent event) {
+    public void onRender2D(EventRender2D event) {
 
 
         // arraylist
@@ -258,6 +260,7 @@ public class HUD extends Module {
                 GlStateManager.popMatrix();
             }
 
+            /*
             for (Entity target1 : mc.world.loadedEntityList) {
                  //                 if (mc.player.getDistanceToEntity(target1) <= Sun.moduleManager.getModule(KillAura.class).getRange() && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
                 if (mc.player.getDistanceToEntity(target1) <= 3.0 && target1 != mc.player && !Teams.isSameTeam(target1) && !target1.isDead && target1 != mc.player && target1 instanceof EntityLivingBase){
@@ -366,6 +369,9 @@ public class HUD extends Module {
                     }
                 }
             }
+
+             */
+
         }
     }
 
@@ -384,6 +390,8 @@ public class HUD extends Module {
         }
         return name;
     }
+
+    /*
 
 
     public void drawModel(final float yaw, final float pitch, final EntityLivingBase entityLivingBase) {
@@ -447,5 +455,7 @@ public class HUD extends Module {
         GlStateManager.disableBlend();
         GlStateManager.resetColor();
     }
+
+     */
 
 }

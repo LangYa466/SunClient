@@ -4,8 +4,8 @@ package cn.langya.sun.modules.impl.misc;
 
 import java.text.DecimalFormat;
 import com.cubk.event.annotations.EventTarget;
-import cn.langya.sun.events.impl.misc.PacketReadEvent;
-import cn.langya.sun.events.impl.world.WorldLoadEvent;
+import cn.langya.sun.events.impl.misc.EventPacketRead;
+import cn.langya.sun.events.impl.world.EventWorldLoad;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.utils.ClientUtils;
@@ -36,12 +36,12 @@ public class GrimAC extends Module {
     }
 
     @EventTarget
-    public void onWorld(WorldLoadEvent event) {
+    public void onWorld(EventWorldLoad event) {
         vl = 0;
     }
 
     @EventTarget
-    public void onPacket(PacketReadEvent event) {
+    public void onPacket(EventPacketRead event) {
         if(mc.player == null) return;
 
         if (mc.player.ticksExisted % 6 == 0) {

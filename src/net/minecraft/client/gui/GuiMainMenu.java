@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Runnables;
 import java.io.BufferedReader;
@@ -30,6 +31,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServerDemo;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
+import optifine.CustomPanorama;
+import optifine.CustomPanoramaProperties;
+import optifine.Reflector;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -110,6 +115,8 @@ public class GuiMainMenu extends GuiScreen
     private GuiScreen realmsNotification;
     private int field_193978_M;
     private int field_193979_N;
+    private GuiButton modButton;
+    private GuiScreen modUpdateNotification;
 
     public GuiMainMenu()
     {
@@ -269,6 +276,11 @@ public class GuiMainMenu extends GuiScreen
             this.realmsNotification.setGuiSize(this.width, this.height);
             this.realmsNotification.initGui();
         }
+
+        if (Reflector.NotificationModUpdateScreen_init.exists())
+        {
+            this.modUpdateNotification = (GuiScreen)Reflector.call(Reflector.NotificationModUpdateScreen_init, this, this.modButton);
+        }
     }
 
     /**
@@ -278,7 +290,16 @@ public class GuiMainMenu extends GuiScreen
     {
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
         this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer")));
-        this.realmsButton = this.addButton(new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.online")));
+
+        if (Reflector.GuiModList_Constructor.exists())
+        {
+            this.realmsButton = this.addButton(new GuiButton(14, this.width / 2 + 2, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("menu.online").replace("Minecraft", "").trim()));
+            this.buttonList.add(this.modButton = new GuiButton(6, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("fml.menu.mods")));
+        }
+        else
+        {
+            this.realmsButton = this.addButton(new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.online")));
+        }
     }
 
     /**
@@ -332,6 +353,11 @@ public class GuiMainMenu extends GuiScreen
             this.mc.shutdown();
         }
 
+        if (button.id == 6 && Reflector.GuiModList_Constructor.exists())
+        {
+            this.mc.displayGuiScreen((GuiScreen)Reflector.newInstance(Reflector.GuiModList_Constructor, this));
+        }
+
         if (button.id == 11)
         {
             this.mc.launchIntegratedServer("Demo_World", "Demo_World", WorldServerDemo.DEMO_WORLD_SETTINGS);
@@ -378,9 +404,9 @@ public class GuiMainMenu extends GuiScreen
                     Object object = oclass.getMethod("getDesktop").invoke((Object)null);
                     oclass.getMethod("browse", URI.class).invoke(object, new URI(this.openGLWarningLink));
                 }
-                catch (Throwable throwable)
+                catch (Throwable throwable1)
                 {
-                    LOGGER.error("Couldn't open link", throwable);
+                    LOGGER.error("Couldn't open link", throwable1);
                 }
             }
 
@@ -411,54 +437,68 @@ public class GuiMainMenu extends GuiScreen
         GlStateManager.depthMask(false);
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         int i = 8;
+        int j = 64;
+        CustomPanoramaProperties custompanoramaproperties = CustomPanorama.getCustomPanoramaProperties();
 
-        for (int j = 0; j < 64; ++j)
+        if (custompanoramaproperties != null)
+        {
+            j = custompanoramaproperties.getBlur1();
+        }
+
+        for (int k = 0; k < j; ++k)
         {
             GlStateManager.pushMatrix();
-            float f = ((float)(j % 8) / 8.0F - 0.5F) / 64.0F;
-            float f1 = ((float)(j / 8) / 8.0F - 0.5F) / 64.0F;
+            float f = ((float)(k % 8) / 8.0F - 0.5F) / 64.0F;
+            float f1 = ((float)(k / 8) / 8.0F - 0.5F) / 64.0F;
             float f2 = 0.0F;
             GlStateManager.translate(f, f1, 0.0F);
             GlStateManager.rotate(MathHelper.sin(this.panoramaTimer / 400.0F) * 25.0F + 20.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(-this.panoramaTimer * 0.1F, 0.0F, 1.0F, 0.0F);
 
-            for (int k = 0; k < 6; ++k)
+            for (int l = 0; l < 6; ++l)
             {
                 GlStateManager.pushMatrix();
 
-                if (k == 1)
+                if (l == 1)
                 {
                     GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
                 }
 
-                if (k == 2)
+                if (l == 2)
                 {
                     GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
                 }
 
-                if (k == 3)
+                if (l == 3)
                 {
                     GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
                 }
 
-                if (k == 4)
+                if (l == 4)
                 {
                     GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
                 }
 
-                if (k == 5)
+                if (l == 5)
                 {
                     GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
                 }
 
-                this.mc.getTextureManager().bindTexture(TITLE_PANORAMA_PATHS[k]);
+                ResourceLocation[] aresourcelocation = TITLE_PANORAMA_PATHS;
+
+                if (custompanoramaproperties != null)
+                {
+                    aresourcelocation = custompanoramaproperties.getPanoramaLocations();
+                }
+
+                this.mc.getTextureManager().bindTexture(aresourcelocation[l]);
                 bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                int l = 255 / (j + 1);
+                int i1 = 255 / (k + 1);
                 float f3 = 0.0F;
-                bufferbuilder.pos(-1.0D, -1.0D, 1.0D).tex(0.0D, 0.0D).color(255, 255, 255, l).endVertex();
-                bufferbuilder.pos(1.0D, -1.0D, 1.0D).tex(1.0D, 0.0D).color(255, 255, 255, l).endVertex();
-                bufferbuilder.pos(1.0D, 1.0D, 1.0D).tex(1.0D, 1.0D).color(255, 255, 255, l).endVertex();
-                bufferbuilder.pos(-1.0D, 1.0D, 1.0D).tex(0.0D, 1.0D).color(255, 255, 255, l).endVertex();
+                bufferbuilder.pos(-1.0D, -1.0D, 1.0D).tex(0.0D, 0.0D).color(255, 255, 255, i1).endVertex();
+                bufferbuilder.pos(1.0D, -1.0D, 1.0D).tex(1.0D, 0.0D).color(255, 255, 255, i1).endVertex();
+                bufferbuilder.pos(1.0D, 1.0D, 1.0D).tex(1.0D, 1.0D).color(255, 255, 255, i1).endVertex();
+                bufferbuilder.pos(-1.0D, 1.0D, 1.0D).tex(0.0D, 1.0D).color(255, 255, 255, i1).endVertex();
                 tessellator.draw();
                 GlStateManager.popMatrix();
             }
@@ -495,17 +535,24 @@ public class GuiMainMenu extends GuiScreen
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
         GlStateManager.disableAlpha();
         int i = 3;
+        int j = 3;
+        CustomPanoramaProperties custompanoramaproperties = CustomPanorama.getCustomPanoramaProperties();
 
-        for (int j = 0; j < 3; ++j)
+        if (custompanoramaproperties != null)
         {
-            float f = 1.0F / (float)(j + 1);
-            int k = this.width;
-            int l = this.height;
-            float f1 = (float)(j - 1) / 256.0F;
-            bufferbuilder.pos((double)k, (double)l, (double)this.zLevel).tex((double)(0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos((double)k, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            j = custompanoramaproperties.getBlur2();
+        }
+
+        for (int k = 0; k < j; ++k)
+        {
+            float f = 1.0F / (float)(k + 1);
+            int l = this.width;
+            int i1 = this.height;
+            float f1 = (float)(k - 1) / 256.0F;
+            bufferbuilder.pos((double)l, (double)i1, (double)this.zLevel).tex((double)(0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos((double)l, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
             bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos(0.0D, (double)l, (double)this.zLevel).tex((double)(0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(0.0D, (double)i1, (double)this.zLevel).tex((double)(0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
         }
 
         tessellator.draw();
@@ -522,26 +569,34 @@ public class GuiMainMenu extends GuiScreen
         GlStateManager.viewport(0, 0, 256, 256);
         this.drawPanorama(mouseX, mouseY, partialTicks);
         this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
+        int i = 3;
+        CustomPanoramaProperties custompanoramaproperties = CustomPanorama.getCustomPanoramaProperties();
+
+        if (custompanoramaproperties != null)
+        {
+            i = custompanoramaproperties.getBlur3();
+        }
+
+        for (int j = 0; j < i; ++j)
+        {
+            this.rotateAndBlurSkybox();
+            this.rotateAndBlurSkybox();
+        }
+
         this.mc.getFramebuffer().bindFramebuffer(true);
         GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
-        float f = 120.0F / (float)(this.width > this.height ? this.width : this.height);
-        float f1 = (float)this.height * f / 256.0F;
-        float f2 = (float)this.width * f / 256.0F;
-        int i = this.width;
-        int j = this.height;
+        float f2 = 120.0F / (float)(this.width > this.height ? this.width : this.height);
+        float f = (float)this.height * f2 / 256.0F;
+        float f1 = (float)this.width * f2 / 256.0F;
+        int k = this.width;
+        int l = this.height;
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        bufferbuilder.pos(0.0D, (double)j, (double)this.zLevel).tex((double)(0.5F - f1), (double)(0.5F + f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)i, (double)j, (double)this.zLevel).tex((double)(0.5F - f1), (double)(0.5F - f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)i, 0.0D, (double)this.zLevel).tex((double)(0.5F + f1), (double)(0.5F - f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(0.5F + f1), (double)(0.5F + f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, (double)l, (double)this.zLevel).tex((double)(0.5F - f), (double)(0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos((double)k, (double)l, (double)this.zLevel).tex((double)(0.5F - f), (double)(0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos((double)k, 0.0D, (double)this.zLevel).tex((double)(0.5F + f), (double)(0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(0.5F + f), (double)(0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         tessellator.draw();
     }
 
@@ -557,8 +612,30 @@ public class GuiMainMenu extends GuiScreen
         int i = 274;
         int j = this.width / 2 - 137;
         int k = 30;
-        this.drawGradientRect(0, 0, this.width, this.height, -2130706433, 16777215);
-        this.drawGradientRect(0, 0, this.width, this.height, 0, Integer.MIN_VALUE);
+        int l = -2130706433;
+        int i1 = 16777215;
+        int j1 = 0;
+        int k1 = Integer.MIN_VALUE;
+        CustomPanoramaProperties custompanoramaproperties = CustomPanorama.getCustomPanoramaProperties();
+
+        if (custompanoramaproperties != null)
+        {
+            l = custompanoramaproperties.getOverlay1Top();
+            i1 = custompanoramaproperties.getOverlay1Bottom();
+            j1 = custompanoramaproperties.getOverlay2Top();
+            k1 = custompanoramaproperties.getOverlay2Bottom();
+        }
+
+        if (l != 0 || i1 != 0)
+        {
+            this.drawGradientRect(0, 0, this.width, this.height, l, i1);
+        }
+
+        if (j1 != 0 || k1 != 0)
+        {
+            this.drawGradientRect(0, 0, this.width, this.height, j1, k1);
+        }
+
         this.mc.getTextureManager().bindTexture(MINECRAFT_TITLE_TEXTURES);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -578,6 +655,12 @@ public class GuiMainMenu extends GuiScreen
 
         this.mc.getTextureManager().bindTexture(field_194400_H);
         drawModalRectWithCustomSizedTexture(j + 88, 67, 0.0F, 0.0F, 98, 14, 128.0F, 16.0F);
+
+        if (Reflector.ForgeHooksClient_renderMainMenu.exists())
+        {
+            this.splashText = Reflector.callString(Reflector.ForgeHooksClient_renderMainMenu, this, this.fontRendererObj, this.width, this.height, this.splashText);
+        }
+
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)(this.width / 2 + 90), 70.0F, 0.0F);
         GlStateManager.rotate(-20.0F, 0.0F, 0.0F, 1.0F);
@@ -597,7 +680,26 @@ public class GuiMainMenu extends GuiScreen
             s = s + ("release".equalsIgnoreCase(this.mc.getVersionType()) ? "" : "/" + this.mc.getVersionType());
         }
 
-        this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
+        if (Reflector.FMLCommonHandler_getBrandings.exists())
+        {
+            Object object = Reflector.call(Reflector.FMLCommonHandler_instance);
+            List<String> list = Lists.<String>reverse((List)Reflector.call(object, Reflector.FMLCommonHandler_getBrandings, true));
+
+            for (int l1 = 0; l1 < list.size(); ++l1)
+            {
+                String s1 = list.get(l1);
+
+                if (!Strings.isNullOrEmpty(s1))
+                {
+                    this.drawString(this.fontRendererObj, s1, 2, this.height - (10 + l1 * (this.fontRendererObj.FONT_HEIGHT + 1)), 16777215);
+                }
+            }
+        }
+        else
+        {
+            this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
+        }
+
         this.drawString(this.fontRendererObj, "Copyright Mojang AB. Do not distribute!", this.field_193979_N, this.height - 10, -1);
 
         if (mouseX > this.field_193979_N && mouseX < this.field_193979_N + this.field_193978_M && mouseY > this.height - 10 && mouseY < this.height && Mouse.isInsideWindow())
@@ -617,6 +719,11 @@ public class GuiMainMenu extends GuiScreen
         if (this.areRealmsNotificationsEnabled())
         {
             this.realmsNotification.drawScreen(mouseX, mouseY, partialTicks);
+        }
+
+        if (this.modUpdateNotification != null)
+        {
+            this.modUpdateNotification.drawScreen(mouseX, mouseY, partialTicks);
         }
     }
 

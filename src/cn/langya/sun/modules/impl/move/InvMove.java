@@ -3,7 +3,7 @@ package cn.langya.sun.modules.impl.move;
 
 import cn.langya.sun.ui.screen.clickgui.DropdownClickGUI;
 import com.cubk.event.annotations.EventTarget;
-import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import net.minecraft.client.settings.*;
@@ -45,7 +45,7 @@ public class InvMove extends Module
     }
     
     @EventTarget
-    public void onMotion(final UpdateEvent event) {
+    public void onMotion(final EventUpdate event) {
         if (mc.currentScreen instanceof GuiContainer || mc.currentScreen instanceof DropdownClickGUI){
             updateStates();
         }

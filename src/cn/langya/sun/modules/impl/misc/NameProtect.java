@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.misc;
 
-import cn.langya.sun.events.impl.misc.TextEvent;
+import cn.langya.sun.events.impl.misc.EventText;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.ListValue;
@@ -20,7 +20,7 @@ public class NameProtect extends Module {
    }
 
    @EventTarget
-    void onT(TextEvent e) {
+    void onT(EventText e) {
        if(e.text.contains(mc.player.getDisplayName().getFormattedText())) {
            e.text.replace(mc.player.getDisplayName().getFormattedText(),name.get());
        }

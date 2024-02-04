@@ -2,12 +2,20 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.common.collect.Maps;
 import java.util.Map;
+import java.util.Optional;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.ITransformation;
+import net.minecraftforge.common.model.TRSRTransformation;
+import optifine.Reflector;
+
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
-public enum ModelRotation
+public enum ModelRotation implements IModelState, ITransformation
 {
     X0_Y0(0, 0),
     X0_Y90(0, 90),
@@ -104,6 +112,26 @@ public enum ModelRotation
     public static ModelRotation getModelRotation(int x, int y)
     {
         return MAP_ROTATIONS.get(Integer.valueOf(combineXY(MathHelper.normalizeAngle(x, 360), MathHelper.normalizeAngle(y, 360))));
+    }
+
+    public Optional<TRSRTransformation> apply(Optional <? extends IModelPart > p_apply_1_)
+    {
+        return (Optional)Reflector.call(Reflector.ForgeHooksClient_applyTransform, this.getMatrix(), p_apply_1_);
+    }
+
+    public javax.vecmath.Matrix4f getMatrix()
+    {
+        return Reflector.ForgeHooksClient_getMatrix.exists() ? (javax.vecmath.Matrix4f)Reflector.call(Reflector.ForgeHooksClient_getMatrix, this) : new javax.vecmath.Matrix4f();
+    }
+
+    public EnumFacing rotate(EnumFacing p_rotate_1_)
+    {
+        return this.rotateFace(p_rotate_1_);
+    }
+
+    public int rotate(EnumFacing p_rotate_1_, int p_rotate_2_)
+    {
+        return this.rotateVertex(p_rotate_1_, p_rotate_2_);
     }
 
     static {

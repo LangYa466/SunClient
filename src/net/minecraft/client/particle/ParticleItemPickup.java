@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
+import optifine.Config;
+import shadersmod.client.Shaders;
 
 public class ParticleItemPickup extends Particle
 {
@@ -31,6 +33,14 @@ public class ParticleItemPickup extends Particle
      */
     public void renderParticle(BufferBuilder worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ)
     {
+        int i = 0;
+
+        if (Config.isShaders())
+        {
+            i = Shaders.activeProgram;
+            Shaders.nextEntity(this.item);
+        }
+
         float f = ((float)this.age + partialTicks) / (float)this.maxAge;
         f = f * f;
         double d0 = this.item.posX;
@@ -42,16 +52,21 @@ public class ParticleItemPickup extends Particle
         double d6 = d0 + (d3 - d0) * (double)f;
         double d7 = d1 + (d4 - d1) * (double)f;
         double d8 = d2 + (d5 - d2) * (double)f;
-        int i = this.getBrightnessForRender(partialTicks);
-        int j = i % 65536;
-        int k = i / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
+        int j = this.getBrightnessForRender(partialTicks);
+        int k = j % 65536;
+        int l = j / 65536;
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)k, (float)l);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         d6 = d6 - interpPosX;
         d7 = d7 - interpPosY;
         d8 = d8 - interpPosZ;
         GlStateManager.enableLighting();
         this.renderManager.doRenderEntity(this.item, d6, d7, d8, this.item.rotationYaw, partialTicks, false);
+
+        if (Config.isShaders())
+        {
+            Shaders.useProgram(i);
+        }
     }
 
     public void onUpdate()

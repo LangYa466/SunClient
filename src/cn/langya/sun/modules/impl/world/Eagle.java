@@ -1,8 +1,8 @@
 package cn.langya.sun.modules.impl.world;
 
 import com.cubk.event.annotations.EventTarget;
-import cn.langya.sun.events.impl.render.Render2DEvent;
-import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.render.EventRender2D;
+import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.ui.FontManager;
@@ -40,7 +40,7 @@ public class Eagle extends Module {
     }
 
     @EventTarget
-    public void onUpdate(UpdateEvent event) {
+    public void onUpdate(EventUpdate event) {
 
         if (getBlockUnderPlayer(mc.player) instanceof BlockAir) {
             if (mc.player.onGround) {
@@ -53,7 +53,7 @@ public class Eagle extends Module {
     }
 
     @EventTarget
-    public void onRender2D(Render2DEvent event) {
+    public void onRender2D(EventRender2D event) {
         if(!isEnabled()) return;
 
         final Item helditem = mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem();

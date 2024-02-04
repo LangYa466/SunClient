@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.chunk.BlockStateContainer;
 import net.minecraft.world.chunk.NibbleArray;
+import optifine.Reflector;
 
 public class ExtendedBlockStorage
 {
@@ -50,6 +51,11 @@ public class ExtendedBlockStorage
 
     public void set(int x, int y, int z, IBlockState state)
     {
+        if (Reflector.IExtendedBlockState.isInstance(state))
+        {
+            state = (IBlockState)Reflector.call(state, Reflector.IExtendedBlockState_getClean);
+        }
+
         IBlockState iblockstate = this.get(x, y, z);
         Block block = iblockstate.getBlock();
         Block block1 = state.getBlock();
@@ -136,29 +142,34 @@ public class ExtendedBlockStorage
 
     public void removeInvalidBlocks()
     {
-        this.blockRefCount = 0;
-        this.tickRefCount = 0;
+        IBlockState iblockstate = Blocks.AIR.getDefaultState();
+        int i = 0;
+        int j = 0;
 
-        for (int i = 0; i < 16; ++i)
+        for (int k = 0; k < 16; ++k)
         {
-            for (int j = 0; j < 16; ++j)
+            for (int l = 0; l < 16; ++l)
             {
-                for (int k = 0; k < 16; ++k)
+                for (int i1 = 0; i1 < 16; ++i1)
                 {
-                    Block block = this.get(i, j, k).getBlock();
+                    IBlockState iblockstate1 = this.data.get(i1, k, l);
 
-                    if (block != Blocks.AIR)
+                    if (iblockstate1 != iblockstate)
                     {
-                        ++this.blockRefCount;
+                        ++i;
+                        Block block = iblockstate1.getBlock();
 
                         if (block.getTickRandomly())
                         {
-                            ++this.tickRefCount;
+                            ++j;
                         }
                     }
                 }
             }
         }
+
+        this.blockRefCount = i;
+        this.tickRefCount = j;
     }
 
     public BlockStateContainer getData()

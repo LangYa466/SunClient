@@ -146,6 +146,22 @@ public class GameRules
         public void setValue(String value)
         {
             this.valueString = value;
+
+            if (value != null)
+            {
+                if (value.equals("false"))
+                {
+                    this.valueBoolean = false;
+                    return;
+                }
+
+                if (value.equals("true"))
+                {
+                    this.valueBoolean = true;
+                    return;
+                }
+            }
+
             this.valueBoolean = Boolean.parseBoolean(value);
             this.valueInteger = this.valueBoolean ? 1 : 0;
 

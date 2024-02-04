@@ -4,11 +4,13 @@ import com.google.common.collect.Sets;
 import java.util.Random;
 import java.util.Set;
 import javax.annotation.Nullable;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecart;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.particle.ParticleFirework;
 import net.minecraft.crash.CrashReport;
@@ -37,12 +39,18 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.storage.SaveDataMemoryStorage;
 import net.minecraft.world.storage.SaveHandlerMP;
 import net.minecraft.world.storage.WorldInfo;
+import optifine.Config;
+import optifine.CustomGuis;
+import optifine.DynamicLights;
+import optifine.PlayerControllerOF;
+import optifine.Reflector;
 
 public class WorldClient extends World
 {
@@ -57,20 +65,36 @@ public class WorldClient extends World
     private final Set<ChunkPos> previousActiveChunkSet = Sets.<ChunkPos>newHashSet();
     private int ambienceTicks;
     protected Set<ChunkPos> viewableChunks;
+    private int playerChunkX = Integer.MIN_VALUE;
+    private int playerChunkY = Integer.MIN_VALUE;
+    private boolean playerUpdate = false;
 
     public WorldClient(NetHandlerPlayClient netHandler, WorldSettings settings, int dimension, EnumDifficulty difficulty, Profiler profilerIn)
     {
-        super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), DimensionType.getById(dimension).createDimension(), profilerIn, true);
+        super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), makeWorldProvider(dimension), profilerIn, true);
         this.ambienceTicks = this.rand.nextInt(12000);
         this.viewableChunks = Sets.<ChunkPos>newHashSet();
         this.connection = netHandler;
         this.getWorldInfo().setDifficulty(difficulty);
-        this.setSpawnPoint(new BlockPos(8, 64, 8));
         this.provider.registerWorld(this);
+        this.setSpawnPoint(new BlockPos(8, 64, 8));
         this.chunkProvider = this.createChunkProvider();
         this.mapStorage = new SaveDataMemoryStorage();
         this.calculateInitialSkylight();
         this.calculateInitialWeather();
+        Reflector.call(this, Reflector.ForgeWorld_initCapabilities);
+        Reflector.postForgeBusEvent(Reflector.WorldEvent_Load_Constructor, this);
+
+        if (this.mc.playerController != null && this.mc.playerController.getClass() == PlayerControllerMP.class)
+        {
+            this.mc.playerController = new PlayerControllerOF(this.mc, netHandler);
+            CustomGuis.setPlayerControllerOF((PlayerControllerOF)this.mc.playerController);
+        }
+    }
+
+    private static WorldProvider makeWorldProvider(int p_makeWorldProvider_0_)
+    {
+        return Reflector.DimensionManager_createProviderFor.exists() ? (WorldProvider)Reflector.call(Reflector.DimensionManager_createProviderFor, p_makeWorldProvider_0_) : DimensionType.getById(p_makeWorldProvider_0_).createDimension();
     }
 
     /**
@@ -130,21 +154,29 @@ public class WorldClient extends World
 
     protected void buildChunkCoordList()
     {
-        this.viewableChunks.clear();
-        int i = this.mc.gameSettings.renderDistanceChunks;
-        this.theProfiler.startSection("buildList");
-        int j = MathHelper.floor(this.mc.player.posX / 16.0D);
-        int k = MathHelper.floor(this.mc.player.posZ / 16.0D);
+        int i = MathHelper.floor(this.mc.player.posX / 16.0D);
+        int j = MathHelper.floor(this.mc.player.posZ / 16.0D);
 
-        for (int l = -i; l <= i; ++l)
+        if (i != this.playerChunkX || j != this.playerChunkY)
         {
-            for (int i1 = -i; i1 <= i; ++i1)
-            {
-                this.viewableChunks.add(new ChunkPos(l + j, i1 + k));
-            }
-        }
+            this.playerChunkX = i;
+            this.playerChunkY = j;
+            this.viewableChunks.clear();
+            int k = this.mc.gameSettings.renderDistanceChunks;
+            this.theProfiler.startSection("buildList");
+            int l = MathHelper.floor(this.mc.player.posX / 16.0D);
+            int i1 = MathHelper.floor(this.mc.player.posZ / 16.0D);
 
-        this.theProfiler.endSection();
+            for (int j1 = -k; j1 <= k; ++j1)
+            {
+                for (int k1 = -k; k1 <= k; ++k1)
+                {
+                    this.viewableChunks.add(new ChunkPos(j1 + l, k1 + i1));
+                }
+            }
+
+            this.theProfiler.endSection();
+        }
     }
 
     protected void updateBlocks()
@@ -335,25 +367,54 @@ public class WorldClient extends World
 
         if (this.ambienceTicks == 0)
         {
+            EntityPlayerSP entityplayersp = this.mc.player;
+
+            if (entityplayersp == null)
+            {
+                return;
+            }
+
+            if (Math.abs(entityplayersp.chunkCoordX - chunkIn.xPosition) > 1 || Math.abs(entityplayersp.chunkCoordZ - chunkIn.zPosition) > 1)
+            {
+                return;
+            }
+
             this.updateLCG = this.updateLCG * 3 + 1013904223;
             int i = this.updateLCG >> 2;
             int j = i & 15;
             int k = i >> 8 & 15;
             int l = i >> 16 & 255;
+            l = l / 2;
+
+            if (entityplayersp.posY > 160.0D)
+            {
+                l += 128;
+            }
+            else if (entityplayersp.posY > 96.0D)
+            {
+                l += 64;
+            }
+
             BlockPos blockpos = new BlockPos(j + p_147467_1_, l, k + p_147467_2_);
             IBlockState iblockstate = chunkIn.getBlockState(blockpos);
             j = j + p_147467_1_;
             k = k + p_147467_2_;
+            double d0 = this.mc.player.getDistanceSq((double)j + 0.5D, (double)l + 0.5D, (double)k + 0.5D);
+
+            if (d0 < 4.0D)
+            {
+                return;
+            }
+
+            if (d0 > 255.0D)
+            {
+                return;
+            }
 
             if (iblockstate.getMaterial() == Material.AIR && this.getLight(blockpos) <= this.rand.nextInt(8) && this.getLightFor(EnumSkyBlock.SKY, blockpos) <= 0)
             {
-                double d0 = this.mc.player.getDistanceSq((double)j + 0.5D, (double)l + 0.5D, (double)k + 0.5D);
-
-                if (this.mc.player != null && d0 > 4.0D && d0 < 256.0D)
-                {
-                    this.playSound((double)j + 0.5D, (double)l + 0.5D, (double)k + 0.5D, SoundEvents.AMBIENT_CAVE, SoundCategory.AMBIENT, 0.7F, 0.8F + this.rand.nextFloat() * 0.2F, false);
-                    this.ambienceTicks = this.rand.nextInt(12000) + 6000;
-                }
+                this.playSound((double)j + 0.5D, (double)l + 0.5D, (double)k + 0.5D, SoundEvents.AMBIENT_CAVE, SoundCategory.AMBIENT, 0.7F, 0.8F + this.rand.nextFloat() * 0.2F, false);
+                this.ambienceTicks = this.rand.nextInt(12000) + 6000;
             }
         }
     }
@@ -363,6 +424,12 @@ public class WorldClient extends World
         int i = 32;
         Random random = new Random();
         ItemStack itemstack = this.mc.player.getHeldItemMainhand();
+
+        if (itemstack == null || Block.getBlockFromItem(itemstack.getItem()) != Blocks.BARRIER)
+        {
+            itemstack = this.mc.player.getHeldItemOffhand();
+        }
+
         boolean flag = this.mc.playerController.getCurrentGameType() == GameType.CREATIVE && !itemstack.func_190926_b() && itemstack.getItem() == Item.getItemFromBlock(Blocks.BARRIER);
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
@@ -550,5 +617,48 @@ public class WorldClient extends World
     public ChunkProviderClient getChunkProvider()
     {
         return (ChunkProviderClient)super.getChunkProvider();
+    }
+
+    public int getCombinedLight(BlockPos pos, int lightValue)
+    {
+        int i = super.getCombinedLight(pos, lightValue);
+
+        if (Config.isDynamicLights())
+        {
+            i = DynamicLights.getCombinedLight(pos, i);
+        }
+
+        return i;
+    }
+
+    /**
+     * Sets the block state at a given location. Flag 1 will cause a block update. Flag 2 will send the change to
+     * clients (you almost always want this). Flag 4 prevents the block from being re-rendered, if this is a client
+     * world. Flags can be added together.
+     */
+    public boolean setBlockState(BlockPos pos, IBlockState newState, int flags)
+    {
+        this.playerUpdate = this.isPlayerActing();
+        boolean flag = super.setBlockState(pos, newState, flags);
+        this.playerUpdate = false;
+        return flag;
+    }
+
+    private boolean isPlayerActing()
+    {
+        if (this.mc.playerController instanceof PlayerControllerOF)
+        {
+            PlayerControllerOF playercontrollerof = (PlayerControllerOF)this.mc.playerController;
+            return playercontrollerof.isActing();
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public boolean isPlayerUpdate()
+    {
+        return this.playerUpdate;
     }
 }

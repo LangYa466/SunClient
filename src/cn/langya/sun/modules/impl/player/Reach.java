@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.player;
 
-import cn.langya.sun.events.impl.player.AttackEvent;
+import cn.langya.sun.events.impl.player.EventAttack;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.DoubleValue;
@@ -25,7 +25,7 @@ public class Reach extends Module {
     }
 
     @EventTarget
-    void onAttack(AttackEvent e) {
+    void onAttack(EventAttack e) {
         if (e.target.getDistanceToEntity(mc.player) >= range.get()) {
             mc.playerController.syncCurrentPlayItem();
             mc.playerController.connection.sendPacket(new CPacketUseEntity(e.target));

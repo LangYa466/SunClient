@@ -1,9 +1,17 @@
 package net.minecraft.entity;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.player.SlowDownEvent;
+import cn.langya.sun.events.impl.player.EventSlowDown;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
+import java.util.Collection;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+import javax.annotation.Nullable;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLadder;
@@ -13,7 +21,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentFrostWalker;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
+import net.minecraft.entity.ai.attributes.AttributeMap;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -22,9 +34,17 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemElytra;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
@@ -37,7 +57,17 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.*;
+import net.minecraft.util.CombatRules;
+import net.minecraft.util.CombatTracker;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -46,9 +76,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
-import java.util.*;
 
 public abstract class EntityLivingBase extends Entity
 {
@@ -207,7 +234,6 @@ public abstract class EntityLivingBase extends Entity
     private BlockPos prevBlockpos;
     private DamageSource lastDamageSource;
     private long lastDamageStamp;
-    public float animatedHealthBar;
 
     /**
      * Called by the /kill command.
@@ -2461,9 +2487,6 @@ public abstract class EntityLivingBase extends Entity
         {
             this.ticksElytraFlying = 0;
         }
-
-      //  Sun.eventManager.call(new UpdateEvent());
-
     }
 
     protected float updateDistance(float p_110146_1_, float p_110146_2_)
@@ -2583,7 +2606,7 @@ public abstract class EntityLivingBase extends Entity
             this.jumpTicks = 0;
         }
 
-        SlowDownEvent slowdown = new SlowDownEvent(moveForward,moveStrafing);
+        EventSlowDown slowdown = new EventSlowDown(moveForward,moveStrafing);
         Sun.eventManager.call(slowdown);
 
         this.world.theProfiler.endSection();
@@ -3159,9 +3182,5 @@ public abstract class EntityLivingBase extends Entity
 
     public void func_191987_a(BlockPos p_191987_1_, boolean p_191987_2_)
     {
-    }
-
-    public boolean isUsingItem() {
-        return isHandActive();
     }
 }

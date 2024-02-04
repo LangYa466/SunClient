@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import optifine.Config;
+import shadersmod.client.Shaders;
 
 public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEntityBeacon>
 {
@@ -20,22 +22,35 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 
     public void renderBeacon(double p_188206_1_, double p_188206_3_, double p_188206_5_, double p_188206_7_, double p_188206_9_, List<TileEntityBeacon.BeamSegment> p_188206_11_, double p_188206_12_)
     {
-        GlStateManager.alphaFunc(516, 0.1F);
-        this.bindTexture(TEXTURE_BEACON_BEAM);
-
-        if (p_188206_9_ > 0.0D)
+        if (p_188206_9_ > 0.0D && p_188206_11_.size() > 0)
         {
-            GlStateManager.disableFog();
-            int i = 0;
-
-            for (int j = 0; j < p_188206_11_.size(); ++j)
+            if (Config.isShaders())
             {
-                TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = p_188206_11_.get(j);
-                renderBeamSegment(p_188206_1_, p_188206_3_, p_188206_5_, p_188206_7_, p_188206_9_, p_188206_12_, i, tileentitybeacon$beamsegment.getHeight(), tileentitybeacon$beamsegment.getColors());
-                i += tileentitybeacon$beamsegment.getHeight();
+                Shaders.beginBeacon();
             }
 
-            GlStateManager.enableFog();
+            GlStateManager.alphaFunc(516, 0.1F);
+            this.bindTexture(TEXTURE_BEACON_BEAM);
+
+            if (p_188206_9_ > 0.0D)
+            {
+                GlStateManager.disableFog();
+                int i = 0;
+
+                for (int j = 0; j < p_188206_11_.size(); ++j)
+                {
+                    TileEntityBeacon.BeamSegment tileentitybeacon$beamsegment = p_188206_11_.get(j);
+                    renderBeamSegment(p_188206_1_, p_188206_3_, p_188206_5_, p_188206_7_, p_188206_9_, p_188206_12_, i, tileentitybeacon$beamsegment.getHeight(), tileentitybeacon$beamsegment.getColors());
+                    i += tileentitybeacon$beamsegment.getHeight();
+                }
+
+                GlStateManager.enableFog();
+            }
+
+            if (Config.isShaders())
+            {
+                Shaders.endBeacon();
+            }
         }
     }
 

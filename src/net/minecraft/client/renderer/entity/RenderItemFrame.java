@@ -11,12 +11,17 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ModelManager;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.storage.MapData;
+import optifine.Config;
+import optifine.Reflector;
+import optifine.ReflectorForge;
 
 public class RenderItemFrame extends Render<EntityItemFrame>
 {
@@ -49,7 +54,7 @@ public class RenderItemFrame extends Render<EntityItemFrame>
         ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
         IBakedModel ibakedmodel;
 
-        if (entity.getDisplayedItem().getItem() == Items.FILLED_MAP)
+        if (entity.getDisplayedItem().getItem() instanceof ItemMap)
         {
             ibakedmodel = modelmanager.getModel(this.mapModel);
         }
@@ -98,35 +103,49 @@ public class RenderItemFrame extends Render<EntityItemFrame>
 
         if (!itemstack.func_190926_b())
         {
+            if (!Config.zoomMode)
+            {
+                Entity entity = this.mc.player;
+                double d0 = itemFrame.getDistanceSq(entity.posX, entity.posY, entity.posZ);
+
+                if (d0 > 4096.0D)
+                {
+                    return;
+                }
+            }
+
             GlStateManager.pushMatrix();
             GlStateManager.disableLighting();
-            boolean flag = itemstack.getItem() == Items.FILLED_MAP;
+            boolean flag = itemstack.getItem() instanceof ItemMap;
             int i = flag ? itemFrame.getRotation() % 4 * 2 : itemFrame.getRotation();
             GlStateManager.rotate((float)i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
 
-            if (flag)
+            if (!Reflector.postForgeBusEvent(Reflector.RenderItemInFrameEvent_Constructor, itemFrame, this))
             {
-                this.renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
-                GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-                float f = 0.0078125F;
-                GlStateManager.scale(0.0078125F, 0.0078125F, 0.0078125F);
-                GlStateManager.translate(-64.0F, -64.0F, 0.0F);
-                MapData mapdata = Items.FILLED_MAP.getMapData(itemstack, itemFrame.world);
-                GlStateManager.translate(0.0F, 0.0F, -1.0F);
-
-                if (mapdata != null)
+                if (flag)
                 {
-                    this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
+                    this.renderManager.renderEngine.bindTexture(MAP_BACKGROUND_TEXTURES);
+                    GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+                    float f = 0.0078125F;
+                    GlStateManager.scale(0.0078125F, 0.0078125F, 0.0078125F);
+                    GlStateManager.translate(-64.0F, -64.0F, 0.0F);
+                    MapData mapdata = ReflectorForge.getMapData(Items.FILLED_MAP, itemstack, itemFrame.world);
+                    GlStateManager.translate(0.0F, 0.0F, -1.0F);
+
+                    if (mapdata != null)
+                    {
+                        this.mc.entityRenderer.getMapItemRenderer().renderMap(mapdata, true);
+                    }
                 }
-            }
-            else
-            {
-                GlStateManager.scale(0.5F, 0.5F, 0.5F);
-                GlStateManager.pushAttrib();
-                RenderHelper.enableStandardItemLighting();
-                this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
-                RenderHelper.disableStandardItemLighting();
-                GlStateManager.popAttrib();
+                else
+                {
+                    GlStateManager.scale(0.5F, 0.5F, 0.5F);
+                    GlStateManager.pushAttrib();
+                    RenderHelper.enableStandardItemLighting();
+                    this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED);
+                    RenderHelper.disableStandardItemLighting();
+                    GlStateManager.popAttrib();
+                }
             }
 
             GlStateManager.enableLighting();

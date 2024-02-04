@@ -63,7 +63,7 @@ public class MapColor
     public static final MapColor field_193560_ab = new MapColor(51, 2430480);
 
     /** Holds the color in RGB value that will be rendered on maps. */
-    public final int colorValue;
+    public int colorValue;
 
     /** Holds the index of the color used on map. */
     public final int colorIndex;

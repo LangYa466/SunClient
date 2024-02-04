@@ -1,10 +1,9 @@
 package net.minecraft.client;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.misc.KeyPressEvent;
-import cn.langya.sun.events.impl.misc.TickEvent;
-import cn.langya.sun.events.impl.world.WorldLoadEvent;
-import cn.langya.sun.ui.screen.mainmenu.MainMenu;
+import cn.langya.sun.events.impl.misc.EventKeyPress;
+import cn.langya.sun.events.impl.misc.EventTick;
+import cn.langya.sun.events.impl.world.EventWorldLoad;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
@@ -43,8 +42,6 @@ import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
-
-import de.florianmichael.viamcp.fixes.AttackOrder;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -258,7 +255,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
     /** True if the player is connected to a realms server */
     private boolean connectedToRealms;
-    public final Timer timer = new Timer(20.0F);
+    private final Timer timer = new Timer(20.0F);
 
     /** Instance of PlayerUsageSnooper. */
     private final Snooper usageSnooper = new Snooper("client", this, MinecraftServer.getCurrentTimeMillis());
@@ -289,7 +286,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
     public DebugRenderer debugRenderer;
 
     /** Mouse left click counter */
-    public int leftClickCounter;
+    private int leftClickCounter;
 
     /** Display width */
     private final int tempDisplayWidth;
@@ -520,7 +517,8 @@ public class Minecraft implements IThreadListener, ISnooperInfo
     /**
      * Starts the game: initializes the canvas, the title, the settings, etcetera.
      */
-    private void startGame() throws LWJGLException, IOException, InstantiationException, IllegalAccessException {
+    private void startGame() throws LWJGLException, IOException
+    {
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.field_191950_u = new CreativeSettings(this, this.mcDataDir);
         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
@@ -608,11 +606,11 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
         if (this.serverName != null)
         {
-            this.displayGuiScreen(new GuiConnecting(new MainMenu(), this, this.serverName, this.serverPort));
+            this.displayGuiScreen(new GuiConnecting(new GuiMainMenu(), this, this.serverName, this.serverPort));
         }
         else
         {
-            this.displayGuiScreen(new MainMenu());
+            this.displayGuiScreen(new GuiMainMenu());
         }
 
         this.renderEngine.deleteTexture(this.mojangLogo);
@@ -637,7 +635,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
         this.renderGlobal.makeEntityOutlineShader();
 
-        new Sun().initClient();
+        Sun.initClient();
 
     }
 
@@ -690,7 +688,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("SunClient");
+        Display.setTitle("Minecraft 1.12.2");
 
         try
         {
@@ -1057,7 +1055,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
         if (guiScreenIn == null && this.world == null)
         {
-            guiScreenIn = new MainMenu();
+            guiScreenIn = new GuiMainMenu();
         }
         else if (guiScreenIn == null && this.player.getHealth() <= 0.0F)
         {
@@ -1278,6 +1276,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             Display.sync(this.getLimitFramerate());
             this.mcProfiler.endSection();
         }
+
         this.mcProfiler.endSection();
     }
 
@@ -1511,7 +1510,6 @@ public class Minecraft implements IThreadListener, ISnooperInfo
      */
     public void shutdown()
     {
-        Sun.configManager.getConfigs().forEach(config -> Sun.configManager.saveConfig(config.name));
         this.running = false;
     }
 
@@ -1610,7 +1608,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
                 switch (this.objectMouseOver.typeOfHit)
                 {
                     case ENTITY:
-                        AttackOrder.sendFixedAttack(this.player, this.objectMouseOver.entityHit);
+                        this.playerController.attackEntity(this.player, this.objectMouseOver.entityHit);
                         break;
 
                     case BLOCK:
@@ -1631,7 +1629,7 @@ public class Minecraft implements IThreadListener, ISnooperInfo
                         this.player.resetCooldown();
                 }
 
-                AttackOrder.sendConditionalSwing(this.objectMouseOver, EnumHand.MAIN_HAND);
+                this.player.swingArm(EnumHand.MAIN_HAND);
             }
         }
     }
@@ -1815,8 +1813,9 @@ public class Minecraft implements IThreadListener, ISnooperInfo
         {
             --this.rightClickDelayTimer;
         }
+
         if (this.player != null) {
-            Sun.eventManager.call(new TickEvent());
+            Sun.eventManager.call(new EventTick());
         }
 
         this.mcProfiler.startSection("gui");
@@ -2025,31 +2024,39 @@ public class Minecraft implements IThreadListener, ISnooperInfo
 
     private void runTickKeyboard() throws IOException
     {
-        while (Keyboard.next()) {
+        while (Keyboard.next())
+        {
             int i = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey();
 
-            if (this.debugCrashKeyPressTime > 0L) {
-                if (getSystemTime() - this.debugCrashKeyPressTime >= 6000L) {
+            if (this.debugCrashKeyPressTime > 0L)
+            {
+                if (getSystemTime() - this.debugCrashKeyPressTime >= 6000L)
+                {
                     throw new ReportedException(new CrashReport("Manually triggered debug crash", new Throwable()));
                 }
 
-                if (!Keyboard.isKeyDown(46) || !Keyboard.isKeyDown(61)) {
+                if (!Keyboard.isKeyDown(46) || !Keyboard.isKeyDown(61))
+                {
                     this.debugCrashKeyPressTime = -1L;
                 }
-            } else if (Keyboard.isKeyDown(46) && Keyboard.isKeyDown(61)) {
+            }
+            else if (Keyboard.isKeyDown(46) && Keyboard.isKeyDown(61))
+            {
                 this.actionKeyF3 = true;
                 this.debugCrashKeyPressTime = getSystemTime();
             }
 
             this.dispatchKeypresses();
 
-            if (this.currentScreen != null) {
+            if (this.currentScreen != null)
+            {
                 this.currentScreen.handleKeyboardInput();
             }
 
             if (Keyboard.getEventKeyState() && currentScreen == null) {
-                Sun.eventManager.call(new KeyPressEvent(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey()));
-        }
+                EventKeyPress keyPressEvent = new EventKeyPress(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey());
+                Sun.eventManager.call(keyPressEvent);
+            }
 
             boolean flag = Keyboard.getEventKeyState();
 
@@ -2608,8 +2615,10 @@ public class Minecraft implements IThreadListener, ISnooperInfo
             this.player.movementInput = new MovementInputFromOptions(this.gameSettings);
             this.playerController.setPlayerCapabilities(this.player);
             this.renderViewEntity = this.player;
-            WorldLoadEvent reloadEvent = new WorldLoadEvent(worldClientIn);
-            Sun.eventManager.call(reloadEvent);
+
+            EventWorldLoad worldLoadEvent = new EventWorldLoad(worldClientIn);
+            Sun.eventManager.call(worldLoadEvent);
+
         }
         else
         {

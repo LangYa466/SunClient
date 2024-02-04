@@ -14,11 +14,14 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
+import optifine.ReflectorForge;
 
 public class DefaultResourcePack implements IResourcePack
 {
     public static final Set<String> DEFAULT_RESOURCE_DOMAINS = ImmutableSet.<String>of("minecraft", "realms");
     private final ResourceIndex resourceIndex;
+    private static final boolean ON_WINDOWS = Util.getOSType() == Util.EnumOS.WINDOWS;
 
     public DefaultResourcePack(ResourceIndex resourceIndexIn)
     {
@@ -59,15 +62,23 @@ public class DefaultResourcePack implements IResourcePack
     private InputStream getResourceStream(ResourceLocation location)
     {
         String s = "/assets/" + location.getResourceDomain() + "/" + location.getResourcePath();
+        InputStream inputstream = ReflectorForge.getOptiFineResourceStream(s);
 
-        try
+        if (inputstream != null)
         {
-            URL url = DefaultResourcePack.class.getResource(s);
-            return url != null && FolderResourcePack.func_191384_a(new File(url.getFile()), s) ? DefaultResourcePack.class.getResourceAsStream(s) : null;
+            return inputstream;
         }
-        catch (IOException var4)
+        else
         {
-            return DefaultResourcePack.class.getResourceAsStream(s);
+            try
+            {
+                URL url = DefaultResourcePack.class.getResource(s);
+                return url != null && this.validatePath(new File(url.getFile()), s) ? DefaultResourcePack.class.getResourceAsStream(s) : null;
+            }
+            catch (IOException var5)
+            {
+                return DefaultResourcePack.class.getResourceAsStream(s);
+            }
         }
     }
 
@@ -91,11 +102,11 @@ public class DefaultResourcePack implements IResourcePack
         }
         catch (RuntimeException var4)
         {
-            return (T)null;
+            return (T)(null);
         }
-        catch (FileNotFoundException var5)
+        catch (FileNotFoundException var51)
         {
-            return (T)null;
+            return (T)(null);
         }
     }
 
@@ -107,5 +118,24 @@ public class DefaultResourcePack implements IResourcePack
     public String getPackName()
     {
         return "Default";
+    }
+
+    private boolean validatePath(File p_validatePath_1_, String p_validatePath_2_) throws IOException
+    {
+        String s = p_validatePath_1_.getPath();
+
+        if (s.startsWith("file:"))
+        {
+            if (ON_WINDOWS)
+            {
+                s = s.replace("\\", "/");
+            }
+
+            return s.endsWith(p_validatePath_2_);
+        }
+        else
+        {
+            return FolderResourcePack.func_191384_a(p_validatePath_1_, p_validatePath_2_);
+        }
     }
 }

@@ -7,27 +7,20 @@ import cn.langya.sun.ui.font.FontManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.JsonUtils;
 import cn.langya.sun.utils.misc.WebUtils;
-import cn.langya.sun.utils.render.ShaderUtil;
-import cn.langya.sun.verify.HWIDVerify;
 import com.cubk.event.EventManager;
 import com.guimc.fuckpcl.PCLChecker;
 import de.florianmichael.viamcp.ViaMCP;
-import dev.jnic.annotations.Jnic;
-import nellyobfuscator.NellyClassObfuscator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import org.apache.commons.compress.utils.IOUtils;
 import org.lwjgl.opengl.Display;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-@Jnic
-@NellyClassObfuscator
 public class Sun {
 
     public static final String name = "SunClient";
@@ -41,7 +34,7 @@ public class Sun {
     public static EventManager eventManager;
     public static CommandManager commandManager;
 
-    public void initClient() throws IOException {
+    public static void initClient() throws IOException {
         setWindowIcon();
 
         PCLChecker.fullCheck(Minecraft.getMinecraft().mcDataDir/*, true*/);
@@ -49,13 +42,6 @@ public class Sun {
         if (!fold.exists()){
             fold.mkdir();
         }
-
-        /*
-        ClientUtils.loginfo("SunClient Verifying..");
-        HWIDVerify.verify();
-        ClientUtils.loginfo("SunClient Verify Okay!!");
-
-         */
 
         ClientUtils.loginfo("SunClient Loading..");
         eventManager = new EventManager();
@@ -83,7 +69,7 @@ public class Sun {
         Display.setTitle("SunClient | [" + JsonUtils.getDataString(WebUtils.get("https://yuym.cn/ipregion"),"regionName") +"]\u4eba");
     }
 
-    private void setWindowIcon() {
+    private static void setWindowIcon() {
         final Util.EnumOS util = Util.getOSType();
         if (util != Util.EnumOS.OSX) {
             InputStream inputstream = null;

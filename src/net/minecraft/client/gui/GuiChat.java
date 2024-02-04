@@ -1,12 +1,8 @@
 package net.minecraft.client.gui;
 
-import java.awt.*;
 import java.io.IOException;
 import javax.annotation.Nullable;
-
-import cn.langya.sun.Sun;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
 import net.minecraft.util.math.BlockPos;
@@ -137,16 +133,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
 
             this.mc.displayGuiScreen((GuiScreen)null);
         }
-        if (!this.inputField.getText().startsWith(String.valueOf(Sun.commandManager.prefix))) {
-            return;
-        }
-        Sun.commandManager.autoComplete(this.inputField.getText());
-        if (this.inputField.getText().startsWith(String.valueOf(Sun.commandManager.prefix)) || this.inputField.getText().startsWith("/")) {
-            this.inputField.setMaxStringLength(10000);
-        }
-        else {
-            this.inputField.setMaxStringLength(100);
-        }
     }
 
     /**
@@ -181,17 +167,17 @@ public class GuiChat extends GuiScreen implements ITabCompleter
     /**
      * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
      */
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        if (mouseButton == 0) {
-
-
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+    {
+        if (mouseButton == 0)
+        {
             ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
-            if (itextcomponent != null && this.handleComponentClick(itextcomponent)) {
+            if (itextcomponent != null && this.handleComponentClick(itextcomponent))
+            {
                 return;
             }
         }
-
 
         this.inputField.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -242,26 +228,11 @@ public class GuiChat extends GuiScreen implements ITabCompleter
         }
     }
 
-    private void scale(Minecraft mc){
-        switch (mc.gameSettings.guiScale){
-            case 0:
-                GlStateManager.scale(0.5,0.5,0.5);
-                break;
-            case 1:
-                GlStateManager.scale(2,2,2);
-                break;
-            case 3:
-                GlStateManager.scale(0.6666666666666667,0.6666666666666667,0.6666666666666667);
-
-        }
-    }
-
     /**
      * Draws the screen and all the components in it.
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-     //   uiManager.addNotification("Notification","Test", NotificationType.INFO);
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
         ITextComponent itextcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
@@ -270,7 +241,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
         {
             this.handleComponentHover(itextcomponent, mouseX, mouseY);
         }
-
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
@@ -335,6 +305,4 @@ public class GuiChat extends GuiScreen implements ITabCompleter
             return blockpos;
         }
     }
-
-
 }

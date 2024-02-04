@@ -233,15 +233,7 @@ public abstract class GuiSlot
             GlStateManager.disableFog();
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
-            this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            float f = 32.0F;
-            bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-            bufferbuilder.pos((double)this.left, (double)this.bottom, 0.0D).tex((double)((float)this.left / 32.0F), (double)((float)(this.bottom + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
-            bufferbuilder.pos((double)this.right, (double)this.bottom, 0.0D).tex((double)((float)this.right / 32.0F), (double)((float)(this.bottom + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
-            bufferbuilder.pos((double)this.right, (double)this.top, 0.0D).tex((double)((float)this.right / 32.0F), (double)((float)(this.top + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
-            bufferbuilder.pos((double)this.left, (double)this.top, 0.0D).tex((double)((float)this.left / 32.0F), (double)((float)(this.top + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
-            tessellator.draw();
+            this.drawContainerBackground(tessellator);
             int k = this.left + this.width / 2 - this.getListWidth() / 2 + 2;
             int l = this.top + 4 - (int)this.amountScrolled;
 
@@ -337,7 +329,15 @@ public abstract class GuiSlot
 
             if (Mouse.isButtonDown(0) && this.getEnabled())
             {
-                if (this.initialClickY == -1)
+                if (this.initialClickY != -1)
+                {
+                    if (this.initialClickY >= 0)
+                    {
+                        this.amountScrolled -= (float)(this.mouseY - this.initialClickY) * this.scrollMultiplier;
+                        this.initialClickY = this.mouseY;
+                    }
+                }
+                else
                 {
                     boolean flag1 = true;
 
@@ -396,11 +396,6 @@ public abstract class GuiSlot
                     {
                         this.initialClickY = -2;
                     }
-                }
-                else if (this.initialClickY >= 0)
-                {
-                    this.amountScrolled -= (float)(this.mouseY - this.initialClickY) * this.scrollMultiplier;
-                    this.initialClickY = this.mouseY;
                 }
             }
             else
@@ -479,7 +474,10 @@ public abstract class GuiSlot
                 GlStateManager.enableTexture2D();
             }
 
-            this.func_192637_a(j, p_192638_1_, k, l, p_192638_3_, p_192638_4_, p_192638_5_);
+            if (k >= this.top - this.slotHeight && k <= this.bottom)
+            {
+                this.func_192637_a(j, p_192638_1_, k, l, p_192638_3_, p_192638_4_, p_192638_5_);
+            }
         }
     }
 
@@ -518,5 +516,19 @@ public abstract class GuiSlot
     public int getSlotHeight()
     {
         return this.slotHeight;
+    }
+
+    protected void drawContainerBackground(Tessellator p_drawContainerBackground_1_)
+    {
+        BufferBuilder bufferbuilder = p_drawContainerBackground_1_.getBuffer();
+        this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        float f = 32.0F;
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        bufferbuilder.pos((double)this.left, (double)this.bottom, 0.0D).tex((double)((float)this.left / 32.0F), (double)((float)(this.bottom + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
+        bufferbuilder.pos((double)this.right, (double)this.bottom, 0.0D).tex((double)((float)this.right / 32.0F), (double)((float)(this.bottom + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
+        bufferbuilder.pos((double)this.right, (double)this.top, 0.0D).tex((double)((float)this.right / 32.0F), (double)((float)(this.top + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
+        bufferbuilder.pos((double)this.left, (double)this.top, 0.0D).tex((double)((float)this.left / 32.0F), (double)((float)(this.top + (int)this.amountScrolled) / 32.0F)).color(32, 32, 32, 255).endVertex();
+        p_drawContainerBackground_1_.draw();
     }
 }

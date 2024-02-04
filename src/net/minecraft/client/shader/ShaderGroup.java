@@ -26,10 +26,10 @@ import org.lwjgl.util.vector.Matrix4f;
 
 public class ShaderGroup
 {
-    public final Framebuffer mainFramebuffer;
+    private final Framebuffer mainFramebuffer;
     private final IResourceManager resourceManager;
     private final String shaderGroupName;
-    public final List<Shader> listShaders = Lists.<Shader>newArrayList();
+    private final List<Shader> listShaders = Lists.<Shader>newArrayList();
     private final Map<String, Framebuffer> mapFramebuffers = Maps.<String, Framebuffer>newHashMap();
     private final List<Framebuffer> listFramebuffers = Lists.<Framebuffer>newArrayList();
     private Matrix4f projectionMatrix;

@@ -22,7 +22,6 @@ import net.minecraft.block.BlockStone;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -228,25 +227,6 @@ public class Item
     public int getItemStackLimit()
     {
         return this.maxStackSize;
-    }
-
-    private boolean isValid(final Item item) {
-        return item instanceof ItemBlock;
-    }
-
-
-    public int getBlockCount() {
-        int n = 0;
-        for (int i = 36; i < 45; ++i) {
-            if (Minecraft.getMinecraft().player.inventoryContainer.getSlot(i).getHasStack()) {
-                final ItemStack stack = Minecraft.getMinecraft().player.inventoryContainer.getSlot(i).getStack();
-                final Item item = stack.getItem();
-                if (stack.getItem() instanceof ItemBlock && this.isValid(item)) {
-                    n += stack.stackSize;
-                }
-            }
-        }
-        return n;
     }
 
     /**

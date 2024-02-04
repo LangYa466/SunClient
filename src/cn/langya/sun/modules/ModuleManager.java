@@ -1,14 +1,12 @@
 package cn.langya.sun.modules;
 
 import cn.langya.sun.Sun;
-import cn.langya.sun.events.impl.misc.KeyPressEvent;
-import cn.langya.sun.events.impl.player.UpdateEvent;
-import cn.langya.sun.events.impl.render.Render2DEvent;
-import cn.langya.sun.modules.impl.client.ClickGui;
+import cn.langya.sun.events.impl.misc.EventKeyPress;
+import cn.langya.sun.events.impl.player.EventUpdate;
+import cn.langya.sun.events.impl.render.EventRender2D;
 import cn.langya.sun.utils.ClientUtils;
 import com.cubk.event.annotations.EventTarget;
 import lombok.Getter;
-import org.lwjgl.input.Keyboard;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,7 +89,7 @@ public class ModuleManager {
         return classes;
     }
     @EventTarget
-    private void onKeyPress(KeyPressEvent event) {
+    private void onKeyPress(EventKeyPress event) {
         for (final Module m : modules) {
             if (m.keyCode == event.getKeyCode() && event.getKeyCode() != -1) {
                 m.toggle();
@@ -101,10 +99,10 @@ public class ModuleManager {
 
 
     @EventTarget
-    private void onUpdate(UpdateEvent event) {}
+    private void onUpdate(EventUpdate event) {}
 
     @EventTarget
-    public void onRender2D(Render2DEvent event) {
+    public void onRender2D(EventRender2D event) {
 
     }
 

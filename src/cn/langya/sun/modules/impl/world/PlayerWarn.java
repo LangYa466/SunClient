@@ -1,7 +1,7 @@
 package cn.langya.sun.modules.impl.world;
 
-import cn.langya.sun.events.impl.misc.TickEvent;
-import cn.langya.sun.events.impl.world.WorldLoadEvent;
+import cn.langya.sun.events.impl.misc.EventTick;
+import cn.langya.sun.events.impl.world.EventWorldLoad;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.misc.Teams;
@@ -25,12 +25,12 @@ public class PlayerWarn extends Module
     }
 
     @EventTarget
-    public void onWorld(final WorldLoadEvent e) {
+    public void onWorld(final EventWorldLoad e) {
         PlayerWarn.flaggedEntity.clear();
     }
 
     @EventTarget
-    public void onTick(final TickEvent e) {
+    public void onTick(final EventTick e) {
         if (mc.world == null || mc.world.loadedEntityList.isEmpty()) {
             return;
         }

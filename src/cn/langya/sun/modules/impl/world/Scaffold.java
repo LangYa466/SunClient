@@ -1,6 +1,6 @@
 package cn.langya.sun.modules.impl.world;
 
-import cn.langya.sun.events.impl.player.UpdateEvent;
+import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.BoolValue;
@@ -37,7 +37,7 @@ public class Scaffold extends Module {
 
 
     @EventTarget
-    void onU(UpdateEvent e) {
+    void onU(EventUpdate e) {
 
         if (getBlockUnderPlayer(mc.player) instanceof BlockAir) {
             if (mc.player.onGround) {
@@ -61,7 +61,7 @@ public class Scaffold extends Module {
         robot.mouseRelease(MouseEvent.BUTTON3_MASK);
     }
 
-    private void doRotation(UpdateEvent e) {
+    private void doRotation(EventUpdate e) {
         e.setYaw(270);
         e.pitch = 80;
 

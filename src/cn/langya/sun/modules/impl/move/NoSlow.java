@@ -1,7 +1,7 @@
 package cn.langya.sun.modules.impl.move;
 
-import cn.langya.sun.events.impl.player.MoveEvent;
-import cn.langya.sun.events.impl.player.SlowDownEvent;
+import cn.langya.sun.events.impl.player.EventMotion;
+import cn.langya.sun.events.impl.player.EventSlowDown;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.ListValue;
@@ -35,7 +35,7 @@ public class NoSlow extends Module {
     }
 
     @EventTarget
-    public void onSlowDown(SlowDownEvent e) {
+    public void onSlowDown(EventSlowDown e) {
         if(mc.player == null) return;
 
         if (mc.player.getHeldItem(EnumHand.MAIN_HAND) != null && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword){
@@ -48,7 +48,7 @@ public class NoSlow extends Module {
     }
 
     @EventTarget
-    public void onMove(MoveEvent e) {
+    public void onMove(EventMotion e) {
         if(mc.player == null) return;
 
         if (mode.get().equals("Hyt") && mc.player.getHeldItem(EnumHand.MAIN_HAND) != null && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSword && slow) {

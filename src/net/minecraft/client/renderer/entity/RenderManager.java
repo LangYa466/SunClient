@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Maps;
+import java.util.Collections;
 import java.util.Map;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
@@ -112,18 +113,21 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.optifine.entity.model.CustomEntityModels;
+import optifine.PlayerItemsLayer;
+import optifine.Reflector;
 
 public class RenderManager
 {
-    private final Map < Class <? extends Entity > , Render <? extends Entity >> entityRenderMap = Maps. < Class <? extends Entity > , Render <? extends Entity >> newHashMap();
+    private final Map<Class, Render> entityRenderMap = Maps.newHashMap();
     private final Map<String, RenderPlayer> skinMap = Maps.<String, RenderPlayer>newHashMap();
     private final RenderPlayer playerRenderer;
 
     /** Renders fonts */
     private FontRenderer textRenderer;
-    public double renderPosX;
-    public double renderPosY;
-    public double renderPosZ;
+    private double renderPosX;
+    private double renderPosY;
+    private double renderPosZ;
     public TextureManager renderEngine;
 
     /** Reference to the World object. */
@@ -145,6 +149,8 @@ public class RenderManager
 
     /** whether bounding box should be rendered or not */
     private boolean debugBoundingBox;
+    public Entity renderEntity = null;
+    public Render renderRender = null;
 
     public RenderManager(TextureManager renderEngineIn, RenderItem itemRendererIn)
     {
@@ -234,6 +240,12 @@ public class RenderManager
         this.playerRenderer = new RenderPlayer(this);
         this.skinMap.put("default", this.playerRenderer);
         this.skinMap.put("slim", new RenderPlayer(this, true));
+        PlayerItemsLayer.register(this.skinMap);
+
+        if (Reflector.RenderingRegistry_loadEntityRenderers.exists())
+        {
+            Reflector.call(Reflector.RenderingRegistry_loadEntityRenderers, this, this.entityRenderMap);
+        }
     }
 
     public void setRenderPosition(double renderPosXIn, double renderPosYIn, double renderPosZIn)
@@ -249,7 +261,7 @@ public class RenderManager
 
         if (render == null && entityClass != Entity.class)
         {
-            render = this.getEntityClassRenderObject((Class <? extends Entity >)entityClass.getSuperclass());
+            render = this.getEntityClassRenderObject((Class<? extends Entity>) entityClass.getSuperclass());
             this.entityRenderMap.put(entityClass, render);
         }
 
@@ -284,10 +296,17 @@ public class RenderManager
             IBlockState iblockstate = worldIn.getBlockState(new BlockPos(livingPlayerIn));
             Block block = iblockstate.getBlock();
 
-            if (block == Blocks.BED)
+            if (Reflector.callBoolean(block, Reflector.ForgeBlock_isBed, iblockstate, worldIn, new BlockPos(livingPlayerIn), (EntityLivingBase)livingPlayerIn))
             {
-                int i = ((EnumFacing)iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
+                EnumFacing enumfacing = (EnumFacing)Reflector.call(block, Reflector.ForgeBlock_getBedDirection, iblockstate, worldIn, new BlockPos(livingPlayerIn));
+                int i = enumfacing.getHorizontalIndex();
                 this.playerViewY = (float)(i * 90 + 180);
+                this.playerViewX = 0.0F;
+            }
+            else if (block == Blocks.BED)
+            {
+                int j = ((EnumFacing)iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
+                this.playerViewY = (float)(j * 90 + 180);
                 this.playerViewX = 0.0F;
             }
         }
@@ -383,11 +402,18 @@ public class RenderManager
                 try
                 {
                     render.setRenderOutlines(this.renderOutlines);
+
+                    if (CustomEntityModels.isActive())
+                    {
+                        this.renderEntity = entityIn;
+                        this.renderRender = render;
+                    }
+
                     render.doRender(entityIn, x, y, z, yaw, partialTicks);
                 }
-                catch (Throwable throwable1)
+                catch (Throwable throwable2)
                 {
-                    throw new ReportedException(CrashReport.makeCrashReport(throwable1, "Rendering entity in world"));
+                    throw new ReportedException(CrashReport.makeCrashReport(throwable2, "Rendering entity in world"));
                 }
 
                 try
@@ -397,9 +423,9 @@ public class RenderManager
                         render.doRenderShadowAndFire(entityIn, x, y, z, yaw, partialTicks);
                     }
                 }
-                catch (Throwable throwable2)
+                catch (Throwable throwable1)
                 {
-                    throw new ReportedException(CrashReport.makeCrashReport(throwable2, "Post-rendering entity in world"));
+                    throw new ReportedException(CrashReport.makeCrashReport(throwable1, "Post-rendering entity in world"));
                 }
 
                 if (this.debugBoundingBox && !entityIn.isInvisible() && !p_188391_10_ && !Minecraft.getMinecraft().isReducedDebug())
@@ -540,5 +566,15 @@ public class RenderManager
     public void setRenderOutlines(boolean renderOutlinesIn)
     {
         this.renderOutlines = renderOutlinesIn;
+    }
+
+    public Map<Class, Render> getEntityRenderMap()
+    {
+        return this.entityRenderMap;
+    }
+
+    public Map<String, RenderPlayer> getSkinMap()
+    {
+        return Collections.<String, RenderPlayer>unmodifiableMap(this.skinMap);
     }
 }
