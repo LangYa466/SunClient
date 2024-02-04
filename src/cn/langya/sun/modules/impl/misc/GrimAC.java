@@ -94,7 +94,7 @@ public class GrimAC extends Module {
             return;
         }
         String prefix = TextFormatting.GRAY + "[" + TextFormatting.AQUA + "GrimAC" + TextFormatting.GRAY + "] " + TextFormatting.RESET + TextFormatting.GRAY + player.getName() + TextFormatting.WHITE + " failed ";
-        if (player.isUsingItem() && (player.posX - player.lastTickPosX > 0.2 || player.posZ - player.lastTickPosZ > 0.2)) {
+        if (player.isHandActive() && (player.posX - player.lastTickPosX > 0.2 || player.posZ - player.lastTickPosZ > 0.2)) {
             ClientUtils.chatlog(prefix + TextFormatting.AQUA + "NoSlowA (Prediction)" + TextFormatting.WHITE + " (vl:" + this.vl + ".0)");
             ++vl;
 

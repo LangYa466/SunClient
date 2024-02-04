@@ -1,72 +1,43 @@
 package cn.langya.sun.ui.screen;
 
-import cn.langya.sun.ui.font.FontManager;
-import cn.langya.sun.ui.screen.button.BetterButton;
-import cn.langya.sun.utils.misc.TimeUtil;
-import cn.langya.sun.utils.render.RenderUtil;
-import cn.langya.sun.utils.render.RoundedUtil;
-import net.minecraft.client.gui.GuiMultiplayer;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiWorldSelection;
+import net.minecraft.client.gui.*;
 
-import java.awt.*;
-import java.io.IOException;
-
-/**
- * @author LangYa
- * @ClassName GuiMainMenu
- * @date 2024/1/13 下午 08:56
- * @Version 1.0
- */
 
 public class GuiMainMenu extends GuiScreen {
 
-    BetterButton singlPlayerButton;
-    BetterButton multiPlayerButton;
-    final Color bgcolor = new Color(0,0,0,150);
-    final int width = 1280;
-    final int height = 685;
-
-    @Override
     public void initGui() {
-        int buttonY = height / 2 - 140;
-        singlPlayerButton = new BetterButton(width / 2 - 55,height / 2 - 140,160,30,bgcolor);
-        multiPlayerButton = new BetterButton(width / 2 - 55,height / 2 - 140 + 40,160,30,bgcolor);
+        int defaultHeight = height / 4 + 30;
+        int defaultWidth = width / 2 - 60;
+        int buttonWidth = 120;
+        int buttonHeight = 20;
+        buttonList.add(new GuiButton(0, defaultWidth, defaultHeight, buttonWidth, buttonHeight, "Single Player"));
+        buttonList.add(new GuiButton(1, defaultWidth, defaultHeight + 25, buttonWidth, buttonHeight, "Multi Player"));
+        buttonList.add(new GuiButton(2, defaultWidth, defaultHeight + 50, buttonWidth, buttonHeight, "Game Options"));
+        buttonList.add(new GuiButton(3, defaultWidth, defaultHeight + 75, buttonWidth, buttonHeight, "Quit Game"));
         super.initGui();
     }
 
-    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-
-        // 绘制背景
-        drawLunarBackground(mouseX,mouseY,partialTicks ,RenderUtil.backgroundTexture);
-
-        // 绘制标题
-        FontManager.T50.drawCenteredString("SunClient",width / 2 + 23 ,height / 2 - 180,-1);
-
-        // 绘制小背景
-        RoundedUtil.drawRound(width / 2 - 100,height / 2 - 200,height / 2 - 100,width / 2 - 300,8,new Color(255,255,255,20));
-
-        // 绘制按钮
-        singlPlayerButton.draw("SinglePlayer",FontManager.S30,mouseX,mouseY);
-        multiPlayerButton.draw("Multiplayer",FontManager.S30,mouseX,mouseY);
-
-        // 绘制时间文本
-        FontManager.T50.drawCenteredString(TimeUtil.getTime(),1200,20,-1);
+        drawBackground(0);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        if (singlPlayerButton.hoverFade >0){
-            mc.displayGuiScreen(new GuiWorldSelection(this));
+    protected void actionPerformed(GuiButton button) {
+        switch (button.id) {
+            case 0:
+                mc.displayGuiScreen(new GuiWorldSelection(this));
+                break;
+            case 1:
+                mc.displayGuiScreen(new GuiMultiplayer(this));
+                break;
+            case 2:
+                mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
+                break;
+            case 3:
+                mc.shutdown();
+                break;
         }
-
-        if (multiPlayerButton.hoverFade >0){
-            mc.displayGuiScreen(new GuiMultiplayer(this));
-        }
-
-        super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 }

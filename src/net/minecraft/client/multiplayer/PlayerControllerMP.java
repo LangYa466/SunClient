@@ -51,7 +51,7 @@ public class PlayerControllerMP
 {
     /** The Minecraft instance. */
     private final Minecraft mc;
-    private final NetHandlerPlayClient connection;
+    public final NetHandlerPlayClient connection;
     private BlockPos currentBlock = new BlockPos(-1, -1, -1);
 
     /** The Item currently being used to destroy a block */
@@ -68,7 +68,7 @@ public class PlayerControllerMP
     /**
      * Delays the first damage on the block after the first click on the block
      */
-    private int blockHitDelay;
+    public int blockHitDelay;
 
     /** Tells if the player is hitting a block */
     private boolean isHittingBlock;
@@ -398,7 +398,7 @@ public class PlayerControllerMP
     /**
      * Syncs the current player item with the server
      */
-    private void syncCurrentPlayItem()
+    public void syncCurrentPlayItem()
     {
         int i = this.mc.player.inventory.currentItem;
 

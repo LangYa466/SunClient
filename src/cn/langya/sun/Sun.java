@@ -7,6 +7,7 @@ import cn.langya.sun.ui.font.FontManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.JsonUtils;
 import cn.langya.sun.utils.misc.WebUtils;
+import cn.langya.sun.ui.screen.GuiMainMenu;
 import com.cubk.event.EventManager;
 import com.guimc.fuckpcl.PCLChecker;
 import de.florianmichael.viamcp.ViaMCP;
@@ -67,6 +68,9 @@ public class Sun {
         ClientUtils.loginfo("SunClient Load End!!");
     //    Display.setTitle("SunClient | " + WebUtils.get("https://v1.hitokoto.cn/?c=a&encode=text"));
         Display.setTitle("SunClient | [" + JsonUtils.getDataString(WebUtils.get("https://yuym.cn/ipregion"),"regionName") +"]\u4eba");
+
+        Minecraft.getMinecraft().displayGuiScreen(new GuiMainMenu());
+
     }
 
     private static void setWindowIcon() {

@@ -1,21 +1,14 @@
 package cn.langya.sun.modules.impl.world;
 
-import com.cubk.event.annotations.EventTarget;
-import cn.langya.sun.events.impl.render.EventRender2D;
 import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
-import cn.langya.sun.ui.FontManager;
+import com.cubk.event.annotations.EventTarget;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-
-import java.awt.*;
 
 public class Eagle extends Module {
 
@@ -31,14 +24,6 @@ public class Eagle extends Module {
         return getBlock(new BlockPos(player.posX, player.posY - 1.0, player.posZ));
     }
 
-    String getInfoString(Item helditem) {
-        if(helditem.getBlockCount() >1) {
-            return "Blocks:" + helditem.getBlockCount();
-        } else {
-            return "Block:" + helditem.getBlockCount();
-        }
-    }
-
     @EventTarget
     public void onUpdate(EventUpdate event) {
 
@@ -50,19 +35,6 @@ public class Eagle extends Module {
             KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), false);
         }
 
-    }
-
-    @EventTarget
-    public void onRender2D(EventRender2D event) {
-        if(!isEnabled()) return;
-
-        final Item helditem = mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem();
-        final int y = sr.getScaledHeight() - 90 + 19;
-
-        if(helditem instanceof ItemBlock) {
-            FontManager.drawString(getInfoString(helditem), sr.getScaledWidth() / 2 - 8, y - 19, Color.WHITE);
-        }
-        
     }
 
     public void onEnable() {
