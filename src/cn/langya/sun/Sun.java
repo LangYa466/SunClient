@@ -50,9 +50,12 @@ public class Sun {
             fold.mkdir();
         }
 
+        /*
         ClientUtils.loginfo("SunClient Verifying..");
-     //   HWIDVerify.verify();
+        HWIDVerify.verify();
         ClientUtils.loginfo("SunClient Verify Okay!!");
+        
+         */
 
         ClientUtils.loginfo("SunClient Loading..");
         eventManager = new EventManager();
@@ -68,7 +71,6 @@ public class Sun {
         try {
             ViaMCP.create();
 
-            // In case you want a version slider like in the Minecraft options, you can use this code here, please choose one of those:
 
             ViaMCP.INSTANCE.initAsyncSlider(); // For top left aligned slider
             ViaMCP.INSTANCE.initAsyncSlider(10, 7, 70, 20);
