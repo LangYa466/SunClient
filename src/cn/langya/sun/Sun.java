@@ -54,6 +54,8 @@ public class Sun {
 
         FontManager.initFonts();
 
+        commandManager.loadCommands();
+
         //  init viamcp
         try {
             ViaMCP.create();

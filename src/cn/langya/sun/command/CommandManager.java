@@ -1,74 +1,64 @@
-// 代码来自派蒙大神
-
 package cn.langya.sun.command;
 
-
 import cn.langya.sun.command.commands.*;
+import cn.langya.sun.events.impl.misc.EventChat;
+import cn.langya.sun.utils.ClientUtils;
+import com.cubk.event.annotations.EventTarget;
+import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
-public class CommandManager
-{
-    private final List<Command> commands;
-    public String[] latestAutoComplete;
-    public String prefix;
+public class CommandManager {
+    @Getter
+    private HashMap<String[], Command> commands = new HashMap();
+    private String prefix = ".";
 
-    public CommandManager() {
-        this.commands = new ArrayList<Command>();
-        this.latestAutoComplete = new String[0];
-        this.prefix = ".";
-        this.reg(new BindCommand());
-        this.reg(new ToggleCommand());
-        this.reg(new ConfigCommand());
-        this.reg(new BindsCommand());
-        this.reg(new HelpCommand());
+    public void loadCommands() {
+        this.commands.put(new String[]{"help", "h"}, new HelpCommand());
+        this.commands.put(new String[]{"bind", "b"}, new BindCommand());
+        this.commands.put(new String[]{"toggle", "t"}, new ToggleCommand());
     }
 
-    public List<Command> getCommands() {
-        return this.commands;
-    }
-    public Collection<String> autoComplete(final String currCmd) {
-        final String raw = currCmd.substring(1);
-        final String[] split = raw.split(" ");
-        final List<String> ret = new ArrayList<String>();
-        final Command currentCommand = (split.length >= 1) ? this.commands.stream().filter(cmd -> cmd.match(split[0])).findFirst().orElse(null) : null;
-        if (split.length >= 2 || (currentCommand != null && currCmd.endsWith(" "))) {
-            if (currentCommand == null) {
-                return ret;
-            }
-            final String[] args = new String[split.length - 1];
-            System.arraycopy(split, 1, args, 0, split.length - 1);
-            final List<String> autocomplete = (List<String>)currentCommand.autoComplete(args.length + (currCmd.endsWith(" ") ? 1 : 0), args);
-            this.latestAutoComplete = ((autocomplete.size() > 0 && autocomplete.get(0).equals("none")) ? new String[] { "" } : autocomplete.toArray(new String[0]));
-            return (autocomplete == null) ? new ArrayList<String>() : autocomplete;
+    public boolean processCommand(String rawMessage) {
+        boolean safe;
+        if (!rawMessage.startsWith(this.prefix)) {
+            return false;
         }
-        else {
-            if (split.length == 1) {
-                for (final Command command : this.commands) {
-                    ret.addAll(Arrays.asList(command.getNames()));
+        boolean bl = safe = rawMessage.length() > 1;
+        if (safe) {
+            String beheaded = rawMessage.substring(1);
+            String[] args = beheaded.split(" ");
+            Command command = this.getCommand(args[0]);
+            if (command != null) {
+                if (!command.run(args)) {
+                    ClientUtils.chatlog(command.usage());
                 }
-                return ret.stream().map(str -> "." + str).filter(str -> str.toLowerCase().startsWith(currCmd.toLowerCase())).collect(Collectors.toList());
+            } else {
+                ClientUtils.chatlog("Try .help.");
             }
-            return ret;
+        } else {
+            ClientUtils.chatlog("Try .help.");
         }
+        return true;
     }
 
-    public void reg(final Command command) {
-        this.commands.add(command);
-    }
-
-    public Command getCommand(final String name) {
-        for (final Command c : this.commands) {
-            for (final String s : c.getNames()) {
-                if (s.equals(name)) {
-                    return c;
-                }
+    private Command getCommand(String name) {
+        for (Map.Entry<String[], Command> entry : this.commands.entrySet()) {
+            for (String s : entry.getKey()) {
+                if (!s.equalsIgnoreCase(name)) continue;
+                return entry.getValue();
             }
         }
         return null;
     }
+
+    @EventTarget
+    public void processCommand(EventChat e) {
+        if (processCommand(e.getMessage())) {
+            e.cancel();
+        }
+    }
+
 }
+

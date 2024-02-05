@@ -385,6 +385,10 @@ public class EntityPlayerSP extends AbstractClientPlayer
     {
         final EventChat event = new EventChat(message);
         Sun.eventManager.call(event);
+
+        if(event.cancelled) {
+            return;
+        }
         this.connection.sendPacket(new CPacketChatMessage(message));
     }
 
