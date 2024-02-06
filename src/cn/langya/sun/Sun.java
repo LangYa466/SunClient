@@ -4,6 +4,7 @@ import cn.langya.sun.command.CommandManager;
 import cn.langya.sun.files.ConfigManager;
 import cn.langya.sun.modules.ModuleManager;
 import cn.langya.sun.ui.font.FontManager;
+import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.JsonUtils;
 import cn.langya.sun.utils.misc.WebUtils;
@@ -34,6 +35,7 @@ public class Sun {
     public static ConfigManager configManager;
     public static EventManager eventManager;
     public static CommandManager commandManager;
+    public static NotificationManager notificationManager;
 
     public static void initClient() throws IOException {
         setWindowIcon();
@@ -47,6 +49,7 @@ public class Sun {
         ClientUtils.loginfo("SunClient Loading..");
         eventManager = new EventManager();
         moduleManager = new ModuleManager();
+        notificationManager = new NotificationManager();
         commandManager = new CommandManager();
         configManager = new ConfigManager();
 

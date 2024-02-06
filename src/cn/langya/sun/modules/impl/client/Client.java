@@ -22,11 +22,13 @@ public class Client extends Module {
         add(memoryfix);
     }
 
+    /*
+
     @EventTarget
     void onTick(EventTick e) throws IOException {
         TimeUtil t = new TimeUtil();
         if(t.hasTimePassed(300001)) {
-            WebUtils.get("https://sunclient.cloud/updateuser.php?username=" + mc.player.getDisplayName());
+            WebUtils.get("https://.cloud/updateuser.php?username=" + mc.player.getDisplayName());
         }
     }
 
@@ -34,7 +36,7 @@ public class Client extends Module {
     void onT(EventText e) {
         new Thread(() -> {
             try {
-                if(e.text.equals(WebUtils.get("https://sunclient.cloud/user.txt"))) {
+                if(e.text.equals(WebUtils.get("https://.cloud/user.txt"))) {
                     e.text.concat(String.format("[%sSunClient] ",TextFormatting.RED));
                 }
             } catch (IOException ex) {
@@ -43,6 +45,8 @@ public class Client extends Module {
         });
 
     }
+
+     */
     @EventTarget
     void onWorldLoad(EventWorldLoad e) {
         if(memoryfix.get()) System.gc();

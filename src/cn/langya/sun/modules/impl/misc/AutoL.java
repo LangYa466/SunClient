@@ -30,11 +30,12 @@ public class AutoL extends Module {
             return;
         }
 
-        if(e.target.isDead) ++ kill;
-
-        if(sendMessageValue.get()) {
-            mc.player.addChatMessage(new TextComponentString("Killed"+ kill + " Enemies"));
-
+        if(e.target.isDead) {
+            ++kill;
+            if(sendMessageValue.get()) mc.player.addChatMessage(new TextComponentString("L" + e.target.getDisplayName().getFormattedText()));
         }
+
+
+
     }
 }

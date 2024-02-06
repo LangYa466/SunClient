@@ -3,6 +3,7 @@ package cn.langya.sun.modules.impl.client;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.ui.screen.clickgui.DropdownClickGUI;
+import org.lwjgl.input.Keyboard;
 
 /**
  * @author LangYa
@@ -18,6 +19,6 @@ public class ClickGui extends Module {
     }
 
     public ClickGui() {
-        super("ClickGui", Category.Client);
+        super("ClickGui", Category.Client, Keyboard.KEY_RSHIFT);
     }
 }

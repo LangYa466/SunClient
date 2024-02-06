@@ -7,12 +7,13 @@ import net.minecraft.client.gui.*;
 
 public class GuiMainMenu extends GuiScreen {
 
-    int defaultHeight = height / 4 + 30;
-    int defaultWidth = width / 2 - 60;
-    int buttonWidth = 120;
-    int buttonHeight = 20;
-
     public void initGui() {
+
+        int defaultHeight = height / 4 + 30;
+        int defaultWidth = width / 2 - 60;
+        int buttonWidth = 120;
+        int buttonHeight = 20;
+
         buttonList.add(new GuiButton(0, defaultWidth, defaultHeight, buttonWidth, buttonHeight, "Single Player"));
         buttonList.add(new GuiButton(1, defaultWidth, defaultHeight + 25, buttonWidth, buttonHeight, "Multi Player"));
         buttonList.add(new GuiButton(2, defaultWidth, defaultHeight + 50, buttonWidth, buttonHeight, "Game Options"));

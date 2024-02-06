@@ -1,5 +1,6 @@
 package cn.langya.sun.command;
 
+import cn.langya.sun.Sun;
 import cn.langya.sun.command.commands.*;
 import cn.langya.sun.events.impl.misc.EventChat;
 import cn.langya.sun.utils.ClientUtils;
@@ -15,6 +16,7 @@ public class CommandManager {
     private String prefix = ".";
 
     public void loadCommands() {
+        Sun.eventManager.register(this);
         this.commands.put(new String[]{"help", "h"}, new HelpCommand());
         this.commands.put(new String[]{"bind", "b"}, new BindCommand());
         this.commands.put(new String[]{"toggle", "t"}, new ToggleCommand());
