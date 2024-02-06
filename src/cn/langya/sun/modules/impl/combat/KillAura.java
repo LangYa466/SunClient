@@ -6,7 +6,6 @@ import cn.langya.sun.modules.Module;
 import cn.langya.sun.values.BoolValue;
 import cn.langya.sun.values.DoubleValue;
 import com.cubk.event.annotations.EventTarget;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumHand;
