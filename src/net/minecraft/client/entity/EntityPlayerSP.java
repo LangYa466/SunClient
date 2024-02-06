@@ -266,8 +266,10 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
         final EventUpdate updateEvent = new EventUpdate(rotationYaw,rotationPitch,onGround);
         Sun.eventManager.call(updateEvent);
-        this.rotationYaw = updateEvent.getYaw();
-        this.rotationPitch = updateEvent.pitch;
+//        this.rotationYaw = updateEvent.getYaw();
+//        this.rotationPitch = updateEvent.pitch;
+        final float tempYaw = updateEvent.getYaw();
+        final float tempPitch = updateEvent.pitch;
 
         if (flag != this.serverSprintState)
         {
@@ -309,20 +311,20 @@ public class EntityPlayerSP extends AbstractClientPlayer
             double d0 = this.posX - this.lastReportedPosX;
             double d1 = axisalignedbb.minY - this.lastReportedPosY;
             double d2 = this.posZ - this.lastReportedPosZ;
-            double d3 = (double)(this.rotationYaw - this.lastReportedYaw);
-            double d4 = (double)(this.rotationPitch - this.lastReportedPitch);
+            double d3 = (double)(tempYaw - this.lastReportedYaw);
+            double d4 = (double)(tempPitch - this.lastReportedPitch);
             ++this.positionUpdateTicks;
             boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
             boolean flag3 = d3 != 0.0D || d4 != 0.0D;
 
             if (this.isRiding())
             {
-                this.connection.sendPacket(new CPacketPlayer.PositionRotation(this.motionX, -999.0D, this.motionZ, this.rotationYaw, this.rotationPitch, this.onGround));
+                this.connection.sendPacket(new CPacketPlayer.PositionRotation(this.motionX, -999.0D, this.motionZ, tempYaw, tempPitch, this.onGround));
                 flag2 = false;
             }
             else if (flag2 && flag3)
             {
-                this.connection.sendPacket(new CPacketPlayer.PositionRotation(this.posX, axisalignedbb.minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround));
+                this.connection.sendPacket(new CPacketPlayer.PositionRotation(this.posX, axisalignedbb.minY, this.posZ, tempYaw, tempPitch, this.onGround));
             }
             else if (flag2)
             {
@@ -330,7 +332,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
             }
             else if (flag3)
             {
-                this.connection.sendPacket(new CPacketPlayer.Rotation(this.rotationYaw, this.rotationPitch, this.onGround));
+                this.connection.sendPacket(new CPacketPlayer.Rotation(tempYaw, tempPitch, this.onGround));
             }
             else if (this.prevOnGround != this.onGround)
             {
@@ -347,8 +349,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
             if (flag3)
             {
-                this.lastReportedYaw = this.rotationYaw;
-                this.lastReportedPitch = this.rotationPitch;
+                this.lastReportedYaw = tempYaw;
+                this.lastReportedPitch = tempPitch;
             }
 
             this.prevOnGround = this.onGround;

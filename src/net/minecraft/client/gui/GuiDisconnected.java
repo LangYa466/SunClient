@@ -2,7 +2,10 @@ package net.minecraft.client.gui;
 
 import java.io.IOException;
 import java.util.List;
+
+import cn.langya.sun.utils.render.RenderUtil;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class GuiDisconnected extends GuiScreen
@@ -56,7 +59,9 @@ public class GuiDisconnected extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
+      //  this.drawDefaultBackground();
+        RenderUtil.drawImage(new ResourceLocation("sunclient/xibao.png"), 0, 0, this.width, this.height);
+
         this.drawCenteredString(this.fontRendererObj, this.reason, this.width / 2, this.height / 2 - this.textHeight / 2 - this.fontRendererObj.FONT_HEIGHT * 2, 11184810);
         int i = this.height / 2 - this.textHeight / 2;
 
