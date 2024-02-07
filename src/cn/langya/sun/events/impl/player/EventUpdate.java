@@ -34,4 +34,15 @@ public class EventUpdate implements Event {
         mc.player.prevRotationYawHead = yaw;
         mc.player.rotationYawHead = yaw;
     }
+
+    public void setRotations(float[] rotations) {
+        this.yaw = rotations[0];
+        this.pitch = rotations[1];
+        Minecraft mc = Minecraft.getMinecraft();
+        mc.player.prevRenderYawOffset = yaw;
+        mc.player.renderYawOffset = yaw;
+        mc.player.prevRotationYawHead = yaw;
+        mc.player.rotationYawHead = yaw;
+    }
+
 }

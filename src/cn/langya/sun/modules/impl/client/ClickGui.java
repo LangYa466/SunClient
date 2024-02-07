@@ -19,6 +19,7 @@ public class ClickGui extends Module {
     }
 
     public ClickGui() {
-        super("ClickGui", Category.Client, Keyboard.KEY_RSHIFT);
+        super("ClickGui", Category.Client);
+        keyCode = Keyboard.KEY_RSHIFT;
     }
 }

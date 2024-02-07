@@ -8,6 +8,7 @@ public class Timer
      * How many full ticks have turned over since the last call to updateTimer(), capped at 10.
      */
     public int elapsedTicks;
+    // renderPartialTicks
     public float field_194147_b;
     public float field_194148_c;
 
