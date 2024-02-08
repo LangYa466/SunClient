@@ -24,12 +24,16 @@ public class UI extends Utils {
 
     public boolean state;
 
+    @Getter
     @Setter
     private double x;
+    @Getter
     @Setter
     private double y;
+    @Getter
     @Setter
     private double witdh;
+    @Getter
     @Setter
     private double height;
     @Setter
@@ -45,6 +49,8 @@ public class UI extends Utils {
 
     public UI(String name) {
         this.name = name;
+        this.dragx = 0.0;
+        this.dragy = 0.0;
     }
 
     public boolean isEnabled() {
@@ -57,6 +63,10 @@ public class UI extends Utils {
 
     public void drag() {
         GlStateManager.translate(dragx,dragy, 0);
+    }
+
+    public static boolean hover(int mouseX, int mouseY, double x, double y, double width, double height) {
+        return (mouseX > x && mouseX < (x + width)) && (mouseY > y && mouseY < (y + height));
     }
 
     public void setState(boolean value) {

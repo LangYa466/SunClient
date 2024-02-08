@@ -3,7 +3,9 @@ package cn.langya.sun;
 import cn.langya.sun.command.CommandManager;
 import cn.langya.sun.files.ConfigManager;
 import cn.langya.sun.modules.ModuleManager;
+import cn.langya.sun.ui.UIManager;
 import cn.langya.sun.ui.font.FontManager;
+import cn.langya.sun.ui.impl.Test;
 import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.misc.JsonUtils;
@@ -12,6 +14,7 @@ import cn.langya.sun.ui.screen.GuiMainMenu;
 import com.cubk.event.EventManager;
 import com.guimc.fuckpcl.PCLChecker;
 import de.florianmichael.viamcp.ViaMCP;
+import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
@@ -36,7 +39,7 @@ public class Sun {
     public static EventManager eventManager;
     public static CommandManager commandManager;
     public static NotificationManager notificationManager;
-
+    public static UIManager uiManager;
     public static void initClient() throws IOException {
         setWindowIcon();
 
@@ -50,6 +53,7 @@ public class Sun {
         eventManager = new EventManager();
         moduleManager = new ModuleManager();
         notificationManager = new NotificationManager();
+        uiManager = new UIManager();
         commandManager = new CommandManager();
         configManager = new ConfigManager();
 
@@ -58,6 +62,8 @@ public class Sun {
         FontManager.initFonts();
 
         commandManager.loadCommands();
+
+        new Test().setState(true);
 
         //  init viamcp
         try {

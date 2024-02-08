@@ -1,6 +1,7 @@
 package cn.langya.sun.ui;
 
 import cn.langya.sun.Sun;
+import cn.langya.sun.ui.impl.Test;
 import cn.langya.sun.utils.Utils;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class UIManager extends Utils {
 
     public void UIManager() {
         Sun.eventManager.register(this);
+        addUI(new Test());
     }
 
     public static void addUI(UI ui){

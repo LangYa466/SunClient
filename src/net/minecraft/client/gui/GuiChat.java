@@ -2,6 +2,9 @@ package net.minecraft.client.gui;
 
 import java.io.IOException;
 import javax.annotation.Nullable;
+
+import cn.langya.sun.ui.UI;
+import cn.langya.sun.ui.UIManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ITabCompleter;
 import net.minecraft.util.TabCompleter;
@@ -176,6 +179,14 @@ public class GuiChat extends GuiScreen implements ITabCompleter
             if (itextcomponent != null && this.handleComponentClick(itextcomponent))
             {
                 return;
+            }
+        }
+
+        for(final UI ui : UIManager.uis) {
+            if(ui.hover(mouseX,mouseY,ui.getX(),ui.getY(),ui.getWitdh(),ui.getHeight()) && Keyboard.getKeyCount() == Keyboard.KEY_LEFT) {
+                ui.setDragx(mouseX - ui.getX());
+                ui.setDragy(mouseY - ui.getY());
+                ui.drag();
             }
         }
 

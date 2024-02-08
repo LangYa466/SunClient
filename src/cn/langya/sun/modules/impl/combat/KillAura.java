@@ -16,6 +16,8 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,8 @@ public class KillAura extends Module {
     private static final BoolValue rayCastValue = new BoolValue("RayCast", true);
     private static final BoolValue swingValue = new BoolValue("Swing", true);
     private static final BoolValue keepSprintValue = new BoolValue("KeepSprint", false);
+    private static final BoolValue targetPlayerValue = new BoolValue("TargetPlayer", true);
+    private static final BoolValue targetMobValue = new BoolValue("TargetMob", false);
 
     public KillAura() {
         super("KillAura", Category.Combat);
@@ -74,6 +78,14 @@ public class KillAura extends Module {
 
         targets.removeIf(entity -> mc.player.getDistanceToEntity(entity) >= getRange() || !entity.isDead || entity != mc.player);
 
+        if(targetPlayerValue.get()) {
+            targets.removeIf(entity -> !(entity instanceof EntityPlayer));
+        }
+
+        if(targetMobValue.get()) {
+            targets.removeIf(entity -> !(entity instanceof EntityMob));
+        }
+
         if(targets.isEmpty()) return;
 
         switch (targetModeValue.get()) {
@@ -87,17 +99,15 @@ public class KillAura extends Module {
                 break;
         }
 
-        /*
+
         if (rayCastValue.get() && rotationValue.get() && !RotationUtil.isMouseOver(e.getYaw(), e.pitch, target, getRange()))
             return;
-         */
+
 
         if (rotationValue.get()) e.setRotations(getRotations());
 
-        if(attacktimer.hasTimePassed(1000 / getCps())) {
-            attackEntity(target);
-            attacktimer.reset();
-        }
+        attackEntity(target);
+
 
     }
 
