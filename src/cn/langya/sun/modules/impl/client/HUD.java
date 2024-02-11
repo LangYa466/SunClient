@@ -5,25 +5,16 @@ import cn.langya.sun.events.impl.render.EventRender2D;
 import cn.langya.sun.modules.Category;
 import cn.langya.sun.modules.Module;
 import cn.langya.sun.modules.impl.misc.AutoL;
-import cn.langya.sun.modules.impl.misc.Teams;
-import cn.langya.sun.ui.font.FontDrawer;
 import cn.langya.sun.ui.font.FontManager;
-import cn.langya.sun.utils.misc.MathUtil;
 import cn.langya.sun.utils.render.*;
-import cn.langya.sun.values.*;
+import cn.langya.sun.values.BoolValue;
+import cn.langya.sun.values.ColorValue;
+import cn.langya.sun.values.DoubleValue;
+import cn.langya.sun.values.ListValue;
 import com.cubk.event.annotations.EventTarget;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -42,7 +33,6 @@ public class HUD extends Module {
     public static final ListValue gameinfo = new ListValue("GameInfo", "Sun");
     public static final DoubleValue animationSpeed = new DoubleValue("Animation Speed", 4.0, 10.0, 1.0);
     public static final ColorValue mainColor = new ColorValue("Main Color",Color.white.getRGB());
-    public static final DecimalFormat DF_1 = new DecimalFormat("0.0");
 
     public HUD() {
         super("HUD", Category.Render);

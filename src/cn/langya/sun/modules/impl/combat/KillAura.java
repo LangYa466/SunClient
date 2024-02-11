@@ -71,19 +71,19 @@ public class KillAura extends Module {
     void onU(EventUpdate e) {
 
         for (Entity entity : mc.world.loadedEntityList) {
-            if (entity instanceof EntityLivingBase && mc.player.getDistanceToEntity(entity) >= getRange() && !entity.isDead && entity != mc.player) {
+            if (mc.player.getDistanceToEntity(entity) >= getRange() && !entity.isDead && entity != mc.player) {
                 targets.add((EntityLivingBase) entity);
             }
         }
 
-        targets.removeIf(entity -> mc.player.getDistanceToEntity(entity) >= getRange() || !entity.isDead || entity != mc.player);
+        targets.stream().filter(entity -> mc.player.getDistanceToEntity(entity) >= getRange() || entity.getHealth() > 0 || entity != mc.player);
 
-        if(targetPlayerValue.get()) {
-            targets.removeIf(entity -> !(entity instanceof EntityPlayer));
+        if(!targetPlayerValue.get()) {
+            targets.removeIf(entity -> entity instanceof EntityPlayer);
         }
 
-        if(targetMobValue.get()) {
-            targets.removeIf(entity -> !(entity instanceof EntityMob));
+        if(!targetMobValue.get()) {
+            targets.removeIf(entity -> entity instanceof EntityMob);
         }
 
         if(targets.isEmpty()) return;
@@ -106,7 +106,10 @@ public class KillAura extends Module {
 
         if (rotationValue.get()) e.setRotations(getRotations());
 
-        attackEntity(target);
+        if(attacktimer.hasTimePassed(1000 / getCps())) {
+            attackEntity(target);
+            attacktimer.reset();
+        }
 
 
     }

@@ -61,7 +61,6 @@ public class NotificationManager {
         ShadowUtil.drawShadow(0, 0, 10 + FontManager.T20.getStringWidth(content), 30);
         FontManager.T20.drawString(title, 3, 3, -1);
         FontManager.T20.drawString(content, 3, 10, -1);
-
     }
 
     @EventTarget
@@ -73,7 +72,7 @@ public class NotificationManager {
 
             Runnable task = () -> {
                 TimeUtil t = new TimeUtil();
-                if (t.hasTimePassed(5000000)) {
+                if (t.hasTimePassed(5000)) {
                     notifications.remove(notification);
                 }
             };

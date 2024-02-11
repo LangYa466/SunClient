@@ -17,31 +17,18 @@ import java.util.List;
  * @date 2024/2/3 ÏÂÎç 03:51
  */
 
+@Getter
+@Setter
 public class UI extends Utils {
-
-    @Getter
     public final String name;
-
     public boolean state;
-
-    @Getter
-    @Setter
     private double x;
-    @Getter
-    @Setter
     private double y;
-    @Getter
-    @Setter
     private double witdh;
-    @Getter
-    @Setter
     private double height;
-    @Setter
     private double dragx;
-    @Setter
     private double dragy;
-
-    @Getter
+    
     private List<AbstractValue> values = new ArrayList<>();
     public void add(AbstractValue... value) {
         values = Arrays.asList(value);
