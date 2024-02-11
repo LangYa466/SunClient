@@ -6,7 +6,6 @@ import cn.langya.sun.utils.Utils;
 import cn.langya.sun.values.AbstractValue;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.renderer.GlStateManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,10 +23,10 @@ public class UI extends Utils {
     public boolean state;
     private double x;
     private double y;
-    private double witdh;
+    private double width;
     private double height;
-    private double dragx;
-    private double dragy;
+    protected double dragx;
+    protected double dragy;
     
     private List<AbstractValue> values = new ArrayList<>();
     public void add(AbstractValue... value) {
@@ -46,10 +45,6 @@ public class UI extends Utils {
 
     public void toggle(){
         setState(!state);
-    }
-
-    public void drag() {
-        GlStateManager.translate(dragx,dragy, 0);
     }
 
     public static boolean hover(int mouseX, int mouseY, double x, double y, double width, double height) {

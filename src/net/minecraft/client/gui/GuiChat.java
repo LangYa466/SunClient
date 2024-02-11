@@ -182,14 +182,6 @@ public class GuiChat extends GuiScreen implements ITabCompleter
             }
         }
 
-        for(final UI ui : UIManager.uis) {
-            if(ui.hover(mouseX,mouseY,ui.getX(),ui.getY(),ui.getWitdh(),ui.getHeight()) && Keyboard.getKeyCount() == Keyboard.KEY_LEFT) {
-                ui.setDragx(mouseX - ui.getX());
-                ui.setDragy(mouseY - ui.getY());
-                ui.drag();
-            }
-        }
-
         this.inputField.mouseClicked(mouseX, mouseY, mouseButton);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -255,6 +247,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
+
 
     /**
      * Returns true if this GUI should pause the game when it is displayed in single-player

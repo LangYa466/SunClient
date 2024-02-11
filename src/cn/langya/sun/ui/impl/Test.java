@@ -5,6 +5,7 @@ import cn.langya.sun.ui.UI;
 import cn.langya.sun.utils.render.RenderUtil;
 import cn.langya.sun.utils.render.RoundedUtil;
 import com.cubk.event.annotations.EventTarget;
+import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.*;
 
@@ -19,15 +20,17 @@ public class Test extends UI {
     public Test() {
         super("Test");
         setHeight(50);
-        setWitdh(50);
+        setWidth(50);
         setX(50);
         setY(50);
     }
 
     @EventTarget
     void onR2D(EventRender2D e) {
+        GlStateManager.pushMatrix();
         RoundedUtil.drawRound(50,50,50,50,0, Color.WHITE);
         RenderUtil.resetColor();
+        GlStateManager.popMatrix();
     }
 
 
