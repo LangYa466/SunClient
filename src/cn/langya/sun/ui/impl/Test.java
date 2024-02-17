@@ -31,5 +31,4 @@ public class Test extends UI {
         RoundedUtil.drawRound(50,50,50,50,0, Color.WHITE);
         RenderUtil.resetColor();
     }
-    
 }
