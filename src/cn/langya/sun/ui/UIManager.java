@@ -7,6 +7,7 @@ import cn.langya.sun.ui.impl.Test;
 import cn.langya.sun.utils.Utils;
 import cn.langya.sun.utils.render.RenderUtil;
 import com.cubk.event.annotations.EventTarget;
+import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -29,11 +30,11 @@ public class UIManager extends Utils {
 
     public static void addUI(UI ui){
         uis.add(ui);
-        Sun.eventManager.register(ui);
     }
     
     @EventTarget
     void onR2D(EventRender2D e) {
+
 
         final int mouseX = Mouse.getDX();
         final int mouseY = Mouse.getDY();
@@ -47,6 +48,11 @@ public class UIManager extends Utils {
             if (!m.state) {
                 continue;
             }
+
+            GlStateManager.pushMatrix();
+            m.draw();
+            GlStateManager.popMatrix();
+
             final double xpos = m.getX();
             final double ypos = m.getY();
             final double mwidth = m.getWidth();

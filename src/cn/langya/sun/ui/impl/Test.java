@@ -25,13 +25,11 @@ public class Test extends UI {
         setY(50);
     }
 
-    @EventTarget
-    void onR2D(EventRender2D e) {
-        GlStateManager.pushMatrix();
+
+    @Override
+    public void draw() {
         RoundedUtil.drawRound(50,50,50,50,0, Color.WHITE);
         RenderUtil.resetColor();
-        GlStateManager.popMatrix();
     }
-
-
+    
 }

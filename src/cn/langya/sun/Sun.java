@@ -77,8 +77,8 @@ public class Sun {
         }
 
         ClientUtils.loginfo("SunClient Load End!!");
-    //    Display.setTitle("SunClient | " + WebUtils.get("https://v1.hitokoto.cn/?c=a&encode=text"));
-        Display.setTitle("SunClient | [" + JsonUtils.getDataString(WebUtils.get("https://yuym.cn/ipregion"),"regionName") +"]\u4eba");
+        Display.setTitle("SunClient | " + WebUtils.get("https://v1.hitokoto.cn/?c=a&encode=text"));
+   //     Display.setTitle("SunClient | [" + JsonUtils.getDataString(WebUtils.get("https://yuym.cn/ipregion"),"regionName") +"]\u4eba");
 
         Minecraft.getMinecraft().displayGuiScreen(new GuiMainMenu());
 

@@ -3,10 +3,14 @@ package cn.langya.sun.ui;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.utils.Utils;
+import cn.langya.sun.utils.render.RenderUtil;
+import cn.langya.sun.utils.render.RoundedUtil;
 import cn.langya.sun.values.AbstractValue;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.renderer.GlStateManager;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,6 +69,8 @@ public class UI extends Utils {
 
         state = value;
     }
+
+    public void draw() {}
 
     public void onEnable() {}
 
