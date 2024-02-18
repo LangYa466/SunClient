@@ -11,11 +11,11 @@ import net.minecraft.stats.RecipeBook;
 
 public class RecipeBookPage
 {
-    private List<GuiButtonRecipe> field_193743_h = Lists.<GuiButtonRecipe>newArrayListWithCapacity(20);
+    private final List<GuiButtonRecipe> field_193743_h = Lists.newArrayListWithCapacity(20);
     private GuiButtonRecipe field_194201_b;
-    private GuiRecipeOverlay field_194202_c = new GuiRecipeOverlay();
+    private final GuiRecipeOverlay field_194202_c = new GuiRecipeOverlay();
     private Minecraft field_193754_s;
-    private List<IRecipeUpdateListener> field_193757_v = Lists.<IRecipeUpdateListener>newArrayList();
+    private final List<IRecipeUpdateListener> field_193757_v = Lists.newArrayList();
     private List<RecipeList> field_194203_f;
     private GuiButtonToggle field_193740_e;
     private GuiButtonToggle field_193741_f;
@@ -40,7 +40,7 @@ public class RecipeBookPage
 
         for (int i = 0; i < this.field_193743_h.size(); ++i)
         {
-            ((GuiButtonRecipe)this.field_193743_h.get(i)).func_191770_c(p_194194_2_ + 11 + 25 * (i % 5), p_194194_3_ + 31 + 25 * (i / 5));
+            this.field_193743_h.get(i).func_191770_c(p_194194_2_ + 11 + 25 * (i % 5), p_194194_3_ + 31 + 25 * (i / 5));
         }
 
         this.field_193740_e = new GuiButtonToggle(0, p_194194_2_ + 93, p_194194_3_ + 137, 12, 17, false);

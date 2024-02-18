@@ -35,15 +35,6 @@ public class UIManager extends Utils {
     @EventTarget
     void onR2D(EventRender2D e) {
 
-
-        final int mouseX = Mouse.getDX();
-        final int mouseY = Mouse.getDY();
-
-
-        if (!mc.ingameGUI.getChatGUI().getChatOpen()) {
-            return;
-        }
-
         for (final UI m : uis) {
             if (!m.state) {
                 continue;
@@ -52,6 +43,20 @@ public class UIManager extends Utils {
             GlStateManager.pushMatrix();
             m.draw();
             GlStateManager.popMatrix();
+        }
+
+
+        final int mouseX = Mouse.getDX();
+        final int mouseY = Mouse.getDY();
+
+        for (final UI m : uis) {
+            if (!m.state) {
+                continue;
+            }
+
+            if (!mc.ingameGUI.getChatGUI().getChatOpen()) {
+                return;
+            }
 
             final double xpos = m.getX();
             final double ypos = m.getY();

@@ -23,7 +23,7 @@ import net.minecraft.util.JsonUtils;
 
 public class AdvancementProgress implements Comparable<AdvancementProgress>
 {
-    private final Map<String, CriterionProgress> field_192110_a = Maps.<String, CriterionProgress>newHashMap();
+    private final Map<String, CriterionProgress> field_192110_a = Maps.newHashMap();
     private String[][] field_192111_b = new String[0][];
 
     public void func_192099_a(Map<String, Criterion> p_192099_1_, String[][] p_192099_2_)
@@ -33,7 +33,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
         while (iterator.hasNext())
         {
-            Entry<String, CriterionProgress> entry = (Entry)iterator.next();
+            Entry<String, CriterionProgress> entry = iterator.next();
 
             if (!set.contains(entry.getKey()))
             {
@@ -140,7 +140,7 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
         for (Entry<String, CriterionProgress> entry : this.field_192110_a.entrySet())
         {
             p_192104_1_.writeString(entry.getKey());
-            ((CriterionProgress)entry.getValue()).func_192150_a(p_192104_1_);
+            entry.getValue().func_192150_a(p_192104_1_);
         }
     }
 
@@ -230,11 +230,11 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
     public Iterable<String> func_192107_d()
     {
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
 
         for (Entry<String, CriterionProgress> entry : this.field_192110_a.entrySet())
         {
-            if (!((CriterionProgress)entry.getValue()).func_192151_a())
+            if (!entry.getValue().func_192151_a())
             {
                 list.add(entry.getKey());
             }
@@ -245,11 +245,11 @@ public class AdvancementProgress implements Comparable<AdvancementProgress>
 
     public Iterable<String> func_192102_e()
     {
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
 
         for (Entry<String, CriterionProgress> entry : this.field_192110_a.entrySet())
         {
-            if (((CriterionProgress)entry.getValue()).func_192151_a())
+            if (entry.getValue().func_192151_a())
             {
                 list.add(entry.getKey());
             }

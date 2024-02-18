@@ -67,7 +67,7 @@ public class EntityDonkey extends AbstractChestHorse
 
     public EntityAgeable createChild(EntityAgeable ageable)
     {
-        AbstractHorse abstracthorse = (AbstractHorse)(ageable instanceof EntityHorse ? new EntityMule(this.world) : new EntityDonkey(this.world));
+        AbstractHorse abstracthorse = ageable instanceof EntityHorse ? new EntityMule(this.world) : new EntityDonkey(this.world);
         this.func_190681_a(ageable, abstracthorse);
         return abstracthorse;
     }

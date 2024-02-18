@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
 
@@ -105,7 +106,7 @@ public class HttpUtils
             outputstream.flush();
             outputstream.close();
             InputStream inputstream = httpurlconnection.getInputStream();
-            InputStreamReader inputstreamreader = new InputStreamReader(inputstream, "ASCII");
+            InputStreamReader inputstreamreader = new InputStreamReader(inputstream, StandardCharsets.US_ASCII);
             BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
             StringBuffer stringbuffer = new StringBuffer();
             String s2;
@@ -147,7 +148,7 @@ public class HttpUtils
             }
             catch (Exception exception)
             {
-                Config.warn("" + exception.getClass().getName() + ": " + exception.getMessage());
+                Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
             }
 
             if (playerItemsUrl == null)

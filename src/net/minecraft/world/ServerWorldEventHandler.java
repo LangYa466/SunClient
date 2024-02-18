@@ -91,7 +91,7 @@ public class ServerWorldEventHandler implements IWorldEventListener
 
     public void playEvent(EntityPlayer player, int type, BlockPos blockPosIn, int data)
     {
-        this.mcServer.getPlayerList().sendToAllNearExcept(player, (double)blockPosIn.getX(), (double)blockPosIn.getY(), (double)blockPosIn.getZ(), 64.0D, this.theWorldServer.provider.getDimensionType().getId(), new SPacketEffect(type, blockPosIn, data, false));
+        this.mcServer.getPlayerList().sendToAllNearExcept(player, blockPosIn.getX(), blockPosIn.getY(), blockPosIn.getZ(), 64.0D, this.theWorldServer.provider.getDimensionType().getId(), new SPacketEffect(type, blockPosIn, data, false));
     }
 
     public void broadcastSound(int soundID, BlockPos pos, int data)

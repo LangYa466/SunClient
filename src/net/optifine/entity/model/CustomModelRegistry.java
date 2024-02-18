@@ -8,7 +8,7 @@ import optifine.Config;
 
 public class CustomModelRegistry
 {
-    private static Map<String, ModelAdapter> mapModelAdapters = makeMapModelAdapters();
+    private static final Map<String, ModelAdapter> mapModelAdapters = makeMapModelAdapters();
 
     private static Map<String, ModelAdapter> makeMapModelAdapters()
     {
@@ -101,7 +101,7 @@ public class CustomModelRegistry
     public static String[] getModelNames()
     {
         Set<String> set = mapModelAdapters.keySet();
-        String[] astring = (String[])set.toArray(new String[set.size()]);
+        String[] astring = set.toArray(new String[set.size()]);
         return astring;
     }
 }

@@ -28,7 +28,7 @@ public class ItemRedstone extends Item
         BlockPos blockpos = flag ? worldIn : worldIn.offset(hand);
         ItemStack itemstack = stack.getHeldItem(pos);
 
-        if (stack.canPlayerEdit(blockpos, hand, itemstack) && playerIn.func_190527_a(playerIn.getBlockState(blockpos).getBlock(), blockpos, false, hand, (Entity)null) && Blocks.REDSTONE_WIRE.canPlaceBlockAt(playerIn, blockpos))
+        if (stack.canPlayerEdit(blockpos, hand, itemstack) && playerIn.func_190527_a(playerIn.getBlockState(blockpos).getBlock(), blockpos, false, hand, null) && Blocks.REDSTONE_WIRE.canPlaceBlockAt(playerIn, blockpos))
         {
             playerIn.setBlockState(blockpos, Blocks.REDSTONE_WIRE.getDefaultState());
 

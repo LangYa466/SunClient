@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTrigger.Instance>
 {
     private static final ResourceLocation field_192227_a = new ResourceLocation("recipe_unlocked");
-    private final Map<PlayerAdvancements, RecipeUnlockedTrigger.Listeners> field_192228_b = Maps.<PlayerAdvancements, RecipeUnlockedTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, RecipeUnlockedTrigger.Listeners> field_192228_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -104,7 +104,7 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
     static class Listeners
     {
         private final PlayerAdvancements field_192529_a;
-        private final Set<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> field_192530_b = Sets.<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>> field_192530_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47397_1_)
         {
@@ -132,11 +132,11 @@ public class RecipeUnlockedTrigger implements ICriterionTrigger<RecipeUnlockedTr
 
             for (ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance> listener : this.field_192530_b)
             {
-                if (((RecipeUnlockedTrigger.Instance)listener.func_192158_a()).func_193215_a(p_193493_1_))
+                if (listener.func_192158_a().func_193215_a(p_193493_1_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<RecipeUnlockedTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

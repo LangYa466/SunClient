@@ -311,8 +311,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
             double d0 = this.posX - this.lastReportedPosX;
             double d1 = axisalignedbb.minY - this.lastReportedPosY;
             double d2 = this.posZ - this.lastReportedPosZ;
-            double d3 = (double)(tempYaw - this.lastReportedYaw);
-            double d4 = (double)(tempPitch - this.lastReportedPitch);
+            double d3 = tempYaw - this.lastReportedYaw;
+            double d4 = tempPitch - this.lastReportedPitch;
             ++this.positionUpdateTicks;
             boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
             boolean flag3 = d3 != 0.0D || d4 != 0.0D;
@@ -430,7 +430,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     {
         this.inventory.setItemStack(ItemStack.field_190927_a);
         super.closeScreen();
-        this.mc.displayGuiScreen((GuiScreen)null);
+        this.mc.displayGuiScreen(null);
     }
 
     /**
@@ -747,8 +747,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
         if (HAND_STATES.equals(key))
         {
-            boolean flag = (((Byte)this.dataManager.get(HAND_STATES)).byteValue() & 1) > 0;
-            EnumHand enumhand = (((Byte)this.dataManager.get(HAND_STATES)).byteValue() & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+            boolean flag = (this.dataManager.get(HAND_STATES).byteValue() & 1) > 0;
+            EnumHand enumhand = (this.dataManager.get(HAND_STATES).byteValue() & 2) > 0 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
 
             if (flag && !this.handActive)
             {
@@ -946,7 +946,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
                     this.closeScreen();
                 }
 
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
             }
 
             if (this.timeInPortal == 0.0F)
@@ -1085,12 +1085,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
             {
                 this.movementInput.moveStrafe = (float)((double)this.movementInput.moveStrafe / 0.3D);
                 this.movementInput.field_192832_b = (float)((double)this.movementInput.field_192832_b / 0.3D);
-                this.motionY -= (double)(this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY -= this.capabilities.getFlySpeed() * 3.0F;
             }
 
             if (this.movementInput.jump)
             {
-                this.motionY += (double)(this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY += this.capabilities.getFlySpeed() * 3.0F;
             }
         }
 
@@ -1215,7 +1215,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
                     double d0 = this.posX + (double)p_189810_1_;
                     double d1 = this.posZ + (double)p_189810_2_;
                     Vec3d vec3d1 = new Vec3d(d0, this.getEntityBoundingBox().minY, d1);
-                    Vec3d vec3d2 = new Vec3d((double)p_189810_1_, 0.0D, (double)p_189810_2_);
+                    Vec3d vec3d2 = new Vec3d(p_189810_1_, 0.0D, p_189810_2_);
                     float f = this.getAIMoveSpeed();
                     float f1 = (float)vec3d2.lengthSquared();
 
@@ -1225,7 +1225,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
                         float f3 = f * vec2f.y;
                         float f4 = MathHelper.sin(this.rotationYaw * 0.017453292F);
                         float f5 = MathHelper.cos(this.rotationYaw * 0.017453292F);
-                        vec3d2 = new Vec3d((double)(f2 * f5 - f3 * f4), vec3d2.yCoord, (double)(f3 * f5 + f2 * f4));
+                        vec3d2 = new Vec3d(f2 * f5 - f3 * f4, vec3d2.yCoord, f3 * f5 + f2 * f4);
                         f1 = (float)vec3d2.lengthSquared();
 
                         if (f1 <= 0.001F)
@@ -1234,8 +1234,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
                         }
                     }
 
-                    float f12 = (float)MathHelper.fastInvSqrt((double)f1);
-                    Vec3d vec3d12 = vec3d2.scale((double)f12);
+                    float f12 = (float)MathHelper.fastInvSqrt(f1);
+                    Vec3d vec3d12 = vec3d2.scale(f12);
                     Vec3d vec3d13 = this.getForward();
                     float f13 = (float)(vec3d13.xCoord * vec3d12.xCoord + vec3d13.zCoord * vec3d12.zCoord);
 
@@ -1260,14 +1260,14 @@ public class EntityPlayerSP extends AbstractClientPlayer
                                 }
 
                                 float f8 = Math.max(f * 7.0F, 1.0F / f12);
-                                Vec3d vec3d4 = vec3d1.add(vec3d12.scale((double)f8));
+                                Vec3d vec3d4 = vec3d1.add(vec3d12.scale(f8));
                                 float f9 = this.width;
                                 float f10 = this.height;
-                                AxisAlignedBB axisalignedbb = (new AxisAlignedBB(vec3d, vec3d4.addVector(0.0D, (double)f10, 0.0D))).expand((double)f9, 0.0D, (double)f9);
+                                AxisAlignedBB axisalignedbb = (new AxisAlignedBB(vec3d, vec3d4.addVector(0.0D, f10, 0.0D))).expand(f9, 0.0D, f9);
                                 Vec3d lvt_19_1_ = vec3d.addVector(0.0D, 0.5099999904632568D, 0.0D);
                                 vec3d4 = vec3d4.addVector(0.0D, 0.5099999904632568D, 0.0D);
                                 Vec3d vec3d5 = vec3d12.crossProduct(new Vec3d(0.0D, 1.0D, 0.0D));
-                                Vec3d vec3d6 = vec3d5.scale((double)(f9 * 0.5F));
+                                Vec3d vec3d6 = vec3d5.scale(f9 * 0.5F);
                                 Vec3d vec3d7 = lvt_19_1_.subtract(vec3d6);
                                 Vec3d vec3d8 = vec3d4.subtract(vec3d6);
                                 Vec3d vec3d9 = lvt_19_1_.add(vec3d6);
@@ -1276,7 +1276,6 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
                                 if (!list.isEmpty())
                                 {
-                                    ;
                                 }
 
                                 float f11 = Float.MIN_VALUE;

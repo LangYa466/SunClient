@@ -98,7 +98,7 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 
 public class Reflector
 {
-    private static boolean logForge = logEntry("*** Reflector Forge ***");
+    private static final boolean logForge = logEntry("*** Reflector Forge ***");
     public static ReflectorClass Attributes = new ReflectorClass("net.minecraftforge.client.model.Attributes");
     public static ReflectorField Attributes_DEFAULT_BAKED_FORMAT = new ReflectorField(Attributes, "DEFAULT_BAKED_FORMAT");
     public static ReflectorClass BetterFoliageClient = new ReflectorClass("mods.betterfoliage.client.BetterFoliageClient");
@@ -295,7 +295,7 @@ public class Reflector
     public static ReflectorMethod ModelLoader_getInventoryVariant = new ReflectorMethod(ModelLoader, "getInventoryVariant");
     public static ReflectorClass ModelLoader_VanillaLoader = new ReflectorClass("net.minecraftforge.client.model.ModelLoader$VanillaLoader", true);
     public static ReflectorField ModelLoader_VanillaLoader_INSTANCE = new ReflectorField(ModelLoader_VanillaLoader, "INSTANCE", true);
-    public static ReflectorMethod ModelLoader_VanillaLoader_loadModel = new ReflectorMethod(ModelLoader_VanillaLoader, "loadModel", (Class[])null, true);
+    public static ReflectorMethod ModelLoader_VanillaLoader_loadModel = new ReflectorMethod(ModelLoader_VanillaLoader, "loadModel", null, true);
     public static ReflectorClass ModelLoaderRegistry = new ReflectorClass("net.minecraftforge.client.model.ModelLoaderRegistry", true);
     public static ReflectorField ModelLoaderRegistry_textures = new ReflectorField(ModelLoaderRegistry, "textures", true);
     public static ReflectorClass NotificationModUpdateScreen = new ReflectorClass("net.minecraftforge.client.gui.NotificationModUpdateScreen");
@@ -321,7 +321,7 @@ public class Reflector
     public static ReflectorClass SplashScreen = new ReflectorClass("net.minecraftforge.fml.client.SplashProgress");
     public static ReflectorClass WorldEvent_Load = new ReflectorClass("net.minecraftforge.event.world.WorldEvent$Load");
     public static ReflectorConstructor WorldEvent_Load_Constructor = new ReflectorConstructor(WorldEvent_Load, new Class[] {World.class});
-    private static boolean logVanilla = logEntry("*** Reflector Vanilla ***");
+    private static final boolean logVanilla = logEntry("*** Reflector Vanilla ***");
     public static ReflectorClass ChunkProviderClient = new ReflectorClass(ChunkProviderClient.class);
     public static ReflectorField ChunkProviderClient_chunkMapping = new ReflectorField(ChunkProviderClient, Long2ObjectMap.class);
     public static ReflectorClass GuiMainMenu = new ReflectorClass(GuiMainMenu.class);
@@ -433,11 +433,11 @@ public class Reflector
                 return;
             }
 
-            method.invoke((Object)null, p_callVoid_1_);
+            method.invoke(null, p_callVoid_1_);
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callVoid_0_, p_callVoid_1_);
+            handleException(throwable, null, p_callVoid_0_, p_callVoid_1_);
         }
     }
 
@@ -453,13 +453,13 @@ public class Reflector
             }
             else
             {
-                Boolean obool = (Boolean)method.invoke((Object)null, p_callBoolean_1_);
+                Boolean obool = (Boolean)method.invoke(null, p_callBoolean_1_);
                 return obool.booleanValue();
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callBoolean_0_, p_callBoolean_1_);
+            handleException(throwable, null, p_callBoolean_0_, p_callBoolean_1_);
             return false;
         }
     }
@@ -476,13 +476,13 @@ public class Reflector
             }
             else
             {
-                Integer integer = (Integer)method.invoke((Object)null, p_callInt_1_);
+                Integer integer = (Integer)method.invoke(null, p_callInt_1_);
                 return integer.intValue();
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callInt_0_, p_callInt_1_);
+            handleException(throwable, null, p_callInt_0_, p_callInt_1_);
             return 0;
         }
     }
@@ -499,13 +499,13 @@ public class Reflector
             }
             else
             {
-                Float f = (Float)method.invoke((Object)null, p_callFloat_1_);
+                Float f = (Float)method.invoke(null, p_callFloat_1_);
                 return f.floatValue();
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callFloat_0_, p_callFloat_1_);
+            handleException(throwable, null, p_callFloat_0_, p_callFloat_1_);
             return 0.0F;
         }
     }
@@ -522,13 +522,13 @@ public class Reflector
             }
             else
             {
-                Double d0 = (Double)method.invoke((Object)null, p_callDouble_1_);
+                Double d0 = (Double)method.invoke(null, p_callDouble_1_);
                 return d0.doubleValue();
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callDouble_0_, p_callDouble_1_);
+            handleException(throwable, null, p_callDouble_0_, p_callDouble_1_);
             return 0.0D;
         }
     }
@@ -545,13 +545,13 @@ public class Reflector
             }
             else
             {
-                String s = (String)method.invoke((Object)null, p_callString_1_);
+                String s = (String)method.invoke(null, p_callString_1_);
                 return s;
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_callString_0_, p_callString_1_);
+            handleException(throwable, null, p_callString_0_, p_callString_1_);
             return null;
         }
     }
@@ -568,13 +568,13 @@ public class Reflector
             }
             else
             {
-                Object object = method.invoke((Object)null, p_call_1_);
+                Object object = method.invoke(null, p_call_1_);
                 return object;
             }
         }
         catch (Throwable throwable)
         {
-            handleException(throwable, (Object)null, p_call_0_, p_call_1_);
+            handleException(throwable, null, p_call_0_, p_call_1_);
             return null;
         }
     }
@@ -743,7 +743,7 @@ public class Reflector
 
     public static Object getFieldValue(ReflectorField p_getFieldValue_0_)
     {
-        return getFieldValue((Object)null, p_getFieldValue_0_);
+        return getFieldValue(null, p_getFieldValue_0_);
     }
 
     public static Object getFieldValue(Object p_getFieldValue_0_, ReflectorField p_getFieldValue_1_)
@@ -798,7 +798,7 @@ public class Reflector
 
     public static boolean setFieldValue(ReflectorField p_setFieldValue_0_, Object p_setFieldValue_1_)
     {
-        return setFieldValue((Object)null, p_setFieldValue_0_, p_setFieldValue_1_);
+        return setFieldValue(null, p_setFieldValue_0_, p_setFieldValue_1_);
     }
 
     public static boolean setFieldValue(Object p_setFieldValue_0_, ReflectorField p_setFieldValue_1_, Object p_setFieldValue_2_)
@@ -827,7 +827,7 @@ public class Reflector
     public static boolean postForgeBusEvent(ReflectorConstructor p_postForgeBusEvent_0_, Object... p_postForgeBusEvent_1_)
     {
         Object object = newInstance(p_postForgeBusEvent_0_, p_postForgeBusEvent_1_);
-        return object == null ? false : postForgeBusEvent(object);
+        return object != null && postForgeBusEvent(object);
     }
 
     public static boolean postForgeBusEvent(Object p_postForgeBusEvent_0_)

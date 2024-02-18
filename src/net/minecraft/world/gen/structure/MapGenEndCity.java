@@ -70,7 +70,7 @@ public class MapGenEndCity extends MapGenStructure
 
     private static int func_191070_b(int p_191070_0_, int p_191070_1_, ChunkGeneratorEnd p_191070_2_)
     {
-        Random random = new Random((long)(p_191070_0_ + p_191070_1_ * 10387313));
+        Random random = new Random(p_191070_0_ + p_191070_1_ * 10387313L);
         Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
         ChunkPrimer chunkprimer = new ChunkPrimer();
         p_191070_2_.setBlocksInChunk(p_191070_0_, p_191070_1_, chunkprimer);
@@ -115,7 +115,7 @@ public class MapGenEndCity extends MapGenStructure
 
         private void create(World worldIn, ChunkGeneratorEnd chunkProvider, Random rnd, int chunkX, int chunkZ)
         {
-            Random random = new Random((long)(chunkX + chunkZ * 10387313));
+            Random random = new Random(chunkX + chunkZ * 10387313L);
             Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
             int i = MapGenEndCity.func_191070_b(chunkX, chunkZ, chunkProvider);
 

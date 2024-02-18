@@ -32,13 +32,13 @@ public class DistancePredicate
 
         if (this.field_193424_b.func_192514_a(MathHelper.abs(f)) && this.field_193425_c.func_192514_a(MathHelper.abs(f1)) && this.field_193426_d.func_192514_a(MathHelper.abs(f2)))
         {
-            if (!this.field_193427_e.func_192513_a((double)(f * f + f2 * f2)))
+            if (!this.field_193427_e.func_192513_a(f * f + f2 * f2))
             {
                 return false;
             }
             else
             {
-                return this.field_193428_f.func_192513_a((double)(f * f + f1 * f1 + f2 * f2));
+                return this.field_193428_f.func_192513_a(f * f + f1 * f1 + f2 * f2);
             }
         }
         else

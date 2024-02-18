@@ -79,7 +79,7 @@ public class RecipeTippedArrow implements IRecipe
 
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
-        return NonNullList.<ItemStack>func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
+        return NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
     }
 
     public boolean func_192399_d()

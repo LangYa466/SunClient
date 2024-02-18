@@ -4,8 +4,8 @@ import optifine.Config;
 
 public class ModelVariableUpdater
 {
-    private String modelVariableName;
-    private String expressionText;
+    private final String modelVariableName;
+    private final String expressionText;
     private ModelVariable modelVariable;
     private IExpression expression;
 

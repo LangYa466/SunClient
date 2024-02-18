@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class BlockRail extends BlockRailBase
 {
-    public static final PropertyEnum<BlockRailBase.EnumRailDirection> SHAPE = PropertyEnum.<BlockRailBase.EnumRailDirection>create("shape", BlockRailBase.EnumRailDirection.class);
+    public static final PropertyEnum<BlockRailBase.EnumRailDirection> SHAPE = PropertyEnum.create("shape", BlockRailBase.EnumRailDirection.class);
 
     protected BlockRail()
     {
@@ -45,7 +45,7 @@ public class BlockRail extends BlockRailBase
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((BlockRailBase.EnumRailDirection)state.getValue(SHAPE)).getMetadata();
+        return state.getValue(SHAPE).getMetadata();
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -59,7 +59,7 @@ public class BlockRail extends BlockRailBase
         switch (rot)
         {
             case CLOCKWISE_180:
-                switch ((BlockRailBase.EnumRailDirection)state.getValue(SHAPE))
+                switch (state.getValue(SHAPE))
                 {
                     case ASCENDING_EAST:
                         return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_WEST);
@@ -87,7 +87,7 @@ public class BlockRail extends BlockRailBase
                 }
 
             case COUNTERCLOCKWISE_90:
-                switch ((BlockRailBase.EnumRailDirection)state.getValue(SHAPE))
+                switch (state.getValue(SHAPE))
                 {
                     case ASCENDING_EAST:
                         return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_NORTH);
@@ -121,7 +121,7 @@ public class BlockRail extends BlockRailBase
                 }
 
             case CLOCKWISE_90:
-                switch ((BlockRailBase.EnumRailDirection)state.getValue(SHAPE))
+                switch (state.getValue(SHAPE))
                 {
                     case ASCENDING_EAST:
                         return state.withProperty(SHAPE, BlockRailBase.EnumRailDirection.ASCENDING_SOUTH);
@@ -167,7 +167,7 @@ public class BlockRail extends BlockRailBase
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = (BlockRailBase.EnumRailDirection)state.getValue(SHAPE);
+        BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = state.getValue(SHAPE);
 
         switch (mirrorIn)
         {
@@ -229,6 +229,6 @@ public class BlockRail extends BlockRailBase
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {SHAPE});
+        return new BlockStateContainer(this, SHAPE);
     }
 }

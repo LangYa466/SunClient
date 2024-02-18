@@ -20,10 +20,10 @@ public class GuiShaders extends GuiScreen
     private int updateTimer = -1;
     private GuiSlotShaders shaderList;
     private boolean saved = false;
-    private static float[] QUALITY_MULTIPLIERS = new float[] {0.5F, 0.70710677F, 1.0F, 1.4142135F, 2.0F};
-    private static String[] QUALITY_MULTIPLIER_NAMES = new String[] {"0.5x", "0.7x", "1x", "1.5x", "2x"};
-    private static float[] HAND_DEPTH_VALUES = new float[] {0.0625F, 0.125F, 0.25F};
-    private static String[] HAND_DEPTH_NAMES = new String[] {"0.5x", "1x", "2x"};
+    private static final float[] QUALITY_MULTIPLIERS = new float[] {0.5F, 0.70710677F, 1.0F, 1.4142135F, 2.0F};
+    private static final String[] QUALITY_MULTIPLIER_NAMES = new String[] {"0.5x", "0.7x", "1x", "1.5x", "2x"};
+    private static final float[] HAND_DEPTH_VALUES = new float[] {0.0625F, 0.125F, 0.25F};
+    private static final String[] HAND_DEPTH_NAMES = new String[] {"0.5x", "1x", "2x"};
     public static final int EnumOS_UNKNOWN = 0;
     public static final int EnumOS_WINDOWS = 1;
     public static final int EnumOS_OSX = 2;
@@ -56,8 +56,8 @@ public class GuiShaders extends GuiScreen
         int j1 = this.width - i - 20;
         this.shaderList = new GuiSlotShaders(this, j1, this.height, l, this.height - 50, 16);
         this.shaderList.registerScrollButtons(7, 8);
-        this.buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.ANTIALIASING, k, 0 * i1 + l, i, j));
-        this.buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.NORMAL_MAP, k, 1 * i1 + l, i, j));
+        this.buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.ANTIALIASING, k, 0 + l, i, j));
+        this.buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.NORMAL_MAP, k, i1 + l, i, j));
         this.buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.SPECULAR_MAP, k, 2 * i1 + l, i, j));
         this.buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.RENDER_RES_MUL, k, 3 * i1 + l, i, j));
         this.buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.SHADOW_RES_MUL, k, 4 * i1 + l, i, j));
@@ -297,7 +297,7 @@ public class GuiShaders extends GuiScreen
                         try
                         {
                             Class oclass = Class.forName("java.awt.Desktop");
-                            Object object = oclass.getMethod("getDesktop").invoke((Object)null);
+                            Object object = oclass.getMethod("getDesktop").invoke(null);
                             oclass.getMethod("browse", URI.class).invoke(object, (new File(this.mc.mcDataDir, Shaders.shaderpacksdirname)).toURI());
                         }
                         catch (Throwable throwable)

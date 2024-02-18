@@ -56,7 +56,7 @@ public class GuiTextField extends Gui
     /** True if this textbox is visible */
     private boolean visible = true;
     private GuiPageButtonList.GuiResponder guiResponder;
-    private Predicate<String> validator = Predicates.<String>alwaysTrue();
+    private Predicate<String> validator = Predicates.alwaysTrue();
 
     public GuiTextField(int componentId, FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height)
     {
@@ -642,10 +642,10 @@ public class GuiTextField extends Gui
         GlStateManager.enableColorLogic();
         GlStateManager.colorLogicOp(GlStateManager.LogicOp.OR_REVERSE);
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
-        bufferbuilder.pos((double)startX, (double)endY, 0.0D).endVertex();
-        bufferbuilder.pos((double)endX, (double)endY, 0.0D).endVertex();
-        bufferbuilder.pos((double)endX, (double)startY, 0.0D).endVertex();
-        bufferbuilder.pos((double)startX, (double)startY, 0.0D).endVertex();
+        bufferbuilder.pos(startX, endY, 0.0D).endVertex();
+        bufferbuilder.pos(endX, endY, 0.0D).endVertex();
+        bufferbuilder.pos(endX, startY, 0.0D).endVertex();
+        bufferbuilder.pos(startX, startY, 0.0D).endVertex();
         tessellator.draw();
         GlStateManager.disableColorLogic();
         GlStateManager.enableTexture2D();

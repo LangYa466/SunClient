@@ -19,7 +19,7 @@ enum AdvancementTabType
     private final int field_192663_i;
     private final int field_192664_j;
 
-    private AdvancementTabType(int p_i47386_3_, int p_i47386_4_, int p_i47386_5_, int p_i47386_6_, int p_i47386_7_)
+    AdvancementTabType(int p_i47386_3_, int p_i47386_4_, int p_i47386_5_, int p_i47386_6_, int p_i47386_7_)
     {
         this.field_192660_f = p_i47386_3_;
         this.field_192661_g = p_i47386_4_;
@@ -78,7 +78,7 @@ enum AdvancementTabType
                 j += 5;
         }
 
-        p_192652_4_.renderItemAndEffectIntoGUI((EntityLivingBase)null, p_192652_5_, i, j);
+        p_192652_4_.renderItemAndEffectIntoGUI(null, p_192652_5_, i, j);
     }
 
     public int func_192648_a(int p_192648_1_)

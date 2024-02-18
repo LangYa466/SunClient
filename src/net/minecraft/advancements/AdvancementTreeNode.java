@@ -10,7 +10,7 @@ public class AdvancementTreeNode
     private final AdvancementTreeNode field_192329_b;
     private final AdvancementTreeNode field_192330_c;
     private final int field_192331_d;
-    private final List<AdvancementTreeNode> field_192332_e = Lists.<AdvancementTreeNode>newArrayList();
+    private final List<AdvancementTreeNode> field_192332_e = Lists.newArrayList();
     private AdvancementTreeNode field_192333_f;
     private AdvancementTreeNode field_192334_g;
     private int field_192335_h;
@@ -152,7 +152,7 @@ public class AdvancementTreeNode
         }
         else
         {
-            return !this.field_192332_e.isEmpty() ? (AdvancementTreeNode)this.field_192332_e.get(0) : null;
+            return !this.field_192332_e.isEmpty() ? this.field_192332_e.get(0) : null;
         }
     }
 
@@ -165,7 +165,7 @@ public class AdvancementTreeNode
         }
         else
         {
-            return !this.field_192332_e.isEmpty() ? (AdvancementTreeNode)this.field_192332_e.get(this.field_192332_e.size() - 1) : null;
+            return !this.field_192332_e.isEmpty() ? this.field_192332_e.get(this.field_192332_e.size() - 1) : null;
         }
     }
 
@@ -271,7 +271,7 @@ public class AdvancementTreeNode
         }
         else
         {
-            AdvancementTreeNode advancementtreenode = new AdvancementTreeNode(p_192323_0_, (AdvancementTreeNode)null, (AdvancementTreeNode)null, 1, 0);
+            AdvancementTreeNode advancementtreenode = new AdvancementTreeNode(p_192323_0_, null, null, 1, 0);
             advancementtreenode.func_192320_a();
             float f = advancementtreenode.func_192319_a(0.0F, 0, advancementtreenode.field_192336_i);
 

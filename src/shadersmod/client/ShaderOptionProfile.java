@@ -14,7 +14,7 @@ public class ShaderOptionProfile extends ShaderOption
 
     public ShaderOptionProfile(ShaderProfile[] profiles, ShaderOption[] options)
     {
-        super("<profile>", "", detectProfileName(profiles, options), getProfileNames(profiles), detectProfileName(profiles, options, true), (String)null);
+        super("<profile>", "", detectProfileName(profiles, options), getProfileNames(profiles), detectProfileName(profiles, options, true), null);
         this.profiles = profiles;
         this.options = options;
     }
@@ -35,7 +35,7 @@ public class ShaderOptionProfile extends ShaderOption
     {
         ShaderProfile shaderprofile = this.getProfile(this.getValue());
 
-        if (shaderprofile == null || !ShaderUtils.matchProfile(shaderprofile, this.options, false))
+        if (!ShaderUtils.matchProfile(shaderprofile, this.options, false))
         {
             String s = detectProfileName(this.profiles, this.options);
             this.setValue(s);
@@ -131,7 +131,7 @@ public class ShaderOptionProfile extends ShaderOption
         }
 
         list.add("<custom>");
-        String[] astring = (String[])list.toArray(new String[list.size()]);
+        String[] astring = list.toArray(new String[list.size()]);
         return astring;
     }
 }

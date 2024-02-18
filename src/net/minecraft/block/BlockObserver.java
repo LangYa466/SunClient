@@ -28,7 +28,7 @@ public class BlockObserver extends BlockDirectional
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING, field_190963_a});
+        return new BlockStateContainer(this, FACING, field_190963_a);
     }
 
     /**
@@ -37,7 +37,7 @@ public class BlockObserver extends BlockDirectional
      */
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     /**
@@ -46,12 +46,12 @@ public class BlockObserver extends BlockDirectional
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (((Boolean)state.getValue(field_190963_a)).booleanValue())
+        if (state.getValue(field_190963_a).booleanValue())
         {
             worldIn.setBlockState(pos, state.withProperty(field_190963_a, Boolean.valueOf(false)), 2);
         }
@@ -75,7 +75,7 @@ public class BlockObserver extends BlockDirectional
 
     public void func_190962_b(IBlockState p_190962_1_, World p_190962_2_, BlockPos p_190962_3_, Block p_190962_4_, BlockPos p_190962_5_)
     {
-        if (!p_190962_2_.isRemote && p_190962_3_.offset((EnumFacing)p_190962_1_.getValue(FACING)).equals(p_190962_5_))
+        if (!p_190962_2_.isRemote && p_190962_3_.offset(p_190962_1_.getValue(FACING)).equals(p_190962_5_))
         {
             this.func_190960_d(p_190962_1_, p_190962_2_, p_190962_3_);
         }
@@ -83,7 +83,7 @@ public class BlockObserver extends BlockDirectional
 
     private void func_190960_d(IBlockState p_190960_1_, World p_190960_2_, BlockPos p_190960_3_)
     {
-        if (!((Boolean)p_190960_1_.getValue(field_190963_a)).booleanValue())
+        if (!p_190960_1_.getValue(field_190963_a).booleanValue())
         {
             if (!p_190960_2_.isUpdateScheduled(p_190960_3_, this))
             {
@@ -94,7 +94,7 @@ public class BlockObserver extends BlockDirectional
 
     protected void func_190961_e(World p_190961_1_, BlockPos p_190961_2_, IBlockState p_190961_3_)
     {
-        EnumFacing enumfacing = (EnumFacing)p_190961_3_.getValue(FACING);
+        EnumFacing enumfacing = p_190961_3_.getValue(FACING);
         BlockPos blockpos = p_190961_2_.offset(enumfacing.getOpposite());
         p_190961_1_.func_190524_a(blockpos, this, p_190961_2_);
         p_190961_1_.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
@@ -115,7 +115,7 @@ public class BlockObserver extends BlockDirectional
 
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-        return ((Boolean)blockState.getValue(field_190963_a)).booleanValue() && blockState.getValue(FACING) == side ? 15 : 0;
+        return blockState.getValue(field_190963_a).booleanValue() && blockState.getValue(FACING) == side ? 15 : 0;
     }
 
     /**
@@ -125,7 +125,7 @@ public class BlockObserver extends BlockDirectional
     {
         if (!worldIn.isRemote)
         {
-            if (((Boolean)state.getValue(field_190963_a)).booleanValue())
+            if (state.getValue(field_190963_a).booleanValue())
             {
                 this.updateTick(worldIn, pos, state, worldIn.rand);
             }
@@ -139,7 +139,7 @@ public class BlockObserver extends BlockDirectional
      */
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (((Boolean)state.getValue(field_190963_a)).booleanValue() && worldIn.isUpdateScheduled(pos, this))
+        if (state.getValue(field_190963_a).booleanValue() && worldIn.isUpdateScheduled(pos, this))
         {
             this.func_190961_e(worldIn, pos, state.withProperty(field_190963_a, Boolean.valueOf(false)));
         }
@@ -160,9 +160,9 @@ public class BlockObserver extends BlockDirectional
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
+        i = i | state.getValue(FACING).getIndex();
 
-        if (((Boolean)state.getValue(field_190963_a)).booleanValue())
+        if (state.getValue(field_190963_a).booleanValue())
         {
             i |= 8;
         }

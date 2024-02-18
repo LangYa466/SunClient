@@ -44,7 +44,7 @@ public class CommandShowSeed extends CommandBase
      */
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
     {
-        World world = (World)(sender instanceof EntityPlayer ? ((EntityPlayer)sender).world : server.worldServerForDimension(0));
-        sender.addChatMessage(new TextComponentTranslation("commands.seed.success", new Object[] {world.getSeed()}));
+        World world = sender instanceof EntityPlayer ? ((EntityPlayer)sender).world : server.worldServerForDimension(0);
+        sender.addChatMessage(new TextComponentTranslation("commands.seed.success", world.getSeed()));
     }
 }

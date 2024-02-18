@@ -92,8 +92,8 @@ public class GVector implements java.io.Serializable, Cloneable {
     public GVector(Tuple2f tuple)
         {
             values = new double[2];
-            values[0] = (double)tuple.x;
-            values[1] = (double)tuple.y;
+            values[0] = tuple.x;
+            values[1] = tuple.y;
 	    length = 2;
         }
 
@@ -105,9 +105,9 @@ public class GVector implements java.io.Serializable, Cloneable {
     public GVector(Tuple3f tuple)
 	{
 	    values = new double[3];
-	    values[0] = (double)tuple.x;
-	    values[1] = (double)tuple.y;
-	    values[2] = (double)tuple.z;
+	    values[0] = tuple.x;
+	    values[1] = tuple.y;
+	    values[2] = tuple.z;
 	    length = 3;
 	}
 
@@ -133,10 +133,10 @@ public class GVector implements java.io.Serializable, Cloneable {
     public GVector(Tuple4f tuple)
 	{
 	    values = new double[4];
-	    values[0] = (double)tuple.x;
-	    values[1] = (double)tuple.y;
-	    values[2] = (double)tuple.z;
-	    values[3] = (double)tuple.w;
+	    values[0] = tuple.x;
+	    values[1] = tuple.y;
+	    values[2] = tuple.z;
+	    values[3] = tuple.w;
 	    length = 4;
 	}
 
@@ -165,7 +165,7 @@ public class GVector implements java.io.Serializable, Cloneable {
      * @param  vector   The array from which the values will be copied.
      * @param  length   The number of values copied from the array.
      */
-    public GVector(double vector[], int length) {
+    public GVector(double[] vector, int length) {
 	int i;
 
         this.length = length;
@@ -398,11 +398,11 @@ public class GVector implements java.io.Serializable, Cloneable {
        if (length  != m1.getNumRow())
 	  throw new MismatchedSizeException(VecMathI18N.getString("GVector11"));
 
-       double v[];
+       double[] v;
        if (v1 != this) {
 	   v = v1.values;
        } else {
-	   v = (double []) values.clone();
+	   v = values.clone();
        }
 
        for(int j=length-1; j>=0; j--){
@@ -430,11 +430,11 @@ public class GVector implements java.io.Serializable, Cloneable {
        if (length  != m1.getNumCol())
 	  throw new MismatchedSizeException(VecMathI18N.getString("GVector13"));
 
-       double v[];
+       double[] v;
        if (v1 != this) {
 	   v = v1.values;
        } else {
-	   v = (double []) values.clone();
+	   v = values.clone();
        }
 
        for (int j=length-1; j>=0; j--){
@@ -494,8 +494,7 @@ public class GVector implements java.io.Serializable, Cloneable {
       * @param vector  the source array
       */
     public final void set(double[] vector) {
-	for(int i = length-1; i >=0; i--)
-	    values[i] = vector[i];
+        if (length - 1 + 1 >= 0) System.arraycopy(vector, 0, values, 0, length - 1 + 1);
     }
 
     /**
@@ -528,8 +527,8 @@ public class GVector implements java.io.Serializable, Cloneable {
 	       length = 2;
 	       values = new double[2];
 	    }
-            values[0] = (double)tuple.x;
-            values[1] = (double)tuple.y;
+            values[0] = tuple.x;
+            values[1] = tuple.y;
 	    for(int i = 2; i < length; i++) values[i] = 0.0;
 
         }
@@ -544,9 +543,9 @@ public class GVector implements java.io.Serializable, Cloneable {
 	       length = 3;
 	       values = new double[3];
 	    }
-            values[0] = (double)tuple.x;
-            values[1] = (double)tuple.y;
-	    values[2] = (double)tuple.z;
+            values[0] = tuple.x;
+            values[1] = tuple.y;
+	    values[2] = tuple.z;
 	    for(int i = 3; i < length; i++) values[i] = 0.0;
 	}
 
@@ -576,10 +575,10 @@ public class GVector implements java.io.Serializable, Cloneable {
 	       length = 4;
 	       values = new double[4];
 	    }
-            values[0] = (double)tuple.x;
-            values[1] = (double)tuple.y;
-	    values[2] = (double)tuple.z;
-	    values[3] = (double)tuple.w;
+            values[0] = tuple.x;
+            values[1] = tuple.y;
+	    values[2] = tuple.z;
+	    values[3] = tuple.w;
 	    for(int i = 4; i < length; i++) values[i] = 0.0;
 	}
 
@@ -921,9 +920,7 @@ public class GVector implements java.io.Serializable, Cloneable {
 
 	// Also need to clone array of values
 	v1.values = new double[length];
-	for (int i = 0; i < length; i++) {
-	    v1.values[i] = values[i];
-	}
+        System.arraycopy(values, 0, v1.values, 0, length);
 
 	return v1;
     }

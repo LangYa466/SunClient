@@ -113,24 +113,24 @@ public class CraftingManager
                             try
                             {
                                 bufferedreader = Files.newBufferedReader(path1);
-                                func_193379_a(s, func_193376_a((JsonObject)JsonUtils.func_193839_a(gson, bufferedreader, JsonObject.class)));
+                                func_193379_a(s, func_193376_a(JsonUtils.func_193839_a(gson, bufferedreader, JsonObject.class)));
                             }
                             catch (JsonParseException jsonparseexception)
                             {
-                                field_192422_a.error("Parsing error loading recipe " + resourcelocation, (Throwable)jsonparseexception);
+                                field_192422_a.error("Parsing error loading recipe " + resourcelocation, jsonparseexception);
                                 flag = false;
                                 return flag;
                             }
                             catch (IOException ioexception)
                             {
-                                field_192422_a.error("Couldn't read recipe " + resourcelocation + " from " + path1, (Throwable)ioexception);
+                                field_192422_a.error("Couldn't read recipe " + resourcelocation + " from " + path1, ioexception);
                                 flag = false;
                                 return flag;
                             }
                         }
                         finally
                         {
-                            IOUtils.closeQuietly((Reader)bufferedreader);
+                            IOUtils.closeQuietly(bufferedreader);
                         }
                     }
                 }
@@ -143,13 +143,13 @@ public class CraftingManager
         }
         catch (IOException | URISyntaxException urisyntaxexception)
         {
-            field_192422_a.error("Couldn't get a list of all recipe files", (Throwable)urisyntaxexception);
+            field_192422_a.error("Couldn't get a list of all recipe files", urisyntaxexception);
             flag1 = false;
             return flag1;
         }
         finally
         {
-            IOUtils.closeQuietly((Closeable)filesystem);
+            IOUtils.closeQuietly(filesystem);
         }
 
         return flag1;
@@ -230,7 +230,7 @@ public class CraftingManager
             }
         }
 
-        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>func_191197_a(p_180303_0_.getSizeInventory(), ItemStack.field_190927_a);
+        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(p_180303_0_.getSizeInventory(), ItemStack.field_190927_a);
 
         for (int i = 0; i < nonnulllist.size(); ++i)
         {

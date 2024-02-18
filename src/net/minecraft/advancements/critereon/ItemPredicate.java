@@ -88,14 +88,7 @@ public class ItemPredicate
 
             PotionType potiontype = PotionUtils.getPotionFromItem(p_192493_1_);
 
-            if (this.field_192500_f != null && this.field_192500_f != potiontype)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return this.field_192500_f == null || this.field_192500_f == potiontype;
         }
     }
 

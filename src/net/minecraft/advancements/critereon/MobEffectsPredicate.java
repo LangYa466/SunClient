@@ -33,13 +33,13 @@ public class MobEffectsPredicate
         }
         else
         {
-            return p_193469_1_ instanceof EntityLivingBase ? this.func_193470_a(((EntityLivingBase)p_193469_1_).func_193076_bZ()) : false;
+            return p_193469_1_ instanceof EntityLivingBase && this.func_193470_a(((EntityLivingBase) p_193469_1_).func_193076_bZ());
         }
     }
 
     public boolean func_193472_a(EntityLivingBase p_193472_1_)
     {
-        return this == field_193473_a ? true : this.func_193470_a(p_193472_1_.func_193076_bZ());
+        return this == field_193473_a || this.func_193470_a(p_193472_1_.func_193076_bZ());
     }
 
     public boolean func_193470_a(Map<Potion, PotionEffect> p_193470_1_)
@@ -54,7 +54,7 @@ public class MobEffectsPredicate
             {
                 PotionEffect potioneffect = p_193470_1_.get(entry.getKey());
 
-                if (!((MobEffectsPredicate.InstancePredicate)entry.getValue()).func_193463_a(potioneffect))
+                if (!entry.getValue().func_193463_a(potioneffect))
                 {
                     return false;
                 }
@@ -69,7 +69,7 @@ public class MobEffectsPredicate
         if (p_193471_0_ != null && !p_193471_0_.isJsonNull())
         {
             JsonObject jsonobject = JsonUtils.getJsonObject(p_193471_0_, "effects");
-            Map<Potion, MobEffectsPredicate.InstancePredicate> map = Maps.<Potion, MobEffectsPredicate.InstancePredicate>newHashMap();
+            Map<Potion, MobEffectsPredicate.InstancePredicate> map = Maps.newHashMap();
 
             for (Entry<String, JsonElement> entry : jsonobject.entrySet())
             {

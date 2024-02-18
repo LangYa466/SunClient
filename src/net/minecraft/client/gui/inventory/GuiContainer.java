@@ -64,7 +64,7 @@ public abstract class GuiContainer extends GuiScreen
     private ItemStack returningStack = ItemStack.field_190927_a;
     private Slot currentDragTargetSlot;
     private long dragItemDropDelay;
-    protected final Set<Slot> dragSplittingSlots = Sets.<Slot>newHashSet();
+    protected final Set<Slot> dragSplittingSlots = Sets.newHashSet();
     protected boolean dragSplitting;
     private int dragSplittingLimit;
     private int dragSplittingButton;
@@ -166,7 +166,7 @@ public abstract class GuiContainer extends GuiScreen
 
                 if (itemstack.func_190926_b())
                 {
-                    s = "" + TextFormatting.YELLOW + "0";
+                    s = TextFormatting.YELLOW + "0";
                 }
             }
 
@@ -187,7 +187,7 @@ public abstract class GuiContainer extends GuiScreen
             int i3 = this.returningStackDestSlot.yDisplayPosition - this.touchUpY;
             int l1 = this.touchUpX + (int)((float)l2 * f);
             int i2 = this.touchUpY + (int)((float)i3 * f);
-            this.drawItemStack(this.returningStack, l1, i2, (String)null);
+            this.drawItemStack(this.returningStack, l1, i2, null);
         }
 
         GlStateManager.popMatrix();
@@ -393,7 +393,7 @@ public abstract class GuiContainer extends GuiScreen
 
             if (this.mc.gameSettings.touchscreen && flag1 && this.mc.player.inventory.getItemStack().func_190926_b())
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
                 return;
             }
 
@@ -628,14 +628,14 @@ public abstract class GuiContainer extends GuiScreen
             }
             else if (this.dragSplitting && !this.dragSplittingSlots.isEmpty())
             {
-                this.handleMouseClick((Slot)null, -999, Container.getQuickcraftMask(0, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
+                this.handleMouseClick(null, -999, Container.getQuickcraftMask(0, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
 
                 for (Slot slot1 : this.dragSplittingSlots)
                 {
                     this.handleMouseClick(slot1, slot1.slotNumber, Container.getQuickcraftMask(1, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
                 }
 
-                this.handleMouseClick((Slot)null, -999, Container.getQuickcraftMask(2, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
+                this.handleMouseClick(null, -999, Container.getQuickcraftMask(2, this.dragSplittingLimit), ClickType.QUICK_CRAFT);
             }
             else if (!this.mc.player.inventory.getItemStack().func_190926_b())
             {

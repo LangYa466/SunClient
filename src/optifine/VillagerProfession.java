@@ -2,12 +2,12 @@ package optifine;
 
 public class VillagerProfession
 {
-    private int profession;
+    private final int profession;
     private int[] careers;
 
     public VillagerProfession(int p_i100_1_)
     {
-        this(p_i100_1_, (int[])null);
+        this(p_i100_1_, null);
     }
 
     public VillagerProfession(int p_i101_1_, int p_i101_2_)
@@ -35,7 +35,7 @@ public class VillagerProfession
 
     private boolean hasCareer(int p_hasCareer_1_)
     {
-        return this.careers == null ? false : Config.equalsOne(p_hasCareer_1_, this.careers);
+        return this.careers != null && Config.equalsOne(p_hasCareer_1_, this.careers);
     }
 
     public boolean addCareer(int p_addCareer_1_)
@@ -68,6 +68,6 @@ public class VillagerProfession
 
     public String toString()
     {
-        return this.careers == null ? "" + this.profession : "" + this.profession + ":" + Config.arrayToString(this.careers);
+        return this.careers == null ? "" + this.profession : this.profession + ":" + Config.arrayToString(this.careers);
     }
 }

@@ -39,7 +39,7 @@ public class NbtTagValue
     public NbtTagValue(String p_i69_1_, String p_i69_2_)
     {
         String[] astring = Config.tokenize(p_i69_1_, ".");
-        this.parents = (String[])Arrays.copyOfRange(astring, 0, astring.length - 1);
+        this.parents = Arrays.copyOfRange(astring, 0, astring.length - 1);
         this.name = astring[astring.length - 1];
 
         if (p_i69_2_.startsWith("!"))
@@ -128,14 +128,7 @@ public class NbtTagValue
                 {
                     return false;
                 }
-                else if (this.matchesBase(nbtbase))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                else return this.matchesBase(nbtbase);
             }
         }
     }

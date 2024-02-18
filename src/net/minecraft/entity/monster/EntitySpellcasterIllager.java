@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public abstract class EntitySpellcasterIllager extends AbstractIllager
 {
-    private static final DataParameter<Byte> field_193088_c = EntityDataManager.<Byte>createKey(EntitySpellcasterIllager.class, DataSerializers.BYTE);
+    private static final DataParameter<Byte> field_193088_c = EntityDataManager.createKey(EntitySpellcasterIllager.class, DataSerializers.BYTE);
     protected int field_193087_b;
     private EntitySpellcasterIllager.SpellType field_193089_bx = EntitySpellcasterIllager.SpellType.NONE;
 
@@ -55,7 +55,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager
     {
         if (this.world.isRemote)
         {
-            return ((Byte)this.dataManager.get(field_193088_c)).byteValue() > 0;
+            return this.dataManager.get(field_193088_c).byteValue() > 0;
         }
         else
         {
@@ -71,7 +71,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager
 
     protected EntitySpellcasterIllager.SpellType func_193083_dm()
     {
-        return !this.world.isRemote ? this.field_193089_bx : EntitySpellcasterIllager.SpellType.func_193337_a(((Byte)this.dataManager.get(field_193088_c)).byteValue());
+        return !this.world.isRemote ? this.field_193089_bx : EntitySpellcasterIllager.SpellType.func_193337_a(this.dataManager.get(field_193088_c).byteValue());
     }
 
     protected void updateAITasks()
@@ -214,7 +214,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager
         protected abstract EntitySpellcasterIllager.SpellType func_193320_l();
     }
 
-    public static enum SpellType
+    public enum SpellType
     {
         NONE(0, 0.0D, 0.0D, 0.0D),
         SUMMON_VEX(1, 0.7D, 0.7D, 0.8D),
@@ -226,7 +226,7 @@ public abstract class EntitySpellcasterIllager extends AbstractIllager
         private final int field_193345_g;
         private final double[] field_193346_h;
 
-        private SpellType(int p_i47561_3_, double p_i47561_4_, double p_i47561_6_, double p_i47561_8_)
+        SpellType(int p_i47561_3_, double p_i47561_4_, double p_i47561_6_, double p_i47561_8_)
         {
             this.field_193345_g = p_i47561_3_;
             this.field_193346_h = new double[] {p_i47561_4_, p_i47561_6_, p_i47561_8_};

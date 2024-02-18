@@ -3,8 +3,8 @@ package cn.langya.sun.values;
 public class IntValue extends AbstractValue<Integer> {
     private final String name;
     private Integer number;
-    private int maximum;
-    private int minimum;
+    private final int maximum;
+    private final int minimum;
     public IntValue(String name, int defaultValue, int maximum, int minimum) {
         super(name);
         this.name = name;

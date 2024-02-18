@@ -1,6 +1,8 @@
 package optifine;
 
 import com.google.common.collect.ImmutableList;
+
+import java.util.Collections;
 import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -11,7 +13,7 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockModelCustomizer
 {
-    private static final List<BakedQuad> NO_QUADS = ImmutableList.<BakedQuad>of();
+    private static final List<BakedQuad> NO_QUADS = ImmutableList.of();
 
     public static IBakedModel getRenderModel(IBakedModel p_getRenderModel_0_, IBlockState p_getRenderModel_1_, RenderEnv p_getRenderModel_2_)
     {
@@ -51,11 +53,7 @@ public class BlockModelCustomizer
                 return p_getRenderQuads_0_;
             }
 
-            for (int j = 0; j < abakedquad.length; ++j)
-            {
-                BakedQuad bakedquad1 = abakedquad[j];
-                list.add(bakedquad1);
-            }
+            Collections.addAll(list, abakedquad);
         }
 
         return list;

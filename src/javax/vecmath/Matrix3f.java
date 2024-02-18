@@ -357,7 +357,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
      * @param row  the matrix row
      * @param v    the array into which the matrix row values will be copied
      */
-    public final void getRow(int row, float v[]) {
+    public final void getRow(int row, float[] v) {
         if( row == 0 ) {
            v[0] = m00;
            v[1] = m01;
@@ -407,7 +407,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
      * @param column  the matrix column
      * @param v    the array into which the matrix row values will be copied
      */
-    public final void getColumn(int column, float v[]) {
+    public final void getColumn(int column, float[] v) {
         if( column == 0 ) {
            v[0] = m00;
            v[1] = m10;
@@ -552,7 +552,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
      * @param row the row number to be modified (zero indexed)
      * @param v the replacement row
      */
-    public final void setRow(int row, float v[])
+    public final void setRow(int row, float[] v)
     {
 	switch (row) {
 	case 0:
@@ -647,7 +647,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
      * @param column the column number to be modified (zero indexed)
      * @param v the replacement column
      */
-    public final void setColumn(int column, float v[])
+    public final void setColumn(int column, float[] v)
     {
 	switch (column) {
 	case 0:
@@ -896,8 +896,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
          float ay = a1.y*mag;
          float az = a1.z*mag;
 
-         float sinTheta = (float)Math.sin((float)a1.angle);
-         float cosTheta = (float)Math.cos((float)a1.angle);
+         float sinTheta = (float)Math.sin(a1.angle);
+         float cosTheta = (float)Math.cos(a1.angle);
          float t = (float)1.0 - cosTheta;
 
          float xz = ax * az;
@@ -1082,26 +1082,26 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
      * about allocating a little bit of garbage.
      */
     private final void invertGeneral(Matrix3f  m1) {
-	double temp[] = new double[9];
-	double result[] = new double[9];
-	int row_perm[] = new int[3];
+	double[] temp = new double[9];
+	double[] result = new double[9];
+	int[] row_perm = new int[3];
 	int i, r, c;
 
 	// Use LU decomposition and backsubstitution code specifically
 	// for floating-point 3x3 matrices.
 
 	// Copy source matrix to t1tmp
-        temp[0] = (double)m1.m00;
-        temp[1] = (double)m1.m01;
-        temp[2] = (double)m1.m02;
+        temp[0] = m1.m00;
+        temp[1] = m1.m01;
+        temp[2] = m1.m02;
 
-        temp[3] = (double)m1.m10;
-        temp[4] = (double)m1.m11;
-        temp[5] = (double)m1.m12;
+        temp[3] = m1.m10;
+        temp[4] = m1.m11;
+        temp[5] = m1.m12;
 
-        temp[6] = (double)m1.m20;
-        temp[7] = (double)m1.m21;
-        temp[8] = (double)m1.m22;
+        temp[6] = m1.m20;
+        temp[7] = m1.m21;
+        temp[8] = m1.m22;
 
 
 	// Calculate LU decomposition: Is the matrix singular?
@@ -1152,7 +1152,7 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
     static boolean luDecomposition(double[] matrix0,
 				   int[] row_perm) {
 
-	double row_scale[] = new double[3];
+	double[] row_scale = new double[3];
 
 	// Determine implicit scaling information by looping over rows
 	{
@@ -1342,13 +1342,13 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
 	    matrix2[cv+3*2] /= matrix1[rv+2];
 
 	    rv -= 3;
-	    matrix2[cv+3*1] = (matrix2[cv+3*1] -
+	    matrix2[cv+ 3] = (matrix2[cv+ 3] -
 			    matrix1[rv+2] * matrix2[cv+3*2]) / matrix1[rv+1];
 
 	    rv -= 3;
-	    matrix2[cv+4*0] = (matrix2[cv+3*0] -
-			    matrix1[rv+1] * matrix2[cv+3*1] -
-			    matrix1[rv+2] * matrix2[cv+3*2]) / matrix1[rv+0];
+	    matrix2[cv] = (matrix2[cv] -
+			    matrix1[rv+1] * matrix2[cv+ 3] -
+			    matrix1[rv+2] * matrix2[cv+3*2]) / matrix1[rv];
 
 	}
     }
@@ -1394,8 +1394,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
     {
 	float	sinAngle, cosAngle;
 
-	sinAngle = (float) Math.sin((double) angle);
-	cosAngle = (float) Math.cos((double) angle);
+	sinAngle = (float) Math.sin(angle);
+	cosAngle = (float) Math.cos(angle);
 
 	this.m00 = (float) 1.0;
 	this.m01 = (float) 0.0;
@@ -1419,8 +1419,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
     {
 	float	sinAngle, cosAngle;
 
-	sinAngle = (float) Math.sin((double) angle);
-	cosAngle = (float) Math.cos((double) angle);
+	sinAngle = (float) Math.sin(angle);
+	cosAngle = (float) Math.cos(angle);
 
 	this.m00 = cosAngle;
 	this.m01 = (float) 0.0;
@@ -1444,8 +1444,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
     {
 	float	sinAngle, cosAngle;
 
-	sinAngle = (float) Math.sin((double) angle);
-	cosAngle = (float) Math.cos((double) angle);
+	sinAngle = (float) Math.sin(angle);
+	cosAngle = (float) Math.cos(angle);
 
 	this.m00 = cosAngle;
 	this.m01 = -sinAngle;
@@ -1939,9 +1939,8 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
      */
     public boolean epsilonEquals(Matrix3f m1, float epsilon)
     {
-        boolean status = true;
+        boolean status = !(Math.abs(this.m00 - m1.m00) > epsilon);
 
-        if( Math.abs( this.m00 - m1.m00) > epsilon) status = false;
         if( Math.abs( this.m01 - m1.m01) > epsilon) status = false;
         if( Math.abs( this.m02 - m1.m02) > epsilon) status = false;
 
@@ -2085,8 +2084,6 @@ public class Matrix3f implements java.io.Serializable, Cloneable {
         tmp[7] = m21;
         tmp[8] = m22;
         Matrix3d.compute_svd(tmp, scales, rot);
-
-        return;
 
     }
 

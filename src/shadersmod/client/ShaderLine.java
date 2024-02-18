@@ -2,10 +2,10 @@ package shadersmod.client;
 
 public class ShaderLine
 {
-    private int type;
-    private String name;
-    private String value;
-    private String line;
+    private final int type;
+    private final String name;
+    private final String value;
+    private final String line;
     public static final int TYPE_UNIFORM = 1;
     public static final int TYPE_COMMENT = 2;
     public static final int TYPE_CONST_INT = 3;

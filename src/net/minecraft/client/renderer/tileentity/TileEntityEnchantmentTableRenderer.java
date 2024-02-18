@@ -23,7 +23,6 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 
         for (f1 = p_192841_1_.bookRotation - p_192841_1_.bookRotationPrev; f1 >= (float)Math.PI; f1 -= ((float)Math.PI * 2F))
         {
-            ;
         }
 
         while (f1 < -(float)Math.PI)
@@ -37,8 +36,8 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
         this.bindTexture(TEXTURE_BOOK);
         float f3 = p_192841_1_.pageFlipPrev + (p_192841_1_.pageFlip - p_192841_1_.pageFlipPrev) * p_192841_8_ + 0.25F;
         float f4 = p_192841_1_.pageFlipPrev + (p_192841_1_.pageFlip - p_192841_1_.pageFlipPrev) * p_192841_8_ + 0.75F;
-        f3 = (f3 - (float)MathHelper.fastFloor((double)f3)) * 1.6F - 0.3F;
-        f4 = (f4 - (float)MathHelper.fastFloor((double)f4)) * 1.6F - 0.3F;
+        f3 = (f3 - (float)MathHelper.fastFloor(f3)) * 1.6F - 0.3F;
+        f4 = (f4 - (float)MathHelper.fastFloor(f4)) * 1.6F - 0.3F;
 
         if (f3 < 0.0F)
         {
@@ -62,7 +61,7 @@ public class TileEntityEnchantmentTableRenderer extends TileEntitySpecialRendere
 
         float f5 = p_192841_1_.bookSpreadPrev + (p_192841_1_.bookSpread - p_192841_1_.bookSpreadPrev) * p_192841_8_;
         GlStateManager.enableCull();
-        this.modelBook.render((Entity)null, f, f3, f4, f5, 0.0F, 0.0625F);
+        this.modelBook.render(null, f, f3, f4, f5, 0.0F, 0.0625F);
         GlStateManager.popMatrix();
     }
 }

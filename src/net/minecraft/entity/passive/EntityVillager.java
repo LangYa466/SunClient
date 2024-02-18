@@ -94,7 +94,7 @@ import org.apache.logging.log4j.Logger;
 public class EntityVillager extends EntityAgeable implements INpc, IMerchant
 {
     private static final Logger field_190674_bx = LogManager.getLogger();
-    private static final DataParameter<Integer> PROFESSION = EntityDataManager.<Integer>createKey(EntityVillager.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> PROFESSION = EntityDataManager.createKey(EntityVillager.class, DataSerializers.VARINT);
     private int randomTickDivider;
     private boolean isMating;
     private boolean isPlaying;
@@ -310,7 +310,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant
     public static void registerFixesVillager(DataFixer fixer)
     {
         EntityLiving.registerFixesMob(fixer, EntityVillager.class);
-        fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityVillager.class, new String[] {"Inventory"}));
+        fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityVillager.class, "Inventory"));
         fixer.registerWalker(FixTypes.ENTITY, new IDataWalker()
         {
             public NBTTagCompound process(IDataFixer fixer, NBTTagCompound compound, int versionIn)
@@ -441,7 +441,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant
 
     public int getProfession()
     {
-        return Math.max(((Integer)this.dataManager.get(PROFESSION)).intValue() % 6, 0);
+        return Math.max(this.dataManager.get(PROFESSION).intValue() % 6, 0);
     }
 
     public boolean isMating()
@@ -798,7 +798,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant
 
             if (s1 != null)
             {
-                ITextComponent itextcomponent = new TextComponentTranslation("entity.Villager." + s1, new Object[0]);
+                ITextComponent itextcomponent = new TextComponentTranslation("entity.Villager." + s1);
                 itextcomponent.getStyle().setHoverEvent(this.getHoverEvent());
                 itextcomponent.getStyle().setInsertion(this.getCachedUniqueIdString());
 
@@ -885,7 +885,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant
     public EntityVillager createChild(EntityAgeable ageable)
     {
         EntityVillager entityvillager = new EntityVillager(this.world);
-        entityvillager.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData)null);
+        entityvillager.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityvillager)), null);
         return entityvillager;
     }
 
@@ -903,7 +903,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant
         {
             EntityWitch entitywitch = new EntityWitch(this.world);
             entitywitch.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-            entitywitch.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entitywitch)), (IEntityLivingData)null);
+            entitywitch.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entitywitch)), null);
             entitywitch.setNoAI(this.isAIDisabled());
 
             if (this.hasCustomName())
@@ -1103,7 +1103,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant
     {
         public void func_190888_a(IMerchant p_190888_1_, MerchantRecipeList p_190888_2_, Random p_190888_3_)
         {
-            Enchantment enchantment = (Enchantment)Enchantment.REGISTRY.getRandomObject(p_190888_3_);
+            Enchantment enchantment = Enchantment.REGISTRY.getRandomObject(p_190888_3_);
             int i = MathHelper.getInt(p_190888_3_, enchantment.getMinLevel(), enchantment.getMaxLevel());
             ItemStack itemstack = ItemEnchantedBook.getEnchantedItemStack(new EnchantmentData(enchantment, i));
             int j = 2 + p_190888_3_.nextInt(5 + i * 10) + 3 * i;
@@ -1206,7 +1206,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant
 
         public int getPrice(Random rand)
         {
-            return ((Integer)this.getFirst()).intValue() >= ((Integer)this.getSecond()).intValue() ? ((Integer)this.getFirst()).intValue() : ((Integer)this.getFirst()).intValue() + rand.nextInt(((Integer)this.getSecond()).intValue() - ((Integer)this.getFirst()).intValue() + 1);
+            return this.getFirst().intValue() >= this.getSecond().intValue() ? this.getFirst().intValue() : this.getFirst().intValue() + rand.nextInt(this.getSecond().intValue() - this.getFirst().intValue() + 1);
         }
     }
 
@@ -1231,7 +1231,7 @@ public class EntityVillager extends EntityAgeable implements INpc, IMerchant
 
             if (blockpos != null)
             {
-                ItemStack itemstack = ItemMap.func_190906_a(world, (double)blockpos.getX(), (double)blockpos.getZ(), (byte)2, true, true);
+                ItemStack itemstack = ItemMap.func_190906_a(world, blockpos.getX(), blockpos.getZ(), (byte)2, true, true);
                 ItemMap.func_190905_a(world, itemstack);
                 MapData.func_191094_a(itemstack, blockpos, "+", this.field_190891_c);
                 itemstack.func_190924_f("filled_map." + this.field_190890_b.toLowerCase(Locale.ROOT));

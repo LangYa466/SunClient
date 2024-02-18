@@ -192,9 +192,9 @@ public class Bootstrap
         {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
-                EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+                EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
                 double d0 = source.getX() + (double)enumfacing.getFrontOffsetX();
-                double d1 = (double)((float)(source.getBlockPos().getY() + enumfacing.getFrontOffsetY()) + 0.2F);
+                double d1 = (float)(source.getBlockPos().getY() + enumfacing.getFrontOffsetY()) + 0.2F;
                 double d2 = source.getZ() + (double)enumfacing.getFrontOffsetZ();
                 Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), ItemMonsterPlacer.func_190908_h(stack), d0, d1, d2);
 
@@ -203,7 +203,7 @@ public class Bootstrap
                     entity.setCustomNameTag(stack.getDisplayName());
                 }
 
-                ItemMonsterPlacer.applyItemEntityDataToEntity(source.getWorld(), (EntityPlayer)null, stack, entity);
+                ItemMonsterPlacer.applyItemEntityDataToEntity(source.getWorld(), null, stack, entity);
                 stack.func_190918_g(1);
                 return stack;
             }
@@ -212,9 +212,9 @@ public class Bootstrap
         {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
-                EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+                EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
                 double d0 = source.getX() + (double)enumfacing.getFrontOffsetX();
-                double d1 = (double)((float)source.getBlockPos().getY() + 0.2F);
+                double d1 = (float)source.getBlockPos().getY() + 0.2F;
                 double d2 = source.getZ() + (double)enumfacing.getFrontOffsetZ();
                 EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(source.getWorld(), d0, d1, d2, stack);
                 source.getWorld().spawnEntityInWorld(entityfireworkrocket);
@@ -230,7 +230,7 @@ public class Bootstrap
         {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
-                EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+                EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
                 IPosition iposition = BlockDispenser.getDispensePosition(source);
                 double d0 = iposition.getX() + (double)((float)enumfacing.getFrontOffsetX() * 0.3F);
                 double d1 = iposition.getY() + (double)((float)enumfacing.getFrontOffsetY() * 0.3F);
@@ -261,8 +261,8 @@ public class Bootstrap
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 ItemBucket itembucket = (ItemBucket)stack.getItem();
-                BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
-                return itembucket.tryPlaceContainedLiquid((EntityPlayer)null, source.getWorld(), blockpos) ? new ItemStack(Items.BUCKET) : this.dispenseBehavior.dispense(source, stack);
+                BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
+                return itembucket.tryPlaceContainedLiquid(null, source.getWorld(), blockpos) ? new ItemStack(Items.BUCKET) : this.dispenseBehavior.dispense(source, stack);
             }
         };
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.LAVA_BUCKET, ibehaviordispenseitem);
@@ -273,19 +273,19 @@ public class Bootstrap
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
+                BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
                 IBlockState iblockstate = world.getBlockState(blockpos);
                 Block block = iblockstate.getBlock();
                 Material material = iblockstate.getMaterial();
                 Item item;
 
-                if (Material.WATER.equals(material) && block instanceof BlockLiquid && ((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0)
+                if (Material.WATER.equals(material) && block instanceof BlockLiquid && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0)
                 {
                     item = Items.WATER_BUCKET;
                 }
                 else
                 {
-                    if (!Material.LAVA.equals(material) || !(block instanceof BlockLiquid) || ((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue() != 0)
+                    if (!Material.LAVA.equals(material) || !(block instanceof BlockLiquid) || iblockstate.getValue(BlockLiquid.LEVEL).intValue() != 0)
                     {
                         return super.dispenseStack(source, stack);
                     }
@@ -317,13 +317,13 @@ public class Bootstrap
             {
                 World world = source.getWorld();
                 this.field_190911_b = true;
-                BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
+                BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
 
                 if (world.isAirBlock(blockpos))
                 {
                     world.setBlockState(blockpos, Blocks.FIRE.getDefaultState());
 
-                    if (stack.attemptDamageItem(1, world.rand, (EntityPlayerMP)null))
+                    if (stack.attemptDamageItem(1, world.rand, null))
                     {
                         stack.func_190920_e(0);
                     }
@@ -350,7 +350,7 @@ public class Bootstrap
                 if (EnumDyeColor.WHITE == EnumDyeColor.byDyeDamage(stack.getMetadata()))
                 {
                     World world = source.getWorld();
-                    BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
+                    BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
 
                     if (ItemDye.applyBonemeal(stack, world, blockpos))
                     {
@@ -377,10 +377,10 @@ public class Bootstrap
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
-                EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double)blockpos.getX() + 0.5D, (double)blockpos.getY(), (double)blockpos.getZ() + 0.5D, (EntityLivingBase)null);
+                BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
+                EntityTNTPrimed entitytntprimed = new EntityTNTPrimed(world, (double)blockpos.getX() + 0.5D, blockpos.getY(), (double)blockpos.getZ() + 0.5D, null);
                 world.spawnEntityInWorld(entitytntprimed);
-                world.playSound((EntityPlayer)null, entitytntprimed.posX, entitytntprimed.posY, entitytntprimed.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.playSound(null, entitytntprimed.posX, entitytntprimed.posY, entitytntprimed.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 stack.func_190918_g(1);
                 return stack;
             }
@@ -390,7 +390,7 @@ public class Bootstrap
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+                EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
                 BlockPos blockpos = source.getBlockPos().offset(enumfacing);
                 BlockSkull blockskull = Blocks.SKULL;
                 this.field_190911_b = true;
@@ -422,7 +422,7 @@ public class Bootstrap
 
                                         if (!StringUtils.isNullOrEmpty(s))
                                         {
-                                            gameprofile = new GameProfile((UUID)null, s);
+                                            gameprofile = new GameProfile(null, s);
                                         }
                                     }
                                 }
@@ -454,7 +454,7 @@ public class Bootstrap
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack)
             {
                 World world = source.getWorld();
-                BlockPos blockpos = source.getBlockPos().offset((EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING));
+                BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
                 BlockPumpkin blockpumpkin = (BlockPumpkin)Blocks.PUMPKIN;
                 this.field_190911_b = true;
 
@@ -518,7 +518,7 @@ public class Bootstrap
 
             if (LOGGER.isDebugEnabled())
             {
-                if ((new AdvancementManager((File)null)).func_193767_b())
+                if ((new AdvancementManager(null)).func_193767_b())
                 {
                     field_194219_b = true;
                     LOGGER.error("Errors with built-in advancements!");
@@ -567,7 +567,7 @@ public class Bootstrap
 
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
         {
-            EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+            EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
             World world = source.getWorld();
             double d0 = source.getX() + (double)((float)enumfacing.getFrontOffsetX() * 1.125F);
             double d1 = source.getY() + (double)((float)enumfacing.getFrontOffsetY() * 1.125F);
@@ -624,9 +624,9 @@ public class Bootstrap
         {
             Block block = Block.getBlockFromItem(stack.getItem());
             World world = source.getWorld();
-            EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+            EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
             BlockPos blockpos = source.getBlockPos().offset(enumfacing);
-            this.field_190911_b = world.func_190527_a(block, blockpos, false, EnumFacing.DOWN, (Entity)null);
+            this.field_190911_b = world.func_190527_a(block, blockpos, false, EnumFacing.DOWN, null);
 
             if (this.field_190911_b)
             {

@@ -32,7 +32,7 @@ public enum EnumDyeColor implements IStringSerializable
     private final float[] field_193352_x;
     private final TextFormatting chatColor;
 
-    private EnumDyeColor(int p_i47505_3_, int p_i47505_4_, String p_i47505_5_, String p_i47505_6_, int p_i47505_7_, TextFormatting p_i47505_8_)
+    EnumDyeColor(int p_i47505_3_, int p_i47505_4_, String p_i47505_5_, String p_i47505_6_, int p_i47505_7_, TextFormatting p_i47505_8_)
     {
         this.meta = p_i47505_3_;
         this.dyeDamage = p_i47505_4_;

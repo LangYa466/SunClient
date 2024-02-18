@@ -96,8 +96,8 @@ public class DisplayInfo
 
     public static DisplayInfo func_192294_a(JsonObject p_192294_0_, JsonDeserializationContext p_192294_1_)
     {
-        ITextComponent itextcomponent = (ITextComponent)JsonUtils.deserializeClass(p_192294_0_, "title", p_192294_1_, ITextComponent.class);
-        ITextComponent itextcomponent1 = (ITextComponent)JsonUtils.deserializeClass(p_192294_0_, "description", p_192294_1_, ITextComponent.class);
+        ITextComponent itextcomponent = JsonUtils.deserializeClass(p_192294_0_, "title", p_192294_1_, ITextComponent.class);
+        ITextComponent itextcomponent1 = JsonUtils.deserializeClass(p_192294_0_, "description", p_192294_1_, ITextComponent.class);
 
         if (itextcomponent != null && itextcomponent1 != null)
         {
@@ -168,7 +168,7 @@ public class DisplayInfo
         ITextComponent itextcomponent = p_192295_0_.readTextComponent();
         ITextComponent itextcomponent1 = p_192295_0_.readTextComponent();
         ItemStack itemstack = p_192295_0_.readItemStackFromBuffer();
-        FrameType frametype = (FrameType)p_192295_0_.readEnumValue(FrameType.class);
+        FrameType frametype = p_192295_0_.readEnumValue(FrameType.class);
         int i = p_192295_0_.readInt();
         ResourceLocation resourcelocation = (i & 1) != 0 ? p_192295_0_.func_192575_l() : null;
         boolean flag = (i & 2) != 0;

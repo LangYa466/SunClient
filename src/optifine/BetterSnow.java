@@ -46,13 +46,13 @@ public class BetterSnow
     public static boolean shouldRender(IBlockAccess p_shouldRender_0_, IBlockState p_shouldRender_1_, BlockPos p_shouldRender_2_)
     {
         Block block = p_shouldRender_1_.getBlock();
-        return !checkBlock(block, p_shouldRender_1_) ? false : hasSnowNeighbours(p_shouldRender_0_, p_shouldRender_2_);
+        return checkBlock(block, p_shouldRender_1_) && hasSnowNeighbours(p_shouldRender_0_, p_shouldRender_2_);
     }
 
     private static boolean hasSnowNeighbours(IBlockAccess p_hasSnowNeighbours_0_, BlockPos p_hasSnowNeighbours_1_)
     {
         Block block = Blocks.SNOW_LAYER;
-        return p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.north()).getBlock() != block && p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.south()).getBlock() != block && p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.west()).getBlock() != block && p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.east()).getBlock() != block ? false : p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.down()).isOpaqueCube();
+        return (p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.north()).getBlock() == block || p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.south()).getBlock() == block || p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.west()).getBlock() == block || p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.east()).getBlock() == block) && p_hasSnowNeighbours_0_.getBlockState(p_hasSnowNeighbours_1_.down()).isOpaqueCube();
     }
 
     private static boolean checkBlock(Block p_checkBlock_0_, IBlockState p_checkBlock_1_)
@@ -83,10 +83,7 @@ public class BetterSnow
                     {
                         Object object = p_checkBlock_1_.getValue(BlockLever.FACING);
 
-                        if (object == BlockLever.EnumOrientation.UP_X || object == BlockLever.EnumOrientation.UP_Z)
-                        {
-                            return true;
-                        }
+                        return object == BlockLever.EnumOrientation.UP_X || object == BlockLever.EnumOrientation.UP_Z;
                     }
 
                     return false;

@@ -57,7 +57,7 @@ public class CriterionProgress
 
     public JsonElement func_192148_e()
     {
-        return (JsonElement)(this.field_192157_c != null ? new JsonPrimitive(field_192155_a.format(this.field_192157_c)) : JsonNull.INSTANCE);
+        return this.field_192157_c != null ? new JsonPrimitive(field_192155_a.format(this.field_192157_c)) : JsonNull.INSTANCE;
     }
 
     public static CriterionProgress func_192149_a(PacketBuffer p_192149_0_, AdvancementProgress p_192149_1_)

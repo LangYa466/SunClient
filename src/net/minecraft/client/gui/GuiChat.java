@@ -100,7 +100,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
 
         if (keyCode == 1)
         {
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
         else if (keyCode != 28 && keyCode != 156)
         {
@@ -134,7 +134,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
                 this.sendChatMessage(s);
             }
 
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
     }
 
@@ -225,7 +225,7 @@ public class GuiChat extends GuiScreen implements ITabCompleter
                     this.historyBuffer = this.inputField.getText();
                 }
 
-                this.inputField.setText((String)this.mc.ingameGUI.getChatGUI().getSentMessages().get(i));
+                this.inputField.setText(this.mc.ingameGUI.getChatGUI().getSentMessages().get(i));
                 this.sentHistoryCursor = i;
             }
         }

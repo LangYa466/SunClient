@@ -78,7 +78,7 @@ public class LoadingScreenRenderer implements IProgressUpdate
             if (OpenGlHelper.isFramebufferEnabled())
             {
                 int i = this.scaledResolution.getScaleFactor();
-                GlStateManager.ortho(0.0D, (double)(this.scaledResolution.getScaledWidth() * i), (double)(this.scaledResolution.getScaledHeight() * i), 0.0D, 100.0D, 300.0D);
+                GlStateManager.ortho(0.0D, this.scaledResolution.getScaledWidth() * i, this.scaledResolution.getScaledHeight() * i, 0.0D, 100.0D, 300.0D);
             }
             else
             {
@@ -164,9 +164,9 @@ public class LoadingScreenRenderer implements IProgressUpdate
                 this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
                 float f = 32.0F;
                 bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                bufferbuilder.pos(0.0D, (double)l, 0.0D).tex(0.0D, (double)((float)l / 32.0F)).color(64, 64, 64, 255).endVertex();
-                bufferbuilder.pos((double)k, (double)l, 0.0D).tex((double)((float)k / 32.0F), (double)((float)l / 32.0F)).color(64, 64, 64, 255).endVertex();
-                bufferbuilder.pos((double)k, 0.0D, 0.0D).tex((double)((float)k / 32.0F), 0.0D).color(64, 64, 64, 255).endVertex();
+                bufferbuilder.pos(0.0D, l, 0.0D).tex(0.0D, (float)l / 32.0F).color(64, 64, 64, 255).endVertex();
+                bufferbuilder.pos(k, l, 0.0D).tex((float)k / 32.0F, (float)l / 32.0F).color(64, 64, 64, 255).endVertex();
+                bufferbuilder.pos(k, 0.0D, 0.0D).tex((float)k / 32.0F, 0.0D).color(64, 64, 64, 255).endVertex();
                 bufferbuilder.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 255).endVertex();
                 tessellator.draw();
 
@@ -178,14 +178,14 @@ public class LoadingScreenRenderer implements IProgressUpdate
                     int l1 = l / 2 + 16;
                     GlStateManager.disableTexture2D();
                     bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                    bufferbuilder.pos((double)k1, (double)l1, 0.0D).color(128, 128, 128, 255).endVertex();
-                    bufferbuilder.pos((double)k1, (double)(l1 + 2), 0.0D).color(128, 128, 128, 255).endVertex();
-                    bufferbuilder.pos((double)(k1 + 100), (double)(l1 + 2), 0.0D).color(128, 128, 128, 255).endVertex();
-                    bufferbuilder.pos((double)(k1 + 100), (double)l1, 0.0D).color(128, 128, 128, 255).endVertex();
-                    bufferbuilder.pos((double)k1, (double)l1, 0.0D).color(128, 255, 128, 255).endVertex();
-                    bufferbuilder.pos((double)k1, (double)(l1 + 2), 0.0D).color(128, 255, 128, 255).endVertex();
-                    bufferbuilder.pos((double)(k1 + progress), (double)(l1 + 2), 0.0D).color(128, 255, 128, 255).endVertex();
-                    bufferbuilder.pos((double)(k1 + progress), (double)l1, 0.0D).color(128, 255, 128, 255).endVertex();
+                    bufferbuilder.pos(k1, l1, 0.0D).color(128, 128, 128, 255).endVertex();
+                    bufferbuilder.pos(k1, l1 + 2, 0.0D).color(128, 128, 128, 255).endVertex();
+                    bufferbuilder.pos(k1 + 100, l1 + 2, 0.0D).color(128, 128, 128, 255).endVertex();
+                    bufferbuilder.pos(k1 + 100, l1, 0.0D).color(128, 128, 128, 255).endVertex();
+                    bufferbuilder.pos(k1, l1, 0.0D).color(128, 255, 128, 255).endVertex();
+                    bufferbuilder.pos(k1, l1 + 2, 0.0D).color(128, 255, 128, 255).endVertex();
+                    bufferbuilder.pos(k1 + progress, l1 + 2, 0.0D).color(128, 255, 128, 255).endVertex();
+                    bufferbuilder.pos(k1 + progress, l1, 0.0D).color(128, 255, 128, 255).endVertex();
                     tessellator.draw();
                     GlStateManager.enableTexture2D();
                 }
@@ -209,7 +209,6 @@ public class LoadingScreenRenderer implements IProgressUpdate
                 }
                 catch (Exception var15)
                 {
-                    ;
                 }
             }
         }

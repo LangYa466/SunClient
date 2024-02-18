@@ -64,7 +64,7 @@ public class ServerRecipeBookHelper
                     p_194327_1_.inventory.func_194016_a(this.field_194331_b, false);
                     this.field_194336_g.func_194018_a(this.field_194331_b);
 
-                    if (this.field_194331_b.func_194116_a(p_194327_2_, (IntList)null))
+                    if (this.field_194331_b.func_194116_a(p_194327_2_, null))
                     {
                         this.func_194329_b();
                     }
@@ -114,7 +114,7 @@ public class ServerRecipeBookHelper
     private void func_194329_b()
     {
         boolean flag = this.field_194333_d.matches(this.field_194336_g, this.field_194332_c.world);
-        int i = this.field_194331_b.func_194114_b(this.field_194333_d, (IntList)null);
+        int i = this.field_194331_b.func_194114_b(this.field_194333_d, null);
 
         if (flag)
         {
@@ -146,7 +146,7 @@ public class ServerRecipeBookHelper
 
             while (intlistiterator.hasNext())
             {
-                int k = ((Integer)intlistiterator.next()).intValue();
+                int k = intlistiterator.next().intValue();
                 int l = RecipeItemHelper.func_194115_b(k).getMaxStackSize();
 
                 if (l < j1)
@@ -220,7 +220,7 @@ public class ServerRecipeBookHelper
                 }
 
                 Slot slot = this.field_194337_h.get(j1);
-                ItemStack itemstack = RecipeItemHelper.func_194115_b(((Integer)iterator.next()).intValue());
+                ItemStack itemstack = RecipeItemHelper.func_194115_b(iterator.next().intValue());
 
                 if (itemstack.func_190926_b())
                 {

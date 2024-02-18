@@ -13,7 +13,7 @@ import java.util.Map;
 public class CommandManager {
     @Getter
     private HashMap<String[], Command> commands = new HashMap();
-    private String prefix = ".";
+    private final String prefix = ".";
 
     public void loadCommands() {
         Sun.eventManager.register(this);

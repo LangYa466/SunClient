@@ -69,7 +69,7 @@ public class NpcMerchant implements IMerchant
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.name != null ? this.name : new TextComponentTranslation("entity.Villager.name", new Object[0]));
+        return this.name != null ? this.name : new TextComponentTranslation("entity.Villager.name", new Object[0]);
     }
 
     public World func_190670_t_()

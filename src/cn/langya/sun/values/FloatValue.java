@@ -3,8 +3,8 @@ package cn.langya.sun.values;
 public class FloatValue extends AbstractValue<Float> {
     private final String name;
     private float number;
-    private float maximum;
-    private float minimum;
+    private final float maximum;
+    private final float minimum;
     public FloatValue(String name, float defaultValue, float maximum, float minimum) {
         super(name);
         this.name = name;

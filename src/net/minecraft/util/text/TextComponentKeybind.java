@@ -27,7 +27,7 @@ public class TextComponentKeybind extends TextComponentBase
     {
         if (this.field_193639_d == null)
         {
-            this.field_193639_d = (Supplier)field_193637_b.apply(this.field_193638_c);
+            this.field_193639_d = field_193637_b.apply(this.field_193638_c);
         }
 
         return this.field_193639_d.get();

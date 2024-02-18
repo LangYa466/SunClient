@@ -18,10 +18,10 @@ import net.minecraft.world.World;
 
 public class RandomMobs
 {
-    private static Map locationProperties = new HashMap();
+    private static final Map locationProperties = new HashMap();
     private static RenderGlobal renderGlobal = null;
     private static boolean initialized = false;
-    private static Random random = new Random();
+    private static final Random random = new Random();
     private static boolean working = false;
     public static final String SUFFIX_PNG = ".png";
     public static final String SUFFIX_PROPERTIES = ".properties";

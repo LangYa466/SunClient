@@ -26,9 +26,9 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 {
     private static final Logger LOGGER = LogManager.getLogger();
     public static final ResourceLocation field_194008_a = new ResourceLocation("");
-    private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.<ResourceLocation, ITextureObject>newHashMap();
-    private final List<ITickable> listTickables = Lists.<ITickable>newArrayList();
-    private final Map<String, Integer> mapTextureCounters = Maps.<String, Integer>newHashMap();
+    private final Map<ResourceLocation, ITextureObject> mapTextureObjects = Maps.newHashMap();
+    private final List<ITickable> listTickables = Lists.newArrayList();
+    private final Map<String, Integer> mapTextureCounters = Maps.newHashMap();
     private final IResourceManager theResourceManager;
 
     public TextureManager(IResourceManager resourceManager)
@@ -195,7 +195,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 
         while (iterator1.hasNext())
         {
-            Entry<ResourceLocation, ITextureObject> entry = (Entry)iterator1.next();
+            Entry<ResourceLocation, ITextureObject> entry = iterator1.next();
             ITextureObject itextureobject1 = entry.getValue();
 
             if (itextureobject1 == TextureUtil.MISSING_TEXTURE)

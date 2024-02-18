@@ -137,7 +137,7 @@ public class ConnectedParser
                 }
 
                 String s1 = astring[i];
-                String[] astring1 = (String[])Arrays.copyOfRange(astring, i + 1, astring.length);
+                String[] astring1 = Arrays.copyOfRange(astring, i + 1, astring.length);
                 Block[] ablock = this.parseBlockPart(s, s1);
 
                 if (ablock == null)
@@ -310,7 +310,7 @@ public class ConnectedParser
                             return null;
                         }
 
-                        List<Comparable> list = (List)map.get(s2);
+                        List<Comparable> list = map.get(s2);
 
                         if (list == null)
                         {
@@ -359,7 +359,6 @@ public class ConnectedParser
                         }
                         catch (IllegalArgumentException var18)
                         {
-                            ;
                         }
                     }
 
@@ -480,7 +479,7 @@ public class ConnectedParser
     {
         for (IProperty iproperty : p_matchState_2_.keySet())
         {
-            List<Comparable> list = (List)p_matchState_2_.get(iproperty);
+            List<Comparable> list = p_matchState_2_.get(iproperty);
             Comparable comparable = p_matchState_1_.getValue(iproperty);
 
             if (comparable == null)
@@ -774,12 +773,12 @@ public class ConnectedParser
 
     public void dbg(String p_dbg_1_)
     {
-        Config.dbg("" + this.context + ": " + p_dbg_1_);
+        Config.dbg(this.context + ": " + p_dbg_1_);
     }
 
     public void warn(String p_warn_1_)
     {
-        Config.warn("" + this.context + ": " + p_warn_1_);
+        Config.warn(this.context + ": " + p_warn_1_);
     }
 
     public RangeListInt parseRangeListInt(String p_parseRangeListInt_1_)
@@ -859,7 +858,7 @@ public class ConnectedParser
 
     public static boolean parseBoolean(String p_parseBoolean_0_)
     {
-        return p_parseBoolean_0_ == null ? false : p_parseBoolean_0_.trim().toLowerCase().equals("true");
+        return p_parseBoolean_0_ != null && p_parseBoolean_0_.trim().equalsIgnoreCase("true");
     }
 
     public Boolean parseBooleanObject(String p_parseBooleanObject_1_)

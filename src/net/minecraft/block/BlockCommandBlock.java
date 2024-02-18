@@ -140,7 +140,7 @@ public class BlockCommandBlock extends BlockContainer
             p_193387_4_.setSuccessCount(0);
         }
 
-        func_193386_c(p_193387_2_, p_193387_3_, (EnumFacing)p_193387_1_.getValue(FACING));
+        func_193386_c(p_193387_2_, p_193387_3_, p_193387_1_.getValue(FACING));
     }
 
     /**
@@ -243,7 +243,7 @@ public class BlockCommandBlock extends BlockContainer
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumFacing)state.getValue(FACING)).getIndex() | (((Boolean)state.getValue(CONDITIONAL)).booleanValue() ? 8 : 0);
+        return state.getValue(FACING).getIndex() | (state.getValue(CONDITIONAL).booleanValue() ? 8 : 0);
     }
 
     /**
@@ -252,7 +252,7 @@ public class BlockCommandBlock extends BlockContainer
      */
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     /**
@@ -261,12 +261,12 @@ public class BlockCommandBlock extends BlockContainer
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING, CONDITIONAL});
+        return new BlockStateContainer(this, FACING, CONDITIONAL);
     }
 
     /**
@@ -285,7 +285,7 @@ public class BlockCommandBlock extends BlockContainer
         int i;
         IBlockState iblockstate;
 
-        for (i = gamerules.getInt("maxCommandChainLength"); i-- > 0; p_193386_2_ = (EnumFacing)iblockstate.getValue(FACING))
+        for (i = gamerules.getInt("maxCommandChainLength"); i-- > 0; p_193386_2_ = iblockstate.getValue(FACING))
         {
             blockpos$mutableblockpos.move(p_193386_2_);
             iblockstate = p_193386_0_.getBlockState(blockpos$mutableblockpos);

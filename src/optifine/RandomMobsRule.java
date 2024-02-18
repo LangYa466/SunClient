@@ -125,7 +125,7 @@ public class RandomMobsRule
         }
         else
         {
-            return this.heights != null && p_matches_1_.spawnPosition != null ? this.heights.isInRange(p_matches_1_.spawnPosition.getY()) : true;
+            return this.heights == null || p_matches_1_.spawnPosition == null || this.heights.isInRange(p_matches_1_.spawnPosition.getY());
         }
     }
 

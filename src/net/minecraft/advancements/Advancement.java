@@ -28,7 +28,7 @@ public class Advancement
     private final ResourceLocation field_192079_d;
     private final Map<String, Criterion> field_192080_e;
     private final String[][] field_192081_f;
-    private final Set<Advancement> field_192082_g = Sets.<Advancement>newLinkedHashSet();
+    private final Set<Advancement> field_192082_g = Sets.newLinkedHashSet();
     private final ITextComponent field_193125_h;
 
     public Advancement(ResourceLocation p_i47472_1_, @Nullable Advancement p_i47472_2_, @Nullable DisplayInfo p_i47472_3_, AdvancementRewards p_i47472_4_, Map<String, Criterion> p_i47472_5_, String[][] p_i47472_6_)
@@ -231,7 +231,7 @@ public class Advancement
         {
             ResourceLocation resourcelocation = p_192059_0_.has("parent") ? new ResourceLocation(JsonUtils.getString(p_192059_0_, "parent")) : null;
             DisplayInfo displayinfo = p_192059_0_.has("display") ? DisplayInfo.func_192294_a(JsonUtils.getJsonObject(p_192059_0_, "display"), p_192059_1_) : null;
-            AdvancementRewards advancementrewards = (AdvancementRewards)JsonUtils.deserializeClass(p_192059_0_, "rewards", AdvancementRewards.field_192114_a, p_192059_1_, AdvancementRewards.class);
+            AdvancementRewards advancementrewards = JsonUtils.deserializeClass(p_192059_0_, "rewards", AdvancementRewards.field_192114_a, p_192059_1_, AdvancementRewards.class);
             Map<String, Criterion> map = Criterion.func_192144_b(JsonUtils.getJsonObject(p_192059_0_, "criteria"), p_192059_1_);
 
             if (map.isEmpty())

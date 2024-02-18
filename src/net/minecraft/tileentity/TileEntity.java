@@ -104,7 +104,7 @@ public abstract class TileEntity
 
         try
         {
-            Class <? extends TileEntity > oclass = (Class)field_190562_f.getObject(new ResourceLocation(s));
+            Class <? extends TileEntity > oclass = field_190562_f.getObject(new ResourceLocation(s));
 
             if (oclass != null)
             {
@@ -131,7 +131,7 @@ public abstract class TileEntity
         }
         else
         {
-            LOGGER.warn("Skipping BlockEntity with id {}", (Object)s);
+            LOGGER.warn("Skipping BlockEntity with id {}", s);
         }
 
         return tileentity;

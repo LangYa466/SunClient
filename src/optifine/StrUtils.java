@@ -157,7 +157,7 @@ public class StrUtils
             }
             else
             {
-                String s = p_endsWithMaskSingle_0_.substring(p_endsWithMaskSingle_0_.length() - p_endsWithMaskSingle_1_.length(), p_endsWithMaskSingle_0_.length());
+                String s = p_endsWithMaskSingle_0_.substring(p_endsWithMaskSingle_0_.length() - p_endsWithMaskSingle_1_.length());
                 return equalsMaskSingle(s, p_endsWithMaskSingle_1_, p_endsWithMaskSingle_2_);
             }
         }
@@ -302,7 +302,7 @@ public class StrUtils
                     }
                 }
 
-                list.add(p_split_0_.substring(i, p_split_0_.length()));
+                list.add(p_split_0_.substring(i));
                 return (String[])list.toArray(new String[list.size()]);
             }
         }
@@ -426,7 +426,7 @@ public class StrUtils
                 stringbuffer.append(p_fillLeft_2_);
             }
 
-            return stringbuffer.toString() + p_fillLeft_0_;
+            return stringbuffer + p_fillLeft_0_;
         }
     }
 
@@ -676,7 +676,7 @@ public class StrUtils
                     }
                 }
 
-                String[] astring = (String[])list.toArray(new String[list.size()]);
+                String[] astring = list.toArray(new String[list.size()]);
                 return astring;
             }
         }

@@ -123,7 +123,7 @@ public class TextureUtils
     public static TextureAtlasSprite iconClock;
     public static final String SPRITE_PREFIX_BLOCKS = "minecraft:blocks/";
     public static final String SPRITE_PREFIX_ITEMS = "minecraft:items/";
-    private static IntBuffer staticBuffer = GLAllocation.createDirectIntBuffer(256);
+    private static final IntBuffer staticBuffer = GLAllocation.createDirectIntBuffer(256);
 
     public static void update()
     {
@@ -166,7 +166,7 @@ public class TextureUtils
                 BufferedImage bufferedimage = new BufferedImage(i, j * 2, 2);
                 Graphics2D graphics2d = bufferedimage.createGraphics();
                 graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                graphics2d.drawImage(p_fixTextureDimensions_1_, 0, 0, i, j, (ImageObserver)null);
+                graphics2d.drawImage(p_fixTextureDimensions_1_, 0, 0, i, j, null);
                 return bufferedimage;
             }
         }
@@ -180,7 +180,6 @@ public class TextureUtils
 
         for (i = 1; i < p_ceilPowerOfTwo_0_; i *= 2)
         {
-            ;
         }
 
         return i;
@@ -419,7 +418,7 @@ public class TextureUtils
         }
 
         graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, object);
-        graphics2d.drawImage(p_scaleImage_0_, 0, 0, p_scaleImage_1_, k, (ImageObserver)null);
+        graphics2d.drawImage(p_scaleImage_0_, 0, 0, p_scaleImage_1_, k, null);
         return bufferedimage;
     }
 
@@ -465,7 +464,6 @@ public class TextureUtils
 
             for (i = p_scaleMinTo_0_; i < p_scaleMinTo_1_; i *= 2)
             {
-                ;
             }
 
             return i;
@@ -517,11 +515,11 @@ public class TextureUtils
 
             if (aint1 == null)
             {
-                Config.dbg("" + i + ": " + aint1);
+                Config.dbg(i + ": " + aint1);
             }
             else
             {
-                Config.dbg("" + i + ": " + aint1.length);
+                Config.dbg(i + ": " + aint1.length);
             }
         }
     }
@@ -566,7 +564,7 @@ public class TextureUtils
             catch (Exception exception)
             {
                 Config.warn("Error writing: " + file4);
-                Config.warn("" + exception.getClass().getName() + ": " + exception.getMessage());
+                Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
             }
         }
     }
@@ -600,7 +598,7 @@ public class TextureUtils
 
             if (aint2.length != i * j)
             {
-                int k = (int)Math.round(Math.sqrt((double)aint2.length));
+                int k = (int)Math.round(Math.sqrt(aint2.length));
 
                 if (k * k != aint2.length)
                 {
@@ -653,7 +651,7 @@ public class TextureUtils
     {
         for (int i = 65536; i > 0; i >>= 1)
         {
-            GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, (IntBuffer)null);
+            GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
             int j = GL11.glGetError();
             int k = GlStateManager.glGetTexLevelParameteri(32868, 0, 4096);
 

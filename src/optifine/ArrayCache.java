@@ -7,7 +7,7 @@ public class ArrayCache
 {
     private Class elementClass = null;
     private int maxCacheSize = 0;
-    private ArrayDeque cache = new ArrayDeque();
+    private final ArrayDeque cache = new ArrayDeque();
 
     public ArrayCache(Class p_i10_1_, int p_i10_2_)
     {

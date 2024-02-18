@@ -2,10 +2,10 @@ package optifine;
 
 public class GlVersion
 {
-    private int major;
-    private int minor;
-    private int release;
-    private String suffix;
+    private final int major;
+    private final int minor;
+    private final int release;
+    private final String suffix;
 
     public GlVersion(int p_i43_1_, int p_i43_2_)
     {
@@ -14,7 +14,7 @@ public class GlVersion
 
     public GlVersion(int p_i44_1_, int p_i44_2_, int p_i44_3_)
     {
-        this(p_i44_1_, p_i44_2_, p_i44_3_, (String)null);
+        this(p_i44_1_, p_i44_2_, p_i44_3_, null);
     }
 
     public GlVersion(int p_i45_1_, int p_i45_2_, int p_i45_3_, String p_i45_4_)
@@ -54,6 +54,6 @@ public class GlVersion
 
     public String toString()
     {
-        return this.suffix == null ? "" + this.major + "." + this.minor + "." + this.release : "" + this.major + "." + this.minor + "." + this.release + this.suffix;
+        return this.suffix == null ? this.major + "." + this.minor + "." + this.release : this.major + "." + this.minor + "." + this.release + this.suffix;
     }
 }

@@ -30,7 +30,7 @@ public class BlockJukebox extends BlockContainer
 
     public static void registerFixesJukebox(DataFixer fixer)
     {
-        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackData(BlockJukebox.TileEntityJukebox.class, new String[] {"RecordItem"}));
+        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackData(BlockJukebox.TileEntityJukebox.class, "RecordItem"));
     }
 
     protected BlockJukebox()
@@ -42,7 +42,7 @@ public class BlockJukebox extends BlockContainer
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing heldItem, float side, float hitX, float hitY)
     {
-        if (((Boolean)state.getValue(HAS_RECORD)).booleanValue())
+        if (state.getValue(HAS_RECORD).booleanValue())
         {
             this.dropRecord(worldIn, pos, state);
             state = state.withProperty(HAS_RECORD, Boolean.valueOf(false));
@@ -80,7 +80,7 @@ public class BlockJukebox extends BlockContainer
                 if (!itemstack.func_190926_b())
                 {
                     worldIn.playEvent(1010, pos, 0);
-                    worldIn.playRecord(pos, (SoundEvent)null);
+                    worldIn.playRecord(pos, null);
                     blockjukebox$tileentityjukebox.setRecord(ItemStack.field_190927_a);
                     float f = 0.7F;
                     double d0 = (double)(worldIn.rand.nextFloat() * 0.7F) + 0.15000000596046448D;
@@ -167,12 +167,12 @@ public class BlockJukebox extends BlockContainer
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((Boolean)state.getValue(HAS_RECORD)).booleanValue() ? 1 : 0;
+        return state.getValue(HAS_RECORD).booleanValue() ? 1 : 0;
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {HAS_RECORD});
+        return new BlockStateContainer(this, HAS_RECORD);
     }
 
     public static class TileEntityJukebox extends TileEntity

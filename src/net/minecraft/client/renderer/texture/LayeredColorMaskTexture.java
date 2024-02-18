@@ -52,7 +52,7 @@ public class LayeredColorMaskTexture extends AbstractTexture
 
                 bufferedimage = new BufferedImage(bufferedimage1.getWidth(), bufferedimage1.getHeight(), i);
                 Graphics graphics = bufferedimage.getGraphics();
-                graphics.drawImage(bufferedimage1, 0, 0, (ImageObserver)null);
+                graphics.drawImage(bufferedimage1, 0, 0, null);
                 int j = 0;
 
                 while (true)
@@ -67,7 +67,7 @@ public class LayeredColorMaskTexture extends AbstractTexture
                     try
                     {
                         String s = this.listTextures.get(j);
-                        int k = ((EnumDyeColor)this.listDyeColors.get(j)).func_193350_e();
+                        int k = this.listDyeColors.get(j).func_193350_e();
 
                         if (s != null)
                         {
@@ -92,13 +92,13 @@ public class LayeredColorMaskTexture extends AbstractTexture
                                     }
                                 }
 
-                                bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, (ImageObserver)null);
+                                bufferedimage.getGraphics().drawImage(bufferedimage2, 0, 0, null);
                             }
                         }
                     }
                     finally
                     {
-                        IOUtils.closeQuietly((Closeable)iresource1);
+                        IOUtils.closeQuietly(iresource1);
                     }
 
                     ++j;
@@ -106,11 +106,11 @@ public class LayeredColorMaskTexture extends AbstractTexture
             }
             catch (IOException ioexception)
             {
-                LOG.error("Couldn't load layered image", (Throwable)ioexception);
+                LOG.error("Couldn't load layered image", ioexception);
             }
             finally
             {
-                IOUtils.closeQuietly((Closeable)iresource);
+                IOUtils.closeQuietly(iresource);
             }
 
             return;

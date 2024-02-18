@@ -3,8 +3,8 @@ package cn.langya.sun.values;
 public class DoubleValue extends AbstractValue<Double> {
     private final String name;
     private Double number;
-    private double maximum;
-    private double minimum;
+    private final double maximum;
+    private final double minimum;
     public DoubleValue(String name, double defaultValue, double maximum, double minimum) {
         super(name);
         this.name = name;

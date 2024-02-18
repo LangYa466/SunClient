@@ -35,7 +35,7 @@ public class CommandSenderWrapper implements ICommandSender
 
     public static CommandSenderWrapper func_193998_a(ICommandSender p_193998_0_)
     {
-        return p_193998_0_ instanceof CommandSenderWrapper ? (CommandSenderWrapper)p_193998_0_ : new CommandSenderWrapper(p_193998_0_, (Vec3d)null, (BlockPos)null, (Integer)null, (Entity)null, (Boolean)null);
+        return p_193998_0_ instanceof CommandSenderWrapper ? (CommandSenderWrapper)p_193998_0_ : new CommandSenderWrapper(p_193998_0_, null, null, null, null, null);
     }
 
     public CommandSenderWrapper func_193997_a(Entity p_193997_1_, Vec3d p_193997_2_)
@@ -90,7 +90,7 @@ public class CommandSenderWrapper implements ICommandSender
      */
     public boolean canCommandSenderUseCommand(int permLevel, String commandName)
     {
-        return this.field_194004_d != null && this.field_194004_d.intValue() < permLevel ? false : this.field_193043_a.canCommandSenderUseCommand(permLevel, commandName);
+        return (this.field_194004_d == null || this.field_194004_d.intValue() >= permLevel) && this.field_193043_a.canCommandSenderUseCommand(permLevel, commandName);
     }
 
     /**

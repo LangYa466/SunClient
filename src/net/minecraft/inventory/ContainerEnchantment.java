@@ -210,7 +210,7 @@ public class ContainerEnchantment extends Container
                         }
                     }
 
-                    this.rand.setSeed((long)this.xpSeed);
+                    this.rand.setSeed(this.xpSeed);
 
                     for (int i1 = 0; i1 < 3; ++i1)
                     {
@@ -318,7 +318,7 @@ public class ContainerEnchantment extends Container
                     this.tableInventory.markDirty();
                     this.xpSeed = playerIn.getXPSeed();
                     this.onCraftMatrixChanged(this.tableInventory);
-                    this.worldPointer.playSound((EntityPlayer)null, this.position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, this.worldPointer.rand.nextFloat() * 0.1F + 0.9F);
+                    this.worldPointer.playSound(null, this.position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, this.worldPointer.rand.nextFloat() * 0.1F + 0.9F);
                 }
             }
 
@@ -332,7 +332,7 @@ public class ContainerEnchantment extends Container
 
     private List<EnchantmentData> getEnchantmentList(ItemStack stack, int p_178148_2_, int p_178148_3_)
     {
-        this.rand.setSeed((long)(this.xpSeed + p_178148_2_));
+        this.rand.setSeed(this.xpSeed + p_178148_2_);
         List<EnchantmentData> list = EnchantmentHelper.buildEnchantmentList(this.rand, stack, p_178148_3_, false);
 
         if (stack.getItem() == Items.BOOK && list.size() > 1)
@@ -413,19 +413,19 @@ public class ContainerEnchantment extends Container
             }
             else
             {
-                if (((Slot)this.inventorySlots.get(0)).getHasStack() || !((Slot)this.inventorySlots.get(0)).isItemValid(itemstack1))
+                if (this.inventorySlots.get(0).getHasStack() || !this.inventorySlots.get(0).isItemValid(itemstack1))
                 {
                     return ItemStack.field_190927_a;
                 }
 
                 if (itemstack1.hasTagCompound() && itemstack1.func_190916_E() == 1)
                 {
-                    ((Slot)this.inventorySlots.get(0)).putStack(itemstack1.copy());
+                    this.inventorySlots.get(0).putStack(itemstack1.copy());
                     itemstack1.func_190920_e(0);
                 }
                 else if (!itemstack1.func_190926_b())
                 {
-                    ((Slot)this.inventorySlots.get(0)).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
+                    this.inventorySlots.get(0).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
                     itemstack1.func_190918_g(1);
                 }
             }

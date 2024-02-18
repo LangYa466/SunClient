@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigger.Instance>
 {
     private static final ResourceLocation field_192176_a = new ResourceLocation("brewed_potion");
-    private final Map<PlayerAdvancements, BrewedPotionTrigger.Listeners> field_192177_b = Maps.<PlayerAdvancements, BrewedPotionTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, BrewedPotionTrigger.Listeners> field_192177_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -108,7 +108,7 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
     static class Listeners
     {
         private final PlayerAdvancements field_192350_a;
-        private final Set<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> field_192351_b = Sets.<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>> field_192351_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47399_1_)
         {
@@ -136,11 +136,11 @@ public class BrewedPotionTrigger implements ICriterionTrigger<BrewedPotionTrigge
 
             for (ICriterionTrigger.Listener<BrewedPotionTrigger.Instance> listener : this.field_192351_b)
             {
-                if (((BrewedPotionTrigger.Instance)listener.func_192158_a()).func_192250_a(p_192348_1_))
+                if (listener.func_192158_a().func_192250_a(p_192348_1_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<BrewedPotionTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

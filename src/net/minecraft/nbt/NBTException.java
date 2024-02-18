@@ -17,7 +17,7 @@ public class NBTException extends Exception
             stringbuilder.append("...");
         }
 
-        stringbuilder.append(p_193592_0_.substring(Math.max(0, i - 35), i));
+        stringbuilder.append(p_193592_0_, Math.max(0, i - 35), i);
         stringbuilder.append("<--[HERE]");
         return stringbuilder.toString();
     }

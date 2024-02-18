@@ -74,8 +74,8 @@ public class RealmsConnect
                         return;
                     }
 
-                    RealmsConnect.LOGGER.error("Couldn't connect to world", (Throwable)unknownhostexception);
-                    Realms.setScreen(new DisconnectedRealmsScreen(RealmsConnect.this.onlineScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", new Object[] {"Unknown host '" + p_connect_1_ + "'"})));
+                    RealmsConnect.LOGGER.error("Couldn't connect to world", unknownhostexception);
+                    Realms.setScreen(new DisconnectedRealmsScreen(RealmsConnect.this.onlineScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", "Unknown host '" + p_connect_1_ + "'")));
                 }
                 catch (Exception exception)
                 {
@@ -86,7 +86,7 @@ public class RealmsConnect
                         return;
                     }
 
-                    RealmsConnect.LOGGER.error("Couldn't connect to world", (Throwable)exception);
+                    RealmsConnect.LOGGER.error("Couldn't connect to world", exception);
                     String s = exception.toString();
 
                     if (inetaddress != null)
@@ -95,7 +95,7 @@ public class RealmsConnect
                         s = s.replaceAll(s1, "");
                     }
 
-                    Realms.setScreen(new DisconnectedRealmsScreen(RealmsConnect.this.onlineScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", new Object[] {s})));
+                    Realms.setScreen(new DisconnectedRealmsScreen(RealmsConnect.this.onlineScreen, "connect.failed", new TextComponentTranslation("disconnect.genericReason", s)));
                 }
             }
         }).start();
@@ -107,7 +107,7 @@ public class RealmsConnect
 
         if (this.connection != null && this.connection.isChannelOpen())
         {
-            this.connection.closeChannel(new TextComponentTranslation("disconnect.genericReason", new Object[0]));
+            this.connection.closeChannel(new TextComponentTranslation("disconnect.genericReason"));
             this.connection.checkDisconnected();
         }
     }

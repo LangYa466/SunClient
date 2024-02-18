@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 
 public class Ingredient implements Predicate<ItemStack>
 {
-    public static final Ingredient field_193370_a = new Ingredient(new ItemStack[0])
+    public static final Ingredient field_193370_a = new Ingredient()
     {
         public boolean apply(@Nullable ItemStack p_apply_1_)
         {
@@ -92,14 +92,9 @@ public class Ingredient implements Predicate<ItemStack>
 
     public static Ingredient func_193369_a(ItemStack... p_193369_0_)
     {
-        if (p_193369_0_.length > 0)
-        {
-            for (ItemStack itemstack : p_193369_0_)
-            {
-                if (!itemstack.func_190926_b())
-                {
-                    return new Ingredient(p_193369_0_);
-                }
+        for (ItemStack itemstack : p_193369_0_) {
+            if (!itemstack.func_190926_b()) {
+                return new Ingredient(p_193369_0_);
             }
         }
 

@@ -21,6 +21,9 @@ public class NameProtect extends Module {
 
    @EventTarget
     void onT(EventText e) {
+
+       if (e.text == null || mc.world == null || mc.player == null) return;
+
        if(e.text.contains(mc.player.getDisplayName().getFormattedText())) {
            e.text.replace(mc.player.getDisplayName().getFormattedText(),name.get());
        }

@@ -42,12 +42,12 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     public TileEntityShulkerBox()
     {
-        this((EnumDyeColor)null);
+        this(null);
     }
 
     public TileEntityShulkerBox(@Nullable EnumDyeColor p_i47242_1_)
     {
-        this.field_190596_f = NonNullList.<ItemStack>func_191197_a(27, ItemStack.field_190927_a);
+        this.field_190596_f = NonNullList.func_191197_a(27, ItemStack.field_190927_a);
         this.field_190599_i = TileEntityShulkerBox.AnimationStatus.CLOSED;
         this.field_190602_l = p_i47242_1_;
     }
@@ -110,18 +110,18 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     public AxisAlignedBB func_190584_a(IBlockState p_190584_1_)
     {
-        return this.func_190587_b((EnumFacing)p_190584_1_.getValue(BlockShulkerBox.field_190957_a));
+        return this.func_190587_b(p_190584_1_.getValue(BlockShulkerBox.field_190957_a));
     }
 
     public AxisAlignedBB func_190587_b(EnumFacing p_190587_1_)
     {
-        return Block.FULL_BLOCK_AABB.addCoord((double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetX()), (double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetY()), (double)(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetZ()));
+        return Block.FULL_BLOCK_AABB.addCoord(0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetX(), 0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetY(), 0.5F * this.func_190585_a(1.0F) * (float)p_190587_1_.getFrontOffsetZ());
     }
 
     private AxisAlignedBB func_190588_c(EnumFacing p_190588_1_)
     {
         EnumFacing enumfacing = p_190588_1_.getOpposite();
-        return this.func_190587_b(p_190588_1_).func_191195_a((double)enumfacing.getFrontOffsetX(), (double)enumfacing.getFrontOffsetY(), (double)enumfacing.getFrontOffsetZ());
+        return this.func_190587_b(p_190588_1_).func_191195_a(enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
     }
 
     private void func_190589_G()
@@ -130,9 +130,9 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
         if (iblockstate.getBlock() instanceof BlockShulkerBox)
         {
-            EnumFacing enumfacing = (EnumFacing)iblockstate.getValue(BlockShulkerBox.field_190957_a);
+            EnumFacing enumfacing = iblockstate.getValue(BlockShulkerBox.field_190957_a);
             AxisAlignedBB axisalignedbb = this.func_190588_c(enumfacing).offset(this.pos);
-            List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
+            List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(null, axisalignedbb);
 
             if (!list.isEmpty())
             {
@@ -249,7 +249,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
             if (this.field_190598_h == 1)
             {
-                this.world.playSound((EntityPlayer)null, this.pos, SoundEvents.field_191262_fB, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                this.world.playSound(null, this.pos, SoundEvents.field_191262_fB, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
             }
         }
     }
@@ -263,7 +263,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
             if (this.field_190598_h <= 0)
             {
-                this.world.playSound((EntityPlayer)null, this.pos, SoundEvents.field_191261_fA, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+                this.world.playSound(null, this.pos, SoundEvents.field_191261_fA, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
             }
         }
     }
@@ -288,7 +288,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     public static void func_190593_a(DataFixer p_190593_0_)
     {
-        p_190593_0_.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityShulkerBox.class, new String[] {"Items"}));
+        p_190593_0_.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityShulkerBox.class, "Items"));
     }
 
     public void readFromNBT(NBTTagCompound compound)
@@ -305,7 +305,7 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
 
     public void func_190586_e(NBTTagCompound p_190586_1_)
     {
-        this.field_190596_f = NonNullList.<ItemStack>func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.field_190596_f = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
 
         if (!this.checkLootAndRead(p_190586_1_) && p_190586_1_.hasKey("Items", 9))
         {
@@ -428,15 +428,14 @@ public class TileEntityShulkerBox extends TileEntityLockableLoot implements ITic
     {
         for (int i = 0; i < field_190595_a.length; field_190595_a[i] = i++)
         {
-            ;
         }
     }
 
-    public static enum AnimationStatus
+    public enum AnimationStatus
     {
         CLOSED,
         OPENING,
         OPENED,
-        CLOSING;
+        CLOSING
     }
 }

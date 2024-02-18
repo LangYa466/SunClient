@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 public abstract class AbstractChestHorse extends AbstractHorse
 {
-    private static final DataParameter<Boolean> field_190698_bG = EntityDataManager.<Boolean>createKey(AbstractChestHorse.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> field_190698_bG = EntityDataManager.createKey(AbstractChestHorse.class, DataSerializers.BOOLEAN);
 
     public AbstractChestHorse(World p_i47300_1_)
     {
@@ -39,14 +39,14 @@ public abstract class AbstractChestHorse extends AbstractHorse
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((double)this.getModifiedMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.getModifiedMaxHealth());
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.17499999701976776D);
         this.getEntityAttribute(JUMP_STRENGTH).setBaseValue(0.5D);
     }
 
     public boolean func_190695_dh()
     {
-        return ((Boolean)this.dataManager.get(field_190698_bG)).booleanValue();
+        return this.dataManager.get(field_190698_bG).booleanValue();
     }
 
     public void setChested(boolean chested)
@@ -94,7 +94,7 @@ public abstract class AbstractChestHorse extends AbstractHorse
     public static void func_190694_b(DataFixer p_190694_0_, Class<?> p_190694_1_)
     {
         AbstractHorse.func_190683_c(p_190694_0_, p_190694_1_);
-        p_190694_0_.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(p_190694_1_, new String[] {"Items"}));
+        p_190694_0_.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(p_190694_1_, "Items"));
     }
 
     /**

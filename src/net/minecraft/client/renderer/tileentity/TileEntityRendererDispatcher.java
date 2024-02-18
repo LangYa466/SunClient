@@ -61,7 +61,7 @@ public class TileEntityRendererDispatcher
     public double entityY;
     public double entityZ;
     public TileEntity tileEntityRendered;
-    private Tessellator batchBuffer = new Tessellator(2097152);
+    private final Tessellator batchBuffer = new Tessellator(2097152);
     private boolean drawingBatch = false;
 
     private TileEntityRendererDispatcher()
@@ -165,7 +165,7 @@ public class TileEntityRendererDispatcher
 
     public void func_192854_a(TileEntity p_192854_1_, double p_192854_2_, double p_192854_4_, double p_192854_6_, float p_192854_8_, int p_192854_9_, float p_192854_10_)
     {
-        TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = this.<TileEntity>getSpecialRenderer(p_192854_1_);
+        TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = this.getSpecialRenderer(p_192854_1_);
 
         if (tileentityspecialrenderer != null)
         {

@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -80,7 +81,7 @@ public class Config
     public static boolean fancyFogAvailable = false;
     public static boolean occlusionAvailable = false;
     private static GameSettings gameSettings = null;
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     private static boolean initialized = false;
     private static Thread minecraftThread = null;
     private static DisplayMode desktopDisplayMode = null;
@@ -108,7 +109,7 @@ public class Config
         if (isDynamicLights())
         {
             stringbuffer.append("DL: ");
-            stringbuffer.append(String.valueOf(DynamicLights.getCount()));
+            stringbuffer.append(DynamicLights.getCount());
             stringbuffer.append(", ");
         }
 
@@ -215,7 +216,7 @@ public class Config
         }
         catch (Exception exception)
         {
-            warn("" + exception.getClass().getName() + ": " + exception.getMessage());
+            warn(exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         }
     }
@@ -249,7 +250,7 @@ public class Config
 
             if (astring.length > 2)
             {
-                i += 1 * parseInt(astring[2], 0);
+                i += parseInt(astring[2], 0);
             }
 
             minecraftVersionInt = i;
@@ -261,7 +262,7 @@ public class Config
     public static String getOpenGlVersionString()
     {
         GlVersion glversion = getGlVersion();
-        String s = "" + glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
+        String s = glversion.getMajor() + "." + glversion.getMinor() + "." + glversion.getRelease();
         return s;
     }
 
@@ -338,7 +339,7 @@ public class Config
         if (glVersion == null)
         {
             String s = GL11.glGetString(GL11.GL_VERSION);
-            glVersion = parseGlVersion(s, (GlVersion)null);
+            glVersion = parseGlVersion(s, null);
 
             if (glVersion == null)
             {
@@ -359,7 +360,7 @@ public class Config
         if (glslVersion == null)
         {
             String s = GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
-            glslVersion = parseGlVersion(s, (GlVersion)null);
+            glslVersion = parseGlVersion(s, null);
 
             if (glslVersion == null)
             {
@@ -734,7 +735,6 @@ public class Config
             }
             catch (Exception var4)
             {
-                ;
             }
         }
     }
@@ -937,7 +937,7 @@ public class Config
                     stringbuffer.append(", ");
                 }
 
-                stringbuffer.append(String.valueOf(object));
+                stringbuffer.append(object);
             }
 
             return stringbuffer.toString();
@@ -963,7 +963,7 @@ public class Config
                     stringbuffer.append(", ");
                 }
 
-                stringbuffer.append(String.valueOf(j));
+                stringbuffer.append(j);
             }
 
             return stringbuffer.toString();
@@ -1063,7 +1063,7 @@ public class Config
                     astring[i] = airesourcepack[i].getPackName();
                 }
 
-                String s = arrayToString((Object[])astring);
+                String s = arrayToString(astring);
                 return s;
             }
         }
@@ -1520,7 +1520,7 @@ public class Config
         for (int i = 0; i < adisplaymode.length; ++i)
         {
             DisplayMode displaymode = adisplaymode[i];
-            String s = "" + displaymode.getWidth() + "x" + displaymode.getHeight();
+            String s = displaymode.getWidth() + "x" + displaymode.getHeight();
             astring[i] = s;
         }
 
@@ -1646,7 +1646,7 @@ public class Config
     public static String[] readLines(InputStream p_readLines_0_) throws IOException
     {
         List list = new ArrayList();
-        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, "ASCII");
+        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, StandardCharsets.US_ASCII);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
 
         while (true)
@@ -1884,7 +1884,7 @@ public class Config
 
     public static boolean isLazyChunkLoading()
     {
-        return !isSingleProcessor() ? false : gameSettings.ofLazyChunkLoading;
+        return isSingleProcessor() && gameSettings.ofLazyChunkLoading;
     }
 
     public static boolean isDynamicFov()
@@ -1918,7 +1918,7 @@ public class Config
         }
         else
         {
-            return p_equals_0_ == null ? false : p_equals_0_.equals(p_equals_1_);
+            return p_equals_0_ != null && p_equals_0_.equals(p_equals_1_);
         }
     }
 
@@ -2062,7 +2062,7 @@ public class Config
     private static ByteBuffer readIconImage(InputStream p_readIconImage_0_) throws IOException
     {
         BufferedImage bufferedimage = ImageIO.read(p_readIconImage_0_);
-        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), (int[])null, 0, bufferedimage.getWidth());
+        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0, bufferedimage.getWidth());
         ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
 
         for (int i : aint)
@@ -2227,7 +2227,7 @@ public class Config
         int j = minecraft.renderGlobal.getCountActiveRenderers();
         int k = minecraft.renderGlobal.getCountEntitiesRendered();
         int l = minecraft.renderGlobal.getCountTileEntitiesRendered();
-        String s1 = "" + i + " fps, C: " + j + ", E: " + k + "+" + l + ", U: " + s;
+        String s1 = i + " fps, C: " + j + ", E: " + k + "+" + l + ", U: " + s;
         minecraft.fontRendererObj.drawString(s1, 2, 2, -2039584);
     }
 
@@ -2305,10 +2305,7 @@ public class Config
             int[] aint = new int[j];
             System.arraycopy(p_addIntsToArray_0_, 0, aint, 0, i);
 
-            for (int k = 0; k < p_addIntsToArray_1_.length; ++k)
-            {
-                aint[k + i] = p_addIntsToArray_1_[k];
-            }
+            System.arraycopy(p_addIntsToArray_1_, 0, aint, 0 + i, p_addIntsToArray_1_.length);
 
             return aint;
         }
@@ -2354,7 +2351,7 @@ public class Config
     public static void writeFile(File p_writeFile_0_, String p_writeFile_1_) throws IOException
     {
         FileOutputStream fileoutputstream = new FileOutputStream(p_writeFile_0_);
-        byte[] abyte = p_writeFile_1_.getBytes("ASCII");
+        byte[] abyte = p_writeFile_1_.getBytes(StandardCharsets.US_ASCII);
         fileoutputstream.write(abyte);
         fileoutputstream.close();
     }
@@ -2382,7 +2379,7 @@ public class Config
         }
         else
         {
-            return isShaders() ? Shaders.isDynamicHandLight() : true;
+            return !isShaders() || Shaders.isDynamicHandLight();
         }
     }
 

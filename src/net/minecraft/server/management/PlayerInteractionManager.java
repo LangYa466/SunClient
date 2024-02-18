@@ -60,7 +60,7 @@ public class PlayerInteractionManager
         this.gameType = type;
         type.configurePlayerCapabilities(this.thisPlayerMP.capabilities);
         this.thisPlayerMP.sendPlayerAbilities();
-        this.thisPlayerMP.mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.UPDATE_GAME_MODE, new EntityPlayerMP[] {this.thisPlayerMP}));
+        this.thisPlayerMP.mcServer.getPlayerList().sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.UPDATE_GAME_MODE, this.thisPlayerMP));
         this.theWorld.updateAllPlayersSleepingFlag();
     }
 
@@ -159,7 +159,7 @@ public class PlayerInteractionManager
     {
         if (this.isCreative())
         {
-            if (!this.theWorld.extinguishFire((EntityPlayer)null, pos, side))
+            if (!this.theWorld.extinguishFire(null, pos, side))
             {
                 this.tryHarvestBlock(pos);
             }
@@ -192,7 +192,7 @@ public class PlayerInteractionManager
                 }
             }
 
-            this.theWorld.extinguishFire((EntityPlayer)null, pos, side);
+            this.theWorld.extinguishFire(null, pos, side);
             this.initialDamage = this.curblockDamage;
             float f = 1.0F;
 

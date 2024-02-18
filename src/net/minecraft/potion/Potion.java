@@ -23,7 +23,7 @@ import net.minecraft.util.registry.RegistryNamespaced;
 public class Potion
 {
     public static final RegistryNamespaced<ResourceLocation, Potion> REGISTRY = new RegistryNamespaced<ResourceLocation, Potion>();
-    private final Map<IAttribute, AttributeModifier> attributeModifierMap = Maps.<IAttribute, AttributeModifier>newHashMap();
+    private final Map<IAttribute, AttributeModifier> attributeModifierMap = Maps.newHashMap();
 
     /**
      * This field indicated if the effect is 'bad' - negative - for the entity.

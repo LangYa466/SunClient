@@ -13,7 +13,6 @@ public class SpriteDependencies
 
         for (textureatlassprite = p_resolveDependencies_0_.get(p_resolveDependencies_1_); resolveOne(p_resolveDependencies_0_, p_resolveDependencies_1_, textureatlassprite, p_resolveDependencies_2_); textureatlassprite = p_resolveDependencies_0_.get(p_resolveDependencies_1_))
         {
-            ;
         }
 
         textureatlassprite.isDependencyParent = false;

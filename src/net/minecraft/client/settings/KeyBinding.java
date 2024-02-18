@@ -11,10 +11,10 @@ import org.lwjgl.input.Keyboard;
 
 public class KeyBinding implements Comparable<KeyBinding>
 {
-    private static final Map<String, KeyBinding> KEYBIND_ARRAY = Maps.<String, KeyBinding>newHashMap();
+    private static final Map<String, KeyBinding> KEYBIND_ARRAY = Maps.newHashMap();
     private static final IntHashMap<KeyBinding> HASH = new IntHashMap<KeyBinding>();
-    private static final Set<String> KEYBIND_SET = Sets.<String>newHashSet();
-    private static final Map<String, Integer> field_193627_d = Maps.<String, Integer>newHashMap();
+    private static final Set<String> KEYBIND_SET = Sets.newHashSet();
+    private static final Map<String, Integer> field_193627_d = Maps.newHashMap();
     private final String keyDescription;
     private final int keyCodeDefault;
     private final String keyCategory;
@@ -60,7 +60,6 @@ public class KeyBinding implements Comparable<KeyBinding>
             }
             catch (IndexOutOfBoundsException var3)
             {
-                ;
             }
         }
     }
@@ -157,7 +156,7 @@ public class KeyBinding implements Comparable<KeyBinding>
 
     public int compareTo(KeyBinding p_compareTo_1_)
     {
-        return this.keyCategory.equals(p_compareTo_1_.keyCategory) ? I18n.format(this.keyDescription).compareTo(I18n.format(p_compareTo_1_.keyDescription)) : ((Integer)field_193627_d.get(this.keyCategory)).compareTo(field_193627_d.get(p_compareTo_1_.keyCategory));
+        return this.keyCategory.equals(p_compareTo_1_.keyCategory) ? I18n.format(this.keyDescription).compareTo(I18n.format(p_compareTo_1_.keyDescription)) : field_193627_d.get(this.keyCategory).compareTo(field_193627_d.get(p_compareTo_1_.keyCategory));
     }
 
     public static Supplier<String> func_193626_b(String p_193626_0_)

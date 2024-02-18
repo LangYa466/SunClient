@@ -293,7 +293,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
      * reset upon respawning
      */
     private boolean doneLoadingTerrain;
-    private final Map<UUID, NetworkPlayerInfo> playerInfoMap = Maps.<UUID, NetworkPlayerInfo>newHashMap();
+    private final Map<UUID, NetworkPlayerInfo> playerInfoMap = Maps.newHashMap();
     public int currentServerMaxPlayers = 20;
     private boolean hasStatistics;
     private final ClientAdvancementManager field_191983_k;
@@ -437,7 +437,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else if (packetIn.getType() == 79)
         {
-            entity = new EntityEvokerFangs(this.clientWorldController, d0, d1, d2, 0.0F, 0, (EntityLivingBase)null);
+            entity = new EntityEvokerFangs(this.clientWorldController, d0, d1, d2, 0.0F, 0, null);
         }
         else if (packetIn.getType() == 73)
         {
@@ -455,7 +455,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else if (packetIn.getType() == 50)
         {
-            entity = new EntityTNTPrimed(this.clientWorldController, d0, d1, d2, (EntityLivingBase)null);
+            entity = new EntityTNTPrimed(this.clientWorldController, d0, d1, d2, null);
         }
         else if (packetIn.getType() == 78)
         {
@@ -688,9 +688,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         if (entity != null)
         {
-            entity.serverPosX += (long)packetIn.getX();
-            entity.serverPosY += (long)packetIn.getY();
-            entity.serverPosZ += (long)packetIn.getZ();
+            entity.serverPosX += packetIn.getX();
+            entity.serverPosY += packetIn.getY();
+            entity.serverPosZ += packetIn.getZ();
             double d0 = (double)entity.serverPosX / 4096.0D;
             double d1 = (double)entity.serverPosY / 4096.0D;
             double d2 = (double)entity.serverPosZ / 4096.0D;
@@ -793,7 +793,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             this.gameController.player.prevPosY = this.gameController.player.posY;
             this.gameController.player.prevPosZ = this.gameController.player.posZ;
             this.doneLoadingTerrain = true;
-            this.gameController.displayGuiScreen((GuiScreen)null);
+            this.gameController.displayGuiScreen(null);
         }
     }
 
@@ -874,7 +874,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
      */
     public void onDisconnect(ITextComponent reason)
     {
-        this.gameController.loadWorld((WorldClient)null);
+        this.gameController.loadWorld(null);
 
         if (this.guiScreenServer != null)
         {
@@ -1024,9 +1024,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             entitylivingbase.setEntityId(packetIn.getEntityID());
             entitylivingbase.setUniqueId(packetIn.getUniqueId());
             entitylivingbase.setPositionAndRotation(d0, d1, d2, f, f1);
-            entitylivingbase.motionX = (double)((float)packetIn.getVelocityX() / 8000.0F);
-            entitylivingbase.motionY = (double)((float)packetIn.getVelocityY() / 8000.0F);
-            entitylivingbase.motionZ = (double)((float)packetIn.getVelocityZ() / 8000.0F);
+            entitylivingbase.motionX = (float)packetIn.getVelocityX() / 8000.0F;
+            entitylivingbase.motionY = (float)packetIn.getVelocityY() / 8000.0F;
+            entitylivingbase.motionZ = (float)packetIn.getVelocityZ() / 8000.0F;
             this.clientWorldController.addEntityToWorld(packetIn.getEntityID(), entitylivingbase);
             List < EntityDataManager.DataEntry<? >> list = packetIn.getDataManagerEntries();
 
@@ -1037,7 +1037,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else
         {
-            LOGGER.warn("Skipping Entity with id {}", (int)packetIn.getEntityType());
+            LOGGER.warn("Skipping Entity with id {}", packetIn.getEntityType());
         }
     }
 
@@ -1179,11 +1179,11 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     public void handleExplosion(SPacketExplosion packetIn)
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
-        Explosion explosion = new Explosion(this.gameController.world, (Entity)null, packetIn.getX(), packetIn.getY(), packetIn.getZ(), packetIn.getStrength(), packetIn.getAffectedBlockPositions());
+        Explosion explosion = new Explosion(this.gameController.world, null, packetIn.getX(), packetIn.getY(), packetIn.getZ(), packetIn.getStrength(), packetIn.getAffectedBlockPositions());
         explosion.doExplosionB(true);
-        this.gameController.player.motionX += (double)packetIn.getMotionX();
-        this.gameController.player.motionY += (double)packetIn.getMotionY();
-        this.gameController.player.motionZ += (double)packetIn.getMotionZ();
+        this.gameController.player.motionX += packetIn.getMotionX();
+        this.gameController.player.motionY += packetIn.getMotionY();
+        this.gameController.player.motionZ += packetIn.getMotionZ();
     }
 
     /**
@@ -1435,7 +1435,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         if (i >= 0 && i < SPacketChangeGameState.MESSAGE_NAMES.length && SPacketChangeGameState.MESSAGE_NAMES[i] != null)
         {
-            entityplayer.addChatComponentMessage(new TextComponentTranslation(SPacketChangeGameState.MESSAGE_NAMES[i], new Object[0]), false);
+            entityplayer.addChatComponentMessage(new TextComponentTranslation(SPacketChangeGameState.MESSAGE_NAMES[i]), false);
         }
 
         if (i == 1)
@@ -1477,15 +1477,15 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             }
             else if (f == 101.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.movement", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindForward.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindLeft.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindBack.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindRight.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.movement", GameSettings.getKeyDisplayString(gamesettings.keyBindForward.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindLeft.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindBack.getKeyCode()), GameSettings.getKeyDisplayString(gamesettings.keyBindRight.getKeyCode())));
             }
             else if (f == 102.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.jump", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindJump.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.jump", GameSettings.getKeyDisplayString(gamesettings.keyBindJump.getKeyCode())));
             }
             else if (f == 103.0F)
             {
-                this.gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.inventory", new Object[] {GameSettings.getKeyDisplayString(gamesettings.keyBindInventory.getKeyCode())}));
+                this.gameController.ingameGUI.getChatGUI().printChatMessage(new TextComponentTranslation("demo.help.inventory", GameSettings.getKeyDisplayString(gamesettings.keyBindInventory.getKeyCode())));
             }
         }
         else if (i == 6)
@@ -1502,7 +1502,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else if (i == 10)
         {
-            this.clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            this.clientWorldController.spawnParticle(EnumParticleTypes.MOB_APPEARANCE, entityplayer.posX, entityplayer.posY, entityplayer.posZ, 0.0D, 0.0D, 0.0D);
             this.clientWorldController.playSound(entityplayer, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ELDER_GUARDIAN_CURSE, SoundCategory.HOSTILE, 1.0F, 1.0F);
         }
     }
@@ -1566,7 +1566,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         if (resourcelocation == null)
         {
-            this.field_191983_k.func_194230_a((Advancement)null, false);
+            this.field_191983_k.func_194230_a(null, false);
         }
         else
         {
@@ -1585,7 +1585,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         for (Entry<StatBase, Integer> entry : packetIn.getStatisticMap().entrySet())
         {
             StatBase statbase = entry.getKey();
-            int k = ((Integer)entry.getValue()).intValue();
+            int k = entry.getValue().intValue();
             this.gameController.player.getStatFileWriter().unlockAchievement(this.gameController.player, statbase, k);
         }
 
@@ -1824,7 +1824,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         String[] astring = packetIn.getMatches();
-        Arrays.sort((Object[])astring);
+        Arrays.sort(astring);
 
         if (this.gameController.currentScreen instanceof ITabCompleter)
         {
@@ -1868,7 +1868,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
                 }
                 catch (UnsupportedEncodingException var7)
                 {
-                    ;
                 }
 
                 this.netManager.sendPacket(new CPacketResourcePackStatus(CPacketResourcePackStatus.Action.FAILED_DOWNLOAD));
@@ -1920,7 +1919,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
                                     }
 
                                     ServerList.saveSingleServer(serverdata1);
-                                    NetHandlerPlayClient.this.gameController.displayGuiScreen((GuiScreen)null);
+                                    NetHandlerPlayClient.this.gameController.displayGuiScreen(null);
                                 }
                             }, I18n.format("multiplayer.texturePrompt.line1"), I18n.format("multiplayer.texturePrompt.line2"), 0));
                         }
@@ -2033,7 +2032,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             }
             catch (IOException ioexception)
             {
-                LOGGER.error("Couldn't load trade info", (Throwable)ioexception);
+                LOGGER.error("Couldn't load trade info", ioexception);
             }
             finally
             {
@@ -2046,7 +2045,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else if ("MC|BOpen".equals(packetIn.getChannelName()))
         {
-            EnumHand enumhand = (EnumHand)packetIn.getBufferData().readEnumValue(EnumHand.class);
+            EnumHand enumhand = packetIn.getBufferData().readEnumValue(EnumHand.class);
             ItemStack itemstack = enumhand == EnumHand.OFF_HAND ? this.gameController.player.getHeldItemOffhand() : this.gameController.player.getHeldItemMainhand();
 
             if (itemstack.getItem() == Items.WRITTEN_BOOK)
@@ -2126,7 +2125,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         {
             if (StringUtils.isNullOrEmpty(packetIn.getObjectiveName()))
             {
-                scoreboard.removeObjectiveFromEntity(packetIn.getPlayerName(), (ScoreObjective)null);
+                scoreboard.removeObjectiveFromEntity(packetIn.getPlayerName(), null);
             }
             else if (scoreobjective != null)
             {
@@ -2146,7 +2145,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         if (packetIn.getName().isEmpty())
         {
-            scoreboard.setObjectiveInDisplaySlot(packetIn.getPosition(), (ScoreObjective)null);
+            scoreboard.setObjectiveInDisplaySlot(packetIn.getPosition(), null);
         }
         else
         {
@@ -2228,9 +2227,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
         if (packetIn.getParticleCount() == 0)
         {
-            double d0 = (double)(packetIn.getParticleSpeed() * packetIn.getXOffset());
-            double d2 = (double)(packetIn.getParticleSpeed() * packetIn.getYOffset());
-            double d4 = (double)(packetIn.getParticleSpeed() * packetIn.getZOffset());
+            double d0 = packetIn.getParticleSpeed() * packetIn.getXOffset();
+            double d2 = packetIn.getParticleSpeed() * packetIn.getYOffset();
+            double d4 = packetIn.getParticleSpeed() * packetIn.getZOffset();
 
             try
             {
@@ -2238,7 +2237,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             }
             catch (Throwable var17)
             {
-                LOGGER.warn("Could not spawn particle effect {}", (Object)packetIn.getParticleType());
+                LOGGER.warn("Could not spawn particle effect {}", packetIn.getParticleType());
             }
         }
         else
@@ -2258,7 +2257,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
                 }
                 catch (Throwable var16)
                 {
-                    LOGGER.warn("Could not spawn particle effect {}", (Object)packetIn.getParticleType());
+                    LOGGER.warn("Could not spawn particle effect {}", packetIn.getParticleType());
                     return;
                 }
             }
@@ -2291,7 +2290,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
                     if (iattributeinstance == null)
                     {
-                        iattributeinstance = abstractattributemap.registerAttribute(new RangedAttribute((IAttribute)null, spacketentityproperties$snapshot.getName(), 0.0D, 2.2250738585072014E-308D, Double.MAX_VALUE));
+                        iattributeinstance = abstractattributemap.registerAttribute(new RangedAttribute(null, spacketentityproperties$snapshot.getName(), 0.0D, 2.2250738585072014E-308D, Double.MAX_VALUE));
                     }
 
                     iattributeinstance.setBaseValue(spacketentityproperties$snapshot.getBaseValue());

@@ -24,8 +24,8 @@ import net.minecraft.world.World;
 
 public class EntityFireworkRocket extends Entity
 {
-    private static final DataParameter<ItemStack> FIREWORK_ITEM = EntityDataManager.<ItemStack>createKey(EntityFireworkRocket.class, DataSerializers.OPTIONAL_ITEM_STACK);
-    private static final DataParameter<Integer> field_191512_b = EntityDataManager.<Integer>createKey(EntityFireworkRocket.class, DataSerializers.VARINT);
+    private static final DataParameter<ItemStack> FIREWORK_ITEM = EntityDataManager.createKey(EntityFireworkRocket.class, DataSerializers.OPTIONAL_ITEM_STACK);
+    private static final DataParameter<Integer> field_191512_b = EntityDataManager.createKey(EntityFireworkRocket.class, DataSerializers.VARINT);
 
     /** The age of the firework in ticks. */
     private int fireworkAge;
@@ -103,7 +103,7 @@ public class EntityFireworkRocket extends Entity
         {
             float f = MathHelper.sqrt(x * x + z * z);
             this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
-            this.rotationPitch = (float)(MathHelper.atan2(y, (double)f) * (180D / Math.PI));
+            this.rotationPitch = (float)(MathHelper.atan2(y, f) * (180D / Math.PI));
             this.prevRotationYaw = this.rotationYaw;
             this.prevRotationPitch = this.rotationPitch;
         }
@@ -123,7 +123,7 @@ public class EntityFireworkRocket extends Entity
         {
             if (this.field_191513_e == null)
             {
-                Entity entity = this.world.getEntityByID(((Integer)this.dataManager.get(field_191512_b)).intValue());
+                Entity entity = this.world.getEntityByID(this.dataManager.get(field_191512_b).intValue());
 
                 if (entity instanceof EntityLivingBase)
                 {
@@ -160,9 +160,8 @@ public class EntityFireworkRocket extends Entity
         float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
 
-        for (this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+        for (this.rotationPitch = (float)(MathHelper.atan2(this.motionY, f) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
         {
-            ;
         }
 
         while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
@@ -185,7 +184,7 @@ public class EntityFireworkRocket extends Entity
 
         if (this.fireworkAge == 0 && !this.isSilent())
         {
-            this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_FIREWORK_LAUNCH, SoundCategory.AMBIENT, 3.0F, 1.0F);
+            this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_FIREWORK_LAUNCH, SoundCategory.AMBIENT, 3.0F, 1.0F);
         }
 
         ++this.fireworkAge;
@@ -206,7 +205,7 @@ public class EntityFireworkRocket extends Entity
     private void func_191510_k()
     {
         float f = 0.0F;
-        ItemStack itemstack = (ItemStack)this.dataManager.get(FIREWORK_ITEM);
+        ItemStack itemstack = this.dataManager.get(FIREWORK_ITEM);
         NBTTagCompound nbttagcompound = itemstack.func_190926_b() ? null : itemstack.getSubCompound("Fireworks");
         NBTTagList nbttaglist = nbttagcompound != null ? nbttagcompound.getTagList("Explosions", 10) : null;
 
@@ -254,14 +253,14 @@ public class EntityFireworkRocket extends Entity
 
     public boolean func_191511_j()
     {
-        return ((Integer)this.dataManager.get(field_191512_b)).intValue() > 0;
+        return this.dataManager.get(field_191512_b).intValue() > 0;
     }
 
     public void handleStatusUpdate(byte id)
     {
         if (id == 17 && this.world.isRemote)
         {
-            ItemStack itemstack = (ItemStack)this.dataManager.get(FIREWORK_ITEM);
+            ItemStack itemstack = this.dataManager.get(FIREWORK_ITEM);
             NBTTagCompound nbttagcompound = itemstack.func_190926_b() ? null : itemstack.getSubCompound("Fireworks");
             this.world.makeFireworks(this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ, nbttagcompound);
         }
@@ -271,7 +270,7 @@ public class EntityFireworkRocket extends Entity
 
     public static void registerFixesFireworkRocket(DataFixer fixer)
     {
-        fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityFireworkRocket.class, new String[] {"FireworksItem"}));
+        fixer.registerWalker(FixTypes.ENTITY, new ItemStackData(EntityFireworkRocket.class, "FireworksItem"));
     }
 
     /**
@@ -281,7 +280,7 @@ public class EntityFireworkRocket extends Entity
     {
         compound.setInteger("Life", this.fireworkAge);
         compound.setInteger("LifeTime", this.lifetime);
-        ItemStack itemstack = (ItemStack)this.dataManager.get(FIREWORK_ITEM);
+        ItemStack itemstack = this.dataManager.get(FIREWORK_ITEM);
 
         if (!itemstack.func_190926_b())
         {

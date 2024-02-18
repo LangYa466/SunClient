@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTrigger.Instance>
 {
     private static final ResourceLocation field_193159_a = new ResourceLocation("item_durability_changed");
-    private final Map<PlayerAdvancements, ItemDurabilityTrigger.Listeners> field_193160_b = Maps.<PlayerAdvancements, ItemDurabilityTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, ItemDurabilityTrigger.Listeners> field_193160_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -109,7 +109,7 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
     static class Listeners
     {
         private final PlayerAdvancements field_193442_a;
-        private final Set<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> field_193443_b = Sets.<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>> field_193443_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47512_1_)
         {
@@ -137,11 +137,11 @@ public class ItemDurabilityTrigger implements ICriterionTrigger<ItemDurabilityTr
 
             for (ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance> listener : this.field_193443_b)
             {
-                if (((ItemDurabilityTrigger.Instance)listener.func_192158_a()).func_193197_a(p_193441_1_, p_193441_2_))
+                if (listener.func_192158_a().func_193197_a(p_193441_1_, p_193441_2_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<ItemDurabilityTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

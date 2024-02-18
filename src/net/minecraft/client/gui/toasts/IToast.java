@@ -18,14 +18,14 @@ default Object func_193652_b()
         return field_193655_b;
     }
 
-    public static enum Visibility
+    enum Visibility
     {
         SHOW(SoundEvents.field_194226_id),
         HIDE(SoundEvents.field_194227_ie);
 
         private final SoundEvent field_194170_c;
 
-        private Visibility(SoundEvent p_i47607_3_)
+        Visibility(SoundEvent p_i47607_3_)
         {
             this.field_194170_c = p_i47607_3_;
         }

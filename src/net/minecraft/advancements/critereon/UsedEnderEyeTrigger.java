@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigger.Instance>
 {
     private static final ResourceLocation field_192242_a = new ResourceLocation("used_ender_eye");
-    private final Map<PlayerAdvancements, UsedEnderEyeTrigger.Listeners> field_192243_b = Maps.<PlayerAdvancements, UsedEnderEyeTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, UsedEnderEyeTrigger.Listeners> field_192243_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -94,7 +94,7 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
     static class Listeners
     {
         private final PlayerAdvancements field_192547_a;
-        private final Set<ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance>> field_192548_b = Sets.<ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance>> field_192548_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47450_1_)
         {
@@ -122,11 +122,11 @@ public class UsedEnderEyeTrigger implements ICriterionTrigger<UsedEnderEyeTrigge
 
             for (ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance> listener : this.field_192548_b)
             {
-                if (((UsedEnderEyeTrigger.Instance)listener.func_192158_a()).func_192288_a(p_192543_1_))
+                if (listener.func_192158_a().func_192288_a(p_192543_1_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<UsedEnderEyeTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

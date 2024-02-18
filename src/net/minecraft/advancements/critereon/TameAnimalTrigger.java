@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.Instance>
 {
     private static final ResourceLocation field_193179_a = new ResourceLocation("tame_animal");
-    private final Map<PlayerAdvancements, TameAnimalTrigger.Listeners> field_193180_b = Maps.<PlayerAdvancements, TameAnimalTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, TameAnimalTrigger.Listeners> field_193180_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -92,7 +92,7 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
     static class Listeners
     {
         private final PlayerAdvancements field_193498_a;
-        private final Set<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> field_193499_b = Sets.<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>> field_193499_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47514_1_)
         {
@@ -120,11 +120,11 @@ public class TameAnimalTrigger implements ICriterionTrigger<TameAnimalTrigger.In
 
             for (ICriterionTrigger.Listener<TameAnimalTrigger.Instance> listener : this.field_193499_b)
             {
-                if (((TameAnimalTrigger.Instance)listener.func_192158_a()).func_193216_a(p_193497_1_, p_193497_2_))
+                if (listener.func_192158_a().func_193216_a(p_193497_1_, p_193497_2_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<TameAnimalTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

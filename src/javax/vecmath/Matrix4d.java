@@ -668,7 +668,7 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
      * @param row  the matrix row
      * @param v    the array into which the matrix row values will be copied
      */
-    public final void getRow(int row, double v[]) {
+    public final void getRow(int row, double[] v) {
         if( row == 0 ) {
 		v[0] = m00;
 		v[1] = m01;
@@ -739,7 +739,7 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
      * @param column the matrix column
      * @param v    the array into which the matrix column values will be copied
      */
-    public final void getColumn(int column, double v[]) {
+    public final void getColumn(int column, double[] v) {
         if( column == 0 ) {
            v[0] = m00;
            v[1] = m10;
@@ -1181,7 +1181,7 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
      * @param row the row number to be modified (zero indexed)
      * @param v the replacement row
      */
-    public final void setRow(int row, double v[])
+    public final void setRow(int row, double[] v)
     {
 	switch (row) {
 	case 0:
@@ -1307,7 +1307,7 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
      * @param column the column number to be modified (zero indexed)
      * @param v the replacement column
      */
-    public final void setColumn(int column, double v[])
+    public final void setColumn(int column, double[] v)
     {
 	switch (column) {
 	case 0:
@@ -1767,8 +1767,8 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
          double ay = a1.y*mag;
          double az = a1.z*mag;
 
-         double sinTheta = Math.sin((double)a1.angle);
-         double cosTheta = Math.cos((double)a1.angle);
+         double sinTheta = Math.sin(a1.angle);
+         double cosTheta = Math.cos(a1.angle);
          double t = 1.0 - cosTheta;
 
          double xz = ax * az;
@@ -1974,8 +1974,8 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
      * about allocating a little bit of garbage.
      */
     final void invertGeneral(Matrix4d  m1) {
-	double result[] = new double[16];
-	int row_perm[] = new int[4];
+	double[] result = new double[16];
+	int[] row_perm = new int[4];
 	int i, r, c;
 
 	// Use LU decomposition and backsubstitution code specifically
@@ -2058,7 +2058,7 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
     static boolean luDecomposition(double[] matrix0,
 				   int[] row_perm) {
 
-	double row_scale[] = new double[4];
+	double[] row_scale = new double[4];
 
 	// Determine implicit scaling information by looping over rows
 	{
@@ -2252,15 +2252,15 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 			    matrix1[rv+3] * matrix2[cv+4*3]) / matrix1[rv+2];
 
 	    rv -= 4;
-	    matrix2[cv+4*1] = (matrix2[cv+4*1] -
+	    matrix2[cv+ 4] = (matrix2[cv+ 4] -
 			    matrix1[rv+2] * matrix2[cv+4*2] -
 			    matrix1[rv+3] * matrix2[cv+4*3]) / matrix1[rv+1];
 
 	    rv -= 4;
-	    matrix2[cv+4*0] = (matrix2[cv+4*0] -
-			    matrix1[rv+1] * matrix2[cv+4*1] -
+	    matrix2[cv] = (matrix2[cv] -
+			    matrix1[rv+1] * matrix2[cv+ 4] -
 			    matrix1[rv+2] * matrix2[cv+4*2] -
-			    matrix1[rv+3] * matrix2[cv+4*3]) / matrix1[rv+0];
+			    matrix1[rv+3] * matrix2[cv+4*3]) / matrix1[rv];
 	}
     }
 
@@ -3060,9 +3060,7 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
        if((diff<0?-diff:diff) > epsilon) return false;
 
        diff = m33 - m1.m33;
-       if((diff<0?-diff:diff) > epsilon) return false;
-
-       return true;
+        return !((diff < 0 ? -diff : diff) > epsilon);
     }
 
     /**
@@ -3559,7 +3557,7 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
         this.m32 = -m1.m32;
         this.m33 = -m1.m33;
     }
-    private final void getScaleRotate(double scales[], double rots[]) {
+    private final void getScaleRotate(double[] scales, double[] rots) {
 	double[]    tmp = new double[9];  // scratch matrix
 	tmp[0] = m00;
 	tmp[1] = m01;
@@ -3575,7 +3573,6 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 
 	Matrix3d.compute_svd( tmp, scales, rots);
 
-	return;
     }
 
     /**

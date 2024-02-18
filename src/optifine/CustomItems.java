@@ -40,10 +40,10 @@ import shadersmod.client.ShadersRender;
 
 public class CustomItems
 {
-    private static CustomItemProperties[][] itemProperties = (CustomItemProperties[][])null;
-    private static CustomItemProperties[][] enchantmentProperties = (CustomItemProperties[][])null;
+    private static CustomItemProperties[][] itemProperties = null;
+    private static CustomItemProperties[][] enchantmentProperties = null;
     private static Map mapPotionIds = null;
-    private static ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
+    private static final ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
     private static boolean useGlint = true;
     private static boolean renderOffHand = false;
     public static final int MASK_POTION_SPLASH = 16384;
@@ -63,8 +63,8 @@ public class CustomItems
 
     public static void update()
     {
-        itemProperties = (CustomItemProperties[][])null;
-        enchantmentProperties = (CustomItemProperties[][])null;
+        itemProperties = null;
+        enchantmentProperties = null;
         useGlint = true;
 
         if (Config.isCustomItems())
@@ -82,12 +82,12 @@ public class CustomItems
 
             if (itemProperties.length <= 0)
             {
-                itemProperties = (CustomItemProperties[][])null;
+                itemProperties = null;
             }
 
             if (enchantmentProperties.length <= 0)
             {
-                enchantmentProperties = (CustomItemProperties[][])null;
+                enchantmentProperties = null;
             }
         }
     }
@@ -112,7 +112,6 @@ public class CustomItems
         }
         catch (FileNotFoundException var4)
         {
-            return;
         }
         catch (IOException ioexception)
         {
@@ -122,7 +121,7 @@ public class CustomItems
 
     private static void update(IResourcePack p_update_0_)
     {
-        String[] astring = ResUtils.collectFiles(p_update_0_, "mcpatcher/cit/", ".properties", (String[])null);
+        String[] astring = ResUtils.collectFiles(p_update_0_, "mcpatcher/cit/", ".properties", null);
         Map map = makeAutoImageProperties(p_update_0_);
 
         if (map.size() > 0)
@@ -132,7 +131,7 @@ public class CustomItems
             astring = (String[])Config.addObjectsToArray(astring, astring1);
         }
 
-        Arrays.sort((Object[])astring);
+        Arrays.sort(astring);
         List list = makePropertyList(itemProperties);
         List list1 = makePropertyList(enchantmentProperties);
 
@@ -382,7 +381,7 @@ public class CustomItems
                 Properties properties1 = new Properties();
                 properties1.put("type", "item");
                 properties1.put("items", "" + p_makePotionProperties_2_);
-                properties1.put("damage", "" + stringbuffer.toString());
+                properties1.put("damage", String.valueOf(stringbuffer));
                 properties1.put("damageMask", "" + k);
 
                 if (p_makePotionProperties_1_.equals("splash"))
@@ -554,7 +553,7 @@ public class CustomItems
     {
         while (p_addToList_2_ >= p_addToList_1_.size())
         {
-            p_addToList_1_.add((Object)null);
+            p_addToList_1_.add(null);
         }
 
         List list = (List)p_addToList_1_.get(p_addToList_2_);
@@ -706,7 +705,7 @@ public class CustomItems
                     {
                         CustomItemProperties customitemproperties = acustomitemproperties[j];
 
-                        if (customitemproperties.type == p_getCustomItemProperties_1_ && matchesProperties(customitemproperties, p_getCustomItemProperties_0_, (int[][])null))
+                        if (customitemproperties.type == p_getCustomItemProperties_1_ && matchesProperties(customitemproperties, p_getCustomItemProperties_0_, null))
                         {
                             return customitemproperties;
                         }
@@ -830,10 +829,7 @@ public class CustomItems
                     return false;
                 }
 
-                if (p_matchesProperties_0_.hand == 2 && !renderOffHand)
-                {
-                    return false;
-                }
+                return p_matchesProperties_0_.hand != 2 || renderOffHand;
             }
 
             return true;

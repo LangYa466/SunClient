@@ -50,7 +50,7 @@ public class EntityTracker
 {
     private static final Logger LOGGER = LogManager.getLogger();
     private final WorldServer theWorld;
-    private final Set<EntityTrackerEntry> trackedEntities = Sets.<EntityTrackerEntry>newHashSet();
+    private final Set<EntityTrackerEntry> trackedEntities = Sets.newHashSet();
     private final IntHashMap<EntityTrackerEntry> trackedEntityHashTable = new IntHashMap<EntityTrackerEntry>();
     private int maxTrackingDistanceThreshold;
 
@@ -247,7 +247,7 @@ public class EntityTracker
                 }
             });
             entityIn.addEntityCrashInfo(crashreportcategory);
-            ((EntityTrackerEntry)this.trackedEntityHashTable.lookup(entityIn.getEntityId())).getTrackedEntity().addEntityCrashInfo(crashreport.makeCategory("Entity That Is Already Tracked"));
+            this.trackedEntityHashTable.lookup(entityIn.getEntityId()).getTrackedEntity().addEntityCrashInfo(crashreport.makeCategory("Entity That Is Already Tracked"));
 
             try
             {
@@ -255,7 +255,7 @@ public class EntityTracker
             }
             catch (ReportedException reportedexception)
             {
-                LOGGER.error("\"Silently\" catching entity tracking error.", (Throwable)reportedexception);
+                LOGGER.error("\"Silently\" catching entity tracking error.", reportedexception);
             }
         }
     }
@@ -283,7 +283,7 @@ public class EntityTracker
 
     public void updateTrackedEntities()
     {
-        List<EntityPlayerMP> list = Lists.<EntityPlayerMP>newArrayList();
+        List<EntityPlayerMP> list = Lists.newArrayList();
 
         for (EntityTrackerEntry entitytrackerentry : this.trackedEntities)
         {
@@ -363,8 +363,8 @@ public class EntityTracker
      */
     public void sendLeashedEntitiesInChunk(EntityPlayerMP player, Chunk chunkIn)
     {
-        List<Entity> list = Lists.<Entity>newArrayList();
-        List<Entity> list1 = Lists.<Entity>newArrayList();
+        List<Entity> list = Lists.newArrayList();
+        List<Entity> list1 = Lists.newArrayList();
 
         for (EntityTrackerEntry entitytrackerentry : this.trackedEntities)
         {

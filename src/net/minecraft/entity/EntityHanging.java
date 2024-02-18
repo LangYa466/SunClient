@@ -86,9 +86,9 @@ public abstract class EntityHanging extends Entity
             this.posX = d0;
             this.posY = d1;
             this.posZ = d2;
-            double d6 = (double)this.getWidthPixels();
-            double d7 = (double)this.getHeightPixels();
-            double d8 = (double)this.getWidthPixels();
+            double d6 = this.getWidthPixels();
+            double d7 = this.getHeightPixels();
+            double d8 = this.getWidthPixels();
 
             if (this.facingDirection.getAxis() == EnumFacing.Axis.Z)
             {
@@ -127,7 +127,7 @@ public abstract class EntityHanging extends Entity
             if (!this.isDead && !this.onValidSurface())
             {
                 this.setDead();
-                this.onBroken((Entity)null);
+                this.onBroken(null);
             }
         }
     }
@@ -182,7 +182,7 @@ public abstract class EntityHanging extends Entity
      */
     public boolean hitByEntity(Entity entityIn)
     {
-        return entityIn instanceof EntityPlayer ? this.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer)entityIn), 0.0F) : false;
+        return entityIn instanceof EntityPlayer && this.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) entityIn), 0.0F);
     }
 
     /**
@@ -223,7 +223,7 @@ public abstract class EntityHanging extends Entity
         if (!this.world.isRemote && !this.isDead && p_70091_2_ * p_70091_2_ + p_70091_4_ * p_70091_4_ + p_70091_6_ * p_70091_6_ > 0.0D)
         {
             this.setDead();
-            this.onBroken((Entity)null);
+            this.onBroken(null);
         }
     }
 
@@ -235,7 +235,7 @@ public abstract class EntityHanging extends Entity
         if (!this.world.isRemote && !this.isDead && x * x + y * y + z * z > 0.0D)
         {
             this.setDead();
-            this.onBroken((Entity)null);
+            this.onBroken(null);
         }
     }
 

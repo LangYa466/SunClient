@@ -477,7 +477,7 @@ public final class ItemStack
         }
         else
         {
-            return !stackA.func_190926_b() && !stackB.func_190926_b() ? stackA.isItemStackEqual(stackB) : false;
+            return !stackA.func_190926_b() && !stackB.func_190926_b() && stackA.isItemStackEqual(stackB);
         }
     }
 
@@ -519,7 +519,7 @@ public final class ItemStack
         }
         else
         {
-            return !stackA.func_190926_b() && !stackB.func_190926_b() ? stackA.isItemEqual(stackB) : false;
+            return !stackA.func_190926_b() && !stackB.func_190926_b() && stackA.isItemEqual(stackB);
         }
     }
 
@@ -531,7 +531,7 @@ public final class ItemStack
         }
         else
         {
-            return !stackA.func_190926_b() && !stackB.func_190926_b() ? stackA.isItemEqualIgnoreDurability(stackB) : false;
+            return !stackA.func_190926_b() && !stackB.func_190926_b() && stackA.isItemEqualIgnoreDurability(stackB);
         }
     }
 
@@ -739,7 +739,7 @@ public final class ItemStack
 
     public List<String> getTooltip(@Nullable EntityPlayer playerIn, ITooltipFlag advanced)
     {
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
         String s = this.getDisplayName();
 
         if (this.hasDisplayName())
@@ -882,16 +882,16 @@ public final class ItemStack
 
                     if (flag)
                     {
-                        list.add(" " + I18n.translateToLocalFormatted("attribute.modifier.equals." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + (String)entry.getKey())));
+                        list.add(" " + I18n.translateToLocalFormatted("attribute.modifier.equals." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
                     }
                     else if (d0 > 0.0D)
                     {
-                        list.add(TextFormatting.BLUE + " " + I18n.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + (String)entry.getKey())));
+                        list.add(TextFormatting.BLUE + " " + I18n.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
                     }
                     else if (d0 < 0.0D)
                     {
                         d1 = d1 * -1.0D;
-                        list.add(TextFormatting.RED + " " + I18n.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + (String)entry.getKey())));
+                        list.add(TextFormatting.RED + " " + I18n.translateToLocalFormatted("attribute.modifier.take." + attributemodifier.getOperation(), DECIMALFORMAT.format(d1), I18n.translateToLocal("attribute.name." + entry.getKey())));
                     }
                 }
             }
@@ -959,7 +959,7 @@ public final class ItemStack
                 list.add(I18n.translateToLocalFormatted("item.durability", this.getMaxDamage() - this.getItemDamage(), this.getMaxDamage()));
             }
 
-            list.add(TextFormatting.DARK_GRAY + ((ResourceLocation)Item.REGISTRY.getNameForObject(this.item)).toString());
+            list.add(TextFormatting.DARK_GRAY + Item.REGISTRY.getNameForObject(this.item).toString());
 
             if (this.hasTagCompound())
             {
@@ -1013,7 +1013,7 @@ public final class ItemStack
         NBTTagList nbttaglist = this.stackTagCompound.getTagList("ench", 10);
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         nbttagcompound.setShort("id", (short)Enchantment.getEnchantmentID(ench));
-        nbttagcompound.setShort("lvl", (short)((byte)level));
+        nbttagcompound.setShort("lvl", (byte)level);
         nbttaglist.appendTag(nbttagcompound);
     }
 
@@ -1100,7 +1100,7 @@ public final class ItemStack
 
         if (this.hasTagCompound() && this.stackTagCompound.hasKey("AttributeModifiers", 9))
         {
-            multimap = HashMultimap.<String, AttributeModifier>create();
+            multimap = HashMultimap.create();
             NBTTagList nbttaglist = this.stackTagCompound.getTagList("AttributeModifiers", 10);
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i)

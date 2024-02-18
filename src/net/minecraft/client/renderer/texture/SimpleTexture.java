@@ -40,7 +40,7 @@ public class SimpleTexture extends AbstractTexture
             {
                 try
                 {
-                    TextureMetadataSection texturemetadatasection = (TextureMetadataSection)iresource.getMetadata("texture");
+                    TextureMetadataSection texturemetadatasection = iresource.getMetadata("texture");
 
                     if (texturemetadatasection != null)
                     {
@@ -65,7 +65,7 @@ public class SimpleTexture extends AbstractTexture
         }
         finally
         {
-            IOUtils.closeQuietly((Closeable)iresource);
+            IOUtils.closeQuietly(iresource);
         }
     }
 }

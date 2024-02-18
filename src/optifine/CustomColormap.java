@@ -32,7 +32,7 @@ public class CustomColormap implements CustomColors.IColorizer
     private int width = 0;
     private int height = 0;
     private int[] colors = null;
-    private float[][] colorsRgb = (float[][])null;
+    private float[][] colorsRgb = null;
     private static final int FORMAT_UNKNOWN = -1;
     private static final int FORMAT_VANILLA = 0;
     private static final int FORMAT_GRID = 1;
@@ -181,7 +181,7 @@ public class CustomColormap implements CustomColors.IColorizer
 
             ConnectedParser connectedparser = new ConnectedParser("Colormap");
             MatchBlock[] amatchblock = connectedparser.parseMatchBlock(this.name);
-            return amatchblock != null ? amatchblock : null;
+            return amatchblock;
         }
     }
 
@@ -424,8 +424,8 @@ public class CustomColormap implements CustomColors.IColorizer
 
     private int getColorVanilla(Biome p_getColorVanilla_1_, BlockPos p_getColorVanilla_2_)
     {
-        double d0 = (double)MathHelper.clamp(p_getColorVanilla_1_.getFloatTemperature(p_getColorVanilla_2_), 0.0F, 1.0F);
-        double d1 = (double)MathHelper.clamp(p_getColorVanilla_1_.getRainfall(), 0.0F, 1.0F);
+        double d0 = MathHelper.clamp(p_getColorVanilla_1_.getFloatTemperature(p_getColorVanilla_2_), 0.0F, 1.0F);
+        double d1 = MathHelper.clamp(p_getColorVanilla_1_.getRainfall(), 0.0F, 1.0F);
         d1 = d1 * d0;
         int i = (int)((1.0D - d0) * (double)(this.width - 1));
         int j = (int)((1.0D - d1) * (double)(this.height - 1));
@@ -566,6 +566,6 @@ public class CustomColormap implements CustomColors.IColorizer
 
     public String toString()
     {
-        return "" + this.basePath + "/" + this.name + ", blocks: " + Config.arrayToString((Object[])this.matchBlocks) + ", source: " + this.source;
+        return this.basePath + "/" + this.name + ", blocks: " + Config.arrayToString(this.matchBlocks) + ", source: " + this.source;
     }
 }

@@ -30,7 +30,7 @@ public class RealmsBridge extends RealmsScreen
         }
         catch (Exception exception)
         {
-            LOGGER.error("Failed to load Realms module", (Throwable)exception);
+            LOGGER.error("Failed to load Realms module", exception);
         }
     }
 
@@ -51,7 +51,7 @@ public class RealmsBridge extends RealmsScreen
         }
         catch (Exception exception)
         {
-            LOGGER.error("Failed to load Realms module", (Throwable)exception);
+            LOGGER.error("Failed to load Realms module", exception);
         }
 
         return null;

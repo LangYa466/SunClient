@@ -22,10 +22,10 @@ public class AnimationUtil
         if (AnimationUtil.deltaTime <= 1L) {
             AnimationUtil.deltaTime = 500L;
         }
-        speed = speed * (double) HUD.animationSpeed.get() / 4.0;
+        speed = speed * HUD.animationSpeed.get() / 4.0;
         final double increment = speed * AnimationUtil.deltaTime / 500.0;
         final double returnValue = value + (target - value) * increment / 200.0;
-        if (Math.abs(target - returnValue) >= 0.05 * (4.0 / (double) HUD.animationSpeed.get())) {
+        if (Math.abs(target - returnValue) >= 0.05 * (4.0 / HUD.animationSpeed.get())) {
             if (tBTV) {
                 if (returnValue > target) {
                     return target;
@@ -43,10 +43,10 @@ public class AnimationUtil
         if (AnimationUtil.deltaTime <= 1L) {
             AnimationUtil.deltaTime = 500L;
         }
-        speed = speed * (double)HUD.animationSpeed.get() / 4.0;
+        speed = speed * HUD.animationSpeed.get() / 4.0;
         final double increment = speed * AnimationUtil.deltaTime / 500.0;
         final double returnValue = value + (target - value) * increment / 200.0;
-        if (Math.abs(target - returnValue) < 0.05 * (4.0 / (double)HUD.animationSpeed.get())) {
+        if (Math.abs(target - returnValue) < 0.05 * (4.0 / HUD.animationSpeed.get())) {
             return target;
         }
         return returnValue;
@@ -59,7 +59,7 @@ public class AnimationUtil
         speed *= 70.0f;
         final float increment = speed * AnimationUtil.deltaTime / 500.0f;
         final float returnValue = value + (target - value) * increment / 200.0f;
-        if (Math.abs(target - returnValue) < 0.05 * (4.0 / (double)HUD.animationSpeed.get())) {
+        if (Math.abs(target - returnValue) < 0.05 * (4.0 / HUD.animationSpeed.get())) {
             return target;
         }
         return returnValue;

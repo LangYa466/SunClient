@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrigger.Instance>
 {
     private static final ResourceLocation field_192237_a = new ResourceLocation("villager_trade");
-    private final Map<PlayerAdvancements, VillagerTradeTrigger.Listeners> field_192238_b = Maps.<PlayerAdvancements, VillagerTradeTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, VillagerTradeTrigger.Listeners> field_192238_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -103,7 +103,7 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
     static class Listeners
     {
         private final PlayerAdvancements field_192541_a;
-        private final Set<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> field_192542_b = Sets.<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>> field_192542_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47458_1_)
         {
@@ -131,11 +131,11 @@ public class VillagerTradeTrigger implements ICriterionTrigger<VillagerTradeTrig
 
             for (ICriterionTrigger.Listener<VillagerTradeTrigger.Instance> listener : this.field_192542_b)
             {
-                if (((VillagerTradeTrigger.Instance)listener.func_192158_a()).func_192285_a(p_192537_1_, p_192537_2_, p_192537_3_))
+                if (listener.func_192158_a().func_192285_a(p_192537_1_, p_192537_2_, p_192537_3_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<VillagerTradeTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

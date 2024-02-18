@@ -28,7 +28,7 @@ public class ChunkRenderWorker implements Runnable
 
     public ChunkRenderWorker(ChunkRenderDispatcher p_i46201_1_)
     {
-        this(p_i46201_1_, (RegionRenderCacheBuilder)null);
+        this(p_i46201_1_, null);
     }
 
     public ChunkRenderWorker(ChunkRenderDispatcher chunkRenderDispatcherIn, @Nullable RegionRenderCacheBuilder regionRenderCacheBuilderIn)
@@ -70,7 +70,7 @@ public class ChunkRenderWorker implements Runnable
             {
                 if (!generator.isFinished())
                 {
-                    LOGGER.warn("Chunk render task was {} when I expected it to be pending; ignoring task", (Object)generator.getStatus());
+                    LOGGER.warn("Chunk render task was {} when I expected it to be pending; ignoring task", generator.getStatus());
                 }
 
                 return;
@@ -131,7 +131,7 @@ public class ChunkRenderWorker implements Runnable
                 {
                     if (!generator.isFinished())
                     {
-                        LOGGER.warn("Chunk render task was {} when I expected it to be compiling; aborting task", (Object)generator.getStatus());
+                        LOGGER.warn("Chunk render task was {} when I expected it to be compiling; aborting task", generator.getStatus());
                     }
 
                     this.freeRenderBuilder(generator);
@@ -184,7 +184,7 @@ public class ChunkRenderWorker implements Runnable
                         {
                             if (!generator.isFinished())
                             {
-                                ChunkRenderWorker.LOGGER.warn("Chunk render task was {} when I expected it to be uploading; aborting task", (Object)generator.getStatus());
+                                ChunkRenderWorker.LOGGER.warn("Chunk render task was {} when I expected it to be uploading; aborting task", generator.getStatus());
                             }
 
                             return;

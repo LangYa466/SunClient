@@ -27,7 +27,7 @@ public class CompiledChunk
     private final boolean[] layersUsed = new boolean[BlockRenderLayer.values().length];
     private final boolean[] layersStarted = new boolean[BlockRenderLayer.values().length];
     private boolean empty = true;
-    private final List<TileEntity> tileEntities = Lists.<TileEntity>newArrayList();
+    private final List<TileEntity> tileEntities = Lists.newArrayList();
     private SetVisibility setVisibility = new SetVisibility();
     private BufferBuilder.State state;
 

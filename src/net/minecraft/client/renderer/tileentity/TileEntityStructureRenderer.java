@@ -27,8 +27,8 @@ public class TileEntityStructureRenderer extends TileEntitySpecialRenderer<TileE
                 if (p_192841_1_.getMode() == TileEntityStructure.Mode.SAVE || p_192841_1_.getMode() == TileEntityStructure.Mode.LOAD)
                 {
                     double d0 = 0.01D;
-                    double d1 = (double)blockpos.getX();
-                    double d2 = (double)blockpos.getZ();
+                    double d1 = blockpos.getX();
+                    double d2 = blockpos.getZ();
                     double d6 = p_192841_4_ + (double)blockpos.getY() - 0.01D;
                     double d9 = d6 + (double)blockpos1.getY() + 0.02D;
                     double d3;

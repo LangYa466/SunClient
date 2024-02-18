@@ -13,8 +13,8 @@ import net.minecraft.world.GameType;
 
 public class CraftPlanksStep implements ITutorialStep
 {
-    private static final ITextComponent field_193286_a = new TextComponentTranslation("tutorial.craft_planks.title", new Object[0]);
-    private static final ITextComponent field_193287_b = new TextComponentTranslation("tutorial.craft_planks.description", new Object[0]);
+    private static final ITextComponent field_193286_a = new TextComponentTranslation("tutorial.craft_planks.title");
+    private static final ITextComponent field_193287_b = new TextComponentTranslation("tutorial.craft_planks.description");
     private final Tutorial field_193288_c;
     private TutorialToast field_193289_d;
     private int field_193290_e;

@@ -22,11 +22,11 @@ import org.apache.logging.log4j.Logger;
 public class EntityDataManager
 {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Map < Class <? extends Entity > , Integer > NEXT_ID_MAP = Maps. < Class <? extends Entity > , Integer > newHashMap();
+    private static final Map < Class <? extends Entity > , Integer > NEXT_ID_MAP = Maps.newHashMap();
 
     /** The entity that this data manager is for. */
     private final Entity entity;
-    private final Map < Integer, EntityDataManager.DataEntry<? >> entries = Maps. < Integer, EntityDataManager.DataEntry<? >> newHashMap();
+    private final Map < Integer, EntityDataManager.DataEntry<? >> entries = Maps.newHashMap();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
     private boolean empty = true;
     private boolean dirty;
@@ -51,7 +51,6 @@ public class EntityDataManager
             }
             catch (ClassNotFoundException var5)
             {
-                ;
             }
         }
 
@@ -59,7 +58,7 @@ public class EntityDataManager
 
         if (NEXT_ID_MAP.containsKey(clazz))
         {
-            j = ((Integer)NEXT_ID_MAP.get(clazz)).intValue() + 1;
+            j = NEXT_ID_MAP.get(clazz).intValue() + 1;
         }
         else
         {
@@ -72,7 +71,7 @@ public class EntityDataManager
 
                 if (NEXT_ID_MAP.containsKey(oclass1))
                 {
-                    i = ((Integer)NEXT_ID_MAP.get(oclass1)).intValue() + 1;
+                    i = NEXT_ID_MAP.get(oclass1).intValue() + 1;
                     break;
                 }
             }
@@ -145,12 +144,12 @@ public class EntityDataManager
 
     public <T> T get(DataParameter<T> key)
     {
-        return (T)this.getEntry(key).getValue();
+        return this.getEntry(key).getValue();
     }
 
     public <T> void set(DataParameter<T> key, T value)
     {
-        EntityDataManager.DataEntry<T> dataentry = this.<T>getEntry(key);
+        EntityDataManager.DataEntry<T> dataentry = this.getEntry(key);
 
         if (ObjectUtils.notEqual(value, dataentry.getValue()))
         {
@@ -180,7 +179,7 @@ public class EntityDataManager
 
             for (int j = entriesIn.size(); i < j; ++i)
             {
-                EntityDataManager.DataEntry<?> dataentry = (EntityDataManager.DataEntry)entriesIn.get(i);
+                EntityDataManager.DataEntry<?> dataentry = entriesIn.get(i);
                 writeEntry(buf, dataentry);
             }
         }
@@ -205,7 +204,7 @@ public class EntityDataManager
 
                     if (list == null)
                     {
-                        list = Lists. < EntityDataManager.DataEntry<? >> newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(dataentry.func_192735_d());
@@ -242,7 +241,7 @@ public class EntityDataManager
         {
             if (list == null)
             {
-                list = Lists. < EntityDataManager.DataEntry<? >> newArrayList();
+                list = Lists.newArrayList();
             }
 
             list.add(dataentry.func_192735_d());
@@ -279,7 +278,7 @@ public class EntityDataManager
         {
             if (list == null)
             {
-                list = Lists. < EntityDataManager.DataEntry<? >> newArrayList();
+                list = Lists.newArrayList();
             }
 
             int j = buf.readVarIntFromBuffer();
@@ -302,7 +301,7 @@ public class EntityDataManager
 
         for (EntityDataManager.DataEntry<?> dataentry : entriesIn)
         {
-            EntityDataManager.DataEntry<?> dataentry1 = (EntityDataManager.DataEntry)this.entries.get(Integer.valueOf(dataentry.getKey().getId()));
+            EntityDataManager.DataEntry<?> dataentry1 = this.entries.get(Integer.valueOf(dataentry.getKey().getId()));
 
             if (dataentry1 != null)
             {

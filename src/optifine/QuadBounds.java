@@ -18,7 +18,7 @@ public class QuadBounds
         for (int j = 0; j < 4; ++j)
         {
             int k = j * i;
-            float f = Float.intBitsToFloat(p_i76_1_[k + 0]);
+            float f = Float.intBitsToFloat(p_i76_1_[k]);
             float f1 = Float.intBitsToFloat(p_i76_1_[k + 1]);
             float f2 = Float.intBitsToFloat(p_i76_1_[k + 2]);
 

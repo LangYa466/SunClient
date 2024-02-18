@@ -4,8 +4,8 @@ import optifine.MatchBlock;
 
 public class BlockAlias
 {
-    private int blockId;
-    private MatchBlock[] matchBlocks;
+    private final int blockId;
+    private final MatchBlock[] matchBlocks;
 
     public BlockAlias(int blockId, MatchBlock[] matchBlocks)
     {

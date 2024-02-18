@@ -603,7 +603,7 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
      * @param row  the matrix row
      * @param v    the array into which the matrix row values will be copied
      */
-    public final void getRow(int row, float v[]) {
+    public final void getRow(int row, float[] v) {
         if( row == 0 ) {
            v[0] = m00;
            v[1] = m01;
@@ -669,7 +669,7 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
      * @param column the matrix column
      * @param v    the array into which the matrix row values will be copied
      */
-    public final void getColumn(int column, float v[]) {
+    public final void getColumn(int column, float[] v) {
         if( column == 0 ) {
            v[0] = m00;
            v[1] = m10;
@@ -1007,7 +1007,7 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
      * @param row the row number to be modified (zero indexed)
      * @param v the replacement row
      */
-    public final void setRow(int row, float v[])
+    public final void setRow(int row, float[] v)
     {
 	switch (row) {
 	case 0:
@@ -1133,7 +1133,7 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
      * @param column the column number to be modified (zero indexed)
      * @param v the replacement column
      */
-    public final void setColumn(int column, float v[])
+    public final void setColumn(int column, float[] v)
     {
 	switch (column) {
 	case 0:
@@ -1450,8 +1450,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
          float ay = a1.y*mag;
          float az = a1.z*mag;
 
-         float sinTheta = (float)Math.sin((double)a1.angle);
-         float cosTheta = (float)Math.cos((double)a1.angle);
+         float sinTheta = (float)Math.sin(a1.angle);
+         float cosTheta = (float)Math.cos(a1.angle);
          float t = 1.0f - cosTheta;
 
          float xz = ax * az;
@@ -1712,9 +1712,9 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
      * about allocating a little bit of garbage.
      */
     final void invertGeneral(Matrix4f  m1) {
-	double temp[] = new double[16];
-	double result[] = new double[16];
-	int row_perm[] = new int[4];
+	double[] temp = new double[16];
+	double[] result = new double[16];
+	int[] row_perm = new int[4];
 	int i, r, c;
 
 	// Use LU decomposition and backsubstitution code specifically
@@ -1797,7 +1797,7 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
     static boolean luDecomposition(double[] matrix0,
 				   int[] row_perm) {
 
-	double row_scale[] = new double[4];
+	double[] row_scale = new double[4];
 
 	// Determine implicit scaling information by looping over rows
 	{
@@ -1991,15 +1991,15 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 			    matrix1[rv+3] * matrix2[cv+4*3]) / matrix1[rv+2];
 
 	    rv -= 4;
-	    matrix2[cv+4*1] = (matrix2[cv+4*1] -
+	    matrix2[cv+ 4] = (matrix2[cv+ 4] -
 			    matrix1[rv+2] * matrix2[cv+4*2] -
 			    matrix1[rv+3] * matrix2[cv+4*3]) / matrix1[rv+1];
 
 	    rv -= 4;
-	    matrix2[cv+4*0] = (matrix2[cv+4*0] -
-			    matrix1[rv+1] * matrix2[cv+4*1] -
+	    matrix2[cv] = (matrix2[cv] -
+			    matrix1[rv+1] * matrix2[cv+ 4] -
 			    matrix1[rv+2] * matrix2[cv+4*2] -
-			    matrix1[rv+3] * matrix2[cv+4*3]) / matrix1[rv+0];
+			    matrix1[rv+3] * matrix2[cv+4*3]) / matrix1[rv];
 	}
     }
 
@@ -2282,8 +2282,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
     {
 	float	sinAngle, cosAngle;
 
-	sinAngle = (float) Math.sin((double) angle);
-	cosAngle = (float) Math.cos((double) angle);
+	sinAngle = (float) Math.sin(angle);
+	cosAngle = (float) Math.cos(angle);
 
 	this.m00 = (float) 1.0;
 	this.m01 = (float) 0.0;
@@ -2315,8 +2315,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
     {
 	float	sinAngle, cosAngle;
 
-	sinAngle = (float) Math.sin((double) angle);
-	cosAngle = (float) Math.cos((double) angle);
+	sinAngle = (float) Math.sin(angle);
+	cosAngle = (float) Math.cos(angle);
 
 	this.m00 = cosAngle;
 	this.m01 = (float) 0.0;
@@ -2348,8 +2348,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
     {
 	float	sinAngle, cosAngle;
 
-	sinAngle = (float) Math.sin((double) angle);
-	cosAngle = (float) Math.cos((double) angle);
+	sinAngle = (float) Math.sin(angle);
+	cosAngle = (float) Math.cos(angle);
 
 	this.m00 = cosAngle;
 	this.m01 = -sinAngle;
@@ -2798,9 +2798,8 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
     public boolean epsilonEquals(Matrix4f m1, float epsilon)
     {
 
-        boolean status = true;
+        boolean status = !(Math.abs(this.m00 - m1.m00) > epsilon);
 
-        if( Math.abs( this.m00 - m1.m00) > epsilon) status = false;
         if( Math.abs( this.m01 - m1.m01) > epsilon) status = false;
         if( Math.abs( this.m02 - m1.m02) > epsilon) status = false;
         if( Math.abs( this.m03 - m1.m03) > epsilon) status = false;
@@ -3218,7 +3217,7 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
         this.m32 = -m1.m32;
         this.m33 = -m1.m33;
     }
-    private final void getScaleRotate(double scales[], double rots[]) {
+    private final void getScaleRotate(double[] scales, double[] rots) {
 
 	double[]    tmp = new double[9];  // scratch matrix
 	tmp[0] = m00;
@@ -3235,7 +3234,6 @@ public class Matrix4f implements java.io.Serializable, Cloneable {
 
 	Matrix3d.compute_svd( tmp, scales, rots);
 
-	return;
     }
 
     /**

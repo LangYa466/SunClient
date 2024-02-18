@@ -4,14 +4,19 @@ import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.misc.EventKeyPress;
 import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.events.impl.render.EventRender2D;
+import cn.langya.sun.modules.impl.move.*;
+import cn.langya.sun.modules.impl.world.*;
+import cn.langya.sun.modules.impl.client.*;
+import cn.langya.sun.modules.impl.combat.*;
+import cn.langya.sun.modules.impl.misc.*;
+import cn.langya.sun.modules.impl.render.*;
+import cn.langya.sun.modules.impl.player.*;
 import cn.langya.sun.utils.ClientUtils;
 import com.cubk.event.annotations.EventTarget;
 import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -23,6 +28,7 @@ public class ModuleManager {
 
     public ModuleManager() {
         ClientUtils.loginfo("[ModuleManager] Loading...");
+        /*
         try {
             List<Class<?>> classes = getAllClasses(Module.class.getPackage().getName());
 
@@ -42,6 +48,10 @@ public class ModuleManager {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        */
+
+        registerModules();
+
         ClientUtils.loginfo("[ModuleManager] Load Modules: " + modules.size());
         Sun.eventManager.register(this);
     }
@@ -109,6 +119,27 @@ public class ModuleManager {
     private void registerModule(Module module) {
         modules.add(module);
         Sun.eventManager.register(module);
+    }
+
+    public void registerModules() {
+        registerModule(new Client());
+        registerModule(new HUD());
+        registerModule(new Animations());
+        registerModule(new ClickGui());
+        registerModule(new Eagle());
+        registerModule(new KillAura());
+        registerModule(new GrimAC());
+        registerModule(new InvMove());
+        registerModule(new Sprint());
+        registerModule(new Scaffold());
+        registerModule(new PlayerWarn());
+        registerModule(new Teams());
+        registerModule(new FullBright());
+        registerModule(new AutoL());
+        registerModule(new AutoLobby());
+        registerModule(new GetRotation());
+        registerModule(new NameProtect());
+        registerModule(new NoClickDelay());
     }
 
     public <T extends Module> T getModule(final Class<T> cls) {

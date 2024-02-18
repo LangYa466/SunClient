@@ -37,8 +37,8 @@ import org.apache.logging.log4j.Logger;
 public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
 {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final Map<ChunkPos, NBTTagCompound> chunksToRemove = Maps.<ChunkPos, NBTTagCompound>newConcurrentMap();
-    private final Set<ChunkPos> field_193415_c = Collections.<ChunkPos>newSetFromMap(Maps.newConcurrentMap());
+    private final Map<ChunkPos, NBTTagCompound> chunksToRemove = Maps.newConcurrentMap();
+    private final Set<ChunkPos> field_193415_c = Collections.newSetFromMap(Maps.newConcurrentMap());
 
     /** Save directory for chunks using the Anvil format */
     private final File chunkSaveLocation;
@@ -80,7 +80,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
     {
         ChunkPos chunkpos = new ChunkPos(p_191063_1_, p_191063_2_);
         NBTTagCompound nbttagcompound = this.chunksToRemove.get(chunkpos);
-        return nbttagcompound != null ? true : RegionFileCache.func_191064_f(this.chunkSaveLocation, p_191063_1_, p_191063_2_);
+        return nbttagcompound != null || RegionFileCache.func_191064_f(this.chunkSaveLocation, p_191063_1_, p_191063_2_);
     }
 
     @Nullable
@@ -136,7 +136,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
         }
         catch (Exception exception)
         {
-            LOGGER.error("Failed to save chunk", (Throwable)exception);
+            LOGGER.error("Failed to save chunk", exception);
         }
     }
 
@@ -159,7 +159,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
         {
             if (this.savingExtraData)
             {
-                LOGGER.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", (Object)this.chunkSaveLocation.getName());
+                LOGGER.info("ThreadedAnvilChunkStorage ({}): All chunks are saved", this.chunkSaveLocation.getName());
             }
 
             return false;
@@ -182,7 +182,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
                     }
                     catch (Exception exception)
                     {
-                        LOGGER.error("Failed to save chunk", (Throwable)exception);
+                        LOGGER.error("Failed to save chunk", exception);
                     }
                 }
 

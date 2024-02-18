@@ -25,7 +25,7 @@ import net.minecraft.world.chunk.Chunk;
 public final class WorldEntitySpawner
 {
     private static final int MOB_COUNT_DIV = (int)Math.pow(17.0D, 2.0D);
-    private final Set<ChunkPos> eligibleChunksForSpawning = Sets.<ChunkPos>newHashSet();
+    private final Set<ChunkPos> eligibleChunksForSpawning = Sets.newHashSet();
 
     /**
      * adds all chunks within the spawn radius of the players to eligibleChunksForSpawning. pars: the world,
@@ -122,7 +122,7 @@ public final class WorldEntitySpawner
                                         float f = (float)l2 + 0.5F;
                                         float f1 = (float)j3 + 0.5F;
 
-                                        if (!worldServerIn.isAnyPlayerWithinRangeAt((double)f, (double)i3, (double)f1, 24.0D) && blockpos1.distanceSq((double)f, (double)i3, (double)f1) >= 576.0D)
+                                        if (!worldServerIn.isAnyPlayerWithinRangeAt(f, i3, f1, 24.0D) && blockpos1.distanceSq(f, i3, f1) >= 576.0D)
                                         {
                                             if (biome$spawnlistentry == null)
                                             {
@@ -148,7 +148,7 @@ public final class WorldEntitySpawner
                                                     return j4;
                                                 }
 
-                                                entityliving.setLocationAndAngles((double)f, (double)i3, (double)f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
+                                                entityliving.setLocationAndAngles(f, i3, f1, worldServerIn.rand.nextFloat() * 360.0F, 0.0F);
 
                                                 if (entityliving.getCanSpawnHere() && entityliving.isNotColliding())
                                                 {
@@ -258,7 +258,7 @@ public final class WorldEntitySpawner
         {
             while (randomIn.nextFloat() < biomeIn.getSpawningChance())
             {
-                Biome.SpawnListEntry biome$spawnlistentry = (Biome.SpawnListEntry)WeightedRandom.getRandomItem(worldIn.rand, list);
+                Biome.SpawnListEntry biome$spawnlistentry = WeightedRandom.getRandomItem(worldIn.rand, list);
                 int i = biome$spawnlistentry.minGroupCount + randomIn.nextInt(1 + biome$spawnlistentry.maxGroupCount - biome$spawnlistentry.minGroupCount);
                 IEntityLivingData ientitylivingdata = null;
                 int j = p_77191_2_ + randomIn.nextInt(p_77191_4_);
@@ -288,7 +288,7 @@ public final class WorldEntitySpawner
                                 continue;
                             }
 
-                            entityliving.setLocationAndAngles((double)((float)j + 0.5F), (double)blockpos.getY(), (double)((float)k + 0.5F), randomIn.nextFloat() * 360.0F, 0.0F);
+                            entityliving.setLocationAndAngles((float)j + 0.5F, blockpos.getY(), (float)k + 0.5F, randomIn.nextFloat() * 360.0F, 0.0F);
                             worldIn.spawnEntityInWorld(entityliving);
                             ientitylivingdata = entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), ientitylivingdata);
                             flag = true;

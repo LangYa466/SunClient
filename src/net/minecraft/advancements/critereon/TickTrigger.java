@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance>
 {
     public static final ResourceLocation field_193183_a = new ResourceLocation("tick");
-    private final Map<PlayerAdvancements, TickTrigger.Listeners> field_193184_b = Maps.<PlayerAdvancements, TickTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, TickTrigger.Listeners> field_193184_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -81,7 +81,7 @@ public class TickTrigger implements ICriterionTrigger<TickTrigger.Instance>
     static class Listeners
     {
         private final PlayerAdvancements field_193504_a;
-        private final Set<ICriterionTrigger.Listener<TickTrigger.Instance>> field_193505_b = Sets.<ICriterionTrigger.Listener<TickTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<TickTrigger.Instance>> field_193505_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47496_1_)
         {

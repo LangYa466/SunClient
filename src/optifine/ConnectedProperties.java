@@ -169,7 +169,7 @@ public class ConnectedProperties
 
                     if (map.containsKey(Integer.valueOf(k)))
                     {
-                        aint[k] = ((Integer)map.get(Integer.valueOf(k))).intValue();
+                        aint[k] = map.get(Integer.valueOf(k)).intValue();
                     }
                 }
 
@@ -1070,7 +1070,7 @@ public class ConnectedProperties
 
     public String toString()
     {
-        return "CTM name: " + this.name + ", basePath: " + this.basePath + ", matchBlocks: " + Config.arrayToString((Object[])this.matchBlocks) + ", matchTiles: " + Config.arrayToString((Object[])this.matchTiles);
+        return "CTM name: " + this.name + ", basePath: " + this.basePath + ", matchBlocks: " + Config.arrayToString(this.matchBlocks) + ", matchTiles: " + Config.arrayToString(this.matchTiles);
     }
 
     public boolean matchesBiome(Biome p_matchesBiome_1_)

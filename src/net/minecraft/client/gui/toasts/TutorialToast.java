@@ -45,7 +45,7 @@ public class TutorialToast implements IToast
         if (this.field_193678_j)
         {
             Gui.drawRect(3, 28, 157, 29, -1);
-            float f = (float)MathHelper.clampedLerp((double)this.field_193676_h, (double)this.field_193677_i, (double)((float)(p_193653_2_ - this.field_193675_g) / 100.0F));
+            float f = (float)MathHelper.clampedLerp(this.field_193676_h, this.field_193677_i, (float)(p_193653_2_ - this.field_193675_g) / 100.0F);
             int i;
 
             if (this.field_193677_i >= this.field_193676_h)
@@ -75,7 +75,7 @@ public class TutorialToast implements IToast
         this.field_193677_i = p_193669_1_;
     }
 
-    public static enum Icons
+    public enum Icons
     {
         MOVEMENT_KEYS(0, 0),
         MOUSE(1, 0),
@@ -86,7 +86,7 @@ public class TutorialToast implements IToast
         private final int field_193703_f;
         private final int field_193704_g;
 
-        private Icons(int p_i47576_3_, int p_i47576_4_)
+        Icons(int p_i47576_3_, int p_i47576_4_)
         {
             this.field_193703_f = p_i47576_3_;
             this.field_193704_g = p_i47576_4_;

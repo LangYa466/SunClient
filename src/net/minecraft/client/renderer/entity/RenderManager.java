@@ -120,7 +120,7 @@ import optifine.Reflector;
 public class RenderManager
 {
     private final Map<Class, Render> entityRenderMap = Maps.newHashMap();
-    private final Map<String, RenderPlayer> skinMap = Maps.<String, RenderPlayer>newHashMap();
+    private final Map<String, RenderPlayer> skinMap = Maps.newHashMap();
     private final RenderPlayer playerRenderer;
 
     /** Renders fonts */
@@ -279,7 +279,7 @@ public class RenderManager
         }
         else
         {
-            return this.<T>getEntityClassRenderObject(entityIn.getClass());
+            return this.getEntityClassRenderObject(entityIn.getClass());
         }
     }
 
@@ -296,7 +296,7 @@ public class RenderManager
             IBlockState iblockstate = worldIn.getBlockState(new BlockPos(livingPlayerIn));
             Block block = iblockstate.getBlock();
 
-            if (Reflector.callBoolean(block, Reflector.ForgeBlock_isBed, iblockstate, worldIn, new BlockPos(livingPlayerIn), (EntityLivingBase)livingPlayerIn))
+            if (Reflector.callBoolean(block, Reflector.ForgeBlock_isBed, iblockstate, worldIn, new BlockPos(livingPlayerIn), livingPlayerIn))
             {
                 EnumFacing enumfacing = (EnumFacing)Reflector.call(block, Reflector.ForgeBlock_getBedDirection, iblockstate, worldIn, new BlockPos(livingPlayerIn));
                 int i = enumfacing.getHorizontalIndex();
@@ -305,7 +305,7 @@ public class RenderManager
             }
             else if (block == Blocks.BED)
             {
-                int j = ((EnumFacing)iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
+                int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
                 this.playerViewY = (float)(j * 90 + 180);
                 this.playerViewX = 0.0F;
             }
@@ -358,7 +358,7 @@ public class RenderManager
 
     public boolean shouldRender(Entity entityIn, ICamera camera, double camX, double camY, double camZ)
     {
-        Render<Entity> render = this.<Entity>getEntityRenderObject(entityIn);
+        Render<Entity> render = this.getEntityRenderObject(entityIn);
         return render != null && render.shouldRender(entityIn, camera, camX, camY, camZ);
     }
 
@@ -395,7 +395,7 @@ public class RenderManager
 
         try
         {
-            render = this.<Entity>getEntityRenderObject(entityIn);
+            render = this.getEntityRenderObject(entityIn);
 
             if (render != null && this.renderEngine != null)
             {
@@ -479,7 +479,7 @@ public class RenderManager
         int k = i / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        Render<Entity> render = this.<Entity>getEntityRenderObject(p_188389_1_);
+        Render<Entity> render = this.getEntityRenderObject(p_188389_1_);
 
         if (render != null && this.renderEngine != null)
         {
@@ -575,6 +575,6 @@ public class RenderManager
 
     public Map<String, RenderPlayer> getSkinMap()
     {
-        return Collections.<String, RenderPlayer>unmodifiableMap(this.skinMap);
+        return Collections.unmodifiableMap(this.skinMap);
     }
 }

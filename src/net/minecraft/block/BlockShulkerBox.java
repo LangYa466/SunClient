@@ -108,12 +108,12 @@ public class BlockShulkerBox extends BlockContainer
 
             if (tileentity instanceof TileEntityShulkerBox)
             {
-                EnumFacing enumfacing = (EnumFacing)state.getValue(field_190957_a);
+                EnumFacing enumfacing = state.getValue(field_190957_a);
                 boolean flag;
 
                 if (((TileEntityShulkerBox)tileentity).func_190591_p() == TileEntityShulkerBox.AnimationStatus.CLOSED)
                 {
-                    AxisAlignedBB axisalignedbb = FULL_BLOCK_AABB.addCoord((double)(0.5F * (float)enumfacing.getFrontOffsetX()), (double)(0.5F * (float)enumfacing.getFrontOffsetY()), (double)(0.5F * (float)enumfacing.getFrontOffsetZ())).func_191195_a((double)enumfacing.getFrontOffsetX(), (double)enumfacing.getFrontOffsetY(), (double)enumfacing.getFrontOffsetZ());
+                    AxisAlignedBB axisalignedbb = FULL_BLOCK_AABB.addCoord(0.5F * (float)enumfacing.getFrontOffsetX(), 0.5F * (float)enumfacing.getFrontOffsetY(), 0.5F * (float)enumfacing.getFrontOffsetZ()).func_191195_a(enumfacing.getFrontOffsetX(), enumfacing.getFrontOffsetY(), enumfacing.getFrontOffsetZ());
                     flag = !worldIn.collidesWithAnyBlock(axisalignedbb.offset(pos.offset(enumfacing)));
                 }
                 else
@@ -147,7 +147,7 @@ public class BlockShulkerBox extends BlockContainer
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {field_190957_a});
+        return new BlockStateContainer(this, field_190957_a);
     }
 
     /**
@@ -155,7 +155,7 @@ public class BlockShulkerBox extends BlockContainer
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumFacing)state.getValue(field_190957_a)).getIndex();
+        return state.getValue(field_190957_a).getIndex();
     }
 
     /**
@@ -250,7 +250,7 @@ public class BlockShulkerBox extends BlockContainer
 
             if (nbttagcompound1.hasKey("Items", 9))
             {
-                NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>func_191197_a(27, ItemStack.field_190927_a);
+                NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(27, ItemStack.field_190927_a);
                 ItemStackHelper.func_191283_b(nbttagcompound1, nonnulllist);
                 int i = 0;
                 int j = 0;
@@ -393,7 +393,7 @@ public class BlockShulkerBox extends BlockContainer
      */
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.withProperty(field_190957_a, rot.rotate((EnumFacing)state.getValue(field_190957_a)));
+        return state.withProperty(field_190957_a, rot.rotate(state.getValue(field_190957_a)));
     }
 
     /**
@@ -402,13 +402,13 @@ public class BlockShulkerBox extends BlockContainer
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(field_190957_a)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(field_190957_a)));
     }
 
     public BlockFaceShape func_193383_a(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
     {
         p_193383_2_ = this.getActualState(p_193383_2_, p_193383_1_, p_193383_3_);
-        EnumFacing enumfacing = (EnumFacing)p_193383_2_.getValue(field_190957_a);
+        EnumFacing enumfacing = p_193383_2_.getValue(field_190957_a);
         TileEntityShulkerBox.AnimationStatus tileentityshulkerbox$animationstatus = ((TileEntityShulkerBox)p_193383_1_.getTileEntity(p_193383_3_)).func_190591_p();
         return tileentityshulkerbox$animationstatus != TileEntityShulkerBox.AnimationStatus.CLOSED && (tileentityshulkerbox$animationstatus != TileEntityShulkerBox.AnimationStatus.OPENED || enumfacing != p_193383_4_.getOpposite() && enumfacing != p_193383_4_) ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
     }

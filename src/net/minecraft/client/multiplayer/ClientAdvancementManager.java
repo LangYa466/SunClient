@@ -21,7 +21,7 @@ public class ClientAdvancementManager
     private static final Logger field_192800_a = LogManager.getLogger();
     private final Minecraft field_192801_b;
     private final AdvancementList field_192802_c = new AdvancementList();
-    private final Map<Advancement, AdvancementProgress> field_192803_d = Maps.<Advancement, AdvancementProgress>newHashMap();
+    private final Map<Advancement, AdvancementProgress> field_192803_d = Maps.newHashMap();
     @Nullable
     private ClientAdvancementManager.IListener field_192804_e;
     @Nullable

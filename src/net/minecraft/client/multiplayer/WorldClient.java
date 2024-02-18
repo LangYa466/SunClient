@@ -59,10 +59,10 @@ public class WorldClient extends World
 
     /** The ChunkProviderClient instance */
     private ChunkProviderClient clientChunkProvider;
-    private final Set<Entity> entityList = Sets.<Entity>newHashSet();
-    private final Set<Entity> entitySpawnQueue = Sets.<Entity>newHashSet();
+    private final Set<Entity> entityList = Sets.newHashSet();
+    private final Set<Entity> entitySpawnQueue = Sets.newHashSet();
     private final Minecraft mc = Minecraft.getMinecraft();
-    private final Set<ChunkPos> previousActiveChunkSet = Sets.<ChunkPos>newHashSet();
+    private final Set<ChunkPos> previousActiveChunkSet = Sets.newHashSet();
     private int ambienceTicks;
     protected Set<ChunkPos> viewableChunks;
     private int playerChunkX = Integer.MIN_VALUE;
@@ -73,7 +73,7 @@ public class WorldClient extends World
     {
         super(new SaveHandlerMP(), new WorldInfo(settings, "MpServer"), makeWorldProvider(dimension), profilerIn, true);
         this.ambienceTicks = this.rand.nextInt(12000);
-        this.viewableChunks = Sets.<ChunkPos>newHashSet();
+        this.viewableChunks = Sets.newHashSet();
         this.connection = netHandler;
         this.getWorldInfo().setDifficulty(difficulty);
         this.provider.registerWorld(this);
@@ -267,10 +267,7 @@ public class WorldClient extends World
     {
         super.onEntityAdded(entityIn);
 
-        if (this.entitySpawnQueue.contains(entityIn))
-        {
-            this.entitySpawnQueue.remove(entityIn);
-        }
+        this.entitySpawnQueue.remove(entityIn);
     }
 
     protected void onEntityRemoved(Entity entityIn)
@@ -320,7 +317,7 @@ public class WorldClient extends World
      */
     public Entity getEntityByID(int id)
     {
-        return (Entity)(id == this.mc.player.getEntityId() ? this.mc.player : super.getEntityByID(id));
+        return id == this.mc.player.getEntityId() ? this.mc.player : super.getEntityByID(id);
     }
 
     public Entity removeEntityFromWorld(int entityID)
@@ -451,7 +448,7 @@ public class WorldClient extends World
 
         if (p_184153_6_ && iblockstate.getBlock() == Blocks.BARRIER)
         {
-            this.spawnParticle(EnumParticleTypes.BARRIER, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), 0.0D, 0.0D, 0.0D, new int[0]);
+            this.spawnParticle(EnumParticleTypes.BARRIER, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, 0.0D, 0.0D, 0.0D);
         }
     }
 

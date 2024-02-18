@@ -48,7 +48,7 @@ public class EntityAIFollow extends EntityAIBase
      */
     public boolean shouldExecute()
     {
-        List<EntityLiving> list = this.field_192372_a.world.<EntityLiving>getEntitiesWithinAABB(EntityLiving.class, this.field_192372_a.getEntityBoundingBox().expandXyz((double)this.field_192380_i), this.field_192373_b);
+        List<EntityLiving> list = this.field_192372_a.world.getEntitiesWithinAABB(EntityLiving.class, this.field_192372_a.getEntityBoundingBox().expandXyz(this.field_192380_i), this.field_192373_b);
 
         if (!list.isEmpty())
         {

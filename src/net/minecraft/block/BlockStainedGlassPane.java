@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 public class BlockStainedGlassPane extends BlockPane
 {
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
 
     public BlockStainedGlassPane()
     {
@@ -34,7 +34,7 @@ public class BlockStainedGlassPane extends BlockPane
      */
     public int damageDropped(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     /**
@@ -53,7 +53,7 @@ public class BlockStainedGlassPane extends BlockPane
      */
     public MapColor getMapColor(IBlockState state, IBlockAccess p_180659_2_, BlockPos p_180659_3_)
     {
-        return MapColor.func_193558_a((EnumDyeColor)state.getValue(COLOR));
+        return MapColor.func_193558_a(state.getValue(COLOR));
     }
 
     public BlockRenderLayer getBlockLayer()
@@ -74,7 +74,7 @@ public class BlockStainedGlassPane extends BlockPane
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     /**
@@ -120,7 +120,7 @@ public class BlockStainedGlassPane extends BlockPane
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {NORTH, EAST, WEST, SOUTH, COLOR});
+        return new BlockStateContainer(this, NORTH, EAST, WEST, SOUTH, COLOR);
     }
 
     /**

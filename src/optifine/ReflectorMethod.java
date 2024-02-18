@@ -14,7 +14,7 @@ public class ReflectorMethod
 
     public ReflectorMethod(ReflectorClass p_i93_1_, String p_i93_2_)
     {
-        this(p_i93_1_, p_i93_2_, (Class[])null, false);
+        this(p_i93_1_, p_i93_2_, null, false);
     }
 
     public ReflectorMethod(ReflectorClass p_i94_1_, String p_i94_2_, Class[] p_i94_3_)

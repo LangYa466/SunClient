@@ -3,6 +3,8 @@ package optifine;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import java.nio.charset.StandardCharsets;
+
 public class PlayerConfigurationReceiver implements IFileDownloadListener
 {
     private String player = null;
@@ -18,7 +20,7 @@ public class PlayerConfigurationReceiver implements IFileDownloadListener
         {
             try
             {
-                String s = new String(p_fileDownloadFinished_2_, "ASCII");
+                String s = new String(p_fileDownloadFinished_2_, StandardCharsets.US_ASCII);
                 JsonParser jsonparser = new JsonParser();
                 JsonElement jsonelement = jsonparser.parse(s);
                 PlayerConfigurationParser playerconfigurationparser = new PlayerConfigurationParser(this.player);

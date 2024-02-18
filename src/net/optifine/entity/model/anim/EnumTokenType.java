@@ -9,25 +9,25 @@ public enum EnumTokenType
     BRACKET_OPEN("(", 1),
     BRACKET_CLOSE(")", 1);
 
-    private String charsFirst;
-    private String charsExt;
+    private final String charsFirst;
+    private final String charsExt;
     private int maxLen;
     public static final EnumTokenType[] VALUES = values();
 
-    private EnumTokenType(String charsFirst)
+    EnumTokenType(String charsFirst)
     {
         this.charsFirst = charsFirst;
         this.charsExt = "";
     }
 
-    private EnumTokenType(String charsFirst, int maxLen)
+    EnumTokenType(String charsFirst, int maxLen)
     {
         this.charsFirst = charsFirst;
         this.charsExt = "";
         this.maxLen = maxLen;
     }
 
-    private EnumTokenType(String charsFirst, String charsExt)
+    EnumTokenType(String charsFirst, String charsExt)
     {
         this.charsFirst = charsFirst;
         this.charsExt = charsExt;

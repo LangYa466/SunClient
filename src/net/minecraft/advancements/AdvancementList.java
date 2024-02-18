@@ -16,9 +16,9 @@ import org.apache.logging.log4j.Logger;
 public class AdvancementList
 {
     private static final Logger field_192091_a = LogManager.getLogger();
-    private final Map<ResourceLocation, Advancement> field_192092_b = Maps.<ResourceLocation, Advancement>newHashMap();
-    private final Set<Advancement> field_192093_c = Sets.<Advancement>newLinkedHashSet();
-    private final Set<Advancement> field_192094_d = Sets.<Advancement>newLinkedHashSet();
+    private final Map<ResourceLocation, Advancement> field_192092_b = Maps.newHashMap();
+    private final Set<Advancement> field_192093_c = Sets.newLinkedHashSet();
+    private final Set<Advancement> field_192094_d = Sets.newLinkedHashSet();
     private AdvancementList.Listener field_192095_e;
 
     private void func_192090_a(Advancement p_192090_1_)
@@ -70,7 +70,7 @@ public class AdvancementList
 
     public void func_192083_a(Map<ResourceLocation, Advancement.Builder> p_192083_1_)
     {
-        Function<ResourceLocation, Advancement> function = Functions.<ResourceLocation, Advancement>forMap(this.field_192092_b, null);
+        Function<ResourceLocation, Advancement> function = Functions.forMap(this.field_192092_b, null);
         label42:
 
         while (!p_192083_1_.isEmpty())
@@ -80,7 +80,7 @@ public class AdvancementList
 
             while (iterator.hasNext())
             {
-                Entry<ResourceLocation, Advancement.Builder> entry = (Entry)iterator.next();
+                Entry<ResourceLocation, Advancement.Builder> entry = iterator.next();
                 ResourceLocation resourcelocation = entry.getKey();
                 Advancement.Builder advancement$builder = entry.getValue();
 
@@ -123,7 +123,7 @@ public class AdvancementList
                         break label42;
                     }
 
-                    Entry<ResourceLocation, Advancement.Builder> entry1 = (Entry)iterator.next();
+                    Entry<ResourceLocation, Advancement.Builder> entry1 = iterator.next();
                     field_192091_a.error("Couldn't load advancement " + entry1.getKey() + ": " + entry1.getValue());
                 }
             }

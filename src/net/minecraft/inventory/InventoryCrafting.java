@@ -23,7 +23,7 @@ public class InventoryCrafting implements IInventory
 
     public InventoryCrafting(Container eventHandlerIn, int width, int height)
     {
-        this.stackList = NonNullList.<ItemStack>func_191197_a(width * height, ItemStack.field_190927_a);
+        this.stackList = NonNullList.func_191197_a(width * height, ItemStack.field_190927_a);
         this.eventHandler = eventHandlerIn;
         this.inventoryWidth = width;
         this.inventoryHeight = height;
@@ -55,7 +55,7 @@ public class InventoryCrafting implements IInventory
      */
     public ItemStack getStackInSlot(int index)
     {
-        return index >= this.getSizeInventory() ? ItemStack.field_190927_a : (ItemStack)this.stackList.get(index);
+        return index >= this.getSizeInventory() ? ItemStack.field_190927_a : this.stackList.get(index);
     }
 
     /**
@@ -87,7 +87,7 @@ public class InventoryCrafting implements IInventory
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]);
     }
 
     /**

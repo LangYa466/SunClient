@@ -51,7 +51,7 @@ public class RenderChunk
     private final ReentrantLock lockCompileTask = new ReentrantLock();
     private final ReentrantLock lockCompiledChunk = new ReentrantLock();
     private ChunkCompileTaskGenerator compileTask;
-    private final Set<TileEntity> setTileEntities = Sets.<TileEntity>newHashSet();
+    private final Set<TileEntity> setTileEntities = Sets.newHashSet();
     private final int index;
     private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
     private final VertexBuffer[] vertexBuffers = new VertexBuffer[BlockRenderLayer.values().length];
@@ -61,12 +61,12 @@ public class RenderChunk
     private final BlockPos.MutableBlockPos position = new BlockPos.MutableBlockPos(-1, -1, -1);
     private final BlockPos.MutableBlockPos[] mapEnumFacing = new BlockPos.MutableBlockPos[6];
     private boolean needsUpdateCustom;
-    private static BlockRenderLayer[] ENUM_WORLD_BLOCK_LAYERS = BlockRenderLayer.values();
-    private BlockRenderLayer[] blockLayersSingle = new BlockRenderLayer[1];
-    private boolean isMipmaps = Config.isMipmaps();
-    private boolean fixBlockLayer = !Reflector.BetterFoliageClient.exists();
+    private static final BlockRenderLayer[] ENUM_WORLD_BLOCK_LAYERS = BlockRenderLayer.values();
+    private final BlockRenderLayer[] blockLayersSingle = new BlockRenderLayer[1];
+    private final boolean isMipmaps = Config.isMipmaps();
+    private final boolean fixBlockLayer = !Reflector.BetterFoliageClient.exists();
     private boolean playerUpdate = false;
-    private RenderChunk[] renderChunksOfset16 = new RenderChunk[6];
+    private final RenderChunk[] renderChunksOfset16 = new RenderChunk[6];
     private Chunk chunk;
 
     public RenderChunk(World p_i47120_1_, RenderGlobal p_i47120_2_, int p_i47120_3_)
@@ -116,7 +116,7 @@ public class RenderChunk
         {
             this.stopCompileTask();
             this.position.setPos(p_189562_1_, p_189562_2_, p_189562_3_);
-            this.boundingBox = new AxisAlignedBB((double)p_189562_1_, (double)p_189562_2_, (double)p_189562_3_, (double)(p_189562_1_ + 16), (double)(p_189562_2_ + 16), (double)(p_189562_3_ + 16));
+            this.boundingBox = new AxisAlignedBB(p_189562_1_, p_189562_2_, p_189562_3_, p_189562_1_ + 16, p_189562_2_ + 16, p_189562_3_ + 16);
 
             for (EnumFacing enumfacing : EnumFacing.VALUES)
             {
@@ -197,7 +197,7 @@ public class RenderChunk
 
                         if (tileentity != null)
                         {
-                            TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.instance.<TileEntity>getSpecialRenderer(tileentity);
+                            TileEntitySpecialRenderer<TileEntity> tileentityspecialrenderer = TileEntityRendererDispatcher.instance.getSpecialRenderer(tileentity);
 
                             if (tileentityspecialrenderer != null)
                             {
@@ -414,7 +414,7 @@ public class RenderChunk
     private void preRenderBlocks(BufferBuilder worldRendererIn, BlockPos pos)
     {
         worldRendererIn.begin(7, DefaultVertexFormats.BLOCK);
-        worldRendererIn.setTranslation((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()));
+        worldRendererIn.setTranslation(-pos.getX(), -pos.getY(), -pos.getZ());
     }
 
     private void postRenderBlocks(BlockRenderLayer layer, float x, float y, float z, BufferBuilder worldRendererIn, CompiledChunk compiledChunkIn)

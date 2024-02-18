@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 
 public abstract class TextComponentBase implements ITextComponent
 {
-    protected List<ITextComponent> siblings = Lists.<ITextComponent>newArrayList();
+    protected List<ITextComponent> siblings = Lists.newArrayList();
     private Style style;
 
     /**
@@ -64,7 +64,7 @@ public abstract class TextComponentBase implements ITextComponent
 
     public Iterator<ITextComponent> iterator()
     {
-        return Iterators.<ITextComponent>concat(Iterators.forArray(this), createDeepCopyIterator(this.siblings));
+        return Iterators.concat(Iterators.forArray(this), createDeepCopyIterator(this.siblings));
     }
 
     /**
@@ -97,7 +97,7 @@ public abstract class TextComponentBase implements ITextComponent
             {
                 stringbuilder.append(itextcomponent.getStyle().getFormattingCode());
                 stringbuilder.append(s);
-                stringbuilder.append((Object)TextFormatting.RESET);
+                stringbuilder.append(TextFormatting.RESET);
             }
         }
 

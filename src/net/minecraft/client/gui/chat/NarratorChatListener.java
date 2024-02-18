@@ -37,23 +37,23 @@ public class NarratorChatListener implements IChatListener
     public void func_193641_a(int p_193641_1_)
     {
         this.field_192580_a.clear();
-        this.field_192580_a.say((new TextComponentTranslation("options.narrator", new Object[0])).getUnformattedText() + " : " + (new TextComponentTranslation(GameSettings.field_193632_b[p_193641_1_], new Object[0])).getUnformattedText());
+        this.field_192580_a.say((new TextComponentTranslation("options.narrator")).getUnformattedText() + " : " + (new TextComponentTranslation(GameSettings.field_193632_b[p_193641_1_])).getUnformattedText());
         GuiToast guitoast = Minecraft.getMinecraft().func_193033_an();
 
         if (this.field_192580_a.active())
         {
             if (p_193641_1_ == 0)
             {
-                SystemToast.func_193657_a(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.disabled", new Object[0]), (ITextComponent)null);
+                SystemToast.func_193657_a(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.disabled"), null);
             }
             else
             {
-                SystemToast.func_193657_a(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.enabled", new Object[0]), new TextComponentTranslation(GameSettings.field_193632_b[p_193641_1_], new Object[0]));
+                SystemToast.func_193657_a(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.enabled"), new TextComponentTranslation(GameSettings.field_193632_b[p_193641_1_]));
             }
         }
         else
         {
-            SystemToast.func_193657_a(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.disabled", new Object[0]), new TextComponentTranslation("options.narrator.notavailable", new Object[0]));
+            SystemToast.func_193657_a(guitoast, SystemToast.Type.NARRATOR_TOGGLE, new TextComponentTranslation("narrator.toast.disabled"), new TextComponentTranslation("options.narrator.notavailable"));
         }
     }
 

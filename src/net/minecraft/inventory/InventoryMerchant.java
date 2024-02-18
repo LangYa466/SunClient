@@ -13,7 +13,7 @@ import net.minecraft.village.MerchantRecipeList;
 public class InventoryMerchant implements IInventory
 {
     private final IMerchant theMerchant;
-    private final NonNullList<ItemStack> theInventory = NonNullList.<ItemStack>func_191197_a(3, ItemStack.field_190927_a);
+    private final NonNullList<ItemStack> theInventory = NonNullList.func_191197_a(3, ItemStack.field_190927_a);
     private final EntityPlayer thePlayer;
     private MerchantRecipe currentRecipe;
     private int currentRecipeIndex;
@@ -132,7 +132,7 @@ public class InventoryMerchant implements IInventory
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]);
     }
 
     /**

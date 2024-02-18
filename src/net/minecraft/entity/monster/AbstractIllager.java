@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 public abstract class AbstractIllager extends EntityMob
 {
-    protected static final DataParameter<Byte> field_193080_a = EntityDataManager.<Byte>createKey(AbstractIllager.class, DataSerializers.BYTE);
+    protected static final DataParameter<Byte> field_193080_a = EntityDataManager.createKey(AbstractIllager.class, DataSerializers.BYTE);
 
     public AbstractIllager(World p_i47509_1_)
     {
@@ -23,13 +23,13 @@ public abstract class AbstractIllager extends EntityMob
 
     protected boolean func_193078_a(int p_193078_1_)
     {
-        int i = ((Byte)this.dataManager.get(field_193080_a)).byteValue();
+        int i = this.dataManager.get(field_193080_a).byteValue();
         return (i & p_193078_1_) != 0;
     }
 
     protected void func_193079_a(int p_193079_1_, boolean p_193079_2_)
     {
-        int i = ((Byte)this.dataManager.get(field_193080_a)).byteValue();
+        int i = this.dataManager.get(field_193080_a).byteValue();
 
         if (p_193079_2_)
         {
@@ -56,11 +56,11 @@ public abstract class AbstractIllager extends EntityMob
         return AbstractIllager.IllagerArmPose.CROSSED;
     }
 
-    public static enum IllagerArmPose
+    public enum IllagerArmPose
     {
         CROSSED,
         ATTACKING,
         SPELLCASTING,
-        BOW_AND_ARROW;
+        BOW_AND_ARROW
     }
 }

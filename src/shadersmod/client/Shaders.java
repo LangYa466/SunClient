@@ -117,7 +117,7 @@ public class Shaders
     static float[] upPosModelView = new float[] {0.0F, 100.0F, 0.0F, 0.0F};
     static float[] sunPosModelView = new float[] {0.0F, 100.0F, 0.0F, 0.0F};
     static float[] moonPosModelView = new float[] {0.0F, -100.0F, 0.0F, 0.0F};
-    private static float[] tempMat = new float[16];
+    private static final float[] tempMat = new float[16];
     static float clearColorR;
     static float clearColorG;
     static float clearColorB;
@@ -207,8 +207,8 @@ public class Shaders
     static int usedDrawBuffers = 0;
     static int dfb = 0;
     static int sfb = 0;
-    private static int[] gbuffersFormat = new int[8];
-    private static boolean[] gbuffersClear = new boolean[8];
+    private static final int[] gbuffersFormat = new int[8];
+    private static final boolean[] gbuffersClear = new boolean[8];
     public static int activeProgram = 0;
     public static final int ProgramNone = 0;
     public static final int ProgramBasic = 1;
@@ -248,16 +248,16 @@ public class Shaders
     private static final String[] programNames = new String[] {"", "gbuffers_basic", "gbuffers_textured", "gbuffers_textured_lit", "gbuffers_skybasic", "gbuffers_skytextured", "gbuffers_clouds", "gbuffers_terrain", "gbuffers_terrain_solid", "gbuffers_terrain_cutout_mip", "gbuffers_terrain_cutout", "gbuffers_damagedblock", "gbuffers_water", "gbuffers_block", "gbuffers_beaconbeam", "gbuffers_item", "gbuffers_entities", "gbuffers_armor_glint", "gbuffers_spidereyes", "gbuffers_hand", "gbuffers_weather", "composite", "composite1", "composite2", "composite3", "composite4", "composite5", "composite6", "composite7", "final", "shadow", "shadow_solid", "shadow_cutout"};
     private static final int[] programBackups = new int[] {0, 0, 1, 2, 1, 2, 2, 3, 7, 7, 7, 7, 7, 7, 2, 3, 3, 2, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 30};
     static int[] programsID = new int[33];
-    private static int[] programsRef = new int[33];
-    private static int programIDCopyDepth = 0;
-    private static String[] programsDrawBufSettings = new String[33];
+    private static final int[] programsRef = new int[33];
+    private static final int programIDCopyDepth = 0;
+    private static final String[] programsDrawBufSettings = new String[33];
     private static String newDrawBufSetting = null;
     static IntBuffer[] programsDrawBuffers = new IntBuffer[33];
     static IntBuffer activeDrawBuffers = null;
-    private static String[] programsColorAtmSettings = new String[33];
+    private static final String[] programsColorAtmSettings = new String[33];
     private static String newColorAtmSetting = null;
-    private static String activeColorAtmSettings = null;
-    private static int[] programsCompositeMipmapSetting = new int[33];
+    private static final String activeColorAtmSettings = null;
+    private static final int[] programsCompositeMipmapSetting = new int[33];
     private static int newCompositeMipmapSetting = 0;
     private static int activeCompositeMipmapSetting = 0;
     public static Properties loadedShaders = null;
@@ -322,7 +322,7 @@ public class Shaders
     public static PropertyDefaultTrueFalse shaderPackBackFaceTranslucent = new PropertyDefaultTrueFalse("backFace.translucent", "Back-face Translucent", 0);
     private static Map<String, String> shaderPackResources = new HashMap<String, String>();
     private static World currentWorld = null;
-    private static List<Integer> shaderPackDimensions = new ArrayList<Integer>();
+    private static final List<Integer> shaderPackDimensions = new ArrayList<Integer>();
     private static CustomTexture[] customTexturesGbuffers = null;
     private static CustomTexture[] customTexturesComposite = null;
     private static String noiseTexturePath = null;
@@ -459,7 +459,6 @@ public class Shaders
             }
             catch (Exception var7)
             {
-                ;
             }
         }
 
@@ -471,7 +470,6 @@ public class Shaders
             }
             catch (Exception var6)
             {
-                ;
             }
         }
 
@@ -597,7 +595,7 @@ public class Shaders
         try
         {
             FileWriter filewriter = new FileWriter(configFile);
-            shadersConfig.store(filewriter, (String)null);
+            shadersConfig.store(filewriter, null);
             filewriter.close();
         }
         catch (Exception exception)
@@ -748,7 +746,6 @@ public class Shaders
                 }
                 catch (Exception var6)
                 {
-                    ;
                 }
             }
         }
@@ -776,8 +773,8 @@ public class Shaders
 
             if (Reflector.LightUtil.exists())
             {
-                Reflector.LightUtil_itemConsumer.setValue((Object)null);
-                Reflector.LightUtil_tessellator.setValue((Object)null);
+                Reflector.LightUtil_itemConsumer.setValue(null);
+                Reflector.LightUtil_tessellator.setValue(null);
             }
 
             updateBlockLightLevel();
@@ -801,8 +798,8 @@ public class Shaders
 
         if (shaderPackDimensions.size() > 0)
         {
-            Integer[] ainteger = (Integer[])shaderPackDimensions.toArray(new Integer[shaderPackDimensions.size()]);
-            Config.dbg("[Shaders] Worlds: " + Config.arrayToString((Object[])ainteger));
+            Integer[] ainteger = shaderPackDimensions.toArray(new Integer[shaderPackDimensions.size()]);
+            Config.dbg("[Shaders] Worlds: " + Config.arrayToString(ainteger));
         }
     }
 
@@ -909,7 +906,7 @@ public class Shaders
         }
         else
         {
-            CustomTexture[] acustomtexture = (CustomTexture[])list.toArray(new CustomTexture[list.size()]);
+            CustomTexture[] acustomtexture = list.toArray(new CustomTexture[list.size()]);
             return acustomtexture;
         }
     }
@@ -951,7 +948,7 @@ public class Shaders
             catch (IOException ioexception)
             {
                 SMCLog.warning("Error loading texture: " + path);
-                SMCLog.warning("" + ioexception.getClass().getName() + ": " + ioexception.getMessage());
+                SMCLog.warning(ioexception.getClass().getName() + ": " + ioexception.getMessage());
                 return null;
             }
         }
@@ -1169,7 +1166,7 @@ public class Shaders
 
     public static ShaderOption[] getShaderPackOptions(String screenName)
     {
-        ShaderOption[] ashaderoption = (ShaderOption[])shaderPackOptions.clone();
+        ShaderOption[] ashaderoption = shaderPackOptions.clone();
 
         if (shaderPackGuiScreens == null)
         {
@@ -1202,7 +1199,7 @@ public class Shaders
 
                     if (shaderoption == null)
                     {
-                        list.add((ShaderOption)null);
+                        list.add(null);
                     }
                     else if (shaderoption instanceof ShaderOptionRest)
                     {
@@ -1215,7 +1212,7 @@ public class Shaders
                     }
                 }
 
-                ShaderOption[] ashaderoption3 = (ShaderOption[])list.toArray(new ShaderOption[list.size()]);
+                ShaderOption[] ashaderoption3 = list.toArray(new ShaderOption[list.size()]);
                 return ashaderoption3;
             }
         }
@@ -1273,7 +1270,7 @@ public class Shaders
             }
         }
 
-        ShaderOption[] ashaderoption1 = (ShaderOption[])list.toArray(new ShaderOption[list.size()]);
+        ShaderOption[] ashaderoption1 = list.toArray(new ShaderOption[list.size()]);
         return ashaderoption1;
     }
 
@@ -1289,7 +1286,7 @@ public class Shaders
 
     public static boolean isShaderPackOptionSlider(String name)
     {
-        return shaderPackOptionSliders == null ? false : shaderPackOptionSliders.contains(name);
+        return shaderPackOptionSliders != null && shaderPackOptionSliders.contains(name);
     }
 
     private static ShaderOption[] getVisibleOptions(ShaderOption[] ops)
@@ -1306,7 +1303,7 @@ public class Shaders
             }
         }
 
-        ShaderOption[] ashaderoption = (ShaderOption[])list.toArray(new ShaderOption[list.size()]);
+        ShaderOption[] ashaderoption = list.toArray(new ShaderOption[list.size()]);
         return ashaderoption;
     }
 
@@ -1355,7 +1352,7 @@ public class Shaders
         else
         {
             FileOutputStream fileoutputstream = new FileOutputStream(file1);
-            props.store(fileoutputstream, (String)null);
+            props.store(fileoutputstream, null);
             fileoutputstream.flush();
             fileoutputstream.close();
         }
@@ -1427,7 +1424,7 @@ public class Shaders
             }
         }
 
-        ShaderOption[] ashaderoption = (ShaderOption[])list.toArray(new ShaderOption[list.size()]);
+        ShaderOption[] ashaderoption = list.toArray(new ShaderOption[list.size()]);
         return ashaderoption;
     }
 
@@ -1492,7 +1489,6 @@ public class Shaders
         }
         catch (Exception var6)
         {
-            ;
         }
 
         return arraylist;
@@ -1501,7 +1497,7 @@ public class Shaders
     static String versiontostring(int vv)
     {
         String s = Integer.toString(vv);
-        return Integer.toString(Integer.parseInt(s.substring(1, 3))) + "." + Integer.toString(Integer.parseInt(s.substring(3, 5))) + "." + Integer.toString(Integer.parseInt(s.substring(5)));
+        return Integer.parseInt(s.substring(1, 3)) + "." + Integer.parseInt(s.substring(3, 5)) + "." + Integer.parseInt(s.substring(5));
     }
 
     static void checkOptifine()
@@ -1645,13 +1641,13 @@ public class Shaders
         }
         else
         {
-            return !shaderPackOldHandLight.isDefault() ? shaderPackOldHandLight.isTrue() : true;
+            return shaderPackOldHandLight.isDefault() || shaderPackOldHandLight.isTrue();
         }
     }
 
     public static boolean isDynamicHandLight()
     {
-        return !shaderPackDynamicHandLight.isDefault() ? shaderPackDynamicHandLight.isTrue() : true;
+        return shaderPackDynamicHandLight.isDefault() || shaderPackDynamicHandLight.isTrue();
     }
 
     public static boolean isOldLighting()
@@ -1662,7 +1658,7 @@ public class Shaders
         }
         else
         {
-            return !shaderPackOldLighting.isDefault() ? shaderPackOldLighting.isTrue() : true;
+            return shaderPackOldLighting.isDefault() || shaderPackOldLighting.isTrue();
         }
     }
 
@@ -1732,7 +1728,6 @@ public class Shaders
 
             if (getShaderPackName() != null)
             {
-                ;
             }
 
             if (!capabilities.OpenGL20)
@@ -1967,7 +1962,6 @@ public class Shaders
 
                 for (i3 = l2; programsID[i3] == 0 && programBackups[i3] != i3; i3 = programBackups[i3])
                 {
-                    ;
                 }
 
                 if (i3 != l2 && l2 != 30)
@@ -2002,7 +1996,6 @@ public class Shaders
 
             if (!flag)
             {
-                ;
             }
 
             checkGLError("Shaders.init");
@@ -2237,7 +2230,7 @@ public class Shaders
                 saveShader(filename, stringbuilder.toString());
             }
 
-            ARBShaderObjects.glShaderSourceARB(i, (CharSequence)stringbuilder);
+            ARBShaderObjects.glShaderSourceARB(i, stringbuilder);
             ARBShaderObjects.glCompileShaderARB(i);
 
             if (GL20.glGetShaderi(i, 35713) != 1)
@@ -2573,7 +2566,7 @@ public class Shaders
                 saveShader(filename, stringbuilder.toString());
             }
 
-            ARBShaderObjects.glShaderSourceARB(i, (CharSequence)stringbuilder);
+            ARBShaderObjects.glShaderSourceARB(i, stringbuilder);
             ARBShaderObjects.glCompileShaderARB(i);
 
             if (GL20.glGetShaderi(i, 35713) != 1)
@@ -3113,7 +3106,6 @@ public class Shaders
         }
         catch (Exception var8)
         {
-            ;
         }
 
         if (bufferedreader != null)
@@ -3162,7 +3154,6 @@ public class Shaders
             }
             catch (Exception var7)
             {
-                ;
             }
         }
     }
@@ -3836,7 +3827,7 @@ public class Shaders
 
         if (shadowMapIsOrtho)
         {
-            GL11.glOrtho((double)(-shadowMapHalfPlane), (double)shadowMapHalfPlane, (double)(-shadowMapHalfPlane), (double)shadowMapHalfPlane, 0.05000000074505806D, 256.0D);
+            GL11.glOrtho(-shadowMapHalfPlane, shadowMapHalfPlane, -shadowMapHalfPlane, shadowMapHalfPlane, 0.05000000074505806D, 256.0D);
         }
         else
         {
@@ -3873,12 +3864,12 @@ public class Shaders
         }
 
         float f9 = sunAngle * ((float)Math.PI * 2F);
-        float f10 = (float)Math.cos((double)f9);
-        float f4 = (float)Math.sin((double)f9);
+        float f10 = (float)Math.cos(f9);
+        float f4 = (float)Math.sin(f9);
         float f5 = sunPathRotation * ((float)Math.PI * 2F);
         float f6 = f10;
-        float f7 = f4 * (float)Math.cos((double)f5);
-        float f8 = f4 * (float)Math.sin((double)f5);
+        float f7 = f4 * (float)Math.cos(f5);
+        float f8 = f4 * (float)Math.sin(f5);
 
         if ((double)sunAngle > 0.5D)
         {
@@ -3915,7 +3906,7 @@ public class Shaders
 
     public static void preCelestialRotate()
     {
-        GL11.glRotatef(sunPathRotation * 1.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(sunPathRotation, 0.0F, 0.0F, 1.0F);
         checkGLError("preCelestialRotate");
     }
 
@@ -4504,7 +4495,6 @@ public class Shaders
         {
             if (isShadowPass)
             {
-                ;
             }
 
             useProgram(lightmapEnabled ? 3 : 2);
@@ -4531,7 +4521,7 @@ public class Shaders
     {
         if ((double)configHandDepthMul != 1.0D)
         {
-            GL11.glScaled(1.0D, 1.0D, (double)configHandDepthMul);
+            GL11.glScaled(1.0D, 1.0D, configHandDepthMul);
         }
     }
 

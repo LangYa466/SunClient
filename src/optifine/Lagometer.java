@@ -24,15 +24,15 @@ public class Lagometer
     public static Lagometer.TimerNano timerVisibility = new Lagometer.TimerNano();
     public static Lagometer.TimerNano timerTerrain = new Lagometer.TimerNano();
     public static Lagometer.TimerNano timerServer = new Lagometer.TimerNano();
-    private static long[] timesFrame = new long[512];
-    private static long[] timesTick = new long[512];
-    private static long[] timesScheduledExecutables = new long[512];
-    private static long[] timesChunkUpload = new long[512];
-    private static long[] timesChunkUpdate = new long[512];
-    private static long[] timesVisibility = new long[512];
-    private static long[] timesTerrain = new long[512];
-    private static long[] timesServer = new long[512];
-    private static boolean[] gcs = new boolean[512];
+    private static final long[] timesFrame = new long[512];
+    private static final long[] timesTick = new long[512];
+    private static final long[] timesScheduledExecutables = new long[512];
+    private static final long[] timesChunkUpload = new long[512];
+    private static final long[] timesChunkUpdate = new long[512];
+    private static final long[] timesVisibility = new long[512];
+    private static final long[] timesTerrain = new long[512];
+    private static final long[] timesServer = new long[512];
+    private static final boolean[] gcs = new boolean[512];
     private static int numRecordedFrameTimes = 0;
     private static long prevFrameTimeNano = -1L;
     private static long renderTimeNano = 0L;
@@ -145,7 +145,7 @@ public class Lagometer
                 GlStateManager.pushMatrix();
                 GlStateManager.enableColorMaterial();
                 GlStateManager.loadIdentity();
-                GlStateManager.ortho(0.0D, (double)mc.displayWidth, (double)mc.displayHeight, 0.0D, 1000.0D, 3000.0D);
+                GlStateManager.ortho(0.0D, mc.displayWidth, mc.displayHeight, 0.0D, 1000.0D, 3000.0D);
                 GlStateManager.matrixMode(5888);
                 GlStateManager.pushMatrix();
                 GlStateManager.loadIdentity();
@@ -221,8 +221,8 @@ public class Lagometer
         }
         else
         {
-            p_renderTime_7_.pos((double)((float)p_renderTime_0_ + 0.5F), (double)(p_renderTime_6_ - (float)i + 0.5F), 0.0D).color(p_renderTime_3_, p_renderTime_4_, p_renderTime_5_, 255).endVertex();
-            p_renderTime_7_.pos((double)((float)p_renderTime_0_ + 0.5F), (double)(p_renderTime_6_ + 0.5F), 0.0D).color(p_renderTime_3_, p_renderTime_4_, p_renderTime_5_, 255).endVertex();
+            p_renderTime_7_.pos((float)p_renderTime_0_ + 0.5F, p_renderTime_6_ - (float)i + 0.5F, 0.0D).color(p_renderTime_3_, p_renderTime_4_, p_renderTime_5_, 255).endVertex();
+            p_renderTime_7_.pos((float)p_renderTime_0_ + 0.5F, p_renderTime_6_ + 0.5F, 0.0D).color(p_renderTime_3_, p_renderTime_4_, p_renderTime_5_, 255).endVertex();
             return i;
         }
     }
@@ -237,8 +237,8 @@ public class Lagometer
         }
         else
         {
-            p_renderTimeDivider_8_.pos((double)((float)p_renderTimeDivider_0_ + 0.5F), (double)(p_renderTimeDivider_7_ - (float)i + 0.5F), 0.0D).color(p_renderTimeDivider_4_, p_renderTimeDivider_5_, p_renderTimeDivider_6_, 255).endVertex();
-            p_renderTimeDivider_8_.pos((double)((float)p_renderTimeDivider_1_ + 0.5F), (double)(p_renderTimeDivider_7_ - (float)i + 0.5F), 0.0D).color(p_renderTimeDivider_4_, p_renderTimeDivider_5_, p_renderTimeDivider_6_, 255).endVertex();
+            p_renderTimeDivider_8_.pos((float)p_renderTimeDivider_0_ + 0.5F, p_renderTimeDivider_7_ - (float)i + 0.5F, 0.0D).color(p_renderTimeDivider_4_, p_renderTimeDivider_5_, p_renderTimeDivider_6_, 255).endVertex();
+            p_renderTimeDivider_8_.pos((float)p_renderTimeDivider_1_ + 0.5F, p_renderTimeDivider_7_ - (float)i + 0.5F, 0.0D).color(p_renderTimeDivider_4_, p_renderTimeDivider_5_, p_renderTimeDivider_6_, 255).endVertex();
             return i;
         }
     }

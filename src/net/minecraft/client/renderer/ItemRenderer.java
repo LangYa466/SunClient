@@ -152,7 +152,7 @@ public class ItemRenderer
     private void renderArm(EnumHandSide p_187455_1_)
     {
         this.mc.getTextureManager().bindTexture(this.mc.player.getLocationSkin());
-        Render<AbstractClientPlayer> render = this.renderManager.<AbstractClientPlayer>getEntityRenderObject(this.mc.player);
+        Render<AbstractClientPlayer> render = this.renderManager.getEntityRenderObject(this.mc.player);
         RenderPlayer renderplayer = (RenderPlayer)render;
         GlStateManager.pushMatrix();
         float f = p_187455_1_ == EnumHandSide.RIGHT ? 1.0F : -1.0F;
@@ -290,7 +290,7 @@ public class ItemRenderer
             GlStateManager.translate(0.0F, f2, 0.0F);
         }
 
-        float f3 = 1.0F - (float)Math.pow((double)f1, 27.0D);
+        float f3 = 1.0F - (float)Math.pow(f1, 27.0D);
         int i = p_187454_2_ == EnumHandSide.RIGHT ? 1 : -1;
         GlStateManager.translate(f3 * 0.6F * (float)i, f3 * -0.5F, f3 * 0.0F);
         GlStateManager.rotate((float)i * f3 * 90.0F, 0.0F, 1.0F, 0.0F);
@@ -322,7 +322,7 @@ public class ItemRenderer
     {
         AbstractClientPlayer abstractclientplayer = this.mc.player;
         float f = abstractclientplayer.getSwingProgress(partialTicks);
-        EnumHand enumhand = (EnumHand)MoreObjects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND);
+        EnumHand enumhand = MoreObjects.firstNonNull(abstractclientplayer.swingingHand, EnumHand.MAIN_HAND);
         float f1 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
         float f2 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
         boolean flag = true;
@@ -543,10 +543,10 @@ public class ItemRenderer
         float f8 = partialTicks.getMinV();
         float f9 = partialTicks.getMaxV();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(-1.0D, -1.0D, -0.5D).tex((double)f7, (double)f9).endVertex();
-        bufferbuilder.pos(1.0D, -1.0D, -0.5D).tex((double)f6, (double)f9).endVertex();
-        bufferbuilder.pos(1.0D, 1.0D, -0.5D).tex((double)f6, (double)f8).endVertex();
-        bufferbuilder.pos(-1.0D, 1.0D, -0.5D).tex((double)f7, (double)f8).endVertex();
+        bufferbuilder.pos(-1.0D, -1.0D, -0.5D).tex(f7, f9).endVertex();
+        bufferbuilder.pos(1.0D, -1.0D, -0.5D).tex(f6, f9).endVertex();
+        bufferbuilder.pos(1.0D, 1.0D, -0.5D).tex(f6, f8).endVertex();
+        bufferbuilder.pos(-1.0D, 1.0D, -0.5D).tex(f7, f8).endVertex();
         tessellator.draw();
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -577,10 +577,10 @@ public class ItemRenderer
             float f7 = -this.mc.player.rotationYaw / 64.0F;
             float f8 = this.mc.player.rotationPitch / 64.0F;
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-            bufferbuilder.pos(-1.0D, -1.0D, -0.5D).tex((double)(4.0F + f7), (double)(4.0F + f8)).endVertex();
-            bufferbuilder.pos(1.0D, -1.0D, -0.5D).tex((double)(0.0F + f7), (double)(4.0F + f8)).endVertex();
-            bufferbuilder.pos(1.0D, 1.0D, -0.5D).tex((double)(0.0F + f7), (double)(0.0F + f8)).endVertex();
-            bufferbuilder.pos(-1.0D, 1.0D, -0.5D).tex((double)(4.0F + f7), (double)(0.0F + f8)).endVertex();
+            bufferbuilder.pos(-1.0D, -1.0D, -0.5D).tex(4.0F + f7, 4.0F + f8).endVertex();
+            bufferbuilder.pos(1.0D, -1.0D, -0.5D).tex(0.0F + f7, 4.0F + f8).endVertex();
+            bufferbuilder.pos(1.0D, 1.0D, -0.5D).tex(0.0F + f7, 0.0F + f8).endVertex();
+            bufferbuilder.pos(-1.0D, 1.0D, -0.5D).tex(4.0F + f7, 0.0F + f8).endVertex();
             tessellator.draw();
             GlStateManager.popMatrix();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -619,10 +619,10 @@ public class ItemRenderer
             GlStateManager.translate((float)(-(i * 2 - 1)) * 0.24F, -0.3F, 0.0F);
             GlStateManager.rotate((float)(i * 2 - 1) * 10.0F, 0.0F, 1.0F, 0.0F);
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-            bufferbuilder.pos(-0.5D, -0.5D, -0.5D).tex((double)f2, (double)f4).endVertex();
-            bufferbuilder.pos(0.5D, -0.5D, -0.5D).tex((double)f1, (double)f4).endVertex();
-            bufferbuilder.pos(0.5D, 0.5D, -0.5D).tex((double)f1, (double)f3).endVertex();
-            bufferbuilder.pos(-0.5D, 0.5D, -0.5D).tex((double)f2, (double)f3).endVertex();
+            bufferbuilder.pos(-0.5D, -0.5D, -0.5D).tex(f2, f4).endVertex();
+            bufferbuilder.pos(0.5D, -0.5D, -0.5D).tex(f1, f4).endVertex();
+            bufferbuilder.pos(0.5D, 0.5D, -0.5D).tex(f1, f3).endVertex();
+            bufferbuilder.pos(-0.5D, 0.5D, -0.5D).tex(f2, f3).endVertex();
             tessellator.draw();
             GlStateManager.popMatrix();
         }

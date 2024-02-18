@@ -65,12 +65,12 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
     public TextureMap(String basePathIn)
     {
-        this(basePathIn, (ITextureMapPopulator)null);
+        this(basePathIn, null);
     }
 
     public TextureMap(String p_i3_1_, boolean p_i3_2_)
     {
-        this(p_i3_1_, (ITextureMapPopulator)null, p_i3_2_);
+        this(p_i3_1_, null, p_i3_2_);
     }
 
     public TextureMap(String basePathIn, @Nullable ITextureMapPopulator iconCreatorIn)
@@ -89,9 +89,9 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         this.counterIndexInMap = 0;
         this.atlasWidth = 0;
         this.atlasHeight = 0;
-        this.listAnimatedSprites = Lists.<TextureAtlasSprite>newArrayList();
-        this.mapRegisteredSprites = Maps.<String, TextureAtlasSprite>newHashMap();
-        this.mapUploadedSprites = Maps.<String, TextureAtlasSprite>newHashMap();
+        this.listAnimatedSprites = Lists.newArrayList();
+        this.mapRegisteredSprites = Maps.newHashMap();
+        this.mapUploadedSprites = Maps.newHashMap();
         this.missingImage = new TextureAtlasSprite("missingno");
         this.basePath = p_i4_1_;
         this.iconCreator = p_i4_2_;
@@ -218,7 +218,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 }
                 finally
                 {
-                    IOUtils.closeQuietly((Closeable)iresource);
+                    IOUtils.closeQuietly(iresource);
                 }
             }
 
@@ -305,7 +305,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
             TextureUtil.allocateTextureImpl(this.getGlTextureId(), this.mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
         }
 
-        Map<String, TextureAtlasSprite> map = Maps.<String, TextureAtlasSprite>newHashMap(this.mapRegisteredSprites);
+        Map<String, TextureAtlasSprite> map = Maps.newHashMap(this.mapRegisteredSprites);
 
         for (TextureAtlasSprite textureatlassprite2 : stitcher.getStichSlots())
         {
@@ -441,7 +441,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 }
                 finally
                 {
-                    IOUtils.closeQuietly((Closeable)iresource1);
+                    IOUtils.closeQuietly(iresource1);
                 }
 
                 return flag4;
@@ -723,7 +723,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                     }
                     else
                     {
-                        return p_isTerrainAnimationActive_1_ != TextureUtils.iconClock && p_isTerrainAnimationActive_1_ != TextureUtils.iconCompass ? Config.isAnimatedTerrain() : true;
+                        return p_isTerrainAnimationActive_1_ == TextureUtils.iconClock || p_isTerrainAnimationActive_1_ == TextureUtils.iconCompass || Config.isAnimatedTerrain();
                     }
                 }
                 else
@@ -817,7 +817,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 }
                 catch (Exception var17)
                 {
-                    ;
                 }
             }
         }

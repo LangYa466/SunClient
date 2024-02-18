@@ -45,12 +45,12 @@ public class CommandEmote extends CommandBase
     {
         if (args.length <= 0)
         {
-            throw new WrongUsageException("commands.me.usage", new Object[0]);
+            throw new WrongUsageException("commands.me.usage");
         }
         else
         {
             ITextComponent itextcomponent = getChatComponentFromNthArg(sender, args, 0, !(sender instanceof EntityPlayer));
-            server.getPlayerList().sendChatMsg(new TextComponentTranslation("chat.type.emote", new Object[] {sender.getDisplayName(), itextcomponent}));
+            server.getPlayerList().sendChatMsg(new TextComponentTranslation("chat.type.emote", sender.getDisplayName(), itextcomponent));
         }
     }
 

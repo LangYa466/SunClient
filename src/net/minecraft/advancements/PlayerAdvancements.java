@@ -39,10 +39,10 @@ public class PlayerAdvancements
     };
     private final MinecraftServer field_192756_d;
     private final File field_192757_e;
-    private final Map<Advancement, AdvancementProgress> field_192758_f = Maps.<Advancement, AdvancementProgress>newLinkedHashMap();
-    private final Set<Advancement> field_192759_g = Sets.<Advancement>newLinkedHashSet();
-    private final Set<Advancement> field_192760_h = Sets.<Advancement>newLinkedHashSet();
-    private final Set<Advancement> field_192761_i = Sets.<Advancement>newLinkedHashSet();
+    private final Map<Advancement, AdvancementProgress> field_192758_f = Maps.newLinkedHashMap();
+    private final Set<Advancement> field_192759_g = Sets.newLinkedHashSet();
+    private final Set<Advancement> field_192760_h = Sets.newLinkedHashSet();
+    private final Set<Advancement> field_192761_i = Sets.newLinkedHashSet();
     private EntityPlayerMP field_192762_j;
     @Nullable
     private Advancement field_194221_k;
@@ -91,11 +91,11 @@ public class PlayerAdvancements
 
     private void func_192752_d()
     {
-        List<Advancement> list = Lists.<Advancement>newArrayList();
+        List<Advancement> list = Lists.newArrayList();
 
         for (Entry<Advancement, AdvancementProgress> entry : this.field_192758_f.entrySet())
         {
-            if (((AdvancementProgress)entry.getValue()).func_192105_a())
+            if (entry.getValue().func_192105_a())
             {
                 list.add(entry.getKey());
                 this.field_192761_i.add(entry.getKey());
@@ -127,7 +127,7 @@ public class PlayerAdvancements
             try
             {
                 String s = Files.toString(this.field_192757_e, StandardCharsets.UTF_8);
-                Map<ResourceLocation, AdvancementProgress> map = (Map)JsonUtils.func_193840_a(field_192754_b, s, field_192755_c.getType());
+                Map<ResourceLocation, AdvancementProgress> map = JsonUtils.func_193840_a(field_192754_b, s, field_192755_c.getType());
 
                 if (map == null)
                 {
@@ -152,11 +152,11 @@ public class PlayerAdvancements
             }
             catch (JsonParseException jsonparseexception)
             {
-                field_192753_a.error("Couldn't parse player advancements in " + this.field_192757_e, (Throwable)jsonparseexception);
+                field_192753_a.error("Couldn't parse player advancements in " + this.field_192757_e, jsonparseexception);
             }
             catch (IOException ioexception)
             {
-                field_192753_a.error("Couldn't access player advancements in " + this.field_192757_e, (Throwable)ioexception);
+                field_192753_a.error("Couldn't access player advancements in " + this.field_192757_e, ioexception);
             }
         }
 
@@ -167,7 +167,7 @@ public class PlayerAdvancements
 
     public void func_192749_b()
     {
-        Map<ResourceLocation, AdvancementProgress> map = Maps.<ResourceLocation, AdvancementProgress>newHashMap();
+        Map<ResourceLocation, AdvancementProgress> map = Maps.newHashMap();
 
         for (Entry<Advancement, AdvancementProgress> entry : this.field_192758_f.entrySet())
         {
@@ -175,7 +175,7 @@ public class PlayerAdvancements
 
             if (advancementprogress.func_192108_b())
             {
-                map.put(((Advancement)entry.getKey()).func_192067_g(), advancementprogress);
+                map.put(entry.getKey().func_192067_g(), advancementprogress);
             }
         }
 
@@ -190,7 +190,7 @@ public class PlayerAdvancements
         }
         catch (IOException ioexception)
         {
-            field_192753_a.error("Couldn't save player advancements to " + this.field_192757_e, (Throwable)ioexception);
+            field_192753_a.error("Couldn't save player advancements to " + this.field_192757_e, ioexception);
         }
     }
 
@@ -212,7 +212,7 @@ public class PlayerAdvancements
 
                 if (p_192750_1_.func_192068_c() != null && p_192750_1_.func_192068_c().func_193220_i() && this.field_192762_j.world.getGameRules().getBoolean("announceAdvancements"))
                 {
-                    this.field_192756_d.getPlayerList().sendChatMsg(new TextComponentTranslation("chat.type.advancement." + p_192750_1_.func_192068_c().func_192291_d().func_192307_a(), new Object[] {this.field_192762_j.getDisplayName(), p_192750_1_.func_193123_j()}));
+                    this.field_192756_d.getPlayerList().sendChatMsg(new TextComponentTranslation("chat.type.advancement." + p_192750_1_.func_192068_c().func_192291_d().func_192307_a(), this.field_192762_j.getDisplayName(), p_192750_1_.func_193123_j()));
                 }
             }
         }
@@ -257,11 +257,11 @@ public class PlayerAdvancements
 
                 if (criterionprogress != null && !criterionprogress.func_192151_a())
                 {
-                    ICriterionInstance icriterioninstance = ((Criterion)entry.getValue()).func_192143_a();
+                    ICriterionInstance icriterioninstance = entry.getValue().func_192143_a();
 
                     if (icriterioninstance != null)
                     {
-                        ICriterionTrigger<ICriterionInstance> icriteriontrigger = CriteriaTriggers.<ICriterionInstance>func_192119_a(icriterioninstance.func_192244_a());
+                        ICriterionTrigger<ICriterionInstance> icriteriontrigger = CriteriaTriggers.func_192119_a(icriterioninstance.func_192244_a());
 
                         if (icriteriontrigger != null)
                         {
@@ -283,11 +283,11 @@ public class PlayerAdvancements
 
             if (criterionprogress != null && (criterionprogress.func_192151_a() || advancementprogress.func_192105_a()))
             {
-                ICriterionInstance icriterioninstance = ((Criterion)entry.getValue()).func_192143_a();
+                ICriterionInstance icriterioninstance = entry.getValue().func_192143_a();
 
                 if (icriterioninstance != null)
                 {
-                    ICriterionTrigger<ICriterionInstance> icriteriontrigger = CriteriaTriggers.<ICriterionInstance>func_192119_a(icriterioninstance.func_192244_a());
+                    ICriterionTrigger<ICriterionInstance> icriteriontrigger = CriteriaTriggers.func_192119_a(icriterioninstance.func_192244_a());
 
                     if (icriteriontrigger != null)
                     {
@@ -302,9 +302,9 @@ public class PlayerAdvancements
     {
         if (!this.field_192760_h.isEmpty() || !this.field_192761_i.isEmpty())
         {
-            Map<ResourceLocation, AdvancementProgress> map = Maps.<ResourceLocation, AdvancementProgress>newHashMap();
-            Set<Advancement> set = Sets.<Advancement>newLinkedHashSet();
-            Set<ResourceLocation> set1 = Sets.<ResourceLocation>newLinkedHashSet();
+            Map<ResourceLocation, AdvancementProgress> map = Maps.newHashMap();
+            Set<Advancement> set = Sets.newLinkedHashSet();
+            Set<ResourceLocation> set1 = Sets.newLinkedHashSet();
 
             for (Advancement advancement : this.field_192761_i)
             {

@@ -18,7 +18,7 @@ public enum EnumRarity
     /** Rarity name. */
     public final String rarityName;
 
-    private EnumRarity(TextFormatting color, String name)
+    EnumRarity(TextFormatting color, String name)
     {
         this.rarityColor = color;
         this.rarityName = name;

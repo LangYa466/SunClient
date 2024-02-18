@@ -46,7 +46,7 @@ public class AdvancementCommand extends CommandBase
     {
         if (args.length < 1)
         {
-            throw new WrongUsageException("commands.advancement.usage", new Object[0]);
+            throw new WrongUsageException("commands.advancement.usage");
         }
         else
         {
@@ -73,7 +73,7 @@ public class AdvancementCommand extends CommandBase
             {
                 if (!"test".equals(args[0]))
                 {
-                    throw new WrongUsageException("commands.advancement.usage", new Object[0]);
+                    throw new WrongUsageException("commands.advancement.usage");
                 }
 
                 if (args.length == 3)
@@ -84,7 +84,7 @@ public class AdvancementCommand extends CommandBase
                 {
                     if (args.length != 4)
                     {
-                        throw new WrongUsageException("commands.advancement.test.usage", new Object[0]);
+                        throw new WrongUsageException("commands.advancement.test.usage");
                     }
 
                     this.func_192554_c(sender, getPlayer(server, sender, args[1]), func_192551_a(server, args[2]), args[3]);
@@ -127,17 +127,17 @@ public class AdvancementCommand extends CommandBase
             {
                 String s = p_193516_3_[4];
 
-                if (!advancement.func_192073_f().keySet().contains(s))
+                if (!advancement.func_192073_f().containsKey(s))
                 {
-                    throw new CommandException("commands.advancement.criterionNotFound", new Object[] {advancement.func_192067_g(), p_193516_3_[4]});
+                    throw new CommandException("commands.advancement.criterionNotFound", advancement.func_192067_g(), p_193516_3_[4]);
                 }
 
                 if (!p_193516_5_.func_193535_a(p_193516_4_, advancement, s))
                 {
-                    throw new CommandException(p_193516_5_.field_193541_d + ".criterion.failed", new Object[] {advancement.func_192067_g(), p_193516_4_.getName(), s});
+                    throw new CommandException(p_193516_5_.field_193541_d + ".criterion.failed", advancement.func_192067_g(), p_193516_4_.getName(), s);
                 }
 
-                notifyCommandListener(p_193516_2_, this, p_193516_5_.field_193541_d + ".criterion.success", new Object[] {advancement.func_192067_g(), p_193516_4_.getName(), s});
+                notifyCommandListener(p_193516_2_, this, p_193516_5_.field_193541_d + ".criterion.success", advancement.func_192067_g(), p_193516_4_.getName(), s);
             }
             else
             {
@@ -170,7 +170,7 @@ public class AdvancementCommand extends CommandBase
 
     private List<Advancement> func_193514_a(Advancement p_193514_1_, AdvancementCommand.Mode p_193514_2_)
     {
-        List<Advancement> list = Lists.<Advancement>newArrayList();
+        List<Advancement> list = Lists.newArrayList();
 
         if (p_193514_2_.field_193555_h)
         {
@@ -197,15 +197,15 @@ public class AdvancementCommand extends CommandBase
 
         if (criterionprogress == null)
         {
-            throw new CommandException("commands.advancement.criterionNotFound", new Object[] {p_192554_3_.func_192067_g(), p_192554_4_});
+            throw new CommandException("commands.advancement.criterionNotFound", p_192554_3_.func_192067_g(), p_192554_4_);
         }
         else if (!criterionprogress.func_192151_a())
         {
-            throw new CommandException("commands.advancement.test.criterion.notDone", new Object[] {p_192554_2_.getName(), p_192554_3_.func_192067_g(), p_192554_4_});
+            throw new CommandException("commands.advancement.test.criterion.notDone", p_192554_2_.getName(), p_192554_3_.func_192067_g(), p_192554_4_);
         }
         else
         {
-            notifyCommandListener(p_192554_1_, this, "commands.advancement.test.criterion.success", new Object[] {p_192554_2_.getName(), p_192554_3_.func_192067_g(), p_192554_4_});
+            notifyCommandListener(p_192554_1_, this, "commands.advancement.test.criterion.success", p_192554_2_.getName(), p_192554_3_.func_192067_g(), p_192554_4_);
         }
     }
 
@@ -215,11 +215,11 @@ public class AdvancementCommand extends CommandBase
 
         if (!advancementprogress.func_192105_a())
         {
-            throw new CommandException("commands.advancement.test.advancement.notDone", new Object[] {p_192552_2_.getName(), p_192552_3_.func_192067_g()});
+            throw new CommandException("commands.advancement.test.advancement.notDone", p_192552_2_.getName(), p_192552_3_.func_192067_g());
         }
         else
         {
-            notifyCommandListener(p_192552_1_, this, "commands.advancement.test.advancement.success", new Object[] {p_192552_2_.getName(), p_192552_3_.func_192067_g()});
+            notifyCommandListener(p_192552_1_, this, "commands.advancement.test.advancement.success", p_192552_2_.getName(), p_192552_3_.func_192067_g());
         }
     }
 
@@ -227,7 +227,7 @@ public class AdvancementCommand extends CommandBase
     {
         if (args.length == 1)
         {
-            return getListOfStringsMatchingLastWord(args, new String[] {"grant", "revoke", "test"});
+            return getListOfStringsMatchingLastWord(args, "grant", "revoke", "test");
         }
         else
         {
@@ -289,13 +289,13 @@ public class AdvancementCommand extends CommandBase
                 }
             }
 
-            return Collections.<String>emptyList();
+            return Collections.emptyList();
         }
     }
 
     private List<ResourceLocation> func_193517_a(MinecraftServer p_193517_1_)
     {
-        List<ResourceLocation> list = Lists.<ResourceLocation>newArrayList();
+        List<ResourceLocation> list = Lists.newArrayList();
 
         for (Advancement advancement : p_193517_1_.func_191949_aK().func_192780_b())
         {
@@ -319,7 +319,7 @@ public class AdvancementCommand extends CommandBase
 
         if (advancement == null)
         {
-            throw new CommandException("commands.advancement.advancementNotFound", new Object[] {p_192551_1_});
+            throw new CommandException("commands.advancement.advancementNotFound", p_192551_1_);
         }
         else
         {
@@ -327,7 +327,7 @@ public class AdvancementCommand extends CommandBase
         }
     }
 
-    static enum ActionType
+    enum ActionType
     {
         GRANT("grant")
         {
@@ -383,7 +383,7 @@ public class AdvancementCommand extends CommandBase
         final String field_193540_c;
         final String field_193541_d;
 
-        private ActionType(String p_i47557_3_)
+        ActionType(String p_i47557_3_)
         {
             this.field_193540_c = p_i47557_3_;
             this.field_193541_d = "commands.advancement." + p_i47557_3_;
@@ -405,7 +405,7 @@ public class AdvancementCommand extends CommandBase
 
         CommandException func_193534_a()
         {
-            return new CommandException(this.field_193541_d + ".usage", new Object[0]);
+            return new CommandException(this.field_193541_d + ".usage");
         }
 
         public int func_193532_a(EntityPlayerMP p_193532_1_, Iterable<Advancement> p_193532_2_)
@@ -428,7 +428,7 @@ public class AdvancementCommand extends CommandBase
         protected abstract boolean func_193535_a(EntityPlayerMP p_193535_1_, Advancement p_193535_2_, String p_193535_3_);
     }
 
-    static enum Mode
+    enum Mode
     {
         ONLY("only", false, false),
         THROUGH("through", true, true),
@@ -441,7 +441,7 @@ public class AdvancementCommand extends CommandBase
         final boolean field_193555_h;
         final boolean field_193556_i;
 
-        private Mode(String p_i47556_3_, boolean p_i47556_4_, boolean p_i47556_5_)
+        Mode(String p_i47556_3_, boolean p_i47556_4_, boolean p_i47556_5_)
         {
             this.field_193554_g = p_i47556_3_;
             this.field_193555_h = p_i47556_4_;
@@ -455,7 +455,7 @@ public class AdvancementCommand extends CommandBase
 
         CommandException func_193544_a(AdvancementCommand.ActionType p_193544_1_)
         {
-            return new CommandException(p_193544_1_.field_193541_d + "." + this.field_193554_g + ".usage", new Object[0]);
+            return new CommandException(p_193544_1_.field_193541_d + "." + this.field_193554_g + ".usage");
         }
 
         void func_193546_a(ICommandSender p_193546_1_, AdvancementCommand p_193546_2_, AdvancementCommand.ActionType p_193546_3_, Object... p_193546_4_)

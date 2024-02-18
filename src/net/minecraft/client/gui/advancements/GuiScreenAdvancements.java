@@ -21,7 +21,7 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
     private static final ResourceLocation field_191943_f = new ResourceLocation("textures/gui/advancements/window.png");
     private static final ResourceLocation field_191945_g = new ResourceLocation("textures/gui/advancements/tabs.png");
     private final ClientAdvancementManager field_191946_h;
-    private final Map<Advancement, GuiAdvancementTab> field_191947_i = Maps.<Advancement, GuiAdvancementTab>newLinkedHashMap();
+    private final Map<Advancement, GuiAdvancementTab> field_191947_i = Maps.newLinkedHashMap();
     private GuiAdvancementTab field_191940_s;
     private int field_191941_t;
     private int field_191942_u;
@@ -44,7 +44,7 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
 
         if (this.field_191940_s == null && !this.field_191947_i.isEmpty())
         {
-            this.field_191946_h.func_194230_a(((GuiAdvancementTab)this.field_191947_i.values().iterator().next()).func_193935_c(), true);
+            this.field_191946_h.func_194230_a(this.field_191947_i.values().iterator().next().func_193935_c(), true);
         }
         else
         {
@@ -57,7 +57,7 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
      */
     public void onGuiClosed()
     {
-        this.field_191946_h.func_192798_a((ClientAdvancementManager.IListener)null);
+        this.field_191946_h.func_192798_a(null);
         NetHandlerPlayClient nethandlerplayclient = this.mc.getConnection();
 
         if (nethandlerplayclient != null)
@@ -97,7 +97,7 @@ public class GuiScreenAdvancements extends GuiScreen implements ClientAdvancemen
     {
         if (keyCode == this.mc.gameSettings.field_194146_ao.getKeyCode())
         {
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         }
         else

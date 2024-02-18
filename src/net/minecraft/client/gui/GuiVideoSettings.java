@@ -18,12 +18,12 @@ import shadersmod.client.GuiShaders;
 
 public class GuiVideoSettings extends GuiScreenOF
 {
-    private GuiScreen parentGuiScreen;
+    private final GuiScreen parentGuiScreen;
     protected String screenTitle = "Video Settings";
-    private GameSettings guiGameSettings;
-    private static GameSettings.Options[] videoOptions = new GameSettings.Options[] {GameSettings.Options.GRAPHICS, GameSettings.Options.RENDER_DISTANCE, GameSettings.Options.AMBIENT_OCCLUSION, GameSettings.Options.FRAMERATE_LIMIT, GameSettings.Options.AO_LEVEL, GameSettings.Options.VIEW_BOBBING, GameSettings.Options.GUI_SCALE, GameSettings.Options.USE_VBO, GameSettings.Options.GAMMA, GameSettings.Options.ATTACK_INDICATOR, GameSettings.Options.DYNAMIC_LIGHTS, GameSettings.Options.DYNAMIC_FOV};
+    private final GameSettings guiGameSettings;
+    private static final GameSettings.Options[] videoOptions = new GameSettings.Options[] {GameSettings.Options.GRAPHICS, GameSettings.Options.RENDER_DISTANCE, GameSettings.Options.AMBIENT_OCCLUSION, GameSettings.Options.FRAMERATE_LIMIT, GameSettings.Options.AO_LEVEL, GameSettings.Options.VIEW_BOBBING, GameSettings.Options.GUI_SCALE, GameSettings.Options.USE_VBO, GameSettings.Options.GAMMA, GameSettings.Options.ATTACK_INDICATOR, GameSettings.Options.DYNAMIC_LIGHTS, GameSettings.Options.DYNAMIC_FOV};
     private static final String __OBFID = "CL_00000718";
-    private TooltipManager tooltipManager = new TooltipManager(this);
+    private final TooltipManager tooltipManager = new TooltipManager(this);
 
     public GuiVideoSettings(GuiScreen parentScreenIn, GameSettings gameSettingsIn)
     {
@@ -62,17 +62,17 @@ public class GuiVideoSettings extends GuiScreenOF
 
         int l = this.height / 6 + 21 * (videoOptions.length / 2) - 12;
         int i1 = 0;
-        i1 = this.width / 2 - 155 + 0;
+        i1 = this.width / 2 - 155;
         this.buttonList.add(new GuiOptionButton(231, i1, l, Lang.get("of.options.shaders")));
         i1 = this.width / 2 - 155 + 160;
         this.buttonList.add(new GuiOptionButton(202, i1, l, Lang.get("of.options.quality")));
         l = l + 21;
-        i1 = this.width / 2 - 155 + 0;
+        i1 = this.width / 2 - 155;
         this.buttonList.add(new GuiOptionButton(201, i1, l, Lang.get("of.options.details")));
         i1 = this.width / 2 - 155 + 160;
         this.buttonList.add(new GuiOptionButton(212, i1, l, Lang.get("of.options.performance")));
         l = l + 21;
-        i1 = this.width / 2 - 155 + 0;
+        i1 = this.width / 2 - 155;
         this.buttonList.add(new GuiOptionButton(211, i1, l, Lang.get("of.options.animations")));
         i1 = this.width / 2 - 155 + 160;
         this.buttonList.add(new GuiOptionButton(222, i1, l, Lang.get("of.options.other")));

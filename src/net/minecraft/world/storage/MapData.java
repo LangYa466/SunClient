@@ -27,9 +27,9 @@ public class MapData extends WorldSavedData
 
     /** colours */
     public byte[] colors = new byte[16384];
-    public List<MapData.MapInfo> playersArrayList = Lists.<MapData.MapInfo>newArrayList();
-    private final Map<EntityPlayer, MapData.MapInfo> playersHashMap = Maps.<EntityPlayer, MapData.MapInfo>newHashMap();
-    public Map<String, MapDecoration> mapDecorations = Maps.<String, MapDecoration>newLinkedHashMap();
+    public List<MapData.MapInfo> playersArrayList = Lists.newArrayList();
+    private final Map<EntityPlayer, MapData.MapInfo> playersHashMap = Maps.newHashMap();
+    public Map<String, MapDecoration> mapDecorations = Maps.newLinkedHashMap();
 
     public MapData(String mapname)
     {
@@ -139,7 +139,7 @@ public class MapData extends WorldSavedData
             {
                 if (!mapStack.isOnItemFrame() && mapdata$mapinfo1.entityplayerObj.dimension == this.dimension && this.trackingPosition)
                 {
-                    this.func_191095_a(MapDecoration.Type.PLAYER, mapdata$mapinfo1.entityplayerObj.world, mapdata$mapinfo1.entityplayerObj.getName(), mapdata$mapinfo1.entityplayerObj.posX, mapdata$mapinfo1.entityplayerObj.posZ, (double)mapdata$mapinfo1.entityplayerObj.rotationYaw);
+                    this.func_191095_a(MapDecoration.Type.PLAYER, mapdata$mapinfo1.entityplayerObj.world, mapdata$mapinfo1.entityplayerObj.getName(), mapdata$mapinfo1.entityplayerObj.posX, mapdata$mapinfo1.entityplayerObj.posZ, mapdata$mapinfo1.entityplayerObj.rotationYaw);
                 }
             }
             else
@@ -153,7 +153,7 @@ public class MapData extends WorldSavedData
         {
             EntityItemFrame entityitemframe = mapStack.getItemFrame();
             BlockPos blockpos = entityitemframe.getHangingPosition();
-            this.func_191095_a(MapDecoration.Type.FRAME, player.world, "frame-" + entityitemframe.getEntityId(), (double)blockpos.getX(), (double)blockpos.getZ(), (double)(entityitemframe.facingDirection.getHorizontalIndex() * 90));
+            this.func_191095_a(MapDecoration.Type.FRAME, player.world, "frame-" + entityitemframe.getEntityId(), blockpos.getX(), blockpos.getZ(), entityitemframe.facingDirection.getHorizontalIndex() * 90);
         }
 
         if (mapStack.hasTagCompound() && mapStack.getTagCompound().hasKey("Decorations", 9))
@@ -189,8 +189,8 @@ public class MapData extends WorldSavedData
         NBTTagCompound nbttagcompound = new NBTTagCompound();
         nbttagcompound.setByte("type", p_191094_3_.func_191163_a());
         nbttagcompound.setString("id", p_191094_2_);
-        nbttagcompound.setDouble("x", (double)p_191094_1_.getX());
-        nbttagcompound.setDouble("z", (double)p_191094_1_.getZ());
+        nbttagcompound.setDouble("x", p_191094_1_.getX());
+        nbttagcompound.setDouble("z", p_191094_1_.getZ());
         nbttagcompound.setDouble("rot", 180.0D);
         nbttaglist.appendTag(nbttagcompound);
 

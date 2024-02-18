@@ -76,22 +76,22 @@ public class ModelSprite
 
         float f = p_renderItemIn2D_3_ - p_renderItemIn2D_1_;
         float f1 = p_renderItemIn2D_4_ - p_renderItemIn2D_2_;
-        double d0 = (double)(MathHelper.abs(f) * (p_renderItemIn2D_8_ / 16.0F));
-        double d1 = (double)(MathHelper.abs(f1) * (p_renderItemIn2D_9_ / 16.0F));
+        double d0 = MathHelper.abs(f) * (p_renderItemIn2D_8_ / 16.0F);
+        double d1 = MathHelper.abs(f1) * (p_renderItemIn2D_9_ / 16.0F);
         BufferBuilder bufferbuilder = p_renderItemIn2D_0_.getBuffer();
         GL11.glNormal3f(0.0F, 0.0F, -1.0F);
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(0.0D, d1, 0.0D).tex((double)p_renderItemIn2D_1_, (double)p_renderItemIn2D_4_).endVertex();
-        bufferbuilder.pos(d0, d1, 0.0D).tex((double)p_renderItemIn2D_3_, (double)p_renderItemIn2D_4_).endVertex();
-        bufferbuilder.pos(d0, 0.0D, 0.0D).tex((double)p_renderItemIn2D_3_, (double)p_renderItemIn2D_2_).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, 0.0D).tex((double)p_renderItemIn2D_1_, (double)p_renderItemIn2D_2_).endVertex();
+        bufferbuilder.pos(0.0D, d1, 0.0D).tex(p_renderItemIn2D_1_, p_renderItemIn2D_4_).endVertex();
+        bufferbuilder.pos(d0, d1, 0.0D).tex(p_renderItemIn2D_3_, p_renderItemIn2D_4_).endVertex();
+        bufferbuilder.pos(d0, 0.0D, 0.0D).tex(p_renderItemIn2D_3_, p_renderItemIn2D_2_).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, 0.0D).tex(p_renderItemIn2D_1_, p_renderItemIn2D_2_).endVertex();
         p_renderItemIn2D_0_.draw();
         GL11.glNormal3f(0.0F, 0.0F, 1.0F);
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(0.0D, 0.0D, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_1_, (double)p_renderItemIn2D_2_).endVertex();
-        bufferbuilder.pos(d0, 0.0D, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_3_, (double)p_renderItemIn2D_2_).endVertex();
-        bufferbuilder.pos(d0, d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_3_, (double)p_renderItemIn2D_4_).endVertex();
-        bufferbuilder.pos(0.0D, d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_1_, (double)p_renderItemIn2D_4_).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, p_renderItemIn2D_7_).tex(p_renderItemIn2D_1_, p_renderItemIn2D_2_).endVertex();
+        bufferbuilder.pos(d0, 0.0D, p_renderItemIn2D_7_).tex(p_renderItemIn2D_3_, p_renderItemIn2D_2_).endVertex();
+        bufferbuilder.pos(d0, d1, p_renderItemIn2D_7_).tex(p_renderItemIn2D_3_, p_renderItemIn2D_4_).endVertex();
+        bufferbuilder.pos(0.0D, d1, p_renderItemIn2D_7_).tex(p_renderItemIn2D_1_, p_renderItemIn2D_4_).endVertex();
         p_renderItemIn2D_0_.draw();
         float f2 = 0.5F * f / (float)p_renderItemIn2D_5_;
         float f3 = 0.5F * f1 / (float)p_renderItemIn2D_6_;
@@ -102,10 +102,10 @@ public class ModelSprite
         {
             float f4 = (float)i / (float)p_renderItemIn2D_5_;
             float f5 = p_renderItemIn2D_1_ + f * f4 + f2;
-            bufferbuilder.pos((double)f4 * d0, d1, (double)p_renderItemIn2D_7_).tex((double)f5, (double)p_renderItemIn2D_4_).endVertex();
-            bufferbuilder.pos((double)f4 * d0, d1, 0.0D).tex((double)f5, (double)p_renderItemIn2D_4_).endVertex();
-            bufferbuilder.pos((double)f4 * d0, 0.0D, 0.0D).tex((double)f5, (double)p_renderItemIn2D_2_).endVertex();
-            bufferbuilder.pos((double)f4 * d0, 0.0D, (double)p_renderItemIn2D_7_).tex((double)f5, (double)p_renderItemIn2D_2_).endVertex();
+            bufferbuilder.pos((double)f4 * d0, d1, p_renderItemIn2D_7_).tex(f5, p_renderItemIn2D_4_).endVertex();
+            bufferbuilder.pos((double)f4 * d0, d1, 0.0D).tex(f5, p_renderItemIn2D_4_).endVertex();
+            bufferbuilder.pos((double)f4 * d0, 0.0D, 0.0D).tex(f5, p_renderItemIn2D_2_).endVertex();
+            bufferbuilder.pos((double)f4 * d0, 0.0D, p_renderItemIn2D_7_).tex(f5, p_renderItemIn2D_2_).endVertex();
         }
 
         p_renderItemIn2D_0_.draw();
@@ -117,10 +117,10 @@ public class ModelSprite
             float f7 = (float)j / (float)p_renderItemIn2D_5_;
             float f10 = p_renderItemIn2D_1_ + f * f7 + f2;
             float f6 = f7 + 1.0F / (float)p_renderItemIn2D_5_;
-            bufferbuilder.pos((double)f6 * d0, 0.0D, (double)p_renderItemIn2D_7_).tex((double)f10, (double)p_renderItemIn2D_2_).endVertex();
-            bufferbuilder.pos((double)f6 * d0, 0.0D, 0.0D).tex((double)f10, (double)p_renderItemIn2D_2_).endVertex();
-            bufferbuilder.pos((double)f6 * d0, d1, 0.0D).tex((double)f10, (double)p_renderItemIn2D_4_).endVertex();
-            bufferbuilder.pos((double)f6 * d0, d1, (double)p_renderItemIn2D_7_).tex((double)f10, (double)p_renderItemIn2D_4_).endVertex();
+            bufferbuilder.pos((double)f6 * d0, 0.0D, p_renderItemIn2D_7_).tex(f10, p_renderItemIn2D_2_).endVertex();
+            bufferbuilder.pos((double)f6 * d0, 0.0D, 0.0D).tex(f10, p_renderItemIn2D_2_).endVertex();
+            bufferbuilder.pos((double)f6 * d0, d1, 0.0D).tex(f10, p_renderItemIn2D_4_).endVertex();
+            bufferbuilder.pos((double)f6 * d0, d1, p_renderItemIn2D_7_).tex(f10, p_renderItemIn2D_4_).endVertex();
         }
 
         p_renderItemIn2D_0_.draw();
@@ -132,10 +132,10 @@ public class ModelSprite
             float f8 = (float)k / (float)p_renderItemIn2D_6_;
             float f11 = p_renderItemIn2D_2_ + f1 * f8 + f3;
             float f13 = f8 + 1.0F / (float)p_renderItemIn2D_6_;
-            bufferbuilder.pos(0.0D, (double)f13 * d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_1_, (double)f11).endVertex();
-            bufferbuilder.pos(d0, (double)f13 * d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_3_, (double)f11).endVertex();
-            bufferbuilder.pos(d0, (double)f13 * d1, 0.0D).tex((double)p_renderItemIn2D_3_, (double)f11).endVertex();
-            bufferbuilder.pos(0.0D, (double)f13 * d1, 0.0D).tex((double)p_renderItemIn2D_1_, (double)f11).endVertex();
+            bufferbuilder.pos(0.0D, (double)f13 * d1, p_renderItemIn2D_7_).tex(p_renderItemIn2D_1_, f11).endVertex();
+            bufferbuilder.pos(d0, (double)f13 * d1, p_renderItemIn2D_7_).tex(p_renderItemIn2D_3_, f11).endVertex();
+            bufferbuilder.pos(d0, (double)f13 * d1, 0.0D).tex(p_renderItemIn2D_3_, f11).endVertex();
+            bufferbuilder.pos(0.0D, (double)f13 * d1, 0.0D).tex(p_renderItemIn2D_1_, f11).endVertex();
         }
 
         p_renderItemIn2D_0_.draw();
@@ -146,10 +146,10 @@ public class ModelSprite
         {
             float f9 = (float)l / (float)p_renderItemIn2D_6_;
             float f12 = p_renderItemIn2D_2_ + f1 * f9 + f3;
-            bufferbuilder.pos(d0, (double)f9 * d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_3_, (double)f12).endVertex();
-            bufferbuilder.pos(0.0D, (double)f9 * d1, (double)p_renderItemIn2D_7_).tex((double)p_renderItemIn2D_1_, (double)f12).endVertex();
-            bufferbuilder.pos(0.0D, (double)f9 * d1, 0.0D).tex((double)p_renderItemIn2D_1_, (double)f12).endVertex();
-            bufferbuilder.pos(d0, (double)f9 * d1, 0.0D).tex((double)p_renderItemIn2D_3_, (double)f12).endVertex();
+            bufferbuilder.pos(d0, (double)f9 * d1, p_renderItemIn2D_7_).tex(p_renderItemIn2D_3_, f12).endVertex();
+            bufferbuilder.pos(0.0D, (double)f9 * d1, p_renderItemIn2D_7_).tex(p_renderItemIn2D_1_, f12).endVertex();
+            bufferbuilder.pos(0.0D, (double)f9 * d1, 0.0D).tex(p_renderItemIn2D_1_, f12).endVertex();
+            bufferbuilder.pos(d0, (double)f9 * d1, 0.0D).tex(p_renderItemIn2D_3_, f12).endVertex();
         }
 
         p_renderItemIn2D_0_.draw();

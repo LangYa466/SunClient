@@ -58,7 +58,7 @@ public class AdvancementRewards
             {
                 if (p_192113_1_.func_191521_c(itemstack))
                 {
-                    p_192113_1_.world.playSound((EntityPlayer)null, p_192113_1_.posX, p_192113_1_.posY, p_192113_1_.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((p_192113_1_.getRNG().nextFloat() - p_192113_1_.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    p_192113_1_.world.playSound(null, p_192113_1_.posX, p_192113_1_.posY, p_192113_1_.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((p_192113_1_.getRNG().nextFloat() - p_192113_1_.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
                     flag = true;
                 }
                 else
@@ -141,7 +141,7 @@ public class AdvancementRewards
 
     public String toString()
     {
-        return "AdvancementRewards{experience=" + this.field_192115_b + ", loot=" + Arrays.toString((Object[])this.field_192116_c) + ", recipes=" + Arrays.toString((Object[])this.field_192117_d) + ", function=" + this.field_193129_e + '}';
+        return "AdvancementRewards{experience=" + this.field_192115_b + ", loot=" + Arrays.toString(this.field_192116_c) + ", recipes=" + Arrays.toString(this.field_192117_d) + ", function=" + this.field_193129_e + '}';
     }
 
     public static class Deserializer implements JsonDeserializer<AdvancementRewards>

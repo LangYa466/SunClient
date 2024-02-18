@@ -47,7 +47,7 @@ public class BlockTorch extends Block
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        switch ((EnumFacing)state.getValue(FACING))
+        switch (state.getValue(FACING))
         {
             case EAST:
                 return TORCH_EAST_AABB;
@@ -185,7 +185,7 @@ public class BlockTorch extends Block
         }
         else
         {
-            EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+            EnumFacing enumfacing = state.getValue(FACING);
             EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
             EnumFacing enumfacing1 = enumfacing.getOpposite();
             BlockPos blockpos = pos.offset(enumfacing1);
@@ -215,7 +215,7 @@ public class BlockTorch extends Block
 
     protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING)))
+        if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, state.getValue(FACING)))
         {
             return true;
         }
@@ -233,7 +233,7 @@ public class BlockTorch extends Block
 
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        EnumFacing enumfacing = (EnumFacing)stateIn.getValue(FACING);
+        EnumFacing enumfacing = stateIn.getValue(FACING);
         double d0 = (double)pos.getX() + 0.5D;
         double d1 = (double)pos.getY() + 0.7D;
         double d2 = (double)pos.getZ() + 0.5D;
@@ -298,7 +298,7 @@ public class BlockTorch extends Block
     {
         int i = 0;
 
-        switch ((EnumFacing)state.getValue(FACING))
+        switch (state.getValue(FACING))
         {
             case EAST:
                 i = i | 1;
@@ -331,7 +331,7 @@ public class BlockTorch extends Block
      */
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     /**
@@ -340,12 +340,12 @@ public class BlockTorch extends Block
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+        return new BlockStateContainer(this, FACING);
     }
 
     public BlockFaceShape func_193383_a(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)

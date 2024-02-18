@@ -106,9 +106,9 @@ public class EntityList
     private static final ResourceLocation field_191310_e = new ResourceLocation("player");
     private static final Logger LOGGER = LogManager.getLogger();
     public static final RegistryNamespaced < ResourceLocation, Class <? extends Entity >> field_191308_b = new RegistryNamespaced < ResourceLocation, Class <? extends Entity >> ();
-    public static final Map<ResourceLocation, EntityList.EntityEggInfo> ENTITY_EGGS = Maps.<ResourceLocation, EntityList.EntityEggInfo>newLinkedHashMap();
-    public static final Set<ResourceLocation> field_191309_d = Sets.<ResourceLocation>newHashSet();
-    private static final List<String> field_191311_g = Lists.<String>newArrayList();
+    public static final Map<ResourceLocation, EntityList.EntityEggInfo> ENTITY_EGGS = Maps.newLinkedHashMap();
+    public static final Set<ResourceLocation> field_191309_d = Sets.newHashSet();
+    private static final List<String> field_191311_g = Lists.newArrayList();
 
     @Nullable
     public static ResourceLocation func_191301_a(Entity p_191301_0_)
@@ -130,26 +130,26 @@ public class EntityList
     public static String getEntityString(Entity entityIn)
     {
         int i = field_191308_b.getIDForObject(entityIn.getClass());
-        return i == -1 ? null : (String)field_191311_g.get(i);
+        return i == -1 ? null : field_191311_g.get(i);
     }
 
     @Nullable
     public static String func_191302_a(@Nullable ResourceLocation p_191302_0_)
     {
         int i = field_191308_b.getIDForObject(field_191308_b.getObject(p_191302_0_));
-        return i == -1 ? null : (String)field_191311_g.get(i);
+        return i == -1 ? null : field_191311_g.get(i);
     }
 
     @Nullable
     public static Class <? extends Entity > getClassFromID(int entityID)
     {
-        return (Class)field_191308_b.getObjectById(entityID);
+        return field_191308_b.getObjectById(entityID);
     }
 
     @Nullable
     public static Class <? extends Entity > func_192839_a(String p_192839_0_)
     {
-        return (Class)field_191308_b.getObject(new ResourceLocation(p_192839_0_));
+        return field_191308_b.getObject(new ResourceLocation(p_192839_0_));
     }
 
     @Nullable
@@ -201,7 +201,7 @@ public class EntityList
 
         if (entity == null)
         {
-            LOGGER.warn("Skipping Entity with id {}", (Object)resourcelocation);
+            LOGGER.warn("Skipping Entity with id {}", resourcelocation);
         }
         else
         {
@@ -230,7 +230,7 @@ public class EntityList
         }
         else
         {
-            return entityIn instanceof EntityLightningBolt ? field_191307_a.equals(entityName) : false;
+            return entityIn instanceof EntityLightningBolt && field_191307_a.equals(entityName);
         }
     }
 
@@ -245,10 +245,10 @@ public class EntityList
 
         for (ResourceLocation resourcelocation : getEntityNameList())
         {
-            stringbuilder.append((Object)resourcelocation).append(", ");
+            stringbuilder.append(resourcelocation).append(", ");
         }
 
-        stringbuilder.append((Object)field_191310_e);
+        stringbuilder.append(field_191310_e);
         return stringbuilder.toString();
     }
 

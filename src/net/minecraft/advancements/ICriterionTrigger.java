@@ -16,7 +16,7 @@ public interface ICriterionTrigger<T extends ICriterionInstance>
 
     T func_192166_a(JsonObject p_192166_1_, JsonDeserializationContext p_192166_2_);
 
-    public static class Listener<T extends ICriterionInstance>
+    class Listener<T extends ICriterionInstance>
     {
         private final T field_192160_a;
         private final Advancement field_192161_b;
@@ -55,7 +55,7 @@ public interface ICriterionTrigger<T extends ICriterionInstance>
                 }
                 else
                 {
-                    return !this.field_192161_b.equals(listener.field_192161_b) ? false : this.field_192162_c.equals(listener.field_192162_c);
+                    return this.field_192161_b.equals(listener.field_192161_b) && this.field_192162_c.equals(listener.field_192162_c);
                 }
             }
             else

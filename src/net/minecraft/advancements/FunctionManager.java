@@ -24,7 +24,7 @@ public class FunctionManager implements ITickable
     private static final Logger field_193067_a = LogManager.getLogger();
     private final File field_193068_b;
     private final MinecraftServer field_193069_c;
-    private final Map<ResourceLocation, FunctionObject> field_193070_d = Maps.<ResourceLocation, FunctionObject>newHashMap();
+    private final Map<ResourceLocation, FunctionObject> field_193070_d = Maps.newHashMap();
     private String field_193071_e = "-";
     private FunctionObject field_193072_f;
     private final ArrayDeque<FunctionManager.QueuedCommand> field_194020_g = new ArrayDeque<FunctionManager.QueuedCommand>();

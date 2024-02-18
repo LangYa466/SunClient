@@ -43,7 +43,7 @@ public class EntityAISit extends EntityAIBase
             }
             else
             {
-                return this.theEntity.getDistanceSqToEntity(entitylivingbase) < 144.0D && entitylivingbase.getAITarget() != null ? false : this.isSitting;
+                return (!(this.theEntity.getDistanceSqToEntity(entitylivingbase) < 144.0D) || entitylivingbase.getAITarget() == null) && this.isSitting;
             }
         }
     }

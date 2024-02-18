@@ -144,7 +144,7 @@ public class ItemBanner extends ItemBlock
         {
             for (EnumDyeColor enumdyecolor : EnumDyeColor.values())
             {
-                tab.add(func_190910_a(enumdyecolor, (NBTTagList)null));
+                tab.add(func_190910_a(enumdyecolor, null));
             }
         }
     }

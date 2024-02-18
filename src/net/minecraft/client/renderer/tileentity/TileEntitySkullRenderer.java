@@ -150,7 +150,7 @@ public class TileEntitySkullRenderer extends TileEntitySpecialRenderer<TileEntit
             GlStateManager.enableBlendProfile(GlStateManager.Profile.PLAYER_SKIN);
         }
 
-        modelbase.render((Entity)null, animateTicks, 0.0F, 0.0F, p_188190_5_, 0.0F, 0.0625F);
+        modelbase.render(null, animateTicks, 0.0F, 0.0F, p_188190_5_, 0.0F, 0.0625F);
         GlStateManager.popMatrix();
 
         if (destroyStage >= 0)

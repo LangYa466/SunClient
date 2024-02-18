@@ -30,7 +30,7 @@ import org.apache.logging.log4j.Logger;
 public class ChunkProviderServer implements IChunkProvider
 {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final Set<Long> droppedChunksSet = Sets.<Long>newHashSet();
+    private final Set<Long> droppedChunksSet = Sets.newHashSet();
     private final IChunkGenerator chunkGenerator;
     private final IChunkLoader chunkLoader;
     private final Long2ObjectMap<Chunk> id2ChunkMap = new Long2ObjectOpenHashMap<Chunk>(8192);
@@ -78,7 +78,7 @@ public class ChunkProviderServer implements IChunkProvider
     public Chunk getLoadedChunk(int x, int z)
     {
         long i = ChunkPos.asLong(x, z);
-        Chunk chunk = (Chunk)this.id2ChunkMap.get(i);
+        Chunk chunk = this.id2ChunkMap.get(i);
 
         if (chunk != null)
         {
@@ -155,7 +155,7 @@ public class ChunkProviderServer implements IChunkProvider
         }
         catch (Exception exception)
         {
-            LOGGER.error("Couldn't load chunk", (Throwable)exception);
+            LOGGER.error("Couldn't load chunk", exception);
             return null;
         }
     }
@@ -168,7 +168,7 @@ public class ChunkProviderServer implements IChunkProvider
         }
         catch (Exception exception)
         {
-            LOGGER.error("Couldn't save entities", (Throwable)exception);
+            LOGGER.error("Couldn't save entities", exception);
         }
     }
 
@@ -181,11 +181,11 @@ public class ChunkProviderServer implements IChunkProvider
         }
         catch (IOException ioexception)
         {
-            LOGGER.error("Couldn't save chunk", (Throwable)ioexception);
+            LOGGER.error("Couldn't save chunk", ioexception);
         }
         catch (MinecraftException minecraftexception)
         {
-            LOGGER.error("Couldn't save chunk; already in use by another instance of Minecraft?", (Throwable)minecraftexception);
+            LOGGER.error("Couldn't save chunk; already in use by another instance of Minecraft?", minecraftexception);
         }
     }
 
@@ -242,7 +242,7 @@ public class ChunkProviderServer implements IChunkProvider
                 for (int i = 0; i < 100 && iterator.hasNext(); iterator.remove())
                 {
                     Long olong = iterator.next();
-                    Chunk chunk = (Chunk)this.id2ChunkMap.get(olong);
+                    Chunk chunk = this.id2ChunkMap.get(olong);
 
                     if (chunk != null && chunk.unloaded)
                     {

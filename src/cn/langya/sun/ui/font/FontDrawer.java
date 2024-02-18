@@ -160,7 +160,7 @@ public final class FontDrawer {
     }
 
     private Font getRuntimeFont() {
-        Font runtimeFont = (Font) RUNTIME_FONT_MAP.get(this.FONT_HEIGHT);
+        Font runtimeFont = RUNTIME_FONT_MAP.get(this.FONT_HEIGHT);
         if (runtimeFont == null) {
             runtimeFont = new Font("SansSerif", 0, this.FONT_HEIGHT);
             RUNTIME_FONT_MAP.put(this.FONT_HEIGHT, runtimeFont);

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 public class ItemOverrideList
 {
     public static final ItemOverrideList NONE = new ItemOverrideList();
-    private final List<ItemOverride> overrides = Lists.<ItemOverride>newArrayList();
+    private final List<ItemOverride> overrides = Lists.newArrayList();
 
     private ItemOverrideList()
     {

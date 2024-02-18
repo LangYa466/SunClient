@@ -23,7 +23,7 @@ public class ChunkUtils
         else
         {
             Boolean obool = (Boolean)Reflector.getFieldValue(p_hasEntities_0_, fieldHasEntities);
-            return obool == null ? true : obool.booleanValue();
+            return obool == null || obool.booleanValue();
         }
     }
 

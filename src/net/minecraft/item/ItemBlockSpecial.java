@@ -33,7 +33,7 @@ public class ItemBlockSpecial extends Item
         IBlockState iblockstate = playerIn.getBlockState(worldIn);
         Block block = iblockstate.getBlock();
 
-        if (block == Blocks.SNOW_LAYER && ((Integer)iblockstate.getValue(BlockSnow.LAYERS)).intValue() < 1)
+        if (block == Blocks.SNOW_LAYER && iblockstate.getValue(BlockSnow.LAYERS).intValue() < 1)
         {
             hand = EnumFacing.UP;
         }
@@ -44,7 +44,7 @@ public class ItemBlockSpecial extends Item
 
         ItemStack itemstack = stack.getHeldItem(pos);
 
-        if (!itemstack.func_190926_b() && stack.canPlayerEdit(worldIn, hand, itemstack) && playerIn.func_190527_a(this.block, worldIn, false, hand, (Entity)null))
+        if (!itemstack.func_190926_b() && stack.canPlayerEdit(worldIn, hand, itemstack) && playerIn.func_190527_a(this.block, worldIn, false, hand, null))
         {
             IBlockState iblockstate1 = this.block.onBlockPlaced(playerIn, worldIn, hand, facing, hitX, hitY, 0, stack);
 

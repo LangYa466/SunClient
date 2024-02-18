@@ -44,7 +44,7 @@ public class ScreenShotHelper
      */
     public static ITextComponent saveScreenshot(File gameDirectory, int width, int height, Framebuffer buffer)
     {
-        return saveScreenshot(gameDirectory, (String)null, width, height, buffer);
+        return saveScreenshot(gameDirectory, null, width, height, buffer);
     }
 
     /**
@@ -125,12 +125,12 @@ public class ScreenShotHelper
                 }
             }
 
-            return new TextComponentTranslation("screenshot.success", new Object[] {itextcomponent});
+            return new TextComponentTranslation("screenshot.success", itextcomponent);
         }
         catch (Exception exception1)
         {
-            LOGGER.warn("Couldn't save screenshot", (Throwable)exception1);
-            return new TextComponentTranslation("screenshot.failure", new Object[] {exception1.getMessage()});
+            LOGGER.warn("Couldn't save screenshot", exception1);
+            return new TextComponentTranslation("screenshot.failure", exception1.getMessage());
         }
     }
 
@@ -179,7 +179,7 @@ public class ScreenShotHelper
      */
     private static File getTimestampedPNGFileForDirectory(File gameDirectory)
     {
-        String s = DATE_FORMAT.format(new Date()).toString();
+        String s = DATE_FORMAT.format(new Date());
         int i = 1;
 
         while (true)

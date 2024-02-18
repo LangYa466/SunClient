@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.Instance>
 {
     private static final ResourceLocation field_193149_a = new ResourceLocation("consume_item");
-    private final Map<PlayerAdvancements, ConsumeItemTrigger.Listeners> field_193150_b = Maps.<PlayerAdvancements, ConsumeItemTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, ConsumeItemTrigger.Listeners> field_193150_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -92,7 +92,7 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
     static class Listeners
     {
         private final PlayerAdvancements field_193241_a;
-        private final Set<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> field_193242_b = Sets.<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>> field_193242_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47563_1_)
         {
@@ -120,11 +120,11 @@ public class ConsumeItemTrigger implements ICriterionTrigger<ConsumeItemTrigger.
 
             for (ICriterionTrigger.Listener<ConsumeItemTrigger.Instance> listener : this.field_193242_b)
             {
-                if (((ConsumeItemTrigger.Instance)listener.func_192158_a()).func_193193_a(p_193240_1_))
+                if (listener.func_192158_a().func_193193_a(p_193240_1_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<ConsumeItemTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

@@ -90,7 +90,7 @@ public class Path
     public Vec3d getVectorFromIndex(Entity entityIn, int index)
     {
         double d0 = (double)this.points[index].xCoord + (double)((int)(entityIn.width + 1.0F)) * 0.5D;
-        double d1 = (double)this.points[index].yCoord;
+        double d1 = this.points[index].yCoord;
         double d2 = (double)this.points[index].zCoord + (double)((int)(entityIn.width + 1.0F)) * 0.5D;
         return new Vec3d(d0, d1, d2);
     }
@@ -106,7 +106,7 @@ public class Path
     public Vec3d getCurrentPos()
     {
         PathPoint pathpoint = this.points[this.currentPathIndex];
-        return new Vec3d((double)pathpoint.xCoord, (double)pathpoint.yCoord, (double)pathpoint.zCoord);
+        return new Vec3d(pathpoint.xCoord, pathpoint.yCoord, pathpoint.zCoord);
     }
 
     /**

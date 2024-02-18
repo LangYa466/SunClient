@@ -33,11 +33,11 @@ public class ItemBoat extends Item
     {
         ItemStack itemstack = worldIn.getHeldItem(playerIn);
         float f = 1.0F;
-        float f1 = worldIn.prevRotationPitch + (worldIn.rotationPitch - worldIn.prevRotationPitch) * 1.0F;
-        float f2 = worldIn.prevRotationYaw + (worldIn.rotationYaw - worldIn.prevRotationYaw) * 1.0F;
-        double d0 = worldIn.prevPosX + (worldIn.posX - worldIn.prevPosX) * 1.0D;
-        double d1 = worldIn.prevPosY + (worldIn.posY - worldIn.prevPosY) * 1.0D + (double)worldIn.getEyeHeight();
-        double d2 = worldIn.prevPosZ + (worldIn.posZ - worldIn.prevPosZ) * 1.0D;
+        float f1 = worldIn.prevRotationPitch + (worldIn.rotationPitch - worldIn.prevRotationPitch);
+        float f2 = worldIn.prevRotationYaw + (worldIn.rotationYaw - worldIn.prevRotationYaw);
+        double d0 = worldIn.prevPosX + (worldIn.posX - worldIn.prevPosX);
+        double d1 = worldIn.prevPosY + (worldIn.posY - worldIn.prevPosY) + (double)worldIn.getEyeHeight();
+        double d2 = worldIn.prevPosZ + (worldIn.posZ - worldIn.prevPosZ);
         Vec3d vec3d = new Vec3d(d0, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.017453292F - (float)Math.PI);
         float f4 = MathHelper.sin(-f2 * 0.017453292F - (float)Math.PI);
@@ -65,7 +65,7 @@ public class ItemBoat extends Item
 
                 if (entity.canBeCollidedWith())
                 {
-                    AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expandXyz((double)entity.getCollisionBorderSize());
+                    AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expandXyz(entity.getCollisionBorderSize());
 
                     if (axisalignedbb.isVecInside(vec3d))
                     {

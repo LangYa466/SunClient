@@ -16,7 +16,7 @@ import net.minecraft.util.datafix.walkers.ItemStackDataLists;
 public class TileEntityDispenser extends TileEntityLockableLoot
 {
     private static final Random RNG = new Random();
-    private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>func_191197_a(9, ItemStack.field_190927_a);
+    private NonNullList<ItemStack> stacks = NonNullList.func_191197_a(9, ItemStack.field_190927_a);
 
     /**
      * Returns the number of slots in the inventory.
@@ -41,13 +41,13 @@ public class TileEntityDispenser extends TileEntityLockableLoot
 
     public int getDispenseSlot()
     {
-        this.fillWithLoot((EntityPlayer)null);
+        this.fillWithLoot(null);
         int i = -1;
         int j = 1;
 
         for (int k = 0; k < this.stacks.size(); ++k)
         {
-            if (!((ItemStack)this.stacks.get(k)).func_190926_b() && RNG.nextInt(j++) == 0)
+            if (!this.stacks.get(k).func_190926_b() && RNG.nextInt(j++) == 0)
             {
                 i = k;
             }
@@ -64,7 +64,7 @@ public class TileEntityDispenser extends TileEntityLockableLoot
     {
         for (int i = 0; i < this.stacks.size(); ++i)
         {
-            if (((ItemStack)this.stacks.get(i)).func_190926_b())
+            if (this.stacks.get(i).func_190926_b())
             {
                 this.setInventorySlotContents(i, stack);
                 return i;
@@ -84,13 +84,13 @@ public class TileEntityDispenser extends TileEntityLockableLoot
 
     public static void registerFixes(DataFixer fixer)
     {
-        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDispenser.class, new String[] {"Items"}));
+        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityDispenser.class, "Items"));
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.stacks = NonNullList.<ItemStack>func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.stacks = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
 
         if (!this.checkLootAndRead(compound))
         {

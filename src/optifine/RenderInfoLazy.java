@@ -24,7 +24,7 @@ public class RenderInfoLazy
     {
         if (this.renderInfo == null)
         {
-            this.renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this.renderChunk, (EnumFacing)null, 0);
+            this.renderInfo = new RenderGlobal.ContainerLocalRenderInformation(this.renderChunk, null, 0);
         }
 
         return this.renderInfo;

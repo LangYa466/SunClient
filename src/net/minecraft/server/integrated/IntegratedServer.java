@@ -76,7 +76,7 @@ public class IntegratedServer extends MinecraftServer
 
         if (Reflector.DimensionManager.exists())
         {
-            WorldServer worldserver = this.isDemo() ? (WorldServer)((WorldServer)(new WorldServerDemo(this, isavehandler, worldinfo, 0, this.theProfiler)).init()) : (WorldServer)(new WorldServerOF(this, isavehandler, worldinfo, 0, this.theProfiler)).init();
+            WorldServer worldserver = this.isDemo() ? (WorldServer) (new WorldServerDemo(this, isavehandler, worldinfo, 0, this.theProfiler)).init() : (WorldServer)(new WorldServerOF(this, isavehandler, worldinfo, 0, this.theProfiler)).init();
             worldserver.initialize(this.theWorldSettings);
             Integer[] ainteger = (Integer[])Reflector.call(Reflector.DimensionManager_getStaticDimensionIDs);
             Integer[] ainteger1 = ainteger;
@@ -85,7 +85,7 @@ public class IntegratedServer extends MinecraftServer
             for (int j1 = 0; j1 < i1; ++j1)
             {
                 int k = ainteger1[j1].intValue();
-                WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer)((WorldServer)(new WorldServerMulti(this, isavehandler, k, worldserver, this.theProfiler)).init());
+                WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer) (new WorldServerMulti(this, isavehandler, k, worldserver, this.theProfiler)).init();
                 worldserver1.addEventListener(new ServerWorldEventHandler(this, worldserver1));
 
                 if (!this.isSinglePlayer())
@@ -256,7 +256,7 @@ public class IntegratedServer extends MinecraftServer
                 }
                 else if (worldinfo.isDifficultyLocked() && !worldinfo1.isDifficultyLocked())
                 {
-                    LOGGER.info("Locking difficulty to {}", (Object)worldinfo.getDifficulty());
+                    LOGGER.info("Locking difficulty to {}", worldinfo.getDifficulty());
 
                     for (WorldServer worldserver : this.worldServers)
                     {
@@ -427,7 +427,6 @@ public class IntegratedServer extends MinecraftServer
             }
             catch (IOException var5)
             {
-                ;
             }
 
             if (i <= 0)
@@ -435,8 +434,8 @@ public class IntegratedServer extends MinecraftServer
                 i = 25564;
             }
 
-            this.getNetworkSystem().addLanEndpoint((InetAddress)null, i);
-            LOGGER.info("Started on {}", (int)i);
+            this.getNetworkSystem().addLanEndpoint(null, i);
+            LOGGER.info("Started on {}", i);
             this.isPublic = true;
             this.lanServerPing = new ThreadLanServerPing(this.getMOTD(), i + "");
             this.lanServerPing.start();

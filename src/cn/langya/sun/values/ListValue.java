@@ -8,7 +8,7 @@ import java.util.List;
 public class ListValue extends AbstractValue<String>{
     private final String name;
     private String value;
-    private List<String> values;
+    private final List<String> values;
 
     public ListValue(String name, String value, String... values) {
         super(name);

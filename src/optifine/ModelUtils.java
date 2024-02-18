@@ -22,11 +22,11 @@ public class ModelUtils
             for (int i = 0; i < aenumfacing.length; ++i)
             {
                 EnumFacing enumfacing = aenumfacing[i];
-                List list = p_dbgModel_0_.getQuads((IBlockState)null, enumfacing, 0L);
+                List list = p_dbgModel_0_.getQuads(null, enumfacing, 0L);
                 dbgQuads(enumfacing.getName(), list, "  ");
             }
 
-            List list1 = p_dbgModel_0_.getQuads((IBlockState)null, (EnumFacing)null, 0L);
+            List list1 = p_dbgModel_0_.getQuads(null, null, 0L);
             dbgQuads("General", list1, "  ");
         }
     }
@@ -53,7 +53,7 @@ public class ModelUtils
         for (int j = 0; j < 4; ++j)
         {
             int k = j * i;
-            float f = Float.intBitsToFloat(p_dbgVertexData_0_[k + 0]);
+            float f = Float.intBitsToFloat(p_dbgVertexData_0_[k]);
             float f1 = Float.intBitsToFloat(p_dbgVertexData_0_[k + 1]);
             float f2 = Float.intBitsToFloat(p_dbgVertexData_0_[k + 2]);
             int l = p_dbgVertexData_0_[k + 3];
@@ -65,14 +65,14 @@ public class ModelUtils
 
     public static IBakedModel duplicateModel(IBakedModel p_duplicateModel_0_)
     {
-        List list = duplicateQuadList(p_duplicateModel_0_.getQuads((IBlockState)null, (EnumFacing)null, 0L));
+        List list = duplicateQuadList(p_duplicateModel_0_.getQuads(null, null, 0L));
         EnumFacing[] aenumfacing = EnumFacing.VALUES;
         Map<EnumFacing, List<BakedQuad>> map = new HashMap<EnumFacing, List<BakedQuad>>();
 
         for (int i = 0; i < aenumfacing.length; ++i)
         {
             EnumFacing enumfacing = aenumfacing[i];
-            List list1 = p_duplicateModel_0_.getQuads((IBlockState)null, enumfacing, 0L);
+            List list1 = p_duplicateModel_0_.getQuads(null, enumfacing, 0L);
             List list2 = duplicateQuadList(list1);
             map.put(enumfacing, list2);
         }
@@ -96,7 +96,7 @@ public class ModelUtils
 
     public static BakedQuad duplicateQuad(BakedQuad p_duplicateQuad_0_)
     {
-        BakedQuad bakedquad = new BakedQuad((int[])p_duplicateQuad_0_.getVertexData().clone(), p_duplicateQuad_0_.getTintIndex(), p_duplicateQuad_0_.getFace(), p_duplicateQuad_0_.getSprite());
+        BakedQuad bakedquad = new BakedQuad(p_duplicateQuad_0_.getVertexData().clone(), p_duplicateQuad_0_.getTintIndex(), p_duplicateQuad_0_.getFace(), p_duplicateQuad_0_.getSprite());
         return bakedquad;
     }
 }

@@ -2,8 +2,8 @@ package net.optifine.entity.model.anim;
 
 public class Token
 {
-    private EnumTokenType type;
-    private String text;
+    private final EnumTokenType type;
+    private final String text;
 
     public Token(EnumTokenType type, String text)
     {

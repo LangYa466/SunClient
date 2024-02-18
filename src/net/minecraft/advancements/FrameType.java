@@ -12,7 +12,7 @@ public enum FrameType
     private final int field_192314_e;
     private final TextFormatting field_193230_f;
 
-    private FrameType(String p_i47585_3_, int p_i47585_4_, TextFormatting p_i47585_5_)
+    FrameType(String p_i47585_3_, int p_i47585_4_, TextFormatting p_i47585_5_)
     {
         this.field_192313_d = p_i47585_3_;
         this.field_192314_e = p_i47585_4_;

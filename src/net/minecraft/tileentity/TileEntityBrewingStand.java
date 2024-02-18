@@ -31,7 +31,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 
     /** an array of the output slot indices */
     private static final int[] OUTPUT_SLOTS = new int[] {0, 1, 2, 4};
-    private NonNullList<ItemStack> brewingItemStacks = NonNullList.<ItemStack>func_191197_a(5, ItemStack.field_190927_a);
+    private NonNullList<ItemStack> brewingItemStacks = NonNullList.func_191197_a(5, ItemStack.field_190927_a);
     private int brewTime;
 
     /**
@@ -169,7 +169,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 
         for (int i = 0; i < 3; ++i)
         {
-            if (!((ItemStack)this.brewingItemStacks.get(i)).func_190926_b())
+            if (!this.brewingItemStacks.get(i).func_190926_b())
             {
                 aboolean[i] = true;
             }
@@ -228,7 +228,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
             }
             else
             {
-                InventoryHelper.spawnItemStack(this.world, (double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), itemstack1);
+                InventoryHelper.spawnItemStack(this.world, blockpos.getX(), blockpos.getY(), blockpos.getZ(), itemstack1);
             }
         }
 
@@ -238,13 +238,13 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
 
     public static void registerFixesBrewingStand(DataFixer fixer)
     {
-        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityBrewingStand.class, new String[] {"Items"}));
+        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityBrewingStand.class, "Items"));
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.brewingItemStacks = NonNullList.<ItemStack>func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.brewingItemStacks = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
         ItemStackHelper.func_191283_b(compound, this.brewingItemStacks);
         this.brewTime = compound.getShort("BrewTime");
 
@@ -276,7 +276,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
      */
     public ItemStack getStackInSlot(int index)
     {
-        return index >= 0 && index < this.brewingItemStacks.size() ? (ItemStack)this.brewingItemStacks.get(index) : ItemStack.field_190927_a;
+        return index >= 0 && index < this.brewingItemStacks.size() ? this.brewingItemStacks.get(index) : ItemStack.field_190927_a;
     }
 
     /**

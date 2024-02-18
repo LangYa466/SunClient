@@ -2,8 +2,8 @@ package net.optifine.entity.model.anim;
 
 public class Function implements IExpression
 {
-    private EnumFunctionType enumFunction;
-    private IExpression[] arguments;
+    private final EnumFunctionType enumFunction;
+    private final IExpression[] arguments;
 
     public Function(EnumFunctionType enumFunction, IExpression[] arguments)
     {
@@ -18,6 +18,6 @@ public class Function implements IExpression
 
     public String toString()
     {
-        return "" + this.enumFunction + "()";
+        return this.enumFunction + "()";
     }
 }

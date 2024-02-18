@@ -30,19 +30,19 @@ import net.minecraft.world.World;
 
 public class TileEntityHopper extends TileEntityLockableLoot implements IHopper, ITickable
 {
-    private NonNullList<ItemStack> inventory = NonNullList.<ItemStack>func_191197_a(5, ItemStack.field_190927_a);
+    private NonNullList<ItemStack> inventory = NonNullList.func_191197_a(5, ItemStack.field_190927_a);
     private int transferCooldown = -1;
     private long field_190578_g;
 
     public static void registerFixesHopper(DataFixer fixer)
     {
-        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityHopper.class, new String[] {"Items"}));
+        fixer.registerWalker(FixTypes.BLOCK_ENTITY, new ItemStackDataLists(TileEntityHopper.class, "Items"));
     }
 
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.inventory = NonNullList.<ItemStack>func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
+        this.inventory = NonNullList.func_191197_a(this.getSizeInventory(), ItemStack.field_190927_a);
 
         if (!this.checkLootAndRead(compound))
         {
@@ -89,7 +89,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public ItemStack decrStackSize(int index, int count)
     {
-        this.fillWithLoot((EntityPlayer)null);
+        this.fillWithLoot(null);
         ItemStack itemstack = ItemStackHelper.getAndSplit(this.func_190576_q(), index, count);
         return itemstack;
     }
@@ -99,7 +99,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
      */
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        this.fillWithLoot((EntityPlayer)null);
+        this.fillWithLoot(null);
         this.func_190576_q().set(index, stack);
 
         if (stack.func_190916_E() > this.getInventoryStackLimit())
@@ -362,7 +362,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         {
             for (EntityItem entityitem : getCaptureItems(hopper.getWorld(), hopper.getXPos(), hopper.getYPos(), hopper.getZPos()))
             {
-                if (putDropInInventoryAllSlots((IInventory)null, hopper, entityitem))
+                if (putDropInInventoryAllSlots(null, hopper, entityitem))
                 {
                     return true;
                 }
@@ -383,7 +383,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         if (!itemstack.func_190926_b() && canExtractItemFromSlot(inventoryIn, itemstack, index, direction))
         {
             ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = putStackInInventoryAllSlots(inventoryIn, hopper, inventoryIn.decrStackSize(index, 1), (EnumFacing)null);
+            ItemStack itemstack2 = putStackInInventoryAllSlots(inventoryIn, hopper, inventoryIn.decrStackSize(index, 1), null);
 
             if (itemstack2.func_190926_b())
             {
@@ -412,7 +412,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
         else
         {
             ItemStack itemstack = p_145898_2_.getEntityItem().copy();
-            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemIn, itemstack, (EnumFacing)null);
+            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemIn, itemstack, null);
 
             if (itemstack1.func_190926_b())
             {
@@ -556,7 +556,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
     public static List<EntityItem> getCaptureItems(World worldIn, double p_184292_1_, double p_184292_3_, double p_184292_5_)
     {
-        return worldIn.<EntityItem>getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_184292_1_ - 0.5D, p_184292_3_, p_184292_5_ - 0.5D, p_184292_1_ + 0.5D, p_184292_3_ + 1.5D, p_184292_5_ + 0.5D), EntitySelectors.IS_ALIVE);
+        return worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_184292_1_ - 0.5D, p_184292_3_, p_184292_5_ - 0.5D, p_184292_1_ + 0.5D, p_184292_3_ + 1.5D, p_184292_5_ + 0.5D), EntitySelectors.IS_ALIVE);
     }
 
     /**
@@ -588,7 +588,7 @@ public class TileEntityHopper extends TileEntityLockableLoot implements IHopper,
 
         if (iinventory == null)
         {
-            List<Entity> list = worldIn.getEntitiesInAABBexcluding((Entity)null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.HAS_INVENTORY);
+            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.HAS_INVENTORY);
 
             if (!list.isEmpty())
             {

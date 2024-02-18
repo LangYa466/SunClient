@@ -61,7 +61,7 @@ public class CustomSkyLayer
 
     private List<String> parseWeatherList(String p_parseWeatherList_1_)
     {
-        List<String> list = Arrays.<String>asList("clear", "rain", "thunder");
+        List<String> list = Arrays.asList("clear", "rain", "thunder");
         List<String> list1 = new ArrayList<String>();
         String[] astring = Config.tokenize(p_parseWeatherList_1_, " ");
 
@@ -131,11 +131,11 @@ public class CustomSkyLayer
         {
             return p_parseBoolean_2_;
         }
-        else if (p_parseBoolean_1_.toLowerCase().equals("true"))
+        else if (p_parseBoolean_1_.equalsIgnoreCase("true"))
         {
             return true;
         }
-        else if (p_parseBoolean_1_.toLowerCase().equals("false"))
+        else if (p_parseBoolean_1_.equalsIgnoreCase("false"))
         {
             return false;
         }
@@ -403,18 +403,14 @@ public class CustomSkyLayer
                 long i = p_isActive_1_.getWorldTime();
                 long j;
 
-                for (j = i - (long)this.startFadeIn; j < 0L; j += (long)(24000 * this.daysLoop))
+                for (j = i - (long)this.startFadeIn; j < 0L; j += 24000L * this.daysLoop)
                 {
-                    ;
                 }
 
                 int k = (int)(j / 24000L);
                 int l = k % this.daysLoop;
 
-                if (!this.days.isInRange(l))
-                {
-                    return false;
-                }
+                return this.days.isInRange(l);
             }
 
             return true;
@@ -435,6 +431,6 @@ public class CustomSkyLayer
 
     public String toString()
     {
-        return "" + this.source + ", " + this.startFadeIn + "-" + this.endFadeIn + " " + this.startFadeOut + "-" + this.endFadeOut;
+        return this.source + ", " + this.startFadeIn + "-" + this.endFadeIn + " " + this.startFadeOut + "-" + this.endFadeOut;
     }
 }

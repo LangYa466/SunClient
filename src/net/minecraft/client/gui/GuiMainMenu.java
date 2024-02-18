@@ -126,7 +126,7 @@ public class GuiMainMenu extends GuiScreen
 
         try
         {
-            List<String> list = Lists.<String>newArrayList();
+            List<String> list = Lists.newArrayList();
             iresource = Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS);
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8));
             String s;
@@ -156,11 +156,10 @@ public class GuiMainMenu extends GuiScreen
         }
         catch (IOException var8)
         {
-            ;
         }
         finally
         {
-            IOUtils.closeQuietly((Closeable)iresource);
+            IOUtils.closeQuietly(iresource);
         }
 
         this.updateCounter = RANDOM.nextFloat();
@@ -289,7 +288,7 @@ public class GuiMainMenu extends GuiScreen
     private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_)
     {
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer")));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_, I18n.format("menu.multiplayer")));
 
         if (Reflector.GuiModList_Constructor.exists())
         {
@@ -308,7 +307,7 @@ public class GuiMainMenu extends GuiScreen
     private void addDemoButtons(int p_73972_1_, int p_73972_2_)
     {
         this.buttonList.add(new GuiButton(11, this.width / 2 - 100, p_73972_1_, I18n.format("menu.playdemo")));
-        this.buttonResetDemo = this.addButton(new GuiButton(12, this.width / 2 - 100, p_73972_1_ + p_73972_2_ * 1, I18n.format("menu.resetdemo")));
+        this.buttonResetDemo = this.addButton(new GuiButton(12, this.width / 2 - 100, p_73972_1_ + p_73972_2_, I18n.format("menu.resetdemo")));
         ISaveFormat isaveformat = this.mc.getSaveLoader();
         WorldInfo worldinfo = isaveformat.getWorldInfo("Demo_World");
 
@@ -401,7 +400,7 @@ public class GuiMainMenu extends GuiScreen
                 try
                 {
                     Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop").invoke((Object)null);
+                    Object object = oclass.getMethod("getDesktop").invoke(null);
                     oclass.getMethod("browse", URI.class).invoke(object, new URI(this.openGLWarningLink));
                 }
                 catch (Throwable throwable1)
@@ -549,10 +548,10 @@ public class GuiMainMenu extends GuiScreen
             int l = this.width;
             int i1 = this.height;
             float f1 = (float)(k - 1) / 256.0F;
-            bufferbuilder.pos((double)l, (double)i1, (double)this.zLevel).tex((double)(0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos((double)l, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos(0.0D, (double)i1, (double)this.zLevel).tex((double)(0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(l, i1, this.zLevel).tex(0.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(l, 0.0D, this.zLevel).tex(1.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(0.0D, 0.0D, this.zLevel).tex(1.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(0.0D, i1, this.zLevel).tex(0.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
         }
 
         tessellator.draw();
@@ -593,10 +592,10 @@ public class GuiMainMenu extends GuiScreen
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        bufferbuilder.pos(0.0D, (double)l, (double)this.zLevel).tex((double)(0.5F - f), (double)(0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)k, (double)l, (double)this.zLevel).tex((double)(0.5F - f), (double)(0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)k, 0.0D, (double)this.zLevel).tex((double)(0.5F + f), (double)(0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(0.5F + f), (double)(0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, l, this.zLevel).tex(0.5F - f, 0.5F + f1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(k, l, this.zLevel).tex(0.5F - f, 0.5F - f1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(k, 0.0D, this.zLevel).tex(0.5F + f, 0.5F - f1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, this.zLevel).tex(0.5F + f, 0.5F + f1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         tessellator.draw();
     }
 
@@ -641,7 +640,7 @@ public class GuiMainMenu extends GuiScreen
 
         if ((double)this.updateCounter < 1.0E-4D)
         {
-            this.drawTexturedModalRect(j + 0, 30, 0, 0, 99, 44);
+            this.drawTexturedModalRect(j, 30, 0, 0, 99, 44);
             this.drawTexturedModalRect(j + 99, 30, 129, 0, 27, 44);
             this.drawTexturedModalRect(j + 99 + 26, 30, 126, 0, 3, 44);
             this.drawTexturedModalRect(j + 99 + 26 + 3, 30, 99, 0, 26, 44);
@@ -649,7 +648,7 @@ public class GuiMainMenu extends GuiScreen
         }
         else
         {
-            this.drawTexturedModalRect(j + 0, 30, 0, 0, 155, 44);
+            this.drawTexturedModalRect(j, 30, 0, 0, 155, 44);
             this.drawTexturedModalRect(j + 155, 30, 0, 45, 155, 44);
         }
 

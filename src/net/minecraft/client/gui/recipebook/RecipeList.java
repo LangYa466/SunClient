@@ -11,7 +11,7 @@ import net.minecraft.stats.RecipeBook;
 
 public class RecipeList
 {
-    private List<IRecipe> field_192713_b = Lists.<IRecipe>newArrayList();
+    private final List<IRecipe> field_192713_b = Lists.newArrayList();
     private final BitSet field_194215_b = new BitSet();
     private final BitSet field_194216_c = new BitSet();
     private final BitSet field_194217_d = new BitSet();
@@ -37,7 +37,7 @@ public class RecipeList
             IRecipe irecipe = this.field_192713_b.get(i);
             boolean flag = irecipe.func_194133_a(p_194210_2_, p_194210_3_) && p_194210_4_.func_193830_f(irecipe);
             this.field_194216_c.set(i, flag);
-            this.field_194215_b.set(i, flag && p_194210_1_.func_194116_a(irecipe, (IntList)null));
+            this.field_194215_b.set(i, flag && p_194210_1_.func_194116_a(irecipe, null));
         }
     }
 
@@ -63,7 +63,7 @@ public class RecipeList
 
     public List<IRecipe> func_194208_a(boolean p_194208_1_)
     {
-        List<IRecipe> list = Lists.<IRecipe>newArrayList();
+        List<IRecipe> list = Lists.newArrayList();
 
         for (int i = this.field_194217_d.nextSetBit(0); i >= 0; i = this.field_194217_d.nextSetBit(i + 1))
         {
@@ -78,7 +78,7 @@ public class RecipeList
 
     public List<IRecipe> func_194207_b(boolean p_194207_1_)
     {
-        List<IRecipe> list = Lists.<IRecipe>newArrayList();
+        List<IRecipe> list = Lists.newArrayList();
 
         for (int i = this.field_194217_d.nextSetBit(0); i >= 0; i = this.field_194217_d.nextSetBit(i + 1))
         {
@@ -97,7 +97,7 @@ public class RecipeList
 
         if (this.field_194218_e)
         {
-            ItemStack itemstack = ((IRecipe)this.field_192713_b.get(0)).getRecipeOutput();
+            ItemStack itemstack = this.field_192713_b.get(0).getRecipeOutput();
             ItemStack itemstack1 = p_192709_1_.getRecipeOutput();
             this.field_194218_e = ItemStack.areItemsEqual(itemstack, itemstack1) && ItemStack.areItemStackTagsEqual(itemstack, itemstack1);
         }

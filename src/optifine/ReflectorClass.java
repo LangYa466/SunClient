@@ -73,7 +73,7 @@ public class ReflectorClass
 
     public boolean isInstance(Object p_isInstance_1_)
     {
-        return this.getTargetClass() == null ? false : this.getTargetClass().isInstance(p_isInstance_1_);
+        return this.getTargetClass() != null && this.getTargetClass().isInstance(p_isInstance_1_);
     }
 
     public ReflectorField makeField(String p_makeField_1_)

@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeaconTrigger.Instance>
 {
     private static final ResourceLocation field_192181_a = new ResourceLocation("construct_beacon");
-    private final Map<PlayerAdvancements, ConstructBeaconTrigger.Listeners> field_192182_b = Maps.<PlayerAdvancements, ConstructBeaconTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, ConstructBeaconTrigger.Listeners> field_192182_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -92,7 +92,7 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
     static class Listeners
     {
         private final PlayerAdvancements field_192356_a;
-        private final Set<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> field_192357_b = Sets.<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>> field_192357_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47374_1_)
         {
@@ -120,11 +120,11 @@ public class ConstructBeaconTrigger implements ICriterionTrigger<ConstructBeacon
 
             for (ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance> listener : this.field_192357_b)
             {
-                if (((ConstructBeaconTrigger.Instance)listener.func_192158_a()).func_192252_a(p_192352_1_))
+                if (listener.func_192158_a().func_192252_a(p_192352_1_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<ConstructBeaconTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

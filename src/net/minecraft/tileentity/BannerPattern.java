@@ -53,7 +53,7 @@ public enum BannerPattern
     private final String[] field_191016_P;
     private ItemStack field_191017_Q;
 
-    private BannerPattern(String p_i47245_3_, String p_i47245_4_)
+    BannerPattern(String p_i47245_3_, String p_i47245_4_)
     {
         this.field_191016_P = new String[3];
         this.field_191017_Q = ItemStack.field_190927_a;
@@ -61,13 +61,13 @@ public enum BannerPattern
         this.field_191015_O = p_i47245_4_;
     }
 
-    private BannerPattern(String p_i47246_3_, String p_i47246_4_, ItemStack p_i47246_5_)
+    BannerPattern(String p_i47246_3_, String p_i47246_4_, ItemStack p_i47246_5_)
     {
         this(p_i47246_3_, p_i47246_4_);
         this.field_191017_Q = p_i47246_5_;
     }
 
-    private BannerPattern(String p_i47247_3_, String p_i47247_4_, String p_i47247_5_, String p_i47247_6_, String p_i47247_7_)
+    BannerPattern(String p_i47247_3_, String p_i47247_4_, String p_i47247_5_, String p_i47247_6_, String p_i47247_7_)
     {
         this(p_i47247_3_, p_i47247_4_);
         this.field_191016_P[0] = p_i47247_5_;

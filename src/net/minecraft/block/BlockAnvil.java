@@ -84,7 +84,7 @@ public class BlockAnvil extends BlockFalling
 
                 if (placer instanceof EntityPlayer)
                 {
-                    placer.addChatMessage(new TextComponentTranslation("Invalid damage property. Please pick in [0, 1, 2]", new Object[0]));
+                    placer.addChatMessage(new TextComponentTranslation("Invalid damage property. Please pick in [0, 1, 2]"));
                 }
             }
 
@@ -108,12 +108,12 @@ public class BlockAnvil extends BlockFalling
      */
     public int damageDropped(IBlockState state)
     {
-        return ((Integer)state.getValue(DAMAGE)).intValue();
+        return state.getValue(DAMAGE).intValue();
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+        EnumFacing enumfacing = state.getValue(FACING);
         return enumfacing.getAxis() == EnumFacing.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
     }
 
@@ -161,8 +161,8 @@ public class BlockAnvil extends BlockFalling
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
-        i = i | ((Integer)state.getValue(DAMAGE)).intValue() << 2;
+        i = i | state.getValue(FACING).getHorizontalIndex();
+        i = i | state.getValue(DAMAGE).intValue() << 2;
         return i;
     }
 
@@ -172,12 +172,12 @@ public class BlockAnvil extends BlockFalling
      */
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.getBlock() != this ? state : state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.getBlock() != this ? state : state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING, DAMAGE});
+        return new BlockStateContainer(this, FACING, DAMAGE);
     }
 
     public static class Anvil implements IInteractionObject
@@ -203,7 +203,7 @@ public class BlockAnvil extends BlockFalling
 
         public ITextComponent getDisplayName()
         {
-            return new TextComponentTranslation(Blocks.ANVIL.getUnlocalizedName() + ".name", new Object[0]);
+            return new TextComponentTranslation(Blocks.ANVIL.getUnlocalizedName() + ".name");
         }
 
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)

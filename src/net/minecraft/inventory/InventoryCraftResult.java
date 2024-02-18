@@ -11,7 +11,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 public class InventoryCraftResult implements IInventory
 {
-    private final NonNullList<ItemStack> stackResult = NonNullList.<ItemStack>func_191197_a(1, ItemStack.field_190927_a);
+    private final NonNullList<ItemStack> stackResult = NonNullList.func_191197_a(1, ItemStack.field_190927_a);
     private IRecipe field_193057_b;
 
     /**
@@ -64,7 +64,7 @@ public class InventoryCraftResult implements IInventory
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]);
     }
 
     /**

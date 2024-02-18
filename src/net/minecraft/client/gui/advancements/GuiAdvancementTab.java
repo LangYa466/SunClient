@@ -25,7 +25,7 @@ public class GuiAdvancementTab extends Gui
     private final ItemStack field_191807_j;
     private final String field_191808_k;
     private final GuiAdvancement field_191809_l;
-    private final Map<Advancement, GuiAdvancement> field_191810_m = Maps.<Advancement, GuiAdvancement>newLinkedHashMap();
+    private final Map<Advancement, GuiAdvancement> field_191810_m = Maps.newLinkedHashMap();
     private int field_191811_n;
     private int field_191812_o;
     private int field_193939_q = Integer.MAX_VALUE;

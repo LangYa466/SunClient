@@ -38,7 +38,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 public class EntitySpider extends EntityMob
 {
-    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntitySpider.class, DataSerializers.BYTE);
+    private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntitySpider.class, DataSerializers.BYTE);
 
     public EntitySpider(World worldIn)
     {
@@ -59,7 +59,7 @@ public class EntitySpider extends EntityMob
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(6, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new EntitySpider.AISpiderTarget(this, EntityPlayer.class));
         this.targetTasks.addTask(3, new EntitySpider.AISpiderTarget(this, EntityIronGolem.class));
     }
@@ -69,7 +69,7 @@ public class EntitySpider extends EntityMob
      */
     public double getMountedYOffset()
     {
-        return (double)(this.height * 0.5F);
+        return this.height * 0.5F;
     }
 
     /**
@@ -157,7 +157,7 @@ public class EntitySpider extends EntityMob
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn)
     {
-        return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotion() != MobEffects.POISON && super.isPotionApplicable(potioneffectIn);
     }
 
     /**
@@ -166,7 +166,7 @@ public class EntitySpider extends EntityMob
      */
     public boolean isBesideClimbableBlock()
     {
-        return (((Byte)this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
+        return (this.dataManager.get(CLIMBING).byteValue() & 1) != 0;
     }
 
     /**
@@ -175,7 +175,7 @@ public class EntitySpider extends EntityMob
      */
     public void setBesideClimbableBlock(boolean climbing)
     {
-        byte b0 = ((Byte)this.dataManager.get(CLIMBING)).byteValue();
+        byte b0 = this.dataManager.get(CLIMBING).byteValue();
 
         if (climbing)
         {
@@ -203,7 +203,7 @@ public class EntitySpider extends EntityMob
         {
             EntitySkeleton entityskeleton = new EntitySkeleton(this.world);
             entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.onInitialSpawn(difficulty, (IEntityLivingData)null);
+            entityskeleton.onInitialSpawn(difficulty, null);
             this.world.spawnEntityInWorld(entityskeleton);
             entityskeleton.startRiding(this);
         }
@@ -249,7 +249,7 @@ public class EntitySpider extends EntityMob
 
             if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0)
             {
-                this.attacker.setAttackTarget((EntityLivingBase)null);
+                this.attacker.setAttackTarget(null);
                 return false;
             }
             else
@@ -260,7 +260,7 @@ public class EntitySpider extends EntityMob
 
         protected double getAttackReachSqr(EntityLivingBase attackTarget)
         {
-            return (double)(4.0F + attackTarget.width);
+            return 4.0F + attackTarget.width;
         }
     }
 
@@ -274,7 +274,7 @@ public class EntitySpider extends EntityMob
         public boolean shouldExecute()
         {
             float f = this.taskOwner.getBrightness();
-            return f >= 0.5F ? false : super.shouldExecute();
+            return !(f >= 0.5F) && super.shouldExecute();
         }
     }
 

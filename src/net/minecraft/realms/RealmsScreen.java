@@ -95,7 +95,7 @@ public class RealmsScreen
     {
         for (int i = 0; i < this.proxy.buttons().size(); ++i)
         {
-            ((RealmsButton)this.proxy.buttons().get(i)).render(p_render_1_, p_render_2_, p_render_3_);
+            this.proxy.buttons().get(i).render(p_render_1_, p_render_2_, p_render_3_);
         }
     }
 

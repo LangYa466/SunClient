@@ -38,12 +38,12 @@ public class PlayerChunkMap
         }
     };
     private final WorldServer theWorldServer;
-    private final List<EntityPlayerMP> players = Lists.<EntityPlayerMP>newArrayList();
+    private final List<EntityPlayerMP> players = Lists.newArrayList();
     private final Long2ObjectMap<PlayerChunkMapEntry> playerInstances = new Long2ObjectOpenHashMap<PlayerChunkMapEntry>(4096);
-    private final Set<PlayerChunkMapEntry> playerInstancesToUpdate = Sets.<PlayerChunkMapEntry>newHashSet();
-    private final List<PlayerChunkMapEntry> pendingSendToPlayers = Lists.<PlayerChunkMapEntry>newLinkedList();
-    private final List<PlayerChunkMapEntry> playersNeedingChunks = Lists.<PlayerChunkMapEntry>newLinkedList();
-    private final List<PlayerChunkMapEntry> playerInstanceList = Lists.<PlayerChunkMapEntry>newArrayList();
+    private final Set<PlayerChunkMapEntry> playerInstancesToUpdate = Sets.newHashSet();
+    private final List<PlayerChunkMapEntry> pendingSendToPlayers = Lists.newLinkedList();
+    private final List<PlayerChunkMapEntry> playersNeedingChunks = Lists.newLinkedList();
+    private final List<PlayerChunkMapEntry> playerInstanceList = Lists.newArrayList();
 
     /**
      * Number of chunks the server sends to the client. Valid 3<=x<=15. In server.properties.
@@ -106,7 +106,7 @@ public class PlayerChunkMap
                         return chunk;
                     }
 
-                    return (Chunk)this.endOfData();
+                    return this.endOfData();
                 }
             }
         };
@@ -241,13 +241,13 @@ public class PlayerChunkMap
     @Nullable
     public PlayerChunkMapEntry getEntry(int x, int z)
     {
-        return (PlayerChunkMapEntry)this.playerInstances.get(getIndex(x, z));
+        return this.playerInstances.get(getIndex(x, z));
     }
 
     private PlayerChunkMapEntry getOrCreateEntry(int chunkX, int chunkZ)
     {
         long i = getIndex(chunkX, chunkZ);
-        PlayerChunkMapEntry playerchunkmapentry = (PlayerChunkMapEntry)this.playerInstances.get(i);
+        PlayerChunkMapEntry playerchunkmapentry = this.playerInstances.get(i);
 
         if (playerchunkmapentry == null)
         {

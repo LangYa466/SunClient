@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrigger.Instance>
 {
     private static final ResourceLocation field_192191_a = new ResourceLocation("enchanted_item");
-    private final Map<PlayerAdvancements, EnchantedItemTrigger.Listeners> field_192192_b = Maps.<PlayerAdvancements, EnchantedItemTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, EnchantedItemTrigger.Listeners> field_192192_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -102,7 +102,7 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
     static class Listeners
     {
         private final PlayerAdvancements field_192461_a;
-        private final Set<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> field_192462_b = Sets.<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>> field_192462_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47377_1_)
         {
@@ -130,11 +130,11 @@ public class EnchantedItemTrigger implements ICriterionTrigger<EnchantedItemTrig
 
             for (ICriterionTrigger.Listener<EnchantedItemTrigger.Instance> listener : this.field_192462_b)
             {
-                if (((EnchantedItemTrigger.Instance)listener.func_192158_a()).func_192257_a(p_192459_1_, p_192459_2_))
+                if (listener.func_192158_a().func_192257_a(p_192459_1_, p_192459_2_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<EnchantedItemTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

@@ -34,7 +34,7 @@ public enum ModelRotation implements IModelState, ITransformation
     X270_Y180(270, 180),
     X270_Y270(270, 270);
 
-    private static final Map<Integer, ModelRotation> MAP_ROTATIONS = Maps.<Integer, ModelRotation>newHashMap();
+    private static final Map<Integer, ModelRotation> MAP_ROTATIONS = Maps.newHashMap();
     private final int combinedXY;
     private final Matrix4f matrix4d;
     private final int quartersX;
@@ -45,7 +45,7 @@ public enum ModelRotation implements IModelState, ITransformation
         return p_177521_0_ * 360 + p_177521_1_;
     }
 
-    private ModelRotation(int x, int y)
+    ModelRotation(int x, int y)
     {
         this.combinedXY = combineXY(x, y);
         this.matrix4d = new Matrix4f();

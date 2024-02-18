@@ -25,7 +25,7 @@ public interface IRecipe
 
 default NonNullList<Ingredient> func_192400_c()
     {
-        return NonNullList.<Ingredient>func_191196_a();
+        return NonNullList.func_191196_a();
     }
 
 default boolean func_192399_d()

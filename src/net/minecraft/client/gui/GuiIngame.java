@@ -127,7 +127,7 @@ public class GuiIngame extends Gui
 
     /** Used with updateCounter to make the heart bar flash */
     private long healthUpdateCounter;
-    private final Map<ChatType, List<IChatListener>> field_191743_I = Maps.<ChatType, List<IChatListener>>newHashMap();
+    private final Map<ChatType, List<IChatListener>> field_191743_I = Maps.newHashMap();
 
     public GuiIngame(Minecraft mcIn)
     {
@@ -458,7 +458,7 @@ public class GuiIngame extends Gui
                     if (this.mc.pointedEntity != null && this.mc.pointedEntity instanceof EntityLivingBase && f >= 1.0F)
                     {
                         flag = this.mc.player.getCooldownPeriod() > 5.0F;
-                        flag = flag & ((EntityLivingBase)this.mc.pointedEntity).isEntityAlive();
+                        flag = flag & this.mc.pointedEntity.isEntityAlive();
                     }
 
                     int i = i1 / 2 - 7 + 16;
@@ -862,12 +862,12 @@ public class GuiIngame extends Gui
             if (i < this.playerHealth && entityplayer.hurtResistantTime > 0)
             {
                 this.lastSystemTime = Minecraft.getSystemTime();
-                this.healthUpdateCounter = (long)(this.updateCounter + 20);
+                this.healthUpdateCounter = this.updateCounter + 20;
             }
             else if (i > this.playerHealth && entityplayer.hurtResistantTime > 0)
             {
                 this.lastSystemTime = Minecraft.getSystemTime();
-                this.healthUpdateCounter = (long)(this.updateCounter + 10);
+                this.healthUpdateCounter = this.updateCounter + 10;
             }
 
             if (Minecraft.getSystemTime() - this.lastSystemTime > 1000L)
@@ -879,7 +879,7 @@ public class GuiIngame extends Gui
 
             this.playerHealth = i;
             int j = this.lastPlayerHealth;
-            this.rand.setSeed((long)(this.updateCounter * 312871));
+            this.rand.setSeed(this.updateCounter * 312871L);
             FoodStats foodstats = entityplayer.getFoodStats();
             int k = foodstats.getFoodLevel();
             IAttributeInstance iattributeinstance = entityplayer.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
@@ -1085,7 +1085,7 @@ public class GuiIngame extends Gui
             {
                 this.mc.mcProfiler.endStartSection("mountHealth");
                 EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
-                int i = (int)Math.ceil((double)entitylivingbase.getHealth());
+                int i = (int)Math.ceil(entitylivingbase.getHealth());
                 float f = entitylivingbase.getMaxHealth();
                 int j = (int)(f + 0.5F) / 2;
 
@@ -1139,9 +1139,9 @@ public class GuiIngame extends Gui
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(0.0D, (double)scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-        bufferbuilder.pos((double)scaledRes.getScaledWidth(), (double)scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
-        bufferbuilder.pos((double)scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+        bufferbuilder.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
+        bufferbuilder.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
+        bufferbuilder.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
         bufferbuilder.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
         tessellator.draw();
         GlStateManager.depthMask(true);
@@ -1167,7 +1167,7 @@ public class GuiIngame extends Gui
             WorldBorder worldborder = this.mc.world.getWorldBorder();
             float f = (float)worldborder.getClosestDistance(this.mc.player);
             double d0 = Math.min(worldborder.getResizeSpeed() * (double)worldborder.getWarningTime() * 1000.0D, Math.abs(worldborder.getTargetSize() - worldborder.getDiameter()));
-            double d1 = Math.max((double)worldborder.getWarningDistance(), d0);
+            double d1 = Math.max(worldborder.getWarningDistance(), d0);
 
             if ((double)f < d1)
             {
@@ -1196,9 +1196,9 @@ public class GuiIngame extends Gui
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-            bufferbuilder.pos(0.0D, (double)scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
-            bufferbuilder.pos((double)scaledRes.getScaledWidth(), (double)scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
-            bufferbuilder.pos((double)scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
+            bufferbuilder.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
+            bufferbuilder.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
+            bufferbuilder.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
             bufferbuilder.pos(0.0D, 0.0D, -90.0D).tex(0.0D, 0.0D).endVertex();
             tessellator.draw();
             GlStateManager.depthMask(true);
@@ -1231,10 +1231,10 @@ public class GuiIngame extends Gui
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos(0.0D, (double)scaledRes.getScaledHeight(), -90.0D).tex((double)f, (double)f3).endVertex();
-        bufferbuilder.pos((double)scaledRes.getScaledWidth(), (double)scaledRes.getScaledHeight(), -90.0D).tex((double)f2, (double)f3).endVertex();
-        bufferbuilder.pos((double)scaledRes.getScaledWidth(), 0.0D, -90.0D).tex((double)f2, (double)f1).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, -90.0D).tex((double)f, (double)f1).endVertex();
+        bufferbuilder.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(f, f3).endVertex();
+        bufferbuilder.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(f2, f3).endVertex();
+        bufferbuilder.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(f2, f1).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, -90.0D).tex(f, f1).endVertex();
         tessellator.draw();
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();

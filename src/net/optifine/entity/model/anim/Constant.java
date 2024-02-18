@@ -2,7 +2,7 @@ package net.optifine.entity.model.anim;
 
 public class Constant implements IExpression
 {
-    private float value;
+    private final float value;
 
     public Constant(float value)
     {

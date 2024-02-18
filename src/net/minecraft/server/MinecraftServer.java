@@ -92,7 +92,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
     /** The PlayerUsageSnooper instance. */
     private final Snooper usageSnooper = new Snooper("server", this, getCurrentTimeMillis());
     private final File anvilFile;
-    private final List<ITickable> tickables = Lists.<ITickable>newArrayList();
+    private final List<ITickable> tickables = Lists.newArrayList();
     public final ICommandManager commandManager;
     public final Profiler theProfiler = new Profiler();
     private final NetworkSystem networkSystem;
@@ -101,7 +101,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
     private final DataFixer dataFixer;
 
     /** The server's port. */
-    private int serverPort = -1;
+    private final int serverPort = -1;
 
     /** The server world instances. */
     public WorldServer[] worldServers;
@@ -179,7 +179,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
     private final GameProfileRepository profileRepo;
     private final PlayerProfileCache profileCache;
     private long nanoTimeSinceStatusRefresh;
-    public final Queue < FutureTask<? >> futureTaskQueue = Queues. < FutureTask<? >> newArrayDeque();
+    public final Queue < FutureTask<? >> futureTaskQueue = Queues.newArrayDeque();
     private Thread serverThread;
     private long currentTime = getCurrentTimeMillis();
     private boolean worldIconSet;
@@ -228,7 +228,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
                     if (System.currentTimeMillis() - this.startTime >= 1000L)
                     {
                         this.startTime = System.currentTimeMillis();
-                        MinecraftServer.LOG.info("Converting... {}%", (int)progress);
+                        MinecraftServer.LOG.info("Converting... {}%", progress);
                     }
                 }
                 public void setDoneWorking()
@@ -383,7 +383,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
             }
             catch (UnsupportedEncodingException var5)
             {
-                LOG.warn("Something went wrong url encoding {}", (Object)worldNameIn);
+                LOG.warn("Something went wrong url encoding {}", worldNameIn);
             }
         }
     }
@@ -449,7 +449,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 
                 try
                 {
-                    worldserver.saveAllChunks(true, (IProgressUpdate)null);
+                    worldserver.saveAllChunks(true, null);
                 }
                 catch (MinecraftException minecraftexception)
                 {
@@ -573,7 +573,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
             }
             else
             {
-                this.finalTick((CrashReport)null);
+                this.finalTick(null);
             }
         }
         catch (Throwable throwable1)
@@ -594,7 +594,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 
             if (crashreport.saveToFile(file1))
             {
-                LOG.error("This crash report has been saved to: {}", (Object)file1.getAbsolutePath());
+                LOG.error("This crash report has been saved to: {}", file1.getAbsolutePath());
             }
             else
             {
@@ -645,7 +645,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
             }
             catch (Exception exception)
             {
-                LOG.error("Couldn't load server icon", (Throwable)exception);
+                LOG.error("Couldn't load server icon", exception);
             }
             finally
             {
@@ -711,7 +711,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 
             for (int k = 0; k < agameprofile.length; ++k)
             {
-                agameprofile[k] = ((EntityPlayerMP)this.playerList.getPlayerList().get(j + k)).getGameProfile();
+                agameprofile[k] = this.playerList.getPlayerList().get(j + k).getGameProfile();
             }
 
             Collections.shuffle(Arrays.asList(agameprofile));
@@ -822,7 +822,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 
         for (int k = 0; k < this.tickables.size(); ++k)
         {
-            ((ITickable)this.tickables.get(k)).update();
+            this.tickables.get(k).update();
         }
 
         this.theProfiler.endSection();
@@ -944,7 +944,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 
     public List<String> getTabCompletions(ICommandSender sender, String input, @Nullable BlockPos pos, boolean hasTargetBlock)
     {
-        List<String> list = Lists.<String>newArrayList();
+        List<String> list = Lists.newArrayList();
         boolean flag = input.startsWith("/");
 
         if (flag)
@@ -1470,7 +1470,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
 
         if (!this.isCallingFromMinecraftThread() && !this.isServerStopped())
         {
-            ListenableFutureTask<V> listenablefuturetask = ListenableFutureTask.<V>create(callable);
+            ListenableFutureTask<V> listenablefuturetask = ListenableFutureTask.create(callable);
 
             synchronized (this.futureTaskQueue)
             {
@@ -1482,7 +1482,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
         {
             try
             {
-                return Futures.<V>immediateFuture(callable.call());
+                return Futures.immediateFuture(callable.call());
             }
             catch (Exception exception)
             {
@@ -1494,7 +1494,7 @@ public abstract class MinecraftServer implements ICommandSender, Runnable, IThre
     public ListenableFuture<Object> addScheduledTask(Runnable runnableToSchedule)
     {
         Validate.notNull(runnableToSchedule);
-        return this.<Object>callFromMainThread(Executors.callable(runnableToSchedule));
+        return this.callFromMainThread(Executors.callable(runnableToSchedule));
     }
 
     public boolean isCallingFromMinecraftThread()

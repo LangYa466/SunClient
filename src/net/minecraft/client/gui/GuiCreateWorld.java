@@ -213,7 +213,7 @@ public class GuiCreateWorld extends GuiScreen
             }
             else if (button.id == 0)
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
 
                 if (this.alreadyGenerated)
                 {
@@ -237,7 +237,7 @@ public class GuiCreateWorld extends GuiScreen
                     }
                     catch (NumberFormatException var7)
                     {
-                        i = (long)s.hashCode();
+                        i = s.hashCode();
                     }
                 }
 
@@ -369,7 +369,7 @@ public class GuiCreateWorld extends GuiScreen
 
         if (worldtype != null && worldtype.getCanBeCreated())
         {
-            return worldtype == WorldType.DEBUG_WORLD ? isShiftKeyDown() : true;
+            return worldtype != WorldType.DEBUG_WORLD || isShiftKeyDown();
         }
         else
         {

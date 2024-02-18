@@ -73,12 +73,12 @@ public class ReflectorField
 
     public Object getValue()
     {
-        return Reflector.getFieldValue((Object)null, this);
+        return Reflector.getFieldValue(null, this);
     }
 
     public void setValue(Object p_setValue_1_)
     {
-        Reflector.setFieldValue((Object)null, this, p_setValue_1_);
+        Reflector.setFieldValue(null, this, p_setValue_1_);
     }
 
     public void setValue(Object p_setValue_1_, Object p_setValue_2_)

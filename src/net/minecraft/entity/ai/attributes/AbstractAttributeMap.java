@@ -11,9 +11,9 @@ import net.minecraft.util.LowerStringMap;
 
 public abstract class AbstractAttributeMap
 {
-    protected final Map<IAttribute, IAttributeInstance> attributes = Maps.<IAttribute, IAttributeInstance>newHashMap();
+    protected final Map<IAttribute, IAttributeInstance> attributes = Maps.newHashMap();
     protected final Map<String, IAttributeInstance> attributesByName = new LowerStringMap();
-    protected final Multimap<IAttribute, IAttribute> descendantsByParent = HashMultimap.<IAttribute, IAttribute>create();
+    protected final Multimap<IAttribute, IAttribute> descendantsByParent = HashMultimap.create();
 
     public IAttributeInstance getAttributeInstance(IAttribute attribute)
     {

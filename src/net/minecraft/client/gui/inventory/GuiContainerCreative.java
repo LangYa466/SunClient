@@ -481,7 +481,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                             itemstack.func_190925_c("CustomCreativeLock");
                             String s = GameSettings.getKeyDisplayString(this.mc.gameSettings.keyBindsHotbar[j].getKeyCode());
                             String s1 = GameSettings.getKeyDisplayString(this.mc.gameSettings.field_193629_ap.getKeyCode());
-                            itemstack.setStackDisplayName((new TextComponentTranslation("inventory.hotbarInfo", new Object[] {s1, s})).getUnformattedText());
+                            itemstack.setStackDisplayName((new TextComponentTranslation("inventory.hotbarInfo", s1, s)).getUnformattedText());
                             guicontainercreative$containercreative.itemList.add(itemstack);
                         }
                         else
@@ -510,7 +510,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
                 this.originalSlots = guicontainercreative$containercreative.inventorySlots;
             }
 
-            guicontainercreative$containercreative.inventorySlots = Lists.<Slot>newArrayList();
+            guicontainercreative$containercreative.inventorySlots = Lists.newArrayList();
 
             for (int l = 0; l < container.inventorySlots.size(); ++l)
             {
@@ -700,11 +700,11 @@ public class GuiContainerCreative extends InventoryEffectRenderer
             {
                 if (i == 0)
                 {
-                    list.set(i, stack.getRarity().rarityColor + (String)list.get(i));
+                    list.set(i, stack.getRarity().rarityColor + list.get(i));
                 }
                 else
                 {
-                    list.set(i, TextFormatting.GRAY + (String)list.get(i));
+                    list.set(i, TextFormatting.GRAY + list.get(i));
                 }
             }
 
@@ -910,7 +910,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer
         {
             for (int i = 0; i < InventoryPlayer.getHotbarSize(); ++i)
             {
-                ItemStack itemstack = ((ItemStack)hotbarsnapshot.get(i)).copy();
+                ItemStack itemstack = hotbarsnapshot.get(i).copy();
                 entityplayersp.inventory.setInventorySlotContents(i, itemstack);
                 p_192044_0_.playerController.sendSlotPacket(itemstack, 36 + i);
             }
@@ -926,14 +926,14 @@ public class GuiContainerCreative extends InventoryEffectRenderer
 
             String s = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.keyBindsHotbar[p_192044_1_].getKeyCode());
             String s1 = GameSettings.getKeyDisplayString(p_192044_0_.gameSettings.field_193630_aq.getKeyCode());
-            p_192044_0_.ingameGUI.setRecordPlaying(new TextComponentTranslation("inventory.hotbarSaved", new Object[] {s1, s}), false);
+            p_192044_0_.ingameGUI.setRecordPlaying(new TextComponentTranslation("inventory.hotbarSaved", s1, s), false);
             creativesettings.func_192564_b();
         }
     }
 
     public static class ContainerCreative extends Container
     {
-        public NonNullList<ItemStack> itemList = NonNullList.<ItemStack>func_191196_a();
+        public NonNullList<ItemStack> itemList = NonNullList.func_191196_a();
 
         public ContainerCreative(EntityPlayer player)
         {

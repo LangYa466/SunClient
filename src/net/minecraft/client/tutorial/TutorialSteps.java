@@ -14,7 +14,7 @@ public enum TutorialSteps
     private final String field_193316_g;
     private final Function < Tutorial, ? extends ITutorialStep > field_193317_h;
 
-    private <T extends ITutorialStep> TutorialSteps(String p_i47577_3_, Function<Tutorial, T> p_i47577_4_)
+    <T extends ITutorialStep> TutorialSteps(String p_i47577_3_, Function<Tutorial, T> p_i47577_4_)
     {
         this.field_193316_g = p_i47577_3_;
         this.field_193317_h = p_i47577_4_;

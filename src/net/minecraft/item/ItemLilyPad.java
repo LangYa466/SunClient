@@ -48,7 +48,7 @@ public class ItemLilyPad extends ItemColored
                 BlockPos blockpos1 = blockpos.up();
                 IBlockState iblockstate = itemStackIn.getBlockState(blockpos);
 
-                if (iblockstate.getMaterial() == Material.WATER && ((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue() == 0 && itemStackIn.isAirBlock(blockpos1))
+                if (iblockstate.getMaterial() == Material.WATER && iblockstate.getValue(BlockLiquid.LEVEL).intValue() == 0 && itemStackIn.isAirBlock(blockpos1))
                 {
                     itemStackIn.setBlockState(blockpos1, Blocks.WATERLILY.getDefaultState(), 11);
 

@@ -51,7 +51,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
     private String field_193963_r = "";
     private RecipeBook field_193964_s;
     private final RecipeBookPage field_193022_s = new RecipeBookPage();
-    private RecipeItemHelper field_193965_u = new RecipeItemHelper();
+    private final RecipeItemHelper field_193965_u = new RecipeItemHelper();
     private int field_193966_v;
 
     public void func_194303_a(int p_194303_1_, int p_194303_2_, Minecraft p_194303_3_, boolean p_194303_4_, InventoryCrafting p_194303_5_)
@@ -152,7 +152,7 @@ public class GuiRecipeBook extends Gui implements IRecipeUpdateListener
 
     private void func_193003_g(boolean p_193003_1_)
     {
-        List<RecipeList> list = (List)RecipeBookClient.field_194086_e.get(this.field_191913_x.func_191764_e());
+        List<RecipeList> list = RecipeBookClient.field_194086_e.get(this.field_191913_x.func_191764_e());
         list.forEach((p_193944_1_) ->
         {
             p_193944_1_.func_194210_a(this.field_193965_u, this.field_193961_o.getWidth(), this.field_193961_o.getHeight(), this.field_193964_s);

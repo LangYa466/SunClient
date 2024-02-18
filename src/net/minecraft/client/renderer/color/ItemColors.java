@@ -117,7 +117,7 @@ public class ItemColors
             public int getColorFromItemstack(ItemStack stack, int tintIndex)
             {
                 IBlockState iblockstate = ((ItemBlock)stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
-                return p_186729_0_.colorMultiplier(iblockstate, (IBlockAccess)null, (BlockPos)null, tintIndex);
+                return p_186729_0_.colorMultiplier(iblockstate, null, null, tintIndex);
             }
         }, Blocks.GRASS, Blocks.TALLGRASS, Blocks.VINE, Blocks.LEAVES, Blocks.LEAVES2, Blocks.WATERLILY);
         itemcolors.registerItemColorHandler(new IItemColor()

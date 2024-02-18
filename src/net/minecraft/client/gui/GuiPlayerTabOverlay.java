@@ -71,7 +71,7 @@ public class GuiPlayerTabOverlay extends Gui
     public void renderPlayerlist(int width, Scoreboard scoreboardIn, @Nullable ScoreObjective scoreObjectiveIn)
     {
         NetHandlerPlayClient nethandlerplayclient = this.mc.player.connection;
-        List<NetworkPlayerInfo> list = ENTRY_ORDERING.<NetworkPlayerInfo>sortedCopy(nethandlerplayclient.getPlayerInfoMap());
+        List<NetworkPlayerInfo> list = ENTRY_ORDERING.sortedCopy(nethandlerplayclient.getPlayerInfoMap());
         int i = 0;
         int j = 0;
 
@@ -286,12 +286,12 @@ public class GuiPlayerTabOverlay extends Gui
                 if (i < info.getLastHealth())
                 {
                     info.setLastHealthTime(Minecraft.getSystemTime());
-                    info.setHealthBlinkTime((long)(this.guiIngame.getUpdateCounter() + 20));
+                    info.setHealthBlinkTime(this.guiIngame.getUpdateCounter() + 20);
                 }
                 else if (i > info.getLastHealth())
                 {
                     info.setLastHealthTime(Minecraft.getSystemTime());
-                    info.setHealthBlinkTime((long)(this.guiIngame.getUpdateCounter() + 10));
+                    info.setHealthBlinkTime(this.guiIngame.getUpdateCounter() + 10);
                 }
             }
 

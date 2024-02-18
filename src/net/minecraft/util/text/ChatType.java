@@ -8,7 +8,7 @@ public enum ChatType
 
     private final byte field_192588_d;
 
-    private ChatType(byte p_i47429_3_)
+    ChatType(byte p_i47429_3_)
     {
         this.field_192588_d = p_i47429_3_;
     }

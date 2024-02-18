@@ -20,7 +20,7 @@ import net.minecraft.util.math.MathHelper;
 public class GuiRecipeOverlay extends Gui
 {
     private static final ResourceLocation field_191847_a = new ResourceLocation("textures/gui/recipe_book.png");
-    private final List<GuiRecipeOverlay.Button> field_193972_f = Lists.<GuiRecipeOverlay.Button>newArrayList();
+    private final List<GuiRecipeOverlay.Button> field_193972_f = Lists.newArrayList();
     private boolean field_191850_h;
     private int field_191851_i;
     private int field_191852_j;
@@ -39,7 +39,7 @@ public class GuiRecipeOverlay extends Gui
         int i = list.size();
         int j = i + list1.size();
         int k = j <= 16 ? 4 : 5;
-        int l = (int)Math.ceil((double)((float)j / (float)k));
+        int l = (int)Math.ceil((float)j / (float)k);
         this.field_191851_i = p_191845_3_;
         this.field_191852_j = p_191845_4_;
         int i1 = 25;
@@ -73,7 +73,7 @@ public class GuiRecipeOverlay extends Gui
         for (int j1 = 0; j1 < j; ++j1)
         {
             boolean flag1 = j1 < i;
-            this.field_193972_f.add(new GuiRecipeOverlay.Button(this.field_191851_i + 4 + 25 * (j1 % k), this.field_191852_j + 5 + 25 * (j1 / k), flag1 ? (IRecipe)list.get(j1) : (IRecipe)list1.get(j1 - i), flag1));
+            this.field_193972_f.add(new GuiRecipeOverlay.Button(this.field_191851_i + 4 + 25 * (j1 % k), this.field_191852_j + 5 + 25 * (j1 / k), flag1 ? list.get(j1) : list1.get(j1 - i), flag1));
         }
 
         this.field_193973_l = null;
@@ -243,7 +243,7 @@ public class GuiRecipeOverlay extends Gui
                 {
                     if (iterator.hasNext())
                     {
-                        ItemStack[] aitemstack = ((Ingredient)iterator.next()).func_193365_a();
+                        ItemStack[] aitemstack = iterator.next().func_193365_a();
 
                         if (aitemstack.length != 0)
                         {

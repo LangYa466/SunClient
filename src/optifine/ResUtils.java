@@ -2,13 +2,7 @@ package optifine;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import net.minecraft.client.resources.AbstractResourcePack;
@@ -32,11 +26,11 @@ public class ResUtils
         for (int i = 0; i < airesourcepack.length; ++i)
         {
             IResourcePack iresourcepack = airesourcepack[i];
-            String[] astring = collectFiles(iresourcepack, p_collectFiles_0_, p_collectFiles_1_, (String[])null);
+            String[] astring = collectFiles(iresourcepack, p_collectFiles_0_, p_collectFiles_1_, null);
             set.addAll(Arrays.asList(astring));
         }
 
-        String[] astring1 = (String[])set.toArray(new String[set.size()]);
+        String[] astring1 = set.toArray(new String[set.size()]);
         return astring1;
     }
 
@@ -47,7 +41,7 @@ public class ResUtils
 
     public static String[] collectFiles(IResourcePack p_collectFiles_0_, String[] p_collectFiles_1_, String[] p_collectFiles_2_)
     {
-        return collectFiles(p_collectFiles_0_, p_collectFiles_1_, p_collectFiles_2_, (String[])null);
+        return collectFiles(p_collectFiles_0_, p_collectFiles_1_, p_collectFiles_2_, null);
     }
 
     public static String[] collectFiles(IResourcePack p_collectFiles_0_, String[] p_collectFiles_1_, String[] p_collectFiles_2_, String[] p_collectFiles_3_)
@@ -178,11 +172,7 @@ public class ResUtils
                     String s1 = p_collectFilesFolder_1_ + file1.getName() + "/";
                     String[] astring = collectFilesFolder(file1, s1, p_collectFilesFolder_2_, p_collectFilesFolder_3_);
 
-                    for (int j = 0; j < astring.length; ++j)
-                    {
-                        String s2 = astring[j];
-                        list.add(s2);
-                    }
+                    Collections.addAll(list, astring);
                 }
             }
 

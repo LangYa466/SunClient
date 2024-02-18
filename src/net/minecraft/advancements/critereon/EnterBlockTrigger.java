@@ -26,7 +26,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.Instance>
 {
     private static final ResourceLocation field_192196_a = new ResourceLocation("enter_block");
-    private final Map<PlayerAdvancements, EnterBlockTrigger.Listeners> field_192197_b = Maps.<PlayerAdvancements, EnterBlockTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, EnterBlockTrigger.Listeners> field_192197_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -99,7 +99,7 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 
                 if (iproperty == null)
                 {
-                    throw new JsonSyntaxException("Unknown block state property '" + (String)entry.getKey() + "' for block '" + Block.REGISTRY.getNameForObject(block) + "'");
+                    throw new JsonSyntaxException("Unknown block state property '" + entry.getKey() + "' for block '" + Block.REGISTRY.getNameForObject(block) + "'");
                 }
 
                 String s = JsonUtils.getString(entry.getValue(), entry.getKey());
@@ -107,12 +107,12 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 
                 if (!optional.isPresent())
                 {
-                    throw new JsonSyntaxException("Invalid block state value '" + s + "' for property '" + (String)entry.getKey() + "' on block '" + Block.REGISTRY.getNameForObject(block) + "'");
+                    throw new JsonSyntaxException("Invalid block state value '" + s + "' for property '" + entry.getKey() + "' on block '" + Block.REGISTRY.getNameForObject(block) + "'");
                 }
 
                 if (map == null)
                 {
-                    map = Maps. < IProperty<?>, Object > newHashMap();
+                    map = Maps.newHashMap();
                 }
 
                 map.put(iproperty, optional.get());
@@ -171,7 +171,7 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
     static class Listeners
     {
         private final PlayerAdvancements field_192473_a;
-        private final Set<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> field_192474_b = Sets.<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>> field_192474_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47452_1_)
         {
@@ -199,11 +199,11 @@ public class EnterBlockTrigger implements ICriterionTrigger<EnterBlockTrigger.In
 
             for (ICriterionTrigger.Listener<EnterBlockTrigger.Instance> listener : this.field_192474_b)
             {
-                if (((EnterBlockTrigger.Instance)listener.func_192158_a()).func_192260_a(p_192471_1_))
+                if (listener.func_192158_a().func_192260_a(p_192471_1_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<EnterBlockTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

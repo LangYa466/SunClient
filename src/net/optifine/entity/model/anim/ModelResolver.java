@@ -9,12 +9,12 @@ import optifine.Config;
 
 public class ModelResolver implements IModelResolver
 {
-    private ModelAdapter modelAdapter;
-    private ModelBase model;
-    private CustomModelRenderer[] customModelRenderers;
+    private final ModelAdapter modelAdapter;
+    private final ModelBase model;
+    private final CustomModelRenderer[] customModelRenderers;
     private ModelRenderer thisModelRenderer;
     private ModelRenderer partModelRenderer;
-    private IRenderResolver renderResolver;
+    private final IRenderResolver renderResolver;
 
     public ModelResolver(ModelAdapter modelAdapter, ModelBase model, CustomModelRenderer[] customModelRenderers)
     {
@@ -44,7 +44,7 @@ public class ModelResolver implements IModelResolver
         else
         {
             IExpression iexpression = this.renderResolver.getParameter(name);
-            return iexpression != null ? iexpression : null;
+            return iexpression;
         }
     }
 

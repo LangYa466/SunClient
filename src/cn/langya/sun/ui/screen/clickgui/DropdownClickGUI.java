@@ -39,14 +39,14 @@ public class DropdownClickGUI extends GuiScreen
     }
     
     public void initGui() {
-        this.posX = (List<Float>)cGUIPosX;
-        this.posY = (List<Float>)cGUIPosY;
-        this.inSetting = (List<Module>)cGUIInSetting;
-        this.inMode = (List<AbstractValue<?>>)cGUIInMode;
+        this.posX = cGUIPosX;
+        this.posY = cGUIPosY;
+        this.inSetting = cGUIInSetting;
+        this.inMode = cGUIInMode;
     }
     
     public void onGuiClosed() {
-      //  Sun.configManager.saveAllConfigs();
+        Sun.configManager.saveConfig(Sun.configManager.moduleConfig.name);
         cGUIPosX = this.posX;
         cGUIPosY = this.posY;
         cGUIInSetting = this.inSetting;

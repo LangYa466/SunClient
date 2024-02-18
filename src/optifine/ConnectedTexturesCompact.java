@@ -312,7 +312,7 @@ public class ConnectedTexturesCompact
 
     private static BakedQuad makeSpriteQuadCompact(BakedQuad p_makeSpriteQuadCompact_0_, TextureAtlasSprite p_makeSpriteQuadCompact_1_, int p_makeSpriteQuadCompact_2_, int p_makeSpriteQuadCompact_3_, int p_makeSpriteQuadCompact_4_, int p_makeSpriteQuadCompact_5_, int p_makeSpriteQuadCompact_6_)
     {
-        int[] aint = (int[])p_makeSpriteQuadCompact_0_.getVertexData().clone();
+        int[] aint = p_makeSpriteQuadCompact_0_.getVertexData().clone();
         TextureAtlasSprite textureatlassprite = p_makeSpriteQuadCompact_0_.getSprite();
 
         for (int i = 0; i < 4; ++i)
@@ -332,7 +332,7 @@ public class ConnectedTexturesCompact
         float f1 = Float.intBitsToFloat(p_fixVertexCompact_0_[j + 4 + 1]);
         double d0 = p_fixVertexCompact_2_.getSpriteU16(f);
         double d1 = p_fixVertexCompact_2_.getSpriteV16(f1);
-        float f2 = Float.intBitsToFloat(p_fixVertexCompact_0_[j + 0]);
+        float f2 = Float.intBitsToFloat(p_fixVertexCompact_0_[j]);
         float f3 = Float.intBitsToFloat(p_fixVertexCompact_0_[j + 1]);
         float f4 = Float.intBitsToFloat(p_fixVertexCompact_0_[j + 2]);
         float f5;
@@ -380,25 +380,25 @@ public class ConnectedTexturesCompact
         if (d0 < (double)p_fixVertexCompact_5_)
         {
             f5 = (float)((double)f5 + ((double)p_fixVertexCompact_5_ - d0) / (double)f7);
-            d0 = (double)p_fixVertexCompact_5_;
+            d0 = p_fixVertexCompact_5_;
         }
 
         if (d0 > (double)p_fixVertexCompact_7_)
         {
             f5 = (float)((double)f5 - (d0 - (double)p_fixVertexCompact_7_) / (double)f7);
-            d0 = (double)p_fixVertexCompact_7_;
+            d0 = p_fixVertexCompact_7_;
         }
 
         if (d1 < (double)p_fixVertexCompact_6_)
         {
             f6 = (float)((double)f6 + ((double)p_fixVertexCompact_6_ - d1) / (double)f8);
-            d1 = (double)p_fixVertexCompact_6_;
+            d1 = p_fixVertexCompact_6_;
         }
 
         if (d1 > (double)p_fixVertexCompact_8_)
         {
             f6 = (float)((double)f6 - (d1 - (double)p_fixVertexCompact_8_) / (double)f8);
-            d1 = (double)p_fixVertexCompact_8_;
+            d1 = p_fixVertexCompact_8_;
         }
 
         switch (p_fixVertexCompact_4_)
@@ -439,12 +439,12 @@ public class ConnectedTexturesCompact
 
         p_fixVertexCompact_0_[j + 4] = Float.floatToRawIntBits(p_fixVertexCompact_3_.getInterpolatedU(d0));
         p_fixVertexCompact_0_[j + 4 + 1] = Float.floatToRawIntBits(p_fixVertexCompact_3_.getInterpolatedV(d1));
-        p_fixVertexCompact_0_[j + 0] = Float.floatToRawIntBits(f2);
+        p_fixVertexCompact_0_[j] = Float.floatToRawIntBits(f2);
         p_fixVertexCompact_0_[j + 1] = Float.floatToRawIntBits(f3);
         p_fixVertexCompact_0_[j + 2] = Float.floatToRawIntBits(f4);
     }
 
-    private static enum Dir
+    private enum Dir
     {
         UP,
         UP_RIGHT,

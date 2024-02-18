@@ -68,7 +68,7 @@ public abstract class BlockLiquid extends Block
 
     protected int getDepth(IBlockState p_189542_1_)
     {
-        return p_189542_1_.getMaterial() == this.blockMaterial ? ((Integer)p_189542_1_.getValue(LEVEL)).intValue() : -1;
+        return p_189542_1_.getMaterial() == this.blockMaterial ? p_189542_1_.getValue(LEVEL).intValue() : -1;
     }
 
     protected int getRenderedDepth(IBlockState p_189545_1_)
@@ -92,7 +92,7 @@ public abstract class BlockLiquid extends Block
 
     public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid)
     {
-        return hitIfLiquid && ((Integer)state.getValue(LEVEL)).intValue() == 0;
+        return hitIfLiquid && state.getValue(LEVEL).intValue() == 0;
     }
 
     /**
@@ -131,7 +131,7 @@ public abstract class BlockLiquid extends Block
         }
         else
         {
-            return side == EnumFacing.UP ? true : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+            return side == EnumFacing.UP || super.shouldSideBeRendered(blockState, blockAccess, pos, side);
         }
     }
 
@@ -200,24 +200,24 @@ public abstract class BlockLiquid extends Block
                     if (j >= 0)
                     {
                         int k = j - (i - 8);
-                        d0 += (double)(enumfacing.getFrontOffsetX() * k);
-                        d1 += (double)(enumfacing.getFrontOffsetY() * k);
-                        d2 += (double)(enumfacing.getFrontOffsetZ() * k);
+                        d0 += enumfacing.getFrontOffsetX() * k;
+                        d1 += enumfacing.getFrontOffsetY() * k;
+                        d2 += enumfacing.getFrontOffsetZ() * k;
                     }
                 }
             }
             else if (j >= 0)
             {
                 int l = j - i;
-                d0 += (double)(enumfacing.getFrontOffsetX() * l);
-                d1 += (double)(enumfacing.getFrontOffsetY() * l);
-                d2 += (double)(enumfacing.getFrontOffsetZ() * l);
+                d0 += enumfacing.getFrontOffsetX() * l;
+                d1 += enumfacing.getFrontOffsetY() * l;
+                d2 += enumfacing.getFrontOffsetZ() * l;
             }
         }
 
         Vec3d vec3d = new Vec3d(d0, d1, d2);
 
-        if (((Integer)p_189543_3_.getValue(LEVEL)).intValue() >= 8)
+        if (p_189543_3_.getValue(LEVEL).intValue() >= 8)
         {
             for (EnumFacing enumfacing1 : EnumFacing.Plane.HORIZONTAL)
             {
@@ -277,13 +277,13 @@ public abstract class BlockLiquid extends Block
 
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        double d0 = (double)pos.getX();
-        double d1 = (double)pos.getY();
-        double d2 = (double)pos.getZ();
+        double d0 = pos.getX();
+        double d1 = pos.getY();
+        double d2 = pos.getZ();
 
         if (this.blockMaterial == Material.WATER)
         {
-            int i = ((Integer)stateIn.getValue(LEVEL)).intValue();
+            int i = stateIn.getValue(LEVEL).intValue();
 
             if (i > 0 && i < 8)
             {
@@ -378,7 +378,7 @@ public abstract class BlockLiquid extends Block
 
             if (flag)
             {
-                Integer integer = (Integer)state.getValue(LEVEL);
+                Integer integer = state.getValue(LEVEL);
 
                 if (integer.intValue() == 0)
                 {
@@ -401,10 +401,10 @@ public abstract class BlockLiquid extends Block
 
     protected void triggerMixEffects(World worldIn, BlockPos pos)
     {
-        double d0 = (double)pos.getX();
-        double d1 = (double)pos.getY();
-        double d2 = (double)pos.getZ();
-        worldIn.playSound((EntityPlayer)null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+        double d0 = pos.getX();
+        double d1 = pos.getY();
+        double d2 = pos.getZ();
+        worldIn.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
 
         for (int i = 0; i < 8; ++i)
         {
@@ -425,12 +425,12 @@ public abstract class BlockLiquid extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((Integer)state.getValue(LEVEL)).intValue();
+        return state.getValue(LEVEL).intValue();
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {LEVEL});
+        return new BlockStateContainer(this, LEVEL);
     }
 
     public static BlockDynamicLiquid getFlowingBlock(Material materialIn)
@@ -467,7 +467,7 @@ public abstract class BlockLiquid extends Block
 
     public static float func_190973_f(IBlockState p_190973_0_, IBlockAccess p_190973_1_, BlockPos p_190973_2_)
     {
-        int i = ((Integer)p_190973_0_.getValue(LEVEL)).intValue();
+        int i = p_190973_0_.getValue(LEVEL).intValue();
         return (i & 7) == 0 && p_190973_1_.getBlockState(p_190973_2_.up()).getMaterial() == Material.WATER ? 1.0F : 1.0F - getLiquidHeightPercent(i);
     }
 

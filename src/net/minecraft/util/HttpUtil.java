@@ -253,7 +253,6 @@ public class HttpUtil
                         if (p_180192_4_ != null)
                         {
                             p_180192_4_.setDoneWorking();
-                            return;
                         }
                     }
                     catch (Throwable throwable)
@@ -277,7 +276,6 @@ public class HttpUtil
                         if (p_180192_4_ != null)
                         {
                             p_180192_4_.setDoneWorking();
-                            return;
                         }
                     }
                 }
@@ -312,7 +310,6 @@ public class HttpUtil
             }
             catch (IOException var8)
             {
-                ;
             }
         }
 

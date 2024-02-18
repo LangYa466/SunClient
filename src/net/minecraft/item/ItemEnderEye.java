@@ -37,7 +37,7 @@ public class ItemEnderEye extends Item
         IBlockState iblockstate = playerIn.getBlockState(worldIn);
         ItemStack itemstack = stack.getHeldItem(pos);
 
-        if (stack.canPlayerEdit(worldIn.offset(hand), hand, itemstack) && iblockstate.getBlock() == Blocks.END_PORTAL_FRAME && !((Boolean)iblockstate.getValue(BlockEndPortalFrame.EYE)).booleanValue())
+        if (stack.canPlayerEdit(worldIn.offset(hand), hand, itemstack) && iblockstate.getBlock() == Blocks.END_PORTAL_FRAME && !iblockstate.getValue(BlockEndPortalFrame.EYE).booleanValue())
         {
             if (playerIn.isRemote)
             {
@@ -51,16 +51,16 @@ public class ItemEnderEye extends Item
 
                 for (int i = 0; i < 16; ++i)
                 {
-                    double d0 = (double)((float)worldIn.getX() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F);
-                    double d1 = (double)((float)worldIn.getY() + 0.8125F);
-                    double d2 = (double)((float)worldIn.getZ() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F);
+                    double d0 = (float)worldIn.getX() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F;
+                    double d1 = (float)worldIn.getY() + 0.8125F;
+                    double d2 = (float)worldIn.getZ() + (5.0F + itemRand.nextFloat() * 6.0F) / 16.0F;
                     double d3 = 0.0D;
                     double d4 = 0.0D;
                     double d5 = 0.0D;
                     playerIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
                 }
 
-                playerIn.playSound((EntityPlayer)null, worldIn, SoundEvents.field_193781_bp, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                playerIn.playSound(null, worldIn, SoundEvents.field_193781_bp, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 BlockPattern.PatternHelper blockpattern$patternhelper = BlockEndPortalFrame.getOrCreatePortalShape().match(playerIn, worldIn);
 
                 if (blockpattern$patternhelper != null)
@@ -115,8 +115,8 @@ public class ItemEnderEye extends Item
                         CriteriaTriggers.field_192132_l.func_192239_a((EntityPlayerMP)worldIn, blockpos);
                     }
 
-                    itemStackIn.playSound((EntityPlayer)null, worldIn.posX, worldIn.posY, worldIn.posZ, SoundEvents.ENTITY_ENDEREYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-                    itemStackIn.playEvent((EntityPlayer)null, 1003, new BlockPos(worldIn), 0);
+                    itemStackIn.playSound(null, worldIn.posX, worldIn.posY, worldIn.posZ, SoundEvents.ENTITY_ENDEREYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+                    itemStackIn.playEvent(null, 1003, new BlockPos(worldIn), 0);
 
                     if (!worldIn.capabilities.isCreativeMode)
                     {

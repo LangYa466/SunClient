@@ -18,7 +18,7 @@ import net.minecraft.world.WorldServer;
 public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigger.Instance>
 {
     private static final ResourceLocation field_193169_a = new ResourceLocation("nether_travel");
-    private final Map<PlayerAdvancements, NetherTravelTrigger.Listeners> field_193170_b = Maps.<PlayerAdvancements, NetherTravelTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, NetherTravelTrigger.Listeners> field_193170_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -110,7 +110,7 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
     static class Listeners
     {
         private final PlayerAdvancements field_193485_a;
-        private final Set<ICriterionTrigger.Listener<NetherTravelTrigger.Instance>> field_193486_b = Sets.<ICriterionTrigger.Listener<NetherTravelTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<NetherTravelTrigger.Instance>> field_193486_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47575_1_)
         {
@@ -138,11 +138,11 @@ public class NetherTravelTrigger implements ICriterionTrigger<NetherTravelTrigge
 
             for (ICriterionTrigger.Listener<NetherTravelTrigger.Instance> listener : this.field_193486_b)
             {
-                if (((NetherTravelTrigger.Instance)listener.func_192158_a()).func_193206_a(p_193483_1_, p_193483_2_, p_193483_3_, p_193483_5_, p_193483_7_))
+                if (listener.func_192158_a().func_193206_a(p_193483_1_, p_193483_2_, p_193483_3_, p_193483_5_, p_193483_7_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<NetherTravelTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

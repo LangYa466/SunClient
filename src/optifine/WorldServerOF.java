@@ -9,7 +9,7 @@ import net.minecraft.world.storage.WorldInfo;
 
 public class WorldServerOF extends WorldServer
 {
-    private MinecraftServer mcServer;
+    private final MinecraftServer mcServer;
 
     public WorldServerOF(MinecraftServer p_i103_1_, ISaveHandler p_i103_2_, WorldInfo p_i103_3_, int p_i103_4_, Profiler p_i103_5_)
     {

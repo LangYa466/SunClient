@@ -38,12 +38,12 @@ public class BlockSnow extends Block
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        return SNOW_AABB[((Integer)state.getValue(LAYERS)).intValue()];
+        return SNOW_AABB[state.getValue(LAYERS).intValue()];
     }
 
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
     {
-        return ((Integer)worldIn.getBlockState(pos).getValue(LAYERS)).intValue() < 5;
+        return worldIn.getBlockState(pos).getValue(LAYERS).intValue() < 5;
     }
 
     /**
@@ -51,7 +51,7 @@ public class BlockSnow extends Block
      */
     public boolean isFullyOpaque(IBlockState state)
     {
-        return ((Integer)state.getValue(LAYERS)).intValue() == 8;
+        return state.getValue(LAYERS).intValue() == 8;
     }
 
     public BlockFaceShape func_193383_a(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
@@ -62,10 +62,10 @@ public class BlockSnow extends Block
     @Nullable
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
     {
-        int i = ((Integer)blockState.getValue(LAYERS)).intValue() - 1;
+        int i = blockState.getValue(LAYERS).intValue() - 1;
         float f = 0.125F;
         AxisAlignedBB axisalignedbb = blockState.getBoundingBox(worldIn, pos);
-        return new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.maxX, (double)((float)i * 0.125F), axisalignedbb.maxZ);
+        return new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ, axisalignedbb.maxX, (float)i * 0.125F, axisalignedbb.maxZ);
     }
 
     /**
@@ -89,7 +89,7 @@ public class BlockSnow extends Block
         if (block != Blocks.ICE && block != Blocks.PACKED_ICE && block != Blocks.BARRIER)
         {
             BlockFaceShape blockfaceshape = iblockstate.func_193401_d(worldIn, pos.down(), EnumFacing.UP);
-            return blockfaceshape == BlockFaceShape.SOLID || iblockstate.getMaterial() == Material.LEAVES || block == this && ((Integer)iblockstate.getValue(LAYERS)).intValue() == 8;
+            return blockfaceshape == BlockFaceShape.SOLID || iblockstate.getMaterial() == Material.LEAVES || block == this && iblockstate.getValue(LAYERS).intValue() == 8;
         }
         else
         {
@@ -123,7 +123,7 @@ public class BlockSnow extends Block
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack)
     {
-        spawnAsEntity(worldIn, pos, new ItemStack(Items.SNOWBALL, ((Integer)state.getValue(LAYERS)).intValue() + 1, 0));
+        spawnAsEntity(worldIn, pos, new ItemStack(Items.SNOWBALL, state.getValue(LAYERS).intValue() + 1, 0));
         worldIn.setBlockToAir(pos);
         player.addStat(StatList.getBlockStats(this));
     }
@@ -162,7 +162,7 @@ public class BlockSnow extends Block
         else
         {
             IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-            return iblockstate.getBlock() == this && ((Integer)iblockstate.getValue(LAYERS)).intValue() >= ((Integer)blockState.getValue(LAYERS)).intValue() ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+            return (iblockstate.getBlock() != this || iblockstate.getValue(LAYERS).intValue() < blockState.getValue(LAYERS).intValue()) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
         }
     }
 
@@ -179,7 +179,7 @@ public class BlockSnow extends Block
      */
     public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
     {
-        return ((Integer)worldIn.getBlockState(pos).getValue(LAYERS)).intValue() == 1;
+        return worldIn.getBlockState(pos).getValue(LAYERS).intValue() == 1;
     }
 
     /**
@@ -187,11 +187,11 @@ public class BlockSnow extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((Integer)state.getValue(LAYERS)).intValue() - 1;
+        return state.getValue(LAYERS).intValue() - 1;
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {LAYERS});
+        return new BlockStateContainer(this, LAYERS);
     }
 }

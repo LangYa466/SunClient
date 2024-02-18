@@ -47,7 +47,7 @@ public class ItemBlock extends Item
 
         ItemStack itemstack = stack.getHeldItem(pos);
 
-        if (!itemstack.func_190926_b() && stack.canPlayerEdit(worldIn, hand, itemstack) && playerIn.func_190527_a(this.block, worldIn, false, hand, (Entity)null))
+        if (!itemstack.func_190926_b() && stack.canPlayerEdit(worldIn, hand, itemstack) && playerIn.func_190527_a(this.block, worldIn, false, hand, null))
         {
             int i = this.getMetadata(itemstack.getMetadata());
             IBlockState iblockstate1 = this.block.onBlockPlaced(playerIn, worldIn, hand, facing, hitX, hitY, i, stack);
@@ -136,7 +136,7 @@ public class ItemBlock extends Item
             pos = pos.offset(side);
         }
 
-        return worldIn.func_190527_a(this.block, pos, false, side, (Entity)null);
+        return worldIn.func_190527_a(this.block, pos, false, side, null);
     }
 
     /**

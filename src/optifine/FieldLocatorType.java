@@ -6,7 +6,7 @@ public class FieldLocatorType implements IFieldLocator
 {
     private ReflectorClass reflectorClass;
     private Class targetFieldType;
-    private int targetFieldIndex;
+    private final int targetFieldIndex;
 
     public FieldLocatorType(ReflectorClass p_i39_1_, Class p_i39_2_)
     {

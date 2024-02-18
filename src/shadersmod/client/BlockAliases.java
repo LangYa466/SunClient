@@ -14,7 +14,7 @@ import optifine.StrUtils;
 
 public class BlockAliases
 {
-    private static BlockAlias[][] blockAliases = (BlockAlias[][])null;
+    private static BlockAlias[][] blockAliases = null;
 
     public static int getMappedBlockId(int blockId, int metadata)
     {
@@ -131,10 +131,10 @@ public class BlockAliases
 
             while (j >= blocksAliases.size())
             {
-                blocksAliases.add((List<BlockAlias>)null);
+                blocksAliases.add(null);
             }
 
-            List<BlockAlias> list = (List)blocksAliases.get(j);
+            List<BlockAlias> list = blocksAliases.get(j);
 
             if (list == null)
             {
@@ -152,11 +152,11 @@ public class BlockAliases
 
         for (int i = 0; i < ablockalias.length; ++i)
         {
-            List<BlockAlias> list = (List)listBlocksAliases.get(i);
+            List<BlockAlias> list = listBlocksAliases.get(i);
 
             if (list != null)
             {
-                ablockalias[i] = (BlockAlias[])list.toArray(new BlockAlias[list.size()]);
+                ablockalias[i] = list.toArray(new BlockAlias[list.size()]);
             }
         }
 
@@ -165,6 +165,6 @@ public class BlockAliases
 
     public static void reset()
     {
-        blockAliases = (BlockAlias[][])null;
+        blockAliases = null;
     }
 }

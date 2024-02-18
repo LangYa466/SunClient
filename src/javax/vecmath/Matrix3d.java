@@ -411,7 +411,7 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
      * @param row  the matrix row
      * @param v    the array into which the matrix row values will be copied
      */
-    public final void getRow(int row, double v[]) {
+    public final void getRow(int row, double[] v) {
         if( row == 0 ) {
            v[0] = m00;
            v[1] = m01;
@@ -461,7 +461,7 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
      * @param column  the matrix column
      * @param v    the array into which the matrix row values will be copied
      */
-    public final void getColumn(int column, double v[]) {
+    public final void getColumn(int column, double[] v) {
         if( column == 0 ) {
            v[0] = m00;
            v[1] = m10;
@@ -550,7 +550,7 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
      * @param row the row number to be modified (zero indexed)
      * @param v the replacement row
      */
-    public final void setRow(int row, double v[])
+    public final void setRow(int row, double[] v)
     {
 	switch (row) {
 	case 0:
@@ -645,7 +645,7 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
      * @param column the column number to be modified (zero indexed)
      * @param v the replacement column
      */
-    public final void setColumn(int column, double v[])
+    public final void setColumn(int column, double[] v)
     {
 	switch (column) {
 	case 0:
@@ -1077,8 +1077,8 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
      * about allocating a little bit of garbage.
      */
     private final void invertGeneral(Matrix3d  m1) {
-	double result[] = new double[9];
-	int row_perm[] = new int[3];
+	double[] result = new double[9];
+	int[] row_perm = new int[3];
 	int i;
 	double[]    tmp = new double[9];  // scratch matrix
 
@@ -1147,7 +1147,7 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
     static boolean luDecomposition(double[] matrix0,
 				   int[] row_perm) {
 
-	double row_scale[] = new double[3];
+	double[] row_scale = new double[3];
 
 	// Determine implicit scaling information by looping over rows
 	{
@@ -1337,13 +1337,13 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	    matrix2[cv+3*2] /= matrix1[rv+2];
 
 	    rv -= 3;
-	    matrix2[cv+3*1] = (matrix2[cv+3*1] -
+	    matrix2[cv+ 3] = (matrix2[cv+ 3] -
 			    matrix1[rv+2] * matrix2[cv+3*2]) / matrix1[rv+1];
 
 	    rv -= 3;
-	    matrix2[cv+4*0] = (matrix2[cv+3*0] -
-			    matrix1[rv+1] * matrix2[cv+3*1] -
-			    matrix1[rv+2] * matrix2[cv+3*2]) / matrix1[rv+0];
+	    matrix2[cv] = (matrix2[cv] -
+			    matrix1[rv+1] * matrix2[cv+ 3] -
+			    matrix1[rv+2] * matrix2[cv+3*2]) / matrix1[rv];
 
 	}
     }
@@ -1967,9 +1967,7 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
        if((diff<0?-diff:diff) > epsilon) return false;
 
        diff = m22 - m1.m22;
-       if((diff<0?-diff:diff) > epsilon) return false;
-
-       return true;
+        return !((diff < 0 ? -diff : diff) > epsilon);
     }
 
 
@@ -2087,7 +2085,7 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
     /**
      * perform SVD (if necessary to get rotational component
      */
-    final void getScaleRotate(double scales[], double rots[]) {
+    final void getScaleRotate(double[] scales, double[] rots) {
 
 	double[]    tmp = new double[9];  // scratch matrix
 
@@ -2104,7 +2102,6 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	tmp[8] = m22;
 	compute_svd( tmp, scales, rots);
 
-	return;
     }
 
     static void compute_svd( double[] m, double[] outScale, double[] outRot) {
@@ -2502,10 +2499,10 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	    outRot[0] = rot[index];
 
 	    index = out[in0]+3;
-	    outRot[0+3] = rot[index];
+	    outRot[3] = rot[index];
 
 	    index = out[in0]+6;
-	    outRot[0+6] = rot[index];
+	    outRot[6] = rot[index];
 
 	    index = out[in1];
 	    outRot[1] = rot[index];
@@ -2778,10 +2775,7 @@ static int compute_2X2( double f, double g, double h, double[] single_values,
     ha = Math.abs(h);
 
     pmax = 1;
-    if( ha > fa)
-       swap = true;
-    else
-       swap = false;
+    swap = ha > fa;
 
     if (swap) {
         pmax = 3;
@@ -3014,7 +3008,7 @@ static int compute_2X2( double f, double g, double h, double[] single_values,
 static void print_mat( double[]  mat) {
 int i;
   for(i=0;i<3;i++){
-    System.out.println(mat[i*3+0]+" "+mat[i*3+1]+" "+mat[i*3+2]+"\n");
+    System.out.println(mat[i * 3]+" "+mat[i*3+1]+" "+mat[i*3+2]+"\n");
   }
 
 }
@@ -3090,10 +3084,7 @@ static  double max3( double[] values) {
         if (diff < EPSILON_ABSOLUTE)
             return true;
 
-        if ((diff / max) < EPSILON_RELATIVE)
-            return true;
-
-        return false;
+        return (diff / max) < EPSILON_RELATIVE;
     }
 
     /**

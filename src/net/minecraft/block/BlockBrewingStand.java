@@ -130,9 +130,9 @@ public class BlockBrewingStand extends BlockContainer
 
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
-        double d0 = (double)((float)pos.getX() + 0.4F + rand.nextFloat() * 0.2F);
-        double d1 = (double)((float)pos.getY() + 0.7F + rand.nextFloat() * 0.3F);
-        double d2 = (double)((float)pos.getZ() + 0.4F + rand.nextFloat() * 0.2F);
+        double d0 = (float)pos.getX() + 0.4F + rand.nextFloat() * 0.2F;
+        double d1 = (float)pos.getY() + 0.7F + rand.nextFloat() * 0.3F;
+        double d2 = (float)pos.getZ() + 0.4F + rand.nextFloat() * 0.2F;
         worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
@@ -203,7 +203,7 @@ public class BlockBrewingStand extends BlockContainer
 
         for (int j = 0; j < 3; ++j)
         {
-            if (((Boolean)state.getValue(HAS_BOTTLE[j])).booleanValue())
+            if (state.getValue(HAS_BOTTLE[j]).booleanValue())
             {
                 i |= 1 << j;
             }
@@ -214,7 +214,7 @@ public class BlockBrewingStand extends BlockContainer
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {HAS_BOTTLE[0], HAS_BOTTLE[1], HAS_BOTTLE[2]});
+        return new BlockStateContainer(this, HAS_BOTTLE[0], HAS_BOTTLE[1], HAS_BOTTLE[2]);
     }
 
     public BlockFaceShape func_193383_a(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)

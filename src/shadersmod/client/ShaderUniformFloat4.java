@@ -4,7 +4,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 
 public class ShaderUniformFloat4 extends ShaderUniformBase
 {
-    private float[] values = new float[4];
+    private final float[] values = new float[4];
 
     public ShaderUniformFloat4(String name)
     {

@@ -164,7 +164,7 @@ public class ChunkGeneratorOverworld implements IChunkGenerator
     public void replaceBiomeBlocks(int x, int z, ChunkPrimer primer, Biome[] biomesIn)
     {
         double d0 = 0.03125D;
-        this.depthBuffer = this.surfaceNoise.getRegion(this.depthBuffer, (double)(x * 16), (double)(z * 16), 16, 16, 0.0625D, 0.0625D, 1.0D);
+        this.depthBuffer = this.surfaceNoise.getRegion(this.depthBuffer, x * 16, z * 16, 16, 16, 0.0625D, 0.0625D, 1.0D);
 
         for (int i = 0; i < 16; ++i)
         {
@@ -241,12 +241,12 @@ public class ChunkGeneratorOverworld implements IChunkGenerator
 
     private void generateHeightmap(int p_185978_1_, int p_185978_2_, int p_185978_3_)
     {
-        this.depthRegion = this.depthNoise.generateNoiseOctaves(this.depthRegion, p_185978_1_, p_185978_3_, 5, 5, (double)this.settings.depthNoiseScaleX, (double)this.settings.depthNoiseScaleZ, (double)this.settings.depthNoiseScaleExponent);
+        this.depthRegion = this.depthNoise.generateNoiseOctaves(this.depthRegion, p_185978_1_, p_185978_3_, 5, 5, this.settings.depthNoiseScaleX, this.settings.depthNoiseScaleZ, this.settings.depthNoiseScaleExponent);
         float f = this.settings.coordinateScale;
         float f1 = this.settings.heightScale;
-        this.mainNoiseRegion = this.mainPerlinNoise.generateNoiseOctaves(this.mainNoiseRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, (double)(f / this.settings.mainNoiseScaleX), (double)(f1 / this.settings.mainNoiseScaleY), (double)(f / this.settings.mainNoiseScaleZ));
-        this.minLimitRegion = this.minLimitPerlinNoise.generateNoiseOctaves(this.minLimitRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, (double)f, (double)f1, (double)f);
-        this.maxLimitRegion = this.maxLimitPerlinNoise.generateNoiseOctaves(this.maxLimitRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, (double)f, (double)f1, (double)f);
+        this.mainNoiseRegion = this.mainPerlinNoise.generateNoiseOctaves(this.mainNoiseRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, f / this.settings.mainNoiseScaleX, f1 / this.settings.mainNoiseScaleY, f / this.settings.mainNoiseScaleZ);
+        this.minLimitRegion = this.minLimitPerlinNoise.generateNoiseOctaves(this.minLimitRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, f, f1, f);
+        this.maxLimitRegion = this.maxLimitPerlinNoise.generateNoiseOctaves(this.maxLimitRegion, p_185978_1_, p_185978_2_, p_185978_3_, 5, 33, 5, f, f1, f);
         int i = 0;
         int j = 0;
 
@@ -323,8 +323,8 @@ public class ChunkGeneratorOverworld implements IChunkGenerator
                 }
 
                 ++j;
-                double d8 = (double)f3;
-                double d9 = (double)f2;
+                double d8 = f3;
+                double d9 = f2;
                 d8 = d8 + d7 * 0.2D;
                 d8 = d8 * (double)this.settings.baseSize / 8.0D;
                 double d0 = (double)this.settings.baseSize + d8 * 4.0D;
@@ -345,7 +345,7 @@ public class ChunkGeneratorOverworld implements IChunkGenerator
 
                     if (l1 > 29)
                     {
-                        double d6 = (double)((float)(l1 - 29) / 3.0F);
+                        double d6 = (float)(l1 - 29) / 3.0F;
                         d5 = d5 * (1.0D - d6) + -10.0D * d6;
                     }
 
@@ -520,7 +520,7 @@ public class ChunkGeneratorOverworld implements IChunkGenerator
         }
         else
         {
-            return "Temple".equals(p_193414_2_) && this.scatteredFeatureGenerator != null ? this.scatteredFeatureGenerator.isInsideStructure(p_193414_3_) : false;
+            return "Temple".equals(p_193414_2_) && this.scatteredFeatureGenerator != null && this.scatteredFeatureGenerator.isInsideStructure(p_193414_3_);
         }
     }
 
@@ -563,32 +563,32 @@ public class ChunkGeneratorOverworld implements IChunkGenerator
         {
             if (this.settings.useMineShafts)
             {
-                this.mineshaftGenerator.generate(this.worldObj, x, z, (ChunkPrimer)null);
+                this.mineshaftGenerator.generate(this.worldObj, x, z, null);
             }
 
             if (this.settings.useVillages)
             {
-                this.villageGenerator.generate(this.worldObj, x, z, (ChunkPrimer)null);
+                this.villageGenerator.generate(this.worldObj, x, z, null);
             }
 
             if (this.settings.useStrongholds)
             {
-                this.strongholdGenerator.generate(this.worldObj, x, z, (ChunkPrimer)null);
+                this.strongholdGenerator.generate(this.worldObj, x, z, null);
             }
 
             if (this.settings.useTemples)
             {
-                this.scatteredFeatureGenerator.generate(this.worldObj, x, z, (ChunkPrimer)null);
+                this.scatteredFeatureGenerator.generate(this.worldObj, x, z, null);
             }
 
             if (this.settings.useMonuments)
             {
-                this.oceanMonumentGenerator.generate(this.worldObj, x, z, (ChunkPrimer)null);
+                this.oceanMonumentGenerator.generate(this.worldObj, x, z, null);
             }
 
             if (this.settings.field_191077_z)
             {
-                this.field_191060_C.generate(this.worldObj, x, z, (ChunkPrimer)null);
+                this.field_191060_C.generate(this.worldObj, x, z, null);
             }
         }
     }

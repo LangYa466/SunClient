@@ -56,11 +56,11 @@ public class BlockBeetroot extends BlockCrops
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {BEETROOT_AGE});
+        return new BlockStateContainer(this, BEETROOT_AGE);
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
-        return BEETROOT_AABB[((Integer)state.getValue(this.getAgeProperty())).intValue()];
+        return BEETROOT_AABB[state.getValue(this.getAgeProperty()).intValue()];
     }
 }

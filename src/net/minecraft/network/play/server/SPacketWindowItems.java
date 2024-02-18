@@ -20,7 +20,7 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient>
     public SPacketWindowItems(int p_i47317_1_, NonNullList<ItemStack> p_i47317_2_)
     {
         this.windowId = p_i47317_1_;
-        this.itemStacks = NonNullList.<ItemStack>func_191197_a(p_i47317_2_.size(), ItemStack.field_190927_a);
+        this.itemStacks = NonNullList.func_191197_a(p_i47317_2_.size(), ItemStack.field_190927_a);
 
         for (int i = 0; i < this.itemStacks.size(); ++i)
         {
@@ -36,7 +36,7 @@ public class SPacketWindowItems implements Packet<INetHandlerPlayClient>
     {
         this.windowId = buf.readUnsignedByte();
         int i = buf.readShort();
-        this.itemStacks = NonNullList.<ItemStack>func_191197_a(i, ItemStack.field_190927_a);
+        this.itemStacks = NonNullList.func_191197_a(i, ItemStack.field_190927_a);
 
         for (int j = 0; j < i; ++j)
         {

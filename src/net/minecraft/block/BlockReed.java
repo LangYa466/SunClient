@@ -46,12 +46,11 @@ public class BlockReed extends Block
 
                 for (i = 1; worldIn.getBlockState(pos.down(i)).getBlock() == this; ++i)
                 {
-                    ;
                 }
 
                 if (i < 3)
                 {
-                    int j = ((Integer)state.getValue(AGE)).intValue();
+                    int j = state.getValue(AGE).intValue();
 
                     if (j == 15)
                     {
@@ -176,12 +175,12 @@ public class BlockReed extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((Integer)state.getValue(AGE)).intValue();
+        return state.getValue(AGE).intValue();
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {AGE});
+        return new BlockStateContainer(this, AGE);
     }
 
     public BlockFaceShape func_193383_a(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)

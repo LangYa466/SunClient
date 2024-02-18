@@ -53,14 +53,7 @@ public class ShieldRecipes
                 }
             }
 
-            if (!itemstack.func_190926_b() && !itemstack1.func_190926_b())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return !itemstack.func_190926_b() && !itemstack1.func_190926_b();
         }
 
         public ItemStack getCraftingResult(InventoryCrafting inv)
@@ -106,7 +99,7 @@ public class ShieldRecipes
 
         public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
         {
-            NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
+            NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
 
             for (int i = 0; i < nonnulllist.size(); ++i)
             {

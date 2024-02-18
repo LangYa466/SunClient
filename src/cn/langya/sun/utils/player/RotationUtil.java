@@ -67,7 +67,7 @@ public class RotationUtil extends Utils {
                 }
             }
 
-            if (pointedEntity != null && flag && vec3.distanceTo(vec33) > (double) range) {
+            if (pointedEntity != null && flag && vec3.distanceTo(vec33) > range) {
                 pointedEntity = null;
                 objectMouseOver = new RayTraceResult(RayTraceResult.Type.MISS, vec33, null, new BlockPos(vec33));
             }

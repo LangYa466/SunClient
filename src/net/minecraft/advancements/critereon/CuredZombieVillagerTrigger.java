@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombieVillagerTrigger.Instance>
 {
     private static final ResourceLocation field_192186_a = new ResourceLocation("cured_zombie_villager");
-    private final Map<PlayerAdvancements, CuredZombieVillagerTrigger.Listeners> field_192187_b = Maps.<PlayerAdvancements, CuredZombieVillagerTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, CuredZombieVillagerTrigger.Listeners> field_192187_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -103,7 +103,7 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
     static class Listeners
     {
         private final PlayerAdvancements field_192362_a;
-        private final Set<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> field_192363_b = Sets.<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>> field_192363_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47460_1_)
         {
@@ -131,11 +131,11 @@ public class CuredZombieVillagerTrigger implements ICriterionTrigger<CuredZombie
 
             for (ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance> listener : this.field_192363_b)
             {
-                if (((CuredZombieVillagerTrigger.Instance)listener.func_192158_a()).func_192254_a(p_192361_1_, p_192361_2_, p_192361_3_))
+                if (listener.func_192158_a().func_192254_a(p_192361_1_, p_192361_2_, p_192361_3_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<CuredZombieVillagerTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

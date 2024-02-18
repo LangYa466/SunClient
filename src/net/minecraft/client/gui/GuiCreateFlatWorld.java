@@ -199,10 +199,10 @@ public class GuiCreateFlatWorld extends GuiScreen
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-            bufferbuilder.pos((double)(x + 0), (double)(z + 18), (double)GuiCreateFlatWorld.this.zLevel).tex((double)((float)(textureX + 0) * 0.0078125F), (double)((float)(textureY + 18) * 0.0078125F)).endVertex();
-            bufferbuilder.pos((double)(x + 18), (double)(z + 18), (double)GuiCreateFlatWorld.this.zLevel).tex((double)((float)(textureX + 18) * 0.0078125F), (double)((float)(textureY + 18) * 0.0078125F)).endVertex();
-            bufferbuilder.pos((double)(x + 18), (double)(z + 0), (double)GuiCreateFlatWorld.this.zLevel).tex((double)((float)(textureX + 18) * 0.0078125F), (double)((float)(textureY + 0) * 0.0078125F)).endVertex();
-            bufferbuilder.pos((double)(x + 0), (double)(z + 0), (double)GuiCreateFlatWorld.this.zLevel).tex((double)((float)(textureX + 0) * 0.0078125F), (double)((float)(textureY + 0) * 0.0078125F)).endVertex();
+            bufferbuilder.pos(x, z + 18, GuiCreateFlatWorld.this.zLevel).tex((float)(textureX) * 0.0078125F, (float)(textureY + 18) * 0.0078125F).endVertex();
+            bufferbuilder.pos(x + 18, z + 18, GuiCreateFlatWorld.this.zLevel).tex((float)(textureX + 18) * 0.0078125F, (float)(textureY + 18) * 0.0078125F).endVertex();
+            bufferbuilder.pos(x + 18, z, GuiCreateFlatWorld.this.zLevel).tex((float)(textureX + 18) * 0.0078125F, (float)(textureY) * 0.0078125F).endVertex();
+            bufferbuilder.pos(x, z, GuiCreateFlatWorld.this.zLevel).tex((float)(textureX) * 0.0078125F, (float)(textureY) * 0.0078125F).endVertex();
             tessellator.draw();
         }
 
@@ -228,7 +228,7 @@ public class GuiCreateFlatWorld extends GuiScreen
 
         protected void func_192637_a(int p_192637_1_, int p_192637_2_, int p_192637_3_, int p_192637_4_, int p_192637_5_, int p_192637_6_, float p_192637_7_)
         {
-            FlatLayerInfo flatlayerinfo = (FlatLayerInfo)GuiCreateFlatWorld.this.theFlatGeneratorInfo.getFlatLayers().get(GuiCreateFlatWorld.this.theFlatGeneratorInfo.getFlatLayers().size() - p_192637_1_ - 1);
+            FlatLayerInfo flatlayerinfo = GuiCreateFlatWorld.this.theFlatGeneratorInfo.getFlatLayers().get(GuiCreateFlatWorld.this.theFlatGeneratorInfo.getFlatLayers().size() - p_192637_1_ - 1);
             IBlockState iblockstate = flatlayerinfo.getLayerMaterial();
             Block block = iblockstate.getBlock();
             Item item = Item.getItemFromBlock(block);

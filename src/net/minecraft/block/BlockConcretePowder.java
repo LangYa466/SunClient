@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class BlockConcretePowder extends BlockFalling
 {
-    public static final PropertyEnum<EnumDyeColor> field_192426_a = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+    public static final PropertyEnum<EnumDyeColor> field_192426_a = PropertyEnum.create("color", EnumDyeColor.class);
 
     public BlockConcretePowder()
     {
@@ -91,7 +91,7 @@ public class BlockConcretePowder extends BlockFalling
      */
     public int damageDropped(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(field_192426_a)).getMetadata();
+        return state.getValue(field_192426_a).getMetadata();
     }
 
     /**
@@ -110,7 +110,7 @@ public class BlockConcretePowder extends BlockFalling
      */
     public MapColor getMapColor(IBlockState state, IBlockAccess p_180659_2_, BlockPos p_180659_3_)
     {
-        return MapColor.func_193558_a((EnumDyeColor)state.getValue(field_192426_a));
+        return MapColor.func_193558_a(state.getValue(field_192426_a));
     }
 
     /**
@@ -126,11 +126,11 @@ public class BlockConcretePowder extends BlockFalling
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(field_192426_a)).getMetadata();
+        return state.getValue(field_192426_a).getMetadata();
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {field_192426_a});
+        return new BlockStateContainer(this, field_192426_a);
     }
 }

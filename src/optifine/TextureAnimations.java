@@ -81,7 +81,7 @@ public class TextureAnimations
 
     public static TextureAnimation[] getTextureAnimations(IResourcePack p_getTextureAnimations_0_)
     {
-        String[] astring = ResUtils.collectFiles(p_getTextureAnimations_0_, "mcpatcher/anim/", ".properties", (String[])null);
+        String[] astring = ResUtils.collectFiles(p_getTextureAnimations_0_, "mcpatcher/anim/", ".properties", null);
 
         if (astring.length <= 0)
         {
@@ -257,7 +257,7 @@ public class TextureAnimations
                 {
                     if (p_loadImage_1_ > 0 && bufferedimage.getWidth() != p_loadImage_1_)
                     {
-                        double d0 = (double)(bufferedimage.getHeight() / bufferedimage.getWidth());
+                        double d0 = bufferedimage.getHeight() / bufferedimage.getWidth();
                         int j = (int)((double)p_loadImage_1_ * d0);
                         bufferedimage = scaleBufferedImage(bufferedimage, p_loadImage_1_, j);
                     }
@@ -285,7 +285,7 @@ public class TextureAnimations
                             k1 = j2;
                         }
 
-                        abyte[k * 4 + 0] = (byte)i1;
+                        abyte[k * 4] = (byte)i1;
                         abyte[k * 4 + 1] = (byte)j1;
                         abyte[k * 4 + 2] = (byte)k1;
                         abyte[k * 4 + 3] = (byte)l;
@@ -318,7 +318,7 @@ public class TextureAnimations
         BufferedImage bufferedimage = new BufferedImage(p_scaleBufferedImage_1_, p_scaleBufferedImage_2_, 2);
         Graphics2D graphics2d = bufferedimage.createGraphics();
         graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        graphics2d.drawImage(p_scaleBufferedImage_0_, 0, 0, p_scaleBufferedImage_1_, p_scaleBufferedImage_2_, (ImageObserver)null);
+        graphics2d.drawImage(p_scaleBufferedImage_0_, 0, 0, p_scaleBufferedImage_1_, p_scaleBufferedImage_2_, null);
         return bufferedimage;
     }
 }

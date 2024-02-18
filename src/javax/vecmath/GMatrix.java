@@ -735,9 +735,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
      */
     public final void getRow(int row, double[] array)
     {
-	for (int i = 0; i < nCol; i++) {
-            array[i] = values[row][i];
-	}
+        if (nCol >= 0) System.arraycopy(values[row], 0, array, 0, nCol);
     }
 
     /**
@@ -750,9 +748,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	if (vector.getSize() < nCol)
 	    vector.setSize(nCol);
 
-	for (int i = 0; i < nCol; i++) {
-            vector.values[i] = values[row][i];
-	}
+        if (nCol >= 0) System.arraycopy(values[row], 0, vector.values, 0, nCol);
     }
 
     /**
@@ -1121,9 +1117,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
      */
     public final void setRow(int row, double[] array)
     {
-	for (int i = 0; i < nCol; i++) {
-            values[row][i] = array[i];
-	}
+        if (nCol >= 0) System.arraycopy(array, 0, values[row], 0, nCol);
     }
 
     /**
@@ -1135,9 +1129,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
      */
     public final void setRow(int row, GVector vector)
     {
-	for(int i = 0; i < nCol; i++) {
-            values[row][i] = vector.values[i];
-	}
+        if (nCol >= 0) System.arraycopy(vector.values, 0, values[row], 0, nCol);
     }
 
     /**
@@ -1657,7 +1649,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
         }
 
 	for (i = 0; i < LU.nRow; i++){
-	    permutation.values[i] = (double)row_perm[i];
+	    permutation.values[i] = row_perm[i];
         }
 
         return even_row_exchange[0];
@@ -1698,9 +1690,9 @@ public class GMatrix implements java.io.Serializable, Cloneable {
      */
     final void invertGeneral(GMatrix  m1) {
         int size = m1.nRow*m1.nCol;
-	double temp[] = new double[size];
-	double result[] = new double[size];
-	int row_perm[] = new int[m1.nRow];
+	double[] temp = new double[size];
+	double[] result = new double[size];
+	int[] row_perm = new int[m1.nRow];
 	int[] even_row_exchange = new int[1];
 	int i, j;
 
@@ -1762,7 +1754,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
     static boolean luDecomposition(int dim, double[] matrix0,
 				   int[] row_perm, int[] even_row_xchg) {
 
-	double row_scale[] = new double[dim];
+	double[] row_scale = new double[dim];
 
 	// Determine implicit scaling information by looping over rows
 	int i, j;
@@ -1987,7 +1979,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	double[] e = new double[eLength];
 
 	if(debug) {
-	    System.out.println("input to compute_svd = \n"+m.toString());
+	    System.out.println("input to compute_svd = \n"+ m);
 	}
 
 	rank = 0;
@@ -2075,8 +2067,8 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		}
 
 		if (debug) {
-		    System.out.println("U =\n" + U.toString());
-		    System.out.println("u =\n" + u.toString());
+		    System.out.println("U =\n" + U);
+		    System.out.println("u =\n" + u);
 		}
 
 		// update U matrix
@@ -2098,8 +2090,8 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		if (debug) {
 		    System.out.println("single_values["+si+"] =\n" +
 				       single_values[si]);
-		    System.out.println("m =\n" + m.toString());
-		    System.out.println("U =\n" + U.toString());
+		    System.out.println("m =\n" + m);
+		    System.out.println("U =\n" + U);
 		}
 
 		nr--;
@@ -2177,9 +2169,9 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		}
 
 		if (debug) {
-		    System.out.println("V =\n" + V.toString());
-		    System.out.println("v =\n" + v.toString());
-		    System.out.println("tmp =\n" + tmp.toString());
+		    System.out.println("V =\n" + V);
+		    System.out.println("v =\n" + v);
+		    System.out.println("tmp =\n" + tmp);
 		}
 
 		// update V matrix
@@ -2193,7 +2185,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		}
 
 		if (debug)
-		    System.out.println("tmp =\n" + tmp.toString());
+		    System.out.println("tmp =\n" + tmp);
 
 		for (j = 0;j < m.nRow; j++) {
 		    for (k = si + 1; k < m.nCol; k++) {
@@ -2202,8 +2194,8 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		}
 
 		if (debug) {
-		    System.out.println("m =\n" + m.toString());
-		    System.out.println("V =\n" + V.toString());
+		    System.out.println("m =\n" + m);
+		    System.out.println("V =\n" + V);
 		}
 
 		nc--;
@@ -2288,7 +2280,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	    for (i = 0; i < e.length; i++) {
 		m.values[i][i+1] = e[i];
 	    }
-	    System.out.println("\nm =\n" + m.toString());
+	    System.out.println("\nm =\n" + m);
 	}
 
 	double c_b48 =  1.0;
@@ -2419,7 +2411,6 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	    print_svd(s, e, u, v);
 	}
 
-	return;
     }
 
     private static void print_se(double[] s, double[] e) {
@@ -2595,7 +2586,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 
 	mtmp.mul(u, mtmp);
 	mtmp.mul(mtmp, v);
-	System.out.println("\n m = \n" + mtmp.toString(mtmp));
+	System.out.println("\n m = \n" + toString(mtmp));
 
     }
 
@@ -2632,8 +2623,8 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	    System.out.println(" " + e[i]);
 	}
 
-	System.out.println(" \nu  = \n" + u.toString());
-	System.out.println(" \nv  = \n" + v.toString());
+	System.out.println(" \nu  = \n" + u);
+	System.out.println(" \nv  = \n" + v);
 
 	mtmp.setIdentity();
 	for (i = 0; i < s.length; i++) {
@@ -2642,13 +2633,13 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	for (i = 0; i < e.length; i++) {
 	    mtmp.values[i][i+1] = e[i];
 	}
-	System.out.println(" \nm  = \n"+mtmp.toString());
+	System.out.println(" \nm  = \n"+ mtmp);
 
 	mtmp.mulTransposeLeft(u, mtmp);
 	mtmp.mulTransposeRight(mtmp, v);
 
 	System.out.println(" \n u.transpose*m*v.transpose  = \n" +
-			   mtmp.toString());
+            mtmp);
     }
 
     static double max(double a, double b) {
@@ -2741,10 +2732,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	ha = Math.abs(h);
 
 	pmax = 1;
-	if (ha > fa)
-	    swap = true;
-	else
-	    swap = false;
+        swap = ha > fa;
 
 	if (swap) {
 	    pmax = 3;
@@ -2995,9 +2983,7 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	// Also need to clone array of values
         m1.values = new double[nRow][nCol];
 	for (int i = 0; i < nRow; i++) {
-	   for(int j = 0; j < nCol; j++) {
-	       m1.values[i][j] = values[i][j];
-	   }
+        System.arraycopy(values[i], 0, m1.values[i], 0, nCol);
 	}
 
 	return m1;

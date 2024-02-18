@@ -315,7 +315,6 @@ public class OpenGlHelper
         }
         catch (Throwable var3)
         {
-            ;
         }
     }
 
@@ -971,20 +970,20 @@ public class OpenGlHelper
         GL11.glLineWidth(4.0F);
         bufferbuilder.begin(1, DefaultVertexFormats.POSITION_COLOR);
         bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-        bufferbuilder.pos((double)p_188785_0_, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+        bufferbuilder.pos(p_188785_0_, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
         bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-        bufferbuilder.pos(0.0D, (double)p_188785_0_, 0.0D).color(0, 0, 0, 255).endVertex();
+        bufferbuilder.pos(0.0D, p_188785_0_, 0.0D).color(0, 0, 0, 255).endVertex();
         bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, (double)p_188785_0_).color(0, 0, 0, 255).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, p_188785_0_).color(0, 0, 0, 255).endVertex();
         tessellator.draw();
         GL11.glLineWidth(2.0F);
         bufferbuilder.begin(1, DefaultVertexFormats.POSITION_COLOR);
         bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(255, 0, 0, 255).endVertex();
-        bufferbuilder.pos((double)p_188785_0_, 0.0D, 0.0D).color(255, 0, 0, 255).endVertex();
+        bufferbuilder.pos(p_188785_0_, 0.0D, 0.0D).color(255, 0, 0, 255).endVertex();
         bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(0, 255, 0, 255).endVertex();
-        bufferbuilder.pos(0.0D, (double)p_188785_0_, 0.0D).color(0, 255, 0, 255).endVertex();
+        bufferbuilder.pos(0.0D, p_188785_0_, 0.0D).color(0, 255, 0, 255).endVertex();
         bufferbuilder.pos(0.0D, 0.0D, 0.0D).color(127, 127, 255, 255).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, (double)p_188785_0_).color(127, 127, 255, 255).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, p_188785_0_).color(127, 127, 255, 255).endVertex();
         tessellator.draw();
         GL11.glLineWidth(1.0F);
         GlStateManager.depthMask(true);
@@ -1005,7 +1004,7 @@ public class OpenGlHelper
             }
             catch (IOException ioexception1)
             {
-                LOGGER.error("Couldn't open file", (Throwable)ioexception1);
+                LOGGER.error("Couldn't open file", ioexception1);
             }
         }
         else if (Util.getOSType() == Util.EnumOS.WINDOWS)
@@ -1019,7 +1018,7 @@ public class OpenGlHelper
             }
             catch (IOException ioexception)
             {
-                LOGGER.error("Couldn't open file", (Throwable)ioexception);
+                LOGGER.error("Couldn't open file", ioexception);
             }
         }
 
@@ -1028,7 +1027,7 @@ public class OpenGlHelper
         try
         {
             Class<?> oclass = Class.forName("java.awt.Desktop");
-            Object object = oclass.getMethod("getDesktop").invoke((Object)null);
+            Object object = oclass.getMethod("getDesktop").invoke(null);
             oclass.getMethod("browse", URI.class).invoke(object, fileIn.toURI());
         }
         catch (Throwable throwable1)
@@ -1044,10 +1043,10 @@ public class OpenGlHelper
         }
     }
 
-    static enum FboMode
+    enum FboMode
     {
         BASE,
         ARB,
-        EXT;
+        EXT
     }
 }

@@ -16,9 +16,9 @@ import optifine.StrUtils;
 
 public class GuiShaderOptions extends GuiScreenOF
 {
-    private GuiScreen prevScreen;
+    private final GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
+    private final GameSettings settings;
     private int lastMouseX;
     private int lastMouseY;
     private long mouseStillTime;
@@ -129,7 +129,6 @@ public class GuiShaderOptions extends GuiScreenOF
 
             for (int i = fontrenderer.getStringWidth(": " + Lang.getOff()) + 5; fontrenderer.getStringWidth(s) + i >= btnWidth && s.length() > 0; s = s.substring(0, s.length() - 1))
             {
-                ;
             }
 
             String s1 = so.isChanged() ? so.getValueColor(so.getValue()) : "";
@@ -355,7 +354,7 @@ public class GuiShaderOptions extends GuiScreenOF
 
             if (so.getPaths() != null && this.settings.advancedItemTooltips)
             {
-                s3 = "\u00a78" + Lang.get("of.general.from") + ": " + Config.arrayToString((Object[])so.getPaths());
+                s3 = "\u00a78" + Lang.get("of.general.from") + ": " + Config.arrayToString(so.getPaths());
             }
 
             String s4 = null;
@@ -429,7 +428,7 @@ public class GuiShaderOptions extends GuiScreenOF
             }
         }
 
-        String[] astring = (String[])list.toArray(new String[list.size()]);
+        String[] astring = list.toArray(new String[list.size()]);
         return astring;
     }
 }

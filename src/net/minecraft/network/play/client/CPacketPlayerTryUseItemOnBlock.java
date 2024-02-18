@@ -37,8 +37,8 @@ public class CPacketPlayerTryUseItemOnBlock implements Packet<INetHandlerPlaySer
     public void readPacketData(PacketBuffer buf) throws IOException
     {
         this.position = buf.readBlockPos();
-        this.placedBlockDirection = (EnumFacing)buf.readEnumValue(EnumFacing.class);
-        this.hand = (EnumHand)buf.readEnumValue(EnumHand.class);
+        this.placedBlockDirection = buf.readEnumValue(EnumFacing.class);
+        this.hand = buf.readEnumValue(EnumHand.class);
         this.facingX = buf.readFloat();
         this.facingY = buf.readFloat();
         this.facingZ = buf.readFloat();

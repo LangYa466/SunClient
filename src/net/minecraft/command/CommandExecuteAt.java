@@ -44,7 +44,7 @@ public class CommandExecuteAt extends CommandBase
     {
         if (args.length < 5)
         {
-            throw new WrongUsageException("commands.execute.usage", new Object[0]);
+            throw new WrongUsageException("commands.execute.usage");
         }
         else
         {
@@ -66,19 +66,19 @@ public class CommandExecuteAt extends CommandBase
 
                 if (!world.isBlockLoaded(blockpos))
                 {
-                    throw new CommandException("commands.execute.failed", new Object[] {"detect", entity.getName()});
+                    throw new CommandException("commands.execute.failed", "detect", entity.getName());
                 }
 
                 IBlockState iblockstate = world.getBlockState(blockpos);
 
                 if (iblockstate.getBlock() != block)
                 {
-                    throw new CommandException("commands.execute.failed", new Object[] {"detect", entity.getName()});
+                    throw new CommandException("commands.execute.failed", "detect", entity.getName());
                 }
 
                 if (!CommandBase.func_190791_b(block, args[9]).apply(iblockstate))
                 {
-                    throw new CommandException("commands.execute.failed", new Object[] {"detect", entity.getName()});
+                    throw new CommandException("commands.execute.failed", "detect", entity.getName());
                 }
 
                 i = 10;
@@ -94,12 +94,12 @@ public class CommandExecuteAt extends CommandBase
 
                 if (j < 1)
                 {
-                    throw new CommandException("commands.execute.allInvocationsFailed", new Object[] {s});
+                    throw new CommandException("commands.execute.allInvocationsFailed", s);
                 }
             }
             catch (Throwable var23)
             {
-                throw new CommandException("commands.execute.failed", new Object[] {s, entity.getName()});
+                throw new CommandException("commands.execute.failed", s, entity.getName());
             }
         }
     }

@@ -15,7 +15,7 @@ import optifine.Config;
 
 public class ExpressionParser
 {
-    private IModelResolver modelResolver;
+    private final IModelResolver modelResolver;
 
     public ExpressionParser(IModelResolver modelResolver)
     {
@@ -267,7 +267,7 @@ public class ExpressionParser
 
             if (iexpression == null)
             {
-                IExpression[] aiexpression = (IExpression[])list.toArray(new IExpression[list.size()]);
+                IExpression[] aiexpression = list.toArray(new IExpression[list.size()]);
                 return aiexpression;
             }
 
@@ -363,7 +363,7 @@ public class ExpressionParser
 
     public static void main(String[] args) throws Exception
     {
-        ExpressionParser expressionparser = new ExpressionParser((IModelResolver)null);
+        ExpressionParser expressionparser = new ExpressionParser(null);
 
         while (true)
         {
@@ -380,7 +380,7 @@ public class ExpressionParser
 
                 IExpression iexpression = expressionparser.parse(s);
                 float f = iexpression.eval();
-                Config.dbg("" + s + " = " + f);
+                Config.dbg(s + " = " + f);
             }
             catch (Exception exception)
             {

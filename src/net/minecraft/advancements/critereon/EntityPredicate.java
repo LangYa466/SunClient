@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class EntityPredicate
 {
-    public static final EntityPredicate field_192483_a = new EntityPredicate((ResourceLocation)null, DistancePredicate.field_193423_a, LocationPredicate.field_193455_a, MobEffectsPredicate.field_193473_a, NBTPredicate.field_193479_a);
+    public static final EntityPredicate field_192483_a = new EntityPredicate(null, DistancePredicate.field_193423_a, LocationPredicate.field_193455_a, MobEffectsPredicate.field_193473_a, NBTPredicate.field_193479_a);
     private final ResourceLocation field_192484_b;
     private final DistancePredicate field_192485_c;
     private final LocationPredicate field_193435_d;

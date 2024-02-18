@@ -7,18 +7,8 @@ import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,13 +35,13 @@ public class ShaderPackParser
 
             while (iterator.hasNext())
             {
-                int i = ((Integer)iterator.next()).intValue();
+                int i = iterator.next().intValue();
                 String s = "/shaders/world" + i;
                 collectShaderOptions(shaderPack, s, programNames, map);
             }
 
             Collection<ShaderOption> collection = map.values();
-            ShaderOption[] ashaderoption = (ShaderOption[])collection.toArray(new ShaderOption[collection.size()]);
+            ShaderOption[] ashaderoption = collection.toArray(new ShaderOption[collection.size()]);
             Comparator<ShaderOption> comparator = new Comparator<ShaderOption>()
             {
                 public int compare(ShaderOption o1, ShaderOption o2)
@@ -99,8 +89,8 @@ public class ShaderPackParser
                     if (!Config.equals(shaderoption1.getValueDefault(), shaderoption.getValueDefault()))
                     {
                         Config.warn("Ambiguous shader option: " + shaderoption.getName());
-                        Config.warn(" - in " + Config.arrayToString((Object[])shaderoption1.getPaths()) + ": " + shaderoption1.getValueDefault());
-                        Config.warn(" - in " + Config.arrayToString((Object[])shaderoption.getPaths()) + ": " + shaderoption.getValueDefault());
+                        Config.warn(" - in " + Config.arrayToString(shaderoption1.getPaths()) + ": " + shaderoption1.getValueDefault());
+                        Config.warn(" - in " + Config.arrayToString(shaderoption.getPaths()) + ": " + shaderoption.getValueDefault());
                         shaderoption1.setEnabled(false);
                     }
 
@@ -263,7 +253,7 @@ public class ShaderPackParser
         }
         else
         {
-            ShaderProfile[] ashaderprofile = (ShaderProfile[])list.toArray(new ShaderProfile[list.size()]);
+            ShaderProfile[] ashaderprofile = list.toArray(new ShaderProfile[list.size()]);
             return ashaderprofile;
         }
     }
@@ -435,7 +425,7 @@ public class ShaderPackParser
 
                 if (s1.equals("<empty>"))
                 {
-                    list.add((ShaderOption)null);
+                    list.add(null);
                 }
                 else if (set.contains(s1))
                 {
@@ -487,7 +477,7 @@ public class ShaderPackParser
                         if (shaderoption == null)
                         {
                             Config.warn("[Shaders] Invalid option: " + s1 + ", key: " + key);
-                            list.add((ShaderOption)null);
+                            list.add(null);
                         }
                         else
                         {
@@ -498,7 +488,7 @@ public class ShaderPackParser
                 }
             }
 
-            ShaderOption[] ashaderoption = (ShaderOption[])list.toArray(new ShaderOption[list.size()]);
+            ShaderOption[] ashaderoption = list.toArray(new ShaderOption[list.size()]);
             String s2 = props.getProperty(key + ".columns");
             int j = Config.parseInt(s2, 2);
             ScreenShaderOptions screenshaderoptions = new ScreenShaderOptions(key, ashaderoption, j);
@@ -599,11 +589,7 @@ public class ShaderPackParser
             {
                 String[] astring = findExtensions(s1, ShaderMacros.getExtensions());
 
-                for (int i1 = 0; i1 < astring.length; ++i1)
-                {
-                    String s9 = astring[i1];
-                    set.add(s9);
-                }
+                Collections.addAll(set, astring);
             }
 
             chararraywriter.write(s1);
@@ -626,7 +612,7 @@ public class ShaderPackParser
             }
         }
 
-        String[] astring = (String[])list.toArray(new String[list.size()]);
+        String[] astring = list.toArray(new String[list.size()]);
         return astring;
     }
 
@@ -647,7 +633,7 @@ public class ShaderPackParser
             }
             else
             {
-                InputStreamReader inputstreamreader = new InputStreamReader(inputstream, "ASCII");
+                InputStreamReader inputstreamreader = new InputStreamReader(inputstream, StandardCharsets.US_ASCII);
                 BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
                 bufferedreader = resolveIncludes(bufferedreader, filePath, shaderPack, fileIndex, listFiles, includeLevel);
                 CharArrayWriter chararraywriter = new CharArrayWriter();

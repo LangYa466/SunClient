@@ -53,7 +53,7 @@ public class GuiIngameMenu extends GuiScreen
                 boolean flag1 = this.mc.isConnectedToRealms();
                 button.enabled = false;
                 this.mc.world.sendQuittingDisconnectingPacket();
-                this.mc.loadWorld((WorldClient)null);
+                this.mc.loadWorld(null);
 
                 if (flag)
                 {
@@ -75,7 +75,7 @@ public class GuiIngameMenu extends GuiScreen
                 break;
 
             case 4:
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
                 this.mc.setIngameFocus();
                 break;
 

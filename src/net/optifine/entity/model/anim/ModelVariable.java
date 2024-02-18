@@ -4,9 +4,9 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class ModelVariable implements IExpression
 {
-    private String name;
-    private ModelRenderer modelRenderer;
-    private EnumModelVariable enumModelVariable;
+    private final String name;
+    private final ModelRenderer modelRenderer;
+    private final EnumModelVariable enumModelVariable;
 
     public ModelVariable(String name, ModelRenderer modelRenderer, EnumModelVariable enumModelVariable)
     {

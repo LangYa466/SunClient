@@ -2,8 +2,8 @@ package optifine;
 
 public class RangeInt
 {
-    private int min;
-    private int max;
+    private final int min;
+    private final int max;
 
     public RangeInt(int p_i80_1_, int p_i80_2_)
     {

@@ -19,8 +19,8 @@ import net.minecraft.world.World;
 
 public abstract class Container
 {
-    public NonNullList<ItemStack> inventoryItemStacks = NonNullList.<ItemStack>func_191196_a();
-    public List<Slot> inventorySlots = Lists.<Slot>newArrayList();
+    public NonNullList<ItemStack> inventoryItemStacks = NonNullList.func_191196_a();
+    public List<Slot> inventorySlots = Lists.newArrayList();
     public int windowId;
     private short transactionID;
 
@@ -31,9 +31,9 @@ public abstract class Container
 
     /** The current drag event (0 : start, 1 : add slot : 2 : end) */
     private int dragEvent;
-    private final Set<Slot> dragSlots = Sets.<Slot>newHashSet();
-    protected List<IContainerListener> listeners = Lists.<IContainerListener>newArrayList();
-    private final Set<EntityPlayer> playerList = Sets.<EntityPlayer>newHashSet();
+    private final Set<Slot> dragSlots = Sets.newHashSet();
+    protected List<IContainerListener> listeners = Lists.newArrayList();
+    private final Set<EntityPlayer> playerList = Sets.newHashSet();
 
     /**
      * Adds an item slot to this container
@@ -70,11 +70,11 @@ public abstract class Container
 
     public NonNullList<ItemStack> getInventory()
     {
-        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>func_191196_a();
+        NonNullList<ItemStack> nonnulllist = NonNullList.func_191196_a();
 
         for (int i = 0; i < this.inventorySlots.size(); ++i)
         {
-            nonnulllist.add(((Slot)this.inventorySlots.get(i)).getStack());
+            nonnulllist.add(this.inventorySlots.get(i).getStack());
         }
 
         return nonnulllist;
@@ -87,7 +87,7 @@ public abstract class Container
     {
         for (int i = 0; i < this.inventorySlots.size(); ++i)
         {
-            ItemStack itemstack = ((Slot)this.inventorySlots.get(i)).getStack();
+            ItemStack itemstack = this.inventorySlots.get(i).getStack();
             ItemStack itemstack1 = this.inventoryItemStacks.get(i);
 
             if (!ItemStack.areItemStacksEqual(itemstack1, itemstack))
@@ -97,7 +97,7 @@ public abstract class Container
 
                 for (int j = 0; j < this.listeners.size(); ++j)
                 {
-                    ((IContainerListener)this.listeners.get(j)).sendSlotContents(this, i, itemstack1);
+                    this.listeners.get(j).sendSlotContents(this, i, itemstack1);
                 }
             }
         }

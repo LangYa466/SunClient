@@ -9,8 +9,8 @@ import java.util.Set;
 public class ShaderProfile
 {
     private String name = null;
-    private Map<String, String> mapOptionValues = new HashMap<String, String>();
-    private Set<String> disabledPrograms = new HashSet<String>();
+    private final Map<String, String> mapOptionValues = new HashMap<String, String>();
+    private final Set<String> disabledPrograms = new HashSet<String>();
 
     public ShaderProfile(String name)
     {
@@ -53,7 +53,7 @@ public class ShaderProfile
     public String[] getOptions()
     {
         Set<String> set = this.mapOptionValues.keySet();
-        String[] astring = (String[])set.toArray(new String[set.size()]);
+        String[] astring = set.toArray(new String[set.size()]);
         return astring;
     }
 

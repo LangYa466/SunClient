@@ -25,13 +25,16 @@ import java.util.List;
 
 public class ConfigManager {
     private final List<Config> configs = new ArrayList<>();
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     public File dir = new File(Sun.fold, "config");
+    public ModuleConfig moduleConfig;
     public ConfigManager() {
         if (!dir.exists()){
             dir.mkdir();
         }
-        configs.add(new ModuleConfig("modules.json"));
+
+        moduleConfig = new ModuleConfig("modules.json");
+        configs.add(moduleConfig);
     }
 
     public void loadConfig(String name) {

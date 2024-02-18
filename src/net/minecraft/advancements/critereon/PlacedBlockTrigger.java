@@ -29,7 +29,7 @@ import net.minecraft.world.WorldServer;
 public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.Instance>
 {
     private static final ResourceLocation field_193174_a = new ResourceLocation("placed_block");
-    private final Map<PlayerAdvancements, PlacedBlockTrigger.Listeners> field_193175_b = Maps.<PlayerAdvancements, PlacedBlockTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, PlacedBlockTrigger.Listeners> field_193175_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -102,7 +102,7 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 
                 if (iproperty == null)
                 {
-                    throw new JsonSyntaxException("Unknown block state property '" + (String)entry.getKey() + "' for block '" + Block.REGISTRY.getNameForObject(block) + "'");
+                    throw new JsonSyntaxException("Unknown block state property '" + entry.getKey() + "' for block '" + Block.REGISTRY.getNameForObject(block) + "'");
                 }
 
                 String s = JsonUtils.getString(entry.getValue(), entry.getKey());
@@ -110,12 +110,12 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 
                 if (!optional.isPresent())
                 {
-                    throw new JsonSyntaxException("Invalid block state value '" + s + "' for property '" + (String)entry.getKey() + "' on block '" + Block.REGISTRY.getNameForObject(block) + "'");
+                    throw new JsonSyntaxException("Invalid block state value '" + s + "' for property '" + entry.getKey() + "' on block '" + Block.REGISTRY.getNameForObject(block) + "'");
                 }
 
                 if (map == null)
                 {
-                    map = Maps. < IProperty<?>, Object > newHashMap();
+                    map = Maps.newHashMap();
                 }
 
                 map.put(iproperty, optional.get());
@@ -188,7 +188,7 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
     static class Listeners
     {
         private final PlayerAdvancements field_193491_a;
-        private final Set<ICriterionTrigger.Listener<PlacedBlockTrigger.Instance>> field_193492_b = Sets.<ICriterionTrigger.Listener<PlacedBlockTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<PlacedBlockTrigger.Instance>> field_193492_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47567_1_)
         {
@@ -216,11 +216,11 @@ public class PlacedBlockTrigger implements ICriterionTrigger<PlacedBlockTrigger.
 
             for (ICriterionTrigger.Listener<PlacedBlockTrigger.Instance> listener : this.field_193492_b)
             {
-                if (((PlacedBlockTrigger.Instance)listener.func_192158_a()).func_193210_a(p_193489_1_, p_193489_2_, p_193489_3_, p_193489_4_))
+                if (listener.func_192158_a().func_193210_a(p_193489_1_, p_193489_2_, p_193489_3_, p_193489_4_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<PlacedBlockTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

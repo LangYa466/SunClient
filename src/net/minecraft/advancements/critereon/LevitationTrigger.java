@@ -17,7 +17,7 @@ import net.minecraft.util.math.Vec3d;
 public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.Instance>
 {
     private static final ResourceLocation field_193164_a = new ResourceLocation("levitation");
-    private final Map<PlayerAdvancements, LevitationTrigger.Listeners> field_193165_b = Maps.<PlayerAdvancements, LevitationTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, LevitationTrigger.Listeners> field_193165_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -102,7 +102,7 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
     static class Listeners
     {
         private final PlayerAdvancements field_193450_a;
-        private final Set<ICriterionTrigger.Listener<LevitationTrigger.Instance>> field_193451_b = Sets.<ICriterionTrigger.Listener<LevitationTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<LevitationTrigger.Instance>> field_193451_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47572_1_)
         {
@@ -130,11 +130,11 @@ public class LevitationTrigger implements ICriterionTrigger<LevitationTrigger.In
 
             for (ICriterionTrigger.Listener<LevitationTrigger.Instance> listener : this.field_193451_b)
             {
-                if (((LevitationTrigger.Instance)listener.func_192158_a()).func_193201_a(p_193448_1_, p_193448_2_, p_193448_3_))
+                if (listener.func_192158_a().func_193201_a(p_193448_1_, p_193448_2_, p_193448_3_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<LevitationTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

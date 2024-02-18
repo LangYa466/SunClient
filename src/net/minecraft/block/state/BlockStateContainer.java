@@ -62,7 +62,7 @@ public class BlockStateContainer
 
     public BlockStateContainer(Block blockIn, IProperty<?>... properties)
     {
-        this(blockIn, properties, (ImmutableMap)null);
+        this(blockIn, properties, null);
     }
 
     protected BlockStateContainer.StateImplementation createState(Block p_createState_1_, ImmutableMap < IProperty<?>, Comparable<? >> p_createState_2_, @Nullable ImmutableMap < IUnlistedProperty<?>, Optional<? >> p_createState_3_)
@@ -73,7 +73,7 @@ public class BlockStateContainer
     protected BlockStateContainer(Block p_i9_1_, IProperty<?>[] p_i9_2_, ImmutableMap < IUnlistedProperty<?>, Optional<? >> p_i9_3_)
     {
         this.block = p_i9_1_;
-        Map < String, IProperty<? >> map = Maps. < String, IProperty<? >> newHashMap();
+        Map < String, IProperty<? >> map = Maps.newHashMap();
 
         for (IProperty<?> iproperty : p_i9_2_)
         {
@@ -82,12 +82,12 @@ public class BlockStateContainer
         }
 
         this.properties = ImmutableSortedMap.copyOf(map);
-        Map < Map < IProperty<?>, Comparable<? >> , BlockStateContainer.StateImplementation > map2 = Maps. < Map < IProperty<?>, Comparable<? >> , BlockStateContainer.StateImplementation > newLinkedHashMap();
-        List<BlockStateContainer.StateImplementation> list = Lists.<BlockStateContainer.StateImplementation>newArrayList();
+        Map < Map < IProperty<?>, Comparable<? >> , BlockStateContainer.StateImplementation > map2 = Maps.newLinkedHashMap();
+        List<BlockStateContainer.StateImplementation> list = Lists.newArrayList();
 
         for (List < Comparable<? >> list1 : Cartesian.cartesianProduct(this.getAllowedValues()))
         {
-            Map < IProperty<?>, Comparable<? >> map1 = MapPopulator. < IProperty<?>, Comparable<? >> createMap(this.properties.values(), list1);
+            Map < IProperty<?>, Comparable<? >> map1 = MapPopulator.createMap(this.properties.values(), list1);
             BlockStateContainer.StateImplementation blockstatecontainer$stateimplementation = this.createState(p_i9_1_, ImmutableMap.copyOf(map1), p_i9_3_);
             map2.put(map1, blockstatecontainer$stateimplementation);
             list.add(blockstatecontainer$stateimplementation);
@@ -132,7 +132,7 @@ public class BlockStateContainer
 
     private List < Iterable < Comparable<? >>> getAllowedValues()
     {
-        List < Iterable < Comparable<? >>> list = Lists. < Iterable < Comparable<? >>> newArrayList();
+        List < Iterable < Comparable<? >>> list = Lists.newArrayList();
         ImmutableCollection < IProperty<? >> immutablecollection = this.properties.values();
         UnmodifiableIterator unmodifiableiterator = immutablecollection.iterator();
 
@@ -147,7 +147,7 @@ public class BlockStateContainer
 
     public IBlockState getBaseState()
     {
-        return (IBlockState)this.validStates.get(0);
+        return this.validStates.get(0);
     }
 
     public Block getBlock()
@@ -168,14 +168,14 @@ public class BlockStateContainer
     @Nullable
     public IProperty<?> getProperty(String propertyName)
     {
-        return (IProperty)this.properties.get(propertyName);
+        return this.properties.get(propertyName);
     }
 
     public static class Builder
     {
         private final Block block;
-        private final List < IProperty<? >> listed = Lists. < IProperty<? >> newArrayList();
-        private final List < IUnlistedProperty<? >> unlisted = Lists. < IUnlistedProperty<? >> newArrayList();
+        private final List < IProperty<? >> listed = Lists.newArrayList();
+        private final List < IUnlistedProperty<? >> unlisted = Lists.newArrayList();
 
         public Builder(Block p_i11_1_)
         {
@@ -184,20 +184,14 @@ public class BlockStateContainer
 
         public BlockStateContainer.Builder add(IProperty<?>... p_add_1_)
         {
-            for (IProperty<?> iproperty : p_add_1_)
-            {
-                this.listed.add(iproperty);
-            }
+            Collections.addAll(this.listed, p_add_1_);
 
             return this;
         }
 
         public BlockStateContainer.Builder add(IUnlistedProperty<?>... p_add_1_)
         {
-            for (IUnlistedProperty<?> iunlistedproperty : p_add_1_)
-            {
-                this.unlisted.add(iunlistedproperty);
-            }
+            Collections.addAll(this.unlisted, p_add_1_);
 
             return this;
         }
@@ -205,7 +199,7 @@ public class BlockStateContainer
         public BlockStateContainer build()
         {
             IProperty<?>[] iproperty = new IProperty[this.listed.size()];
-            iproperty = (IProperty[])this.listed.toArray(iproperty);
+            iproperty = this.listed.toArray(iproperty);
 
             if (this.unlisted.size() == 0)
             {
@@ -214,7 +208,7 @@ public class BlockStateContainer
             else
             {
                 IUnlistedProperty<?>[] iunlistedproperty = new IUnlistedProperty[this.unlisted.size()];
-                iunlistedproperty = (IUnlistedProperty[])this.unlisted.toArray(iunlistedproperty);
+                iunlistedproperty = this.unlisted.toArray(iunlistedproperty);
                 return (BlockStateContainer)Reflector.newInstance(Reflector.ExtendedBlockState_Constructor, this.block, iproperty, iunlistedproperty);
             }
         }
@@ -241,12 +235,12 @@ public class BlockStateContainer
 
         public Collection < IProperty<? >> getPropertyNames()
         {
-            return Collections. < IProperty<? >> unmodifiableCollection(this.properties.keySet());
+            return Collections.unmodifiableCollection(this.properties.keySet());
         }
 
         public <T extends Comparable<T>> T getValue(IProperty<T> property)
         {
-            Comparable<?> comparable = (Comparable)this.properties.get(property);
+            Comparable<?> comparable = this.properties.get(property);
 
             if (comparable == null)
             {
@@ -254,13 +248,13 @@ public class BlockStateContainer
             }
             else
             {
-                return (T)(property.getValueClass().cast(comparable));
+                return property.getValueClass().cast(comparable);
             }
         }
 
         public <T extends Comparable<T>, V extends T> IBlockState withProperty(IProperty<T> property, V value)
         {
-            Comparable<?> comparable = (Comparable)this.properties.get(property);
+            Comparable<?> comparable = this.properties.get(property);
 
             if (comparable == null)
             {
@@ -272,7 +266,7 @@ public class BlockStateContainer
             }
             else
             {
-                IBlockState iblockstate = (IBlockState)this.propertyValueTable.get(property, value);
+                IBlockState iblockstate = this.propertyValueTable.get(property, value);
 
                 if (iblockstate == null)
                 {
@@ -313,13 +307,13 @@ public class BlockStateContainer
             }
             else
             {
-                Table < IProperty<?>, Comparable<?>, IBlockState > table = HashBasedTable. < IProperty<?>, Comparable<?>, IBlockState > create();
+                Table < IProperty<?>, Comparable<?>, IBlockState > table = HashBasedTable.create();
                 UnmodifiableIterator unmodifiableiterator = this.properties.entrySet().iterator();
 
                 while (unmodifiableiterator.hasNext())
                 {
                     Entry < IProperty<?>, Comparable<? >> entry = (Entry)unmodifiableiterator.next();
-                    IProperty<?> iproperty = (IProperty)entry.getKey();
+                    IProperty<?> iproperty = entry.getKey();
 
                     for (Comparable<?> comparable : iproperty.getAllowedValues())
                     {
@@ -336,7 +330,7 @@ public class BlockStateContainer
 
         private Map < IProperty<?>, Comparable<? >> getPropertiesWithValue(IProperty<?> property, Comparable<?> value)
         {
-            Map < IProperty<?>, Comparable<? >> map = Maps. < IProperty<?>, Comparable<? >> newHashMap(this.properties);
+            Map < IProperty<?>, Comparable<? >> map = Maps.newHashMap(this.properties);
             map.put(property, value);
             return map;
         }

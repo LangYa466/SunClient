@@ -13,11 +13,11 @@ import java.util.Set;
 
 public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
 {
-    private static final Set < Class<? >> ALL_KNOWN = Sets. < Class<? >> newHashSet();
-    private final Map < Class<?>, List<T >> map = Maps. < Class<?>, List<T >> newHashMap();
-    private final Set < Class<? >> knownKeys = Sets. < Class<? >> newIdentityHashSet();
+    private static final Set < Class<? >> ALL_KNOWN = Sets.newHashSet();
+    private final Map < Class<?>, List<T >> map = Maps.newHashMap();
+    private final Set < Class<? >> knownKeys = Sets.newIdentityHashSet();
     private final Class<T> baseClass;
-    private final List<T> values = Lists.<T>newArrayList();
+    private final List<T> values = Lists.newArrayList();
 
     public ClassInheritanceMultiMap(Class<T> baseClassIn)
     {
@@ -78,7 +78,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
 
     private void addForClass(T value, Class<?> parentClass)
     {
-        List<T> list = (List)this.map.get(parentClass);
+        List<T> list = this.map.get(parentClass);
 
         if (list == null)
         {
@@ -99,7 +99,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
         {
             if (oclass.isAssignableFrom(t.getClass()))
             {
-                List<T> list = (List)this.map.get(oclass);
+                List<T> list = this.map.get(oclass);
 
                 if (list != null && list.remove(t))
                 {
@@ -122,11 +122,11 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
         {
             public Iterator<S> iterator()
             {
-                List<T> list = (List)ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
+                List<T> list = ClassInheritanceMultiMap.this.map.get(ClassInheritanceMultiMap.this.initializeClassLookup(clazz));
 
                 if (list == null)
                 {
-                    return Collections.<S>emptyIterator();
+                    return Collections.emptyIterator();
                 }
                 else
                 {
@@ -139,7 +139,7 @@ public class ClassInheritanceMultiMap<T> extends AbstractSet<T>
 
     public Iterator<T> iterator()
     {
-        return (Iterator<T>)(this.values.isEmpty() ? Collections.emptyIterator() : Iterators.unmodifiableIterator(this.values.iterator()));
+        return this.values.isEmpty() ? Collections.emptyIterator() : Iterators.unmodifiableIterator(this.values.iterator());
     }
 
     public int size()

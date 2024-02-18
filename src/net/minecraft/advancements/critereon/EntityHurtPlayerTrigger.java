@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlayerTrigger.Instance>
 {
     private static final ResourceLocation field_192201_a = new ResourceLocation("entity_hurt_player");
-    private final Map<PlayerAdvancements, EntityHurtPlayerTrigger.Listeners> field_192202_b = Maps.<PlayerAdvancements, EntityHurtPlayerTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, EntityHurtPlayerTrigger.Listeners> field_192202_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -92,7 +92,7 @@ public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlay
     static class Listeners
     {
         private final PlayerAdvancements field_192479_a;
-        private final Set<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>> field_192480_b = Sets.<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>> field_192480_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47439_1_)
         {
@@ -120,11 +120,11 @@ public class EntityHurtPlayerTrigger implements ICriterionTrigger<EntityHurtPlay
 
             for (ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance> listener : this.field_192480_b)
             {
-                if (((EntityHurtPlayerTrigger.Instance)listener.func_192158_a()).func_192263_a(p_192478_1_, p_192478_2_, p_192478_3_, p_192478_4_, p_192478_5_))
+                if (listener.func_192158_a().func_192263_a(p_192478_1_, p_192478_2_, p_192478_3_, p_192478_4_, p_192478_5_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<EntityHurtPlayerTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

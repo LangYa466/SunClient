@@ -43,11 +43,11 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.field_193646_a = (SPacketRecipeBook.State)buf.readEnumValue(SPacketRecipeBook.State.class);
+        this.field_193646_a = buf.readEnumValue(State.class);
         this.field_192598_c = buf.readBoolean();
         this.field_192599_d = buf.readBoolean();
         int i = buf.readVarIntFromBuffer();
-        this.field_192596_a = Lists.<IRecipe>newArrayList();
+        this.field_192596_a = Lists.newArrayList();
 
         for (int j = 0; j < i; ++j)
         {
@@ -57,7 +57,7 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient>
         if (this.field_193646_a == SPacketRecipeBook.State.INIT)
         {
             i = buf.readVarIntFromBuffer();
-            this.field_193647_c = Lists.<IRecipe>newArrayList();
+            this.field_193647_c = Lists.newArrayList();
 
             for (int k = 0; k < i; ++k)
             {
@@ -117,10 +117,10 @@ public class SPacketRecipeBook implements Packet<INetHandlerPlayClient>
         return this.field_193646_a;
     }
 
-    public static enum State
+    public enum State
     {
         INIT,
         ADD,
-        REMOVE;
+        REMOVE
     }
 }

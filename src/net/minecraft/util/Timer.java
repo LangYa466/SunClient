@@ -16,7 +16,7 @@ public class Timer
      * The time reported by the system clock at the last sync, in milliseconds
      */
     private long lastSyncSysClock;
-    private float field_194149_e;
+    private final float field_194149_e;
 
     public Timer(float tps)
     {

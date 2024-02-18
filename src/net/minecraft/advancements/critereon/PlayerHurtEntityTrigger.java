@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEntityTrigger.Instance>
 {
     private static final ResourceLocation field_192222_a = new ResourceLocation("player_hurt_entity");
-    private final Map<PlayerAdvancements, PlayerHurtEntityTrigger.Listeners> field_192223_b = Maps.<PlayerAdvancements, PlayerHurtEntityTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, PlayerHurtEntityTrigger.Listeners> field_192223_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -103,7 +103,7 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
     static class Listeners
     {
         private final PlayerAdvancements field_192523_a;
-        private final Set<ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance>> field_192524_b = Sets.<ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance>> field_192524_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47407_1_)
         {
@@ -131,11 +131,11 @@ public class PlayerHurtEntityTrigger implements ICriterionTrigger<PlayerHurtEnti
 
             for (ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance> listener : this.field_192524_b)
             {
-                if (((PlayerHurtEntityTrigger.Instance)listener.func_192158_a()).func_192278_a(p_192521_1_, p_192521_2_, p_192521_3_, p_192521_4_, p_192521_5_, p_192521_6_))
+                if (listener.func_192158_a().func_192278_a(p_192521_1_, p_192521_2_, p_192521_3_, p_192521_4_, p_192521_5_, p_192521_6_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<PlayerHurtEntityTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

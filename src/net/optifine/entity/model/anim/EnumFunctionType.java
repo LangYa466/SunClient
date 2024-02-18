@@ -34,18 +34,18 @@ public enum EnumFunctionType
     FMOD("fmod", 2),
     TIME("time", 0);
 
-    private String name;
-    private int countArguments;
+    private final String name;
+    private final int countArguments;
     private int precedence;
     public static EnumFunctionType[] VALUES = values();
 
-    private EnumFunctionType(String name, int countArguments)
+    EnumFunctionType(String name, int countArguments)
     {
         this.name = name;
         this.countArguments = countArguments;
     }
 
-    private EnumFunctionType(String name, int countArguments, int precedence)
+    EnumFunctionType(String name, int countArguments, int precedence)
     {
         this.name = name;
         this.countArguments = countArguments;
@@ -108,13 +108,13 @@ public enum EnumFunctionType
                     return MathHelper.cos(arguments[0].eval());
 
                 case TAN:
-                    return (float)Math.tan((double)arguments[0].eval());
+                    return (float)Math.tan(arguments[0].eval());
 
                 case ATAN:
-                    return (float)Math.atan((double)arguments[0].eval());
+                    return (float)Math.atan(arguments[0].eval());
 
                 case ATAN2:
-                    return (float)MathHelper.atan2((double)arguments[0].eval(), (double)arguments[1].eval());
+                    return (float)MathHelper.atan2(arguments[0].eval(), arguments[1].eval());
 
                 case TORAD:
                     return MathUtils.toRad(arguments[0].eval());
@@ -141,7 +141,7 @@ public enum EnumFunctionType
                     return (float)MathHelper.ceil(arguments[0].eval());
 
                 case FRAC:
-                    return (float)MathHelper.frac((double)arguments[0].eval());
+                    return (float)MathHelper.frac(arguments[0].eval());
 
                 case ROUND:
                     return (float)Math.round(arguments[0].eval());

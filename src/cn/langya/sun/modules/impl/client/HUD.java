@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
 
 import java.awt.*;
-import java.text.DecimalFormat;
 
 /**
  * @author LangYa

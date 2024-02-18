@@ -17,7 +17,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
 
     public void func_192841_a(TileEntityBeacon p_192841_1_, double p_192841_2_, double p_192841_4_, double p_192841_6_, float p_192841_8_, int p_192841_9_, float p_192841_10_)
     {
-        this.renderBeacon(p_192841_2_, p_192841_4_, p_192841_6_, (double)p_192841_8_, (double)p_192841_1_.shouldBeamRender(), p_192841_1_.getBeamSegments(), (double)p_192841_1_.getWorld().getTotalWorldTime());
+        this.renderBeacon(p_192841_2_, p_192841_4_, p_192841_6_, p_192841_8_, p_192841_1_.shouldBeamRender(), p_192841_1_.getBeamSegments(), (double)p_192841_1_.getWorld().getTotalWorldTime());
     }
 
     public void renderBeacon(double p_188206_1_, double p_188206_3_, double p_188206_5_, double p_188206_7_, double p_188206_9_, List<TileEntityBeacon.BeamSegment> p_188206_11_, double p_188206_12_)

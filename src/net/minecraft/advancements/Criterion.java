@@ -53,7 +53,7 @@ public class Criterion
 
     public static Map<String, Criterion> func_192144_b(JsonObject p_192144_0_, JsonDeserializationContext p_192144_1_)
     {
-        Map<String, Criterion> map = Maps.<String, Criterion>newHashMap();
+        Map<String, Criterion> map = Maps.newHashMap();
 
         for (Entry<String, JsonElement> entry : p_192144_0_.entrySet())
         {
@@ -65,7 +65,7 @@ public class Criterion
 
     public static Map<String, Criterion> func_192142_c(PacketBuffer p_192142_0_)
     {
-        Map<String, Criterion> map = Maps.<String, Criterion>newHashMap();
+        Map<String, Criterion> map = Maps.newHashMap();
         int i = p_192142_0_.readVarIntFromBuffer();
 
         for (int j = 0; j < i; ++j)
@@ -83,7 +83,7 @@ public class Criterion
         for (Entry<String, Criterion> entry : p_192141_0_.entrySet())
         {
             p_192141_1_.writeString(entry.getKey());
-            ((Criterion)entry.getValue()).func_192140_a(p_192141_1_);
+            entry.getValue().func_192140_a(p_192141_1_);
         }
     }
 

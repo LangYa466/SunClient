@@ -27,7 +27,7 @@ public class TileEntityBedRenderer extends TileEntitySpecialRenderer<TileEntityB
         }
 
         boolean flag = p_192841_1_.getWorld() != null;
-        boolean flag1 = flag ? p_192841_1_.func_193050_e() : true;
+        boolean flag1 = !flag || p_192841_1_.func_193050_e();
         EnumDyeColor enumdyecolor = p_192841_1_ != null ? p_192841_1_.func_193048_a() : EnumDyeColor.RED;
         int i = flag ? p_192841_1_.getBlockMetadata() & 3 : 0;
 

@@ -21,7 +21,7 @@ public class Json
 
     public static String getString(JsonObject p_getString_0_, String p_getString_1_)
     {
-        return getString(p_getString_0_, p_getString_1_, (String)null);
+        return getString(p_getString_0_, p_getString_1_, null);
     }
 
     public static String getString(JsonObject p_getString_0_, String p_getString_1_, String p_getString_2_)
@@ -32,7 +32,7 @@ public class Json
 
     public static float[] parseFloatArray(JsonElement p_parseFloatArray_0_, int p_parseFloatArray_1_)
     {
-        return parseFloatArray(p_parseFloatArray_0_, p_parseFloatArray_1_, (float[])null);
+        return parseFloatArray(p_parseFloatArray_0_, p_parseFloatArray_1_, null);
     }
 
     public static float[] parseFloatArray(JsonElement p_parseFloatArray_0_, int p_parseFloatArray_1_, float[] p_parseFloatArray_2_)
@@ -65,7 +65,7 @@ public class Json
 
     public static int[] parseIntArray(JsonElement p_parseIntArray_0_, int p_parseIntArray_1_)
     {
-        return parseIntArray(p_parseIntArray_0_, p_parseIntArray_1_, (int[])null);
+        return parseIntArray(p_parseIntArray_0_, p_parseIntArray_1_, null);
     }
 
     public static int[] parseIntArray(JsonElement p_parseIntArray_0_, int p_parseIntArray_1_, int[] p_parseIntArray_2_)

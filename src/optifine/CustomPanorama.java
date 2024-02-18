@@ -63,7 +63,7 @@ public class CustomPanorama
             }
         }
 
-        String[] astring = (String[])list.toArray(new String[list.size()]);
+        String[] astring = list.toArray(new String[list.size()]);
         return astring;
     }
 
@@ -101,7 +101,6 @@ public class CustomPanorama
             }
             catch (IOException var7)
             {
-                ;
             }
         }
 
@@ -127,7 +126,7 @@ public class CustomPanorama
             }
             else
             {
-                String s = properties.getProperty("weight", (String)null);
+                String s = properties.getProperty("weight", null);
                 aint[i] = Config.parseInt(s, 1);
             }
         }

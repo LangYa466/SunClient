@@ -83,6 +83,6 @@ public class MatchBlock
 
     public String toString()
     {
-        return "" + this.blockId + ":" + Config.arrayToString(this.metadatas);
+        return this.blockId + ":" + Config.arrayToString(this.metadatas);
     }
 }

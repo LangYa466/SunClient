@@ -28,7 +28,7 @@ import java.nio.ByteBuffer;
 
 public class Sun {
 
-    public static final String name = "SunClient";
+    public static String name = "SunClient";
     public static final String version = "1.0";
     public static final String author = "LangYa,PaiMon,Eternity_";
     public static final String cloud = "https://sunclient.cloud/";
@@ -51,8 +51,8 @@ public class Sun {
 
         ClientUtils.loginfo("SunClient Loading..");
         eventManager = new EventManager();
-        moduleManager = new ModuleManager();
         notificationManager = new NotificationManager();
+        moduleManager = new ModuleManager();
         uiManager = new UIManager();
         commandManager = new CommandManager();
         configManager = new ConfigManager();

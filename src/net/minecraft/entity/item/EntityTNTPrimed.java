@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class EntityTNTPrimed extends Entity
 {
-    private static final DataParameter<Integer> FUSE = EntityDataManager.<Integer>createKey(EntityTNTPrimed.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> FUSE = EntityDataManager.createKey(EntityTNTPrimed.class, DataSerializers.VARINT);
     @Nullable
     private EntityLivingBase tntPlacedBy;
 
@@ -34,9 +34,9 @@ public class EntityTNTPrimed extends Entity
         this(worldIn);
         this.setPosition(x, y, z);
         float f = (float)(Math.random() * (Math.PI * 2D));
-        this.motionX = (double)(-((float)Math.sin((double)f)) * 0.02F);
+        this.motionX = -((float)Math.sin(f)) * 0.02F;
         this.motionY = 0.20000000298023224D;
-        this.motionZ = (double)(-((float)Math.cos((double)f)) * 0.02F);
+        this.motionZ = -((float)Math.cos(f)) * 0.02F;
         this.setFuse(80);
         this.prevPosX = x;
         this.prevPosY = y;
@@ -166,7 +166,7 @@ public class EntityTNTPrimed extends Entity
      */
     public int getFuseDataManager()
     {
-        return ((Integer)this.dataManager.get(FUSE)).intValue();
+        return this.dataManager.get(FUSE).intValue();
     }
 
     public int getFuse()

@@ -20,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChangeTrigger.Instance>
 {
     private static final ResourceLocation field_192209_a = new ResourceLocation("inventory_changed");
-    private final Map<PlayerAdvancements, InventoryChangeTrigger.Listeners> field_192210_b = Maps.<PlayerAdvancements, InventoryChangeTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, InventoryChangeTrigger.Listeners> field_192210_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -146,21 +146,14 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
             {
                 return false;
             }
-            else if (!list.isEmpty())
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            else return list.isEmpty();
         }
     }
 
     static class Listeners
     {
         private final PlayerAdvancements field_192490_a;
-        private final Set<ICriterionTrigger.Listener<InventoryChangeTrigger.Instance>> field_192491_b = Sets.<ICriterionTrigger.Listener<InventoryChangeTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<InventoryChangeTrigger.Instance>> field_192491_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47391_1_)
         {
@@ -188,11 +181,11 @@ public class InventoryChangeTrigger implements ICriterionTrigger<InventoryChange
 
             for (ICriterionTrigger.Listener<InventoryChangeTrigger.Instance> listener : this.field_192491_b)
             {
-                if (((InventoryChangeTrigger.Instance)listener.func_192158_a()).func_192265_a(p_192486_1_))
+                if (listener.func_192158_a().func_192265_a(p_192486_1_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<InventoryChangeTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

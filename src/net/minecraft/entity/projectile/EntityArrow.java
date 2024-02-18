@@ -44,7 +44,7 @@ public abstract class EntityArrow extends Entity implements IProjectile
             return p_apply_1_.canBeCollidedWith();
         }
     });
-    private static final DataParameter<Byte> CRITICAL = EntityDataManager.<Byte>createKey(EntityArrow.class, DataSerializers.BYTE);
+    private static final DataParameter<Byte> CRITICAL = EntityDataManager.createKey(EntityArrow.class, DataSerializers.BYTE);
     private int xTile;
     private int yTile;
     private int zTile;
@@ -122,7 +122,7 @@ public abstract class EntityArrow extends Entity implements IProjectile
         float f = -MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
         float f1 = -MathHelper.sin(pitch * 0.017453292F);
         float f2 = MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F);
-        this.setThrowableHeading((double)f, (double)f1, (double)f2, velocity, inaccuracy);
+        this.setThrowableHeading(f, f1, f2, velocity, inaccuracy);
         this.motionX += shooter.motionX;
         this.motionZ += shooter.motionZ;
 
@@ -152,7 +152,7 @@ public abstract class EntityArrow extends Entity implements IProjectile
         this.motionZ = z;
         float f1 = MathHelper.sqrt(x * x + z * z);
         this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
-        this.rotationPitch = (float)(MathHelper.atan2(y, (double)f1) * (180D / Math.PI));
+        this.rotationPitch = (float)(MathHelper.atan2(y, f1) * (180D / Math.PI));
         this.prevRotationYaw = this.rotationYaw;
         this.prevRotationPitch = this.rotationPitch;
         this.ticksInGround = 0;
@@ -179,7 +179,7 @@ public abstract class EntityArrow extends Entity implements IProjectile
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt(x * x + z * z);
-            this.rotationPitch = (float)(MathHelper.atan2(y, (double)f) * (180D / Math.PI));
+            this.rotationPitch = (float)(MathHelper.atan2(y, f) * (180D / Math.PI));
             this.rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
             this.prevRotationPitch = this.rotationPitch;
             this.prevRotationYaw = this.rotationYaw;
@@ -199,7 +199,7 @@ public abstract class EntityArrow extends Entity implements IProjectile
         {
             float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
-            this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f) * (180D / Math.PI));
+            this.rotationPitch = (float)(MathHelper.atan2(this.motionY, f) * (180D / Math.PI));
             this.prevRotationYaw = this.rotationYaw;
             this.prevRotationPitch = this.rotationPitch;
         }
@@ -230,9 +230,9 @@ public abstract class EntityArrow extends Entity implements IProjectile
             if ((block != this.inTile || j != this.inData) && !this.world.collidesWithAnyBlock(this.getEntityBoundingBox().expandXyz(0.05D)))
             {
                 this.inGround = false;
-                this.motionX *= (double)(this.rand.nextFloat() * 0.2F);
-                this.motionY *= (double)(this.rand.nextFloat() * 0.2F);
-                this.motionZ *= (double)(this.rand.nextFloat() * 0.2F);
+                this.motionX *= this.rand.nextFloat() * 0.2F;
+                this.motionY *= this.rand.nextFloat() * 0.2F;
+                this.motionZ *= this.rand.nextFloat() * 0.2F;
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             }
@@ -299,9 +299,8 @@ public abstract class EntityArrow extends Entity implements IProjectile
             float f4 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (180D / Math.PI));
 
-            for (this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f4) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+            for (this.rotationPitch = (float)(MathHelper.atan2(this.motionY, f4) * (180D / Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
             {
-                ;
             }
 
             while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
@@ -340,9 +339,9 @@ public abstract class EntityArrow extends Entity implements IProjectile
                 this.extinguish();
             }
 
-            this.motionX *= (double)f1;
-            this.motionY *= (double)f1;
-            this.motionZ *= (double)f1;
+            this.motionX *= f1;
+            this.motionY *= f1;
+            this.motionZ *= f1;
 
             if (!this.hasNoGravity())
             {
@@ -458,9 +457,9 @@ public abstract class EntityArrow extends Entity implements IProjectile
             IBlockState iblockstate = this.world.getBlockState(blockpos);
             this.inTile = iblockstate.getBlock();
             this.inData = this.inTile.getMetaFromState(iblockstate);
-            this.motionX = (double)((float)(raytraceResultIn.hitVec.xCoord - this.posX));
-            this.motionY = (double)((float)(raytraceResultIn.hitVec.yCoord - this.posY));
-            this.motionZ = (double)((float)(raytraceResultIn.hitVec.zCoord - this.posZ));
+            this.motionX = (float)(raytraceResultIn.hitVec.xCoord - this.posX);
+            this.motionY = (float)(raytraceResultIn.hitVec.yCoord - this.posY);
+            this.motionZ = (float)(raytraceResultIn.hitVec.zCoord - this.posZ);
             float f2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
             this.posX -= this.motionX / (double)f2 * 0.05000000074505806D;
             this.posY -= this.motionY / (double)f2 * 0.05000000074505806D;
@@ -665,7 +664,7 @@ public abstract class EntityArrow extends Entity implements IProjectile
      */
     public void setIsCritical(boolean critical)
     {
-        byte b0 = ((Byte)this.dataManager.get(CRITICAL)).byteValue();
+        byte b0 = this.dataManager.get(CRITICAL).byteValue();
 
         if (critical)
         {
@@ -682,7 +681,7 @@ public abstract class EntityArrow extends Entity implements IProjectile
      */
     public boolean getIsCritical()
     {
-        byte b0 = ((Byte)this.dataManager.get(CRITICAL)).byteValue();
+        byte b0 = this.dataManager.get(CRITICAL).byteValue();
         return (b0 & 1) != 0;
     }
 
@@ -708,7 +707,7 @@ public abstract class EntityArrow extends Entity implements IProjectile
         }
     }
 
-    public static enum PickupStatus
+    public enum PickupStatus
     {
         DISALLOWED,
         ALLOWED,

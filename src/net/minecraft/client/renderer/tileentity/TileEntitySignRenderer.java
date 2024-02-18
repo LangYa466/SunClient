@@ -99,7 +99,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
                 {
                     ITextComponent itextcomponent = p_192841_1_.signText[j];
                     List<ITextComponent> list = GuiUtilRenderComponents.splitText(itextcomponent, 90, fontrenderer, false, true);
-                    String s = list != null && !list.isEmpty() ? ((ITextComponent)list.get(0)).getFormattedText() : "";
+                    String s = list != null && !list.isEmpty() ? list.get(0).getFormattedText() : "";
 
                     if (j == p_192841_1_.lineBeingEdited)
                     {

@@ -58,8 +58,8 @@ public class BlockModelUtils
     public static IBakedModel joinModelsCube(IBakedModel p_joinModelsCube_0_, IBakedModel p_joinModelsCube_1_)
     {
         List<BakedQuad> list = new ArrayList<BakedQuad>();
-        list.addAll(p_joinModelsCube_0_.getQuads((IBlockState)null, (EnumFacing)null, 0L));
-        list.addAll(p_joinModelsCube_1_.getQuads((IBlockState)null, (EnumFacing)null, 0L));
+        list.addAll(p_joinModelsCube_0_.getQuads(null, null, 0L));
+        list.addAll(p_joinModelsCube_1_.getQuads(null, null, 0L));
         EnumFacing[] aenumfacing = EnumFacing.VALUES;
         Map<EnumFacing, List<BakedQuad>> map = new HashMap<EnumFacing, List<BakedQuad>>();
 
@@ -67,8 +67,8 @@ public class BlockModelUtils
         {
             EnumFacing enumfacing = aenumfacing[i];
             List list1 = new ArrayList();
-            list1.addAll(p_joinModelsCube_0_.getQuads((IBlockState)null, enumfacing, 0L));
-            list1.addAll(p_joinModelsCube_1_.getQuads((IBlockState)null, enumfacing, 0L));
+            list1.addAll(p_joinModelsCube_0_.getQuads(null, enumfacing, 0L));
+            list1.addAll(p_joinModelsCube_1_.getQuads(null, enumfacing, 0L));
             map.put(enumfacing, list1);
         }
 
@@ -127,11 +127,11 @@ public class BlockModelUtils
                     for (int i = 0; i < aenumfacing.length; ++i)
                     {
                         EnumFacing enumfacing = aenumfacing[i];
-                        List<BakedQuad> list = ibakedmodel1.getQuads((IBlockState)null, enumfacing, 0L);
+                        List<BakedQuad> list = ibakedmodel1.getQuads(null, enumfacing, 0L);
                         replaceTexture(list, p_makeModel_1_, p_makeModel_2_);
                     }
 
-                    List<BakedQuad> list1 = ibakedmodel1.getQuads((IBlockState)null, (EnumFacing)null, 0L);
+                    List<BakedQuad> list1 = ibakedmodel1.getQuads(null, null, 0L);
                     replaceTexture(list1, p_makeModel_1_, p_makeModel_2_);
                     return ibakedmodel1;
                 }
@@ -190,7 +190,7 @@ public class BlockModelUtils
     {
         int i = p_getOffsetBoundingBox_2_.getX();
         int j = p_getOffsetBoundingBox_2_.getZ();
-        long k = (long)(i * 3129871) ^ (long)j * 116129781L;
+        long k = (long)(i * 3129871L) ^ (long)j * 116129781L;
         k = k * k * 42317861L + k * 11L;
         double d0 = ((double)((float)(k >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
         double d1 = ((double)((float)(k >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;

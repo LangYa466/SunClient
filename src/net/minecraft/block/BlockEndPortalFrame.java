@@ -60,7 +60,7 @@ public class BlockEndPortalFrame extends Block
     {
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BLOCK);
 
-        if (((Boolean)worldIn.getBlockState(pos).getValue(EYE)).booleanValue())
+        if (worldIn.getBlockState(pos).getValue(EYE).booleanValue())
         {
             addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_EYE);
         }
@@ -90,7 +90,7 @@ public class BlockEndPortalFrame extends Block
 
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
     {
-        return ((Boolean)blockState.getValue(EYE)).booleanValue() ? 15 : 0;
+        return blockState.getValue(EYE).booleanValue() ? 15 : 0;
     }
 
     /**
@@ -107,9 +107,9 @@ public class BlockEndPortalFrame extends Block
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
+        i = i | state.getValue(FACING).getHorizontalIndex();
 
-        if (((Boolean)state.getValue(EYE)).booleanValue())
+        if (state.getValue(EYE).booleanValue())
         {
             i |= 4;
         }
@@ -123,7 +123,7 @@ public class BlockEndPortalFrame extends Block
      */
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     /**
@@ -132,12 +132,12 @@ public class BlockEndPortalFrame extends Block
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING, EYE});
+        return new BlockStateContainer(this, FACING, EYE);
     }
 
     public boolean isFullCube(IBlockState state)

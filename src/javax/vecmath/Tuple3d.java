@@ -93,9 +93,9 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
      */
     public Tuple3d(Tuple3f t1)
     {
-	this.x = (double) t1.x;
-	this.y = (double) t1.y;
-	this.z = (double) t1.z;
+	this.x = t1.x;
+	this.y = t1.y;
+	this.z = t1.z;
     }
 
     /**
@@ -103,9 +103,9 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
      */
     public Tuple3d()
     {
-	this.x = (double) 0.0;
-	this.y = (double) 0.0;
-	this.z = (double) 0.0;
+	this.x = 0.0;
+	this.y = 0.0;
+	this.z = 0.0;
     }
 
     /**
@@ -150,9 +150,9 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
      */
     public final void set(Tuple3f t1)
     {
-	this.x = (double) t1.x;
-	this.y = (double) t1.y;
-	this.z = (double) t1.z;
+	this.x = t1.x;
+	this.y = t1.y;
+	this.z = t1.z;
     }
 
    /**
@@ -402,9 +402,7 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 
        diff = z - t1.z;
        if(Double.isNaN(diff)) return false;
-       if((diff<0?-diff:diff) > epsilon) return false;
-
-       return true;
+        return !((diff < 0 ? -diff : diff) > epsilon);
 
     }
 
@@ -413,7 +411,7 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
      * @deprecated Use clamp(double,double,Tuple3d) instead
      */
     public final void clamp(float min, float max, Tuple3d t) {
-	clamp((double)min, (double)max, t);
+	clamp(min, (double)max, t);
     }
 
 
@@ -542,7 +540,7 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
      * @deprecated Use clamp(double,double) instead
      */
     public final void clamp(float min, float max) {
-	clamp((double)min, (double)max);
+	clamp(min, (double)max);
     }
 
 

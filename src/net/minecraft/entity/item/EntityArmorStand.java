@@ -45,13 +45,13 @@ public class EntityArmorStand extends EntityLivingBase
     private static final Rotations DEFAULT_RIGHTARM_ROTATION = new Rotations(-15.0F, 0.0F, 10.0F);
     private static final Rotations DEFAULT_LEFTLEG_ROTATION = new Rotations(-1.0F, 0.0F, -1.0F);
     private static final Rotations DEFAULT_RIGHTLEG_ROTATION = new Rotations(1.0F, 0.0F, 1.0F);
-    public static final DataParameter<Byte> STATUS = EntityDataManager.<Byte>createKey(EntityArmorStand.class, DataSerializers.BYTE);
-    public static final DataParameter<Rotations> HEAD_ROTATION = EntityDataManager.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
-    public static final DataParameter<Rotations> BODY_ROTATION = EntityDataManager.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
-    public static final DataParameter<Rotations> LEFT_ARM_ROTATION = EntityDataManager.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
-    public static final DataParameter<Rotations> RIGHT_ARM_ROTATION = EntityDataManager.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
-    public static final DataParameter<Rotations> LEFT_LEG_ROTATION = EntityDataManager.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
-    public static final DataParameter<Rotations> RIGHT_LEG_ROTATION = EntityDataManager.<Rotations>createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+    public static final DataParameter<Byte> STATUS = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.BYTE);
+    public static final DataParameter<Rotations> HEAD_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+    public static final DataParameter<Rotations> BODY_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+    public static final DataParameter<Rotations> LEFT_ARM_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+    public static final DataParameter<Rotations> RIGHT_ARM_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+    public static final DataParameter<Rotations> LEFT_LEG_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
+    public static final DataParameter<Rotations> RIGHT_LEG_ROTATION = EntityDataManager.createKey(EntityArmorStand.class, DataSerializers.ROTATIONS);
     private static final Predicate<Entity> IS_RIDEABLE_MINECART = new Predicate<Entity>()
     {
         public boolean apply(@Nullable Entity p_apply_1_)
@@ -79,8 +79,8 @@ public class EntityArmorStand extends EntityLivingBase
     public EntityArmorStand(World worldIn)
     {
         super(worldIn);
-        this.handItems = NonNullList.<ItemStack>func_191197_a(2, ItemStack.field_190927_a);
-        this.armorItems = NonNullList.<ItemStack>func_191197_a(4, ItemStack.field_190927_a);
+        this.handItems = NonNullList.func_191197_a(2, ItemStack.field_190927_a);
+        this.armorItems = NonNullList.func_191197_a(4, ItemStack.field_190927_a);
         this.headRotation = DEFAULT_HEAD_ROTATION;
         this.bodyRotation = DEFAULT_BODY_ROTATION;
         this.leftArmRotation = DEFAULT_LEFTARM_ROTATION;
@@ -217,7 +217,7 @@ public class EntityArmorStand extends EntityLivingBase
 
     public static void registerFixesArmorStand(DataFixer fixer)
     {
-        fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityArmorStand.class, new String[] {"ArmorItems", "HandItems"}));
+        fixer.registerWalker(FixTypes.ENTITY, new ItemStackDataLists(EntityArmorStand.class, "ArmorItems", "HandItems"));
     }
 
     /**
@@ -641,7 +641,7 @@ public class EntityArmorStand extends EntityLivingBase
     {
         if (this.world instanceof WorldServer)
         {
-            ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY + (double)this.height / 1.5D, this.posZ, 10, (double)(this.width / 4.0F), (double)(this.height / 4.0F), (double)(this.width / 4.0F), 0.05D, Block.getStateId(Blocks.PLANKS.getDefaultState()));
+            ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY + (double)this.height / 1.5D, this.posZ, 10, this.width / 4.0F, this.height / 4.0F, this.width / 4.0F, 0.05D, Block.getStateId(Blocks.PLANKS.getDefaultState()));
         }
     }
 
@@ -696,7 +696,7 @@ public class EntityArmorStand extends EntityLivingBase
 
     private void func_190773_I()
     {
-        this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_ARMORSTAND_BREAK, this.getSoundCategory(), 1.0F, 1.0F);
+        this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_ARMORSTAND_BREAK, this.getSoundCategory(), 1.0F, 1.0F);
     }
 
     protected float updateDistance(float p_110146_1_, float p_110146_2_)
@@ -751,42 +751,42 @@ public class EntityArmorStand extends EntityLivingBase
     public void onUpdate()
     {
         super.onUpdate();
-        Rotations rotations = (Rotations)this.dataManager.get(HEAD_ROTATION);
+        Rotations rotations = this.dataManager.get(HEAD_ROTATION);
 
         if (!this.headRotation.equals(rotations))
         {
             this.setHeadRotation(rotations);
         }
 
-        Rotations rotations1 = (Rotations)this.dataManager.get(BODY_ROTATION);
+        Rotations rotations1 = this.dataManager.get(BODY_ROTATION);
 
         if (!this.bodyRotation.equals(rotations1))
         {
             this.setBodyRotation(rotations1);
         }
 
-        Rotations rotations2 = (Rotations)this.dataManager.get(LEFT_ARM_ROTATION);
+        Rotations rotations2 = this.dataManager.get(LEFT_ARM_ROTATION);
 
         if (!this.leftArmRotation.equals(rotations2))
         {
             this.setLeftArmRotation(rotations2);
         }
 
-        Rotations rotations3 = (Rotations)this.dataManager.get(RIGHT_ARM_ROTATION);
+        Rotations rotations3 = this.dataManager.get(RIGHT_ARM_ROTATION);
 
         if (!this.rightArmRotation.equals(rotations3))
         {
             this.setRightArmRotation(rotations3);
         }
 
-        Rotations rotations4 = (Rotations)this.dataManager.get(LEFT_LEG_ROTATION);
+        Rotations rotations4 = this.dataManager.get(LEFT_LEG_ROTATION);
 
         if (!this.leftLegRotation.equals(rotations4))
         {
             this.setLeftLegRotation(rotations4);
         }
 
-        Rotations rotations5 = (Rotations)this.dataManager.get(RIGHT_LEG_ROTATION);
+        Rotations rotations5 = this.dataManager.get(RIGHT_LEG_ROTATION);
 
         if (!this.rightLegRotation.equals(rotations5))
         {
@@ -858,33 +858,33 @@ public class EntityArmorStand extends EntityLivingBase
 
     private void setSmall(boolean small)
     {
-        this.dataManager.set(STATUS, Byte.valueOf(this.setBit(((Byte)this.dataManager.get(STATUS)).byteValue(), 1, small)));
+        this.dataManager.set(STATUS, Byte.valueOf(this.setBit(this.dataManager.get(STATUS).byteValue(), 1, small)));
         this.setSize(0.5F, 1.975F);
     }
 
     public boolean isSmall()
     {
-        return (((Byte)this.dataManager.get(STATUS)).byteValue() & 1) != 0;
+        return (this.dataManager.get(STATUS).byteValue() & 1) != 0;
     }
 
     private void setShowArms(boolean showArms)
     {
-        this.dataManager.set(STATUS, Byte.valueOf(this.setBit(((Byte)this.dataManager.get(STATUS)).byteValue(), 4, showArms)));
+        this.dataManager.set(STATUS, Byte.valueOf(this.setBit(this.dataManager.get(STATUS).byteValue(), 4, showArms)));
     }
 
     public boolean getShowArms()
     {
-        return (((Byte)this.dataManager.get(STATUS)).byteValue() & 4) != 0;
+        return (this.dataManager.get(STATUS).byteValue() & 4) != 0;
     }
 
     private void setNoBasePlate(boolean noBasePlate)
     {
-        this.dataManager.set(STATUS, Byte.valueOf(this.setBit(((Byte)this.dataManager.get(STATUS)).byteValue(), 8, noBasePlate)));
+        this.dataManager.set(STATUS, Byte.valueOf(this.setBit(this.dataManager.get(STATUS).byteValue(), 8, noBasePlate)));
     }
 
     public boolean hasNoBasePlate()
     {
-        return (((Byte)this.dataManager.get(STATUS)).byteValue() & 8) != 0;
+        return (this.dataManager.get(STATUS).byteValue() & 8) != 0;
     }
 
     /**
@@ -892,7 +892,7 @@ public class EntityArmorStand extends EntityLivingBase
      */
     private void setMarker(boolean marker)
     {
-        this.dataManager.set(STATUS, Byte.valueOf(this.setBit(((Byte)this.dataManager.get(STATUS)).byteValue(), 16, marker)));
+        this.dataManager.set(STATUS, Byte.valueOf(this.setBit(this.dataManager.get(STATUS).byteValue(), 16, marker)));
         this.setSize(0.5F, 1.975F);
     }
 
@@ -902,7 +902,7 @@ public class EntityArmorStand extends EntityLivingBase
      */
     public boolean hasMarker()
     {
-        return (((Byte)this.dataManager.get(STATUS)).byteValue() & 16) != 0;
+        return (this.dataManager.get(STATUS).byteValue() & 16) != 0;
     }
 
     private byte setBit(byte p_184797_1_, int p_184797_2_, boolean p_184797_3_)

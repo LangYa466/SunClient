@@ -21,7 +21,7 @@ public class BlockPos extends Vec3i
     private static final int NUM_X_BITS = 1 + MathHelper.log2(MathHelper.smallestEncompassingPowerOfTwo(30000000));
     private static final int NUM_Z_BITS = NUM_X_BITS;
     private static final int NUM_Y_BITS = 64 - NUM_X_BITS - NUM_Z_BITS;
-    private static final int Y_SHIFT = 0 + NUM_Z_BITS;
+    private static final int Y_SHIFT = NUM_Z_BITS;
     private static final int X_SHIFT = Y_SHIFT + NUM_Y_BITS;
     private static final long X_MASK = (1L << NUM_X_BITS) - 1L;
     private static final long Y_MASK = (1L << NUM_Y_BITS) - 1L;
@@ -271,7 +271,7 @@ public class BlockPos extends Vec3i
                         }
                         else if (this.field_191535_c == p_191532_3_ && this.field_191536_d == p_191532_4_ && this.field_191537_e == p_191532_5_)
                         {
-                            return (BlockPos)this.endOfData();
+                            return this.endOfData();
                         }
                         else
                         {
@@ -333,7 +333,7 @@ public class BlockPos extends Vec3i
                         }
                         else if (this.theBlockPos.x == p_191531_3_ && this.theBlockPos.y == p_191531_4_ && this.theBlockPos.z == p_191531_5_)
                         {
-                            return (BlockPos.MutableBlockPos)this.endOfData();
+                            return this.endOfData();
                         }
                         else
                         {
@@ -467,7 +467,7 @@ public class BlockPos extends Vec3i
     public static final class PooledMutableBlockPos extends BlockPos.MutableBlockPos
     {
         private boolean released;
-        private static final List<BlockPos.PooledMutableBlockPos> POOL = Lists.<BlockPos.PooledMutableBlockPos>newArrayList();
+        private static final List<BlockPos.PooledMutableBlockPos> POOL = Lists.newArrayList();
 
         private PooledMutableBlockPos(int xIn, int yIn, int zIn)
         {

@@ -17,7 +17,7 @@ import net.minecraft.util.math.MathHelper;
 public class GhostRecipe
 {
     private IRecipe field_192687_a;
-    private final List<GhostRecipe.GhostIngredient> field_192688_b = Lists.<GhostRecipe.GhostIngredient>newArrayList();
+    private final List<GhostRecipe.GhostIngredient> field_192688_b = Lists.newArrayList();
     private float field_194190_c;
 
     public void func_192682_a()

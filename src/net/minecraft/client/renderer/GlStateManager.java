@@ -723,7 +723,7 @@ public class GlStateManager
 
     public static void glTexCoordPointer(int p_187405_0_, int p_187405_1_, int p_187405_2_, int p_187405_3_)
     {
-        GL11.glTexCoordPointer(p_187405_0_, p_187405_1_, p_187405_2_, (long)p_187405_3_);
+        GL11.glTexCoordPointer(p_187405_0_, p_187405_1_, p_187405_2_, p_187405_3_);
     }
 
     public static void glTexCoordPointer(int p_187404_0_, int p_187404_1_, int p_187404_2_, ByteBuffer p_187404_3_)
@@ -733,7 +733,7 @@ public class GlStateManager
 
     public static void glVertexPointer(int p_187420_0_, int p_187420_1_, int p_187420_2_, int p_187420_3_)
     {
-        GL11.glVertexPointer(p_187420_0_, p_187420_1_, p_187420_2_, (long)p_187420_3_);
+        GL11.glVertexPointer(p_187420_0_, p_187420_1_, p_187420_2_, p_187420_3_);
     }
 
     public static void glVertexPointer(int p_187427_0_, int p_187427_1_, int p_187427_2_, ByteBuffer p_187427_3_)
@@ -743,7 +743,7 @@ public class GlStateManager
 
     public static void glColorPointer(int p_187406_0_, int p_187406_1_, int p_187406_2_, int p_187406_3_)
     {
-        GL11.glColorPointer(p_187406_0_, p_187406_1_, p_187406_2_, (long)p_187406_3_);
+        GL11.glColorPointer(p_187406_0_, p_187406_1_, p_187406_2_, p_187406_3_);
     }
 
     public static void glColorPointer(int p_187400_0_, int p_187400_1_, int p_187400_2_, ByteBuffer p_187400_3_)
@@ -1096,7 +1096,7 @@ public class GlStateManager
         }
     }
 
-    public static enum CullFace
+    public enum CullFace
     {
         FRONT(1028),
         BACK(1029),
@@ -1104,7 +1104,7 @@ public class GlStateManager
 
         public final int mode;
 
-        private CullFace(int modeIn)
+        CullFace(int modeIn)
         {
             this.mode = modeIn;
         }
@@ -1136,7 +1136,7 @@ public class GlStateManager
         }
     }
 
-    public static enum DestFactor
+    public enum DestFactor
     {
         CONSTANT_ALPHA(32771),
         CONSTANT_COLOR(32769),
@@ -1155,13 +1155,13 @@ public class GlStateManager
 
         public final int factor;
 
-        private DestFactor(int factorIn)
+        DestFactor(int factorIn)
         {
             this.factor = factorIn;
         }
     }
 
-    public static enum FogMode
+    public enum FogMode
     {
         LINEAR(9729),
         EXP(2048),
@@ -1169,7 +1169,7 @@ public class GlStateManager
 
         public final int capabilityId;
 
-        private FogMode(int capabilityIn)
+        FogMode(int capabilityIn)
         {
             this.capabilityId = capabilityIn;
         }
@@ -1192,7 +1192,7 @@ public class GlStateManager
         }
     }
 
-    public static enum LogicOp
+    public enum LogicOp
     {
         AND(5377),
         AND_INVERTED(5380),
@@ -1213,7 +1213,7 @@ public class GlStateManager
 
         public final int opcode;
 
-        private LogicOp(int opcodeIn)
+        LogicOp(int opcodeIn)
         {
             this.opcode = opcodeIn;
         }
@@ -1233,7 +1233,7 @@ public class GlStateManager
         }
     }
 
-    public static enum Profile
+    public enum Profile
     {
         DEFAULT {
             public void apply()
@@ -1373,7 +1373,7 @@ public class GlStateManager
             }
         };
 
-        private Profile()
+        Profile()
         {
         }
 
@@ -1382,7 +1382,7 @@ public class GlStateManager
         public abstract void clean();
     }
 
-    public static enum SourceFactor
+    public enum SourceFactor
     {
         CONSTANT_ALPHA(32771),
         CONSTANT_COLOR(32769),
@@ -1402,7 +1402,7 @@ public class GlStateManager
 
         public final int factor;
 
-        private SourceFactor(int factorIn)
+        SourceFactor(int factorIn)
         {
             this.factor = factorIn;
         }
@@ -1438,12 +1438,12 @@ public class GlStateManager
         }
     }
 
-    public static enum TexGen
+    public enum TexGen
     {
         S,
         T,
         R,
-        Q;
+        Q
     }
 
     static class TexGenCoord

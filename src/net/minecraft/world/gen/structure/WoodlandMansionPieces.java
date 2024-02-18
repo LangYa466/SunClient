@@ -113,7 +113,6 @@ public class WoodlandMansionPieces
 
             while (this.func_191111_a(this.field_191118_b))
             {
-                ;
             }
 
             this.field_191120_d = new WoodlandMansionPieces.SimpleGrid[3];
@@ -234,7 +233,7 @@ public class WoodlandMansionPieces
 
         private void func_191115_b()
         {
-            List<Tuple<Integer, Integer>> list = Lists.<Tuple<Integer, Integer>>newArrayList();
+            List<Tuple<Integer, Integer>> list = Lists.newArrayList();
             WoodlandMansionPieces.SimpleGrid woodlandmansionpieces$simplegrid = this.field_191120_d[1];
 
             for (int i = 0; i < this.field_191119_c.field_191150_c; ++i)
@@ -257,12 +256,12 @@ public class WoodlandMansionPieces
             }
             else
             {
-                Tuple<Integer, Integer> tuple = (Tuple)list.get(this.field_191117_a.nextInt(list.size()));
-                int l1 = woodlandmansionpieces$simplegrid.func_191145_a(((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue());
-                woodlandmansionpieces$simplegrid.func_191144_a(((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue(), l1 | 4194304);
-                EnumFacing enumfacing1 = this.func_191113_b(this.field_191118_b, ((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue(), 1, l1 & 65535);
-                int i2 = ((Integer)tuple.getFirst()).intValue() + enumfacing1.getFrontOffsetX();
-                int i1 = ((Integer)tuple.getSecond()).intValue() + enumfacing1.getFrontOffsetZ();
+                Tuple<Integer, Integer> tuple = list.get(this.field_191117_a.nextInt(list.size()));
+                int l1 = woodlandmansionpieces$simplegrid.func_191145_a(tuple.getFirst().intValue(), tuple.getSecond().intValue());
+                woodlandmansionpieces$simplegrid.func_191144_a(tuple.getFirst().intValue(), tuple.getSecond().intValue(), l1 | 4194304);
+                EnumFacing enumfacing1 = this.func_191113_b(this.field_191118_b, tuple.getFirst().intValue(), tuple.getSecond().intValue(), 1, l1 & 65535);
+                int i2 = tuple.getFirst().intValue() + enumfacing1.getFrontOffsetX();
+                int i1 = tuple.getSecond().intValue() + enumfacing1.getFrontOffsetZ();
 
                 for (int j1 = 0; j1 < this.field_191119_c.field_191150_c; ++j1)
                 {
@@ -272,7 +271,7 @@ public class WoodlandMansionPieces
                         {
                             this.field_191119_c.func_191144_a(k1, j1, 5);
                         }
-                        else if (k1 == ((Integer)tuple.getFirst()).intValue() && j1 == ((Integer)tuple.getSecond()).intValue())
+                        else if (k1 == tuple.getFirst().intValue() && j1 == tuple.getSecond().intValue())
                         {
                             this.field_191119_c.func_191144_a(k1, j1, 3);
                         }
@@ -284,7 +283,7 @@ public class WoodlandMansionPieces
                     }
                 }
 
-                List<EnumFacing> list1 = Lists.<EnumFacing>newArrayList();
+                List<EnumFacing> list1 = Lists.newArrayList();
 
                 for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL.facings())
                 {
@@ -297,7 +296,7 @@ public class WoodlandMansionPieces
                 if (list1.isEmpty())
                 {
                     this.field_191119_c.func_191142_a(0, 0, this.field_191119_c.field_191149_b, this.field_191119_c.field_191150_c, 5);
-                    woodlandmansionpieces$simplegrid.func_191144_a(((Integer)tuple.getFirst()).intValue(), ((Integer)tuple.getSecond()).intValue(), l1);
+                    woodlandmansionpieces$simplegrid.func_191144_a(tuple.getFirst().intValue(), tuple.getSecond().intValue(), l1);
                 }
                 else
                 {
@@ -306,7 +305,6 @@ public class WoodlandMansionPieces
 
                     while (this.func_191111_a(this.field_191119_c))
                     {
-                        ;
                     }
                 }
             }
@@ -314,7 +312,7 @@ public class WoodlandMansionPieces
 
         private void func_191116_a(WoodlandMansionPieces.SimpleGrid p_191116_1_, WoodlandMansionPieces.SimpleGrid p_191116_2_)
         {
-            List<Tuple<Integer, Integer>> list = Lists.<Tuple<Integer, Integer>>newArrayList();
+            List<Tuple<Integer, Integer>> list = Lists.newArrayList();
 
             for (int i = 0; i < p_191116_1_.field_191150_c; ++i)
             {
@@ -332,8 +330,8 @@ public class WoodlandMansionPieces
 
             for (Tuple<Integer, Integer> tuple : list)
             {
-                int k = ((Integer)tuple.getFirst()).intValue();
-                int l = ((Integer)tuple.getSecond()).intValue();
+                int k = tuple.getFirst().intValue();
+                int l = tuple.getSecond().intValue();
 
                 if (p_191116_2_.func_191145_a(k, l) == 0)
                 {
@@ -458,7 +456,7 @@ public class WoodlandMansionPieces
 
         private void func_191081_a(TemplateManager p_191081_1_)
         {
-            Template template = p_191081_1_.getTemplate((MinecraftServer)null, new ResourceLocation("mansion/" + this.field_191082_d));
+            Template template = p_191081_1_.getTemplate(null, new ResourceLocation("mansion/" + this.field_191082_d));
             PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(true).setRotation(this.field_191083_e).setMirror(this.field_191084_f);
             this.setup(template, this.templatePosition, placementsettings);
         }
@@ -519,7 +517,7 @@ public class WoodlandMansionPieces
                 EntityVindicator entityvindicator = new EntityVindicator(p_186175_3_);
                 entityvindicator.enablePersistence();
                 entityvindicator.moveToBlockPosAndAngles(p_186175_2_, 0.0F, 0.0F);
-                entityvindicator.onInitialSpawn(p_186175_3_.getDifficultyForLocation(new BlockPos(entityvindicator)), (IEntityLivingData)null);
+                entityvindicator.onInitialSpawn(p_186175_3_.getDifficultyForLocation(new BlockPos(entityvindicator)), null);
                 p_186175_3_.spawnEntityInWorld(entityvindicator);
                 p_186175_3_.setBlockState(p_186175_2_, Blocks.AIR.getDefaultState(), 2);
             }
@@ -564,7 +562,6 @@ public class WoodlandMansionPieces
 
             if (!p_191125_3_.isEmpty())
             {
-                ;
             }
 
             WoodlandMansionPieces.SimpleGrid woodlandmansionpieces$simplegrid = p_191125_4_.field_191118_b;
@@ -597,11 +594,10 @@ public class WoodlandMansionPieces
             }
 
             this.func_191123_a(p_191125_3_, p_191125_1_.up(16), p_191125_2_, woodlandmansionpieces$simplegrid, woodlandmansionpieces$simplegrid1);
-            this.func_191123_a(p_191125_3_, p_191125_1_.up(27), p_191125_2_, woodlandmansionpieces$simplegrid1, (WoodlandMansionPieces.SimpleGrid)null);
+            this.func_191123_a(p_191125_3_, p_191125_1_.up(27), p_191125_2_, woodlandmansionpieces$simplegrid1, null);
 
             if (!p_191125_3_.isEmpty())
             {
-                ;
             }
 
             WoodlandMansionPieces.RoomCollection[] awoodlandmansionpieces$roomcollection = new WoodlandMansionPieces.RoomCollection[3];
@@ -652,7 +648,7 @@ public class WoodlandMansionPieces
 
                 String s2 = l2 == 0 ? "indoors_wall" : "indoors_wall_2";
                 String s3 = l2 == 0 ? "indoors_door" : "indoors_door_2";
-                List<EnumFacing> list = Lists.<EnumFacing>newArrayList();
+                List<EnumFacing> list = Lists.newArrayList();
 
                 for (int k1 = 0; k1 < woodlandmansionpieces$simplegrid3.field_191150_c; ++k1)
                 {

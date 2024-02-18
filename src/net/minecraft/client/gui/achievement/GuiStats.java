@@ -213,10 +213,10 @@ public class GuiStats extends GuiScreen implements IProgressMeter
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos((double)(p_146527_1_ + 0), (double)(p_146527_2_ + 18), (double)this.zLevel).tex((double)((float)(p_146527_3_ + 0) * 0.0078125F), (double)((float)(p_146527_4_ + 18) * 0.0078125F)).endVertex();
-        bufferbuilder.pos((double)(p_146527_1_ + 18), (double)(p_146527_2_ + 18), (double)this.zLevel).tex((double)((float)(p_146527_3_ + 18) * 0.0078125F), (double)((float)(p_146527_4_ + 18) * 0.0078125F)).endVertex();
-        bufferbuilder.pos((double)(p_146527_1_ + 18), (double)(p_146527_2_ + 0), (double)this.zLevel).tex((double)((float)(p_146527_3_ + 18) * 0.0078125F), (double)((float)(p_146527_4_ + 0) * 0.0078125F)).endVertex();
-        bufferbuilder.pos((double)(p_146527_1_ + 0), (double)(p_146527_2_ + 0), (double)this.zLevel).tex((double)((float)(p_146527_3_ + 0) * 0.0078125F), (double)((float)(p_146527_4_ + 0) * 0.0078125F)).endVertex();
+        bufferbuilder.pos(p_146527_1_, p_146527_2_ + 18, this.zLevel).tex((float)(p_146527_3_) * 0.0078125F, (float)(p_146527_4_ + 18) * 0.0078125F).endVertex();
+        bufferbuilder.pos(p_146527_1_ + 18, p_146527_2_ + 18, this.zLevel).tex((float)(p_146527_3_ + 18) * 0.0078125F, (float)(p_146527_4_ + 18) * 0.0078125F).endVertex();
+        bufferbuilder.pos(p_146527_1_ + 18, p_146527_2_, this.zLevel).tex((float)(p_146527_3_ + 18) * 0.0078125F, (float)(p_146527_4_) * 0.0078125F).endVertex();
+        bufferbuilder.pos(p_146527_1_, p_146527_2_, this.zLevel).tex((float)(p_146527_3_) * 0.0078125F, (float)(p_146527_4_) * 0.0078125F).endVertex();
         tessellator.draw();
     }
 
@@ -447,7 +447,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
                         s = this.getHeaderDescriptionId(4);
                     }
 
-                    s = ("" + I18n.format(s)).trim();
+                    s = (I18n.format(s)).trim();
 
                     if (!s.isEmpty())
                     {
@@ -468,7 +468,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
                 Item item = p_148213_1_.getItem();
                 ItemStack itemstack = new ItemStack(item);
                 String s = itemstack.getUnlocalizedName();
-                String s1 = ("" + I18n.format(s + ".name")).trim();
+                String s1 = (I18n.format(s + ".name")).trim();
 
                 if (!s1.isEmpty())
                 {
@@ -507,7 +507,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
         public StatsBlock(Minecraft p_i47554_2_)
         {
             super(p_i47554_2_);
-            this.statsHolder = Lists.<StatCrafting>newArrayList();
+            this.statsHolder = Lists.newArrayList();
 
             for (StatCrafting statcrafting : StatList.MINE_BLOCK_STATS)
             {
@@ -731,7 +731,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
         public StatsItem(Minecraft p_i47552_2_)
         {
             super(p_i47552_2_);
-            this.statsHolder = Lists.<StatCrafting>newArrayList();
+            this.statsHolder = Lists.newArrayList();
 
             for (StatCrafting statcrafting : StatList.USE_ITEM_STATS)
             {
@@ -913,7 +913,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
 
     class StatsMobsList extends GuiSlot
     {
-        private final List<EntityList.EntityEggInfo> mobs = Lists.<EntityList.EntityEggInfo>newArrayList();
+        private final List<EntityList.EntityEggInfo> mobs = Lists.newArrayList();
 
         public StatsMobsList(Minecraft p_i47551_2_)
         {

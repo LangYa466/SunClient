@@ -69,7 +69,7 @@ public class GuiGameOver extends GuiScreen
         {
             case 0:
                 this.mc.player.respawnPlayer();
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
                 break;
 
             case 1:
@@ -95,13 +95,13 @@ public class GuiGameOver extends GuiScreen
                 this.mc.world.sendQuittingDisconnectingPacket();
             }
 
-            this.mc.loadWorld((WorldClient)null);
+            this.mc.loadWorld(null);
             this.mc.displayGuiScreen(new GuiMainMenu());
         }
         else
         {
             this.mc.player.respawnPlayer();
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
     }
 

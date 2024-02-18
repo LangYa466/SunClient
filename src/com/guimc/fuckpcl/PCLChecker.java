@@ -32,12 +32,9 @@ public class PCLChecker {
         }
 
         // maybe the window not exists like close the window after launched , so we need to check the PCL data folder
-        if (folderCheck(mcDir, deleteFolder)) {
-            return true;
-        }
+        return folderCheck(mcDir, deleteFolder);
 
         // PCL is not exists in the PC
-        return false;
     }
 
     /**

@@ -94,7 +94,7 @@ public class BakedQuad implements IVertexProducer
 
     private static int[] makeVertexDataSingle(int[] p_makeVertexDataSingle_0_, TextureAtlasSprite p_makeVertexDataSingle_1_)
     {
-        int[] aint = (int[])p_makeVertexDataSingle_0_.clone();
+        int[] aint = p_makeVertexDataSingle_0_.clone();
         int i = p_makeVertexDataSingle_1_.sheetWidth / p_makeVertexDataSingle_1_.getIconWidth();
         int j = p_makeVertexDataSingle_1_.sheetHeight / p_makeVertexDataSingle_1_.getIconHeight();
         int k = aint.length / 4;
@@ -149,7 +149,7 @@ public class BakedQuad implements IVertexProducer
 
         float f6 = (f + f2) / 2.0F;
         float f7 = (f1 + f3) / 2.0F;
-        TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getTextureMapBlocks().getIconByUV((double)f6, (double)f7);
+        TextureAtlasSprite textureatlassprite = Minecraft.getMinecraft().getTextureMapBlocks().getIconByUV(f6, f7);
         return textureatlassprite;
     }
 
@@ -215,13 +215,13 @@ public class BakedQuad implements IVertexProducer
     public double getMidY()
     {
         QuadBounds quadbounds = this.getQuadBounds();
-        return (double)((quadbounds.getMaxY() + quadbounds.getMinY()) / 2.0F);
+        return (quadbounds.getMaxY() + quadbounds.getMinY()) / 2.0F;
     }
 
     public double getMidZ()
     {
         QuadBounds quadbounds = this.getQuadBounds();
-        return (double)((quadbounds.getMaxZ() + quadbounds.getMinZ()) / 2.0F);
+        return (quadbounds.getMaxZ() + quadbounds.getMinZ()) / 2.0F;
     }
 
     public boolean isFaceQuad()

@@ -17,7 +17,7 @@ import net.minecraft.world.WorldServer;
 public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instance>
 {
     private final ResourceLocation field_192217_a;
-    private final Map<PlayerAdvancements, PositionTrigger.Listeners> field_192218_b = Maps.<PlayerAdvancements, PositionTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, PositionTrigger.Listeners> field_192218_b = Maps.newHashMap();
 
     public PositionTrigger(ResourceLocation p_i47432_1_)
     {
@@ -97,7 +97,7 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
     static class Listeners
     {
         private final PlayerAdvancements field_192511_a;
-        private final Set<ICriterionTrigger.Listener<PositionTrigger.Instance>> field_192512_b = Sets.<ICriterionTrigger.Listener<PositionTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<PositionTrigger.Instance>> field_192512_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47442_1_)
         {
@@ -125,11 +125,11 @@ public class PositionTrigger implements ICriterionTrigger<PositionTrigger.Instan
 
             for (ICriterionTrigger.Listener<PositionTrigger.Instance> listener : this.field_192512_b)
             {
-                if (((PositionTrigger.Instance)listener.func_192158_a()).func_193204_a(p_193462_1_, p_193462_2_, p_193462_4_, p_193462_6_))
+                if (listener.func_192158_a().func_193204_a(p_193462_1_, p_193462_2_, p_193462_4_, p_193462_6_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<PositionTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

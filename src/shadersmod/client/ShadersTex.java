@@ -834,7 +834,6 @@ public class ShadersTex
         }
         catch (IOException var10)
         {
-            ;
         }
 
         if (!flag)
@@ -897,8 +896,8 @@ public class ShadersTex
                     for (int l = 0; l < k; ++l)
                     {
                         int i1 = aint1[l] >>> 24 & 255;
-                        aint[k * 0 + l] = blendColor(aint1[k * 0 + l], aint[k * 0 + l], i1);
-                        aint[k * 1 + l] = blendColor(aint1[k * 1 + l], aint[k * 1 + l], i1);
+                        aint[0 + l] = blendColor(aint1[0 + l], aint[0 + l], i1);
+                        aint[k + l] = blendColor(aint1[k + l], aint[k + l], i1);
                         aint[k * 2 + l] = blendColor(aint1[k * 2 + l], aint[k * 2 + l], i1);
                     }
                 }

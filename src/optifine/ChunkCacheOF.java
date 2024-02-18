@@ -13,14 +13,14 @@ import net.minecraft.world.chunk.Chunk;
 
 public class ChunkCacheOF implements IBlockAccess
 {
-    private ChunkCache chunkCache;
-    private int posX;
-    private int posY;
-    private int posZ;
+    private final ChunkCache chunkCache;
+    private final int posX;
+    private final int posY;
+    private final int posZ;
     private int[] combinedLights;
     private IBlockState[] blockStates;
-    private static ArrayCache cacheCombinedLights = new ArrayCache(Integer.TYPE, 16);
-    private static ArrayCache cacheBlockStates = new ArrayCache(IBlockState.class, 16);
+    private static final ArrayCache cacheCombinedLights = new ArrayCache(Integer.TYPE, 16);
+    private static final ArrayCache cacheBlockStates = new ArrayCache(IBlockState.class, 16);
     private static final int ARRAY_SIZE = 8000;
 
     public ChunkCacheOF(ChunkCache p_i22_1_, BlockPos p_i22_2_, int p_i22_3_)
@@ -124,7 +124,7 @@ public class ChunkCacheOF implements IBlockAccess
             this.blockStates = (IBlockState[])cacheBlockStates.allocate(8000);
         }
 
-        Arrays.fill(this.blockStates, (Object)null);
+        Arrays.fill(this.blockStates, null);
     }
 
     public void renderFinish()

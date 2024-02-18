@@ -33,7 +33,7 @@ public class Smelt extends LootFunction
 
             if (itemstack.func_190926_b())
             {
-                LOGGER.warn("Couldn't smelt {} because there is no smelting recipe", (Object)stack);
+                LOGGER.warn("Couldn't smelt {} because there is no smelting recipe", stack);
                 return stack;
             }
             else

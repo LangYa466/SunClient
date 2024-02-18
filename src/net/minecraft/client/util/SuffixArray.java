@@ -20,7 +20,7 @@ public class SuffixArray<T>
     private static final boolean field_194062_b = Boolean.parseBoolean(System.getProperty("SuffixArray.printComparisons", "false"));
     private static final boolean field_194063_c = Boolean.parseBoolean(System.getProperty("SuffixArray.printArray", "false"));
     private static final Logger field_194064_d = LogManager.getLogger();
-    protected final List<T> field_194061_a = Lists.<T>newArrayList();
+    protected final List<T> field_194061_a = Lists.newArrayList();
     private final IntList field_194065_e = new IntArrayList();
     private final IntList field_194066_f = new IntArrayList();
     private IntList field_194067_g = new IntArrayList();
@@ -151,7 +151,7 @@ public class SuffixArray<T>
                 stringbuilder.append('^');
             }
 
-            int l2 = ((Integer)this.field_194065_e.get(j2 + k2)).intValue();
+            int l2 = this.field_194065_e.get(j2 + k2).intValue();
 
             if (l2 == -1)
             {
@@ -256,7 +256,7 @@ public class SuffixArray<T>
 
             int[] aint4 = intset.toIntArray();
             java.util.Arrays.sort(aint4);
-            Set<T> set = Sets.<T>newLinkedHashSet();
+            Set<T> set = Sets.newLinkedHashSet();
 
             for (int l3 : aint4)
             {
@@ -267,7 +267,7 @@ public class SuffixArray<T>
         }
         else
         {
-            return Collections.<T>emptyList();
+            return Collections.emptyList();
         }
     }
 }

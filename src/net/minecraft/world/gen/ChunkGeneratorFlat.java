@@ -48,7 +48,7 @@ public class ChunkGeneratorFlat implements IChunkGenerator
 
             if (map.containsKey("village"))
             {
-                Map<String, String> map1 = (Map)map.get("village");
+                Map<String, String> map1 = map.get("village");
 
                 if (!map1.containsKey("size"))
                 {
@@ -119,7 +119,7 @@ public class ChunkGeneratorFlat implements IChunkGenerator
         }
 
         worldIn.setSeaLevel(j);
-        this.hasDecoration = flag && this.flatWorldGenInfo.getBiome() != Biome.getIdForBiome(Biomes.VOID) ? false : this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
+        this.hasDecoration = (!flag || this.flatWorldGenInfo.getBiome() == Biome.getIdForBiome(Biomes.VOID)) && this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
     }
 
     public Chunk provideChunk(int x, int z)
@@ -148,7 +148,7 @@ public class ChunkGeneratorFlat implements IChunkGenerator
         }
 
         Chunk chunk = new Chunk(this.worldObj, chunkprimer, x, z);
-        Biome[] abiome = this.worldObj.getBiomeProvider().getBiomes((Biome[])null, x * 16, z * 16, 16, 16);
+        Biome[] abiome = this.worldObj.getBiomeProvider().getBiomes(null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int l = 0; l < abyte.length; ++l)
@@ -233,14 +233,14 @@ public class ChunkGeneratorFlat implements IChunkGenerator
     public boolean func_193414_a(World p_193414_1_, String p_193414_2_, BlockPos p_193414_3_)
     {
         MapGenStructure mapgenstructure = this.structureGenerators.get(p_193414_2_);
-        return mapgenstructure != null ? mapgenstructure.isInsideStructure(p_193414_3_) : false;
+        return mapgenstructure != null && mapgenstructure.isInsideStructure(p_193414_3_);
     }
 
     public void recreateStructures(Chunk chunkIn, int x, int z)
     {
         for (MapGenStructure mapgenstructure : this.structureGenerators.values())
         {
-            mapgenstructure.generate(this.worldObj, x, z, (ChunkPrimer)null);
+            mapgenstructure.generate(this.worldObj, x, z, null);
         }
     }
 }

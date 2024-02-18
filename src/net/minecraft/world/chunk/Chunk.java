@@ -116,9 +116,9 @@ public class Chunk
         this.blockBiomeArray = new byte[256];
         this.precipitationHeightMap = new int[256];
         this.updateSkylightColumns = new boolean[256];
-        this.chunkTileEntityMap = Maps.<BlockPos, TileEntity>newHashMap();
+        this.chunkTileEntityMap = Maps.newHashMap();
         this.queuedLightChecks = 4096;
-        this.tileEntityPosQueue = Queues.<BlockPos>newConcurrentLinkedQueue();
+        this.tileEntityPosQueue = Queues.newConcurrentLinkedQueue();
         this.entityLists = (ClassInheritanceMultiMap[])(new ClassInheritanceMultiMap[16]);
         this.worldObj = worldIn;
         this.xPosition = x;
@@ -902,7 +902,7 @@ public class Chunk
         {
             if (this.chunkTileEntityMap.containsKey(pos))
             {
-                ((TileEntity)this.chunkTileEntityMap.get(pos)).invalidate();
+                this.chunkTileEntityMap.get(pos).invalidate();
             }
 
             tileEntityIn.validate();
@@ -1045,7 +1045,7 @@ public class Chunk
 
     public Random getRandomWithSeed(long seed)
     {
-        return new Random(this.worldObj.getSeed() + (long)(this.xPosition * this.xPosition * 4987142) + (long)(this.xPosition * 5947611) + (long)(this.zPosition * this.zPosition) * 4392871L + (long)(this.zPosition * 389711) ^ seed);
+        return new Random(this.worldObj.getSeed() + (long)((long) this.xPosition * this.xPosition * 4987142) + (long)(this.xPosition * 5947611L) + (long)((long) this.zPosition * this.zPosition) * 4392871L + (long)(this.zPosition * 389711L) ^ seed);
     }
 
     public boolean isEmpty()
@@ -1594,10 +1594,10 @@ public class Chunk
         this.inhabitedTime = newInhabitedTime;
     }
 
-    public static enum EnumCreateEntityType
+    public enum EnumCreateEntityType
     {
         IMMEDIATE,
         QUEUED,
-        CHECK;
+        CHECK
     }
 }

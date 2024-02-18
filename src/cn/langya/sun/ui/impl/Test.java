@@ -2,6 +2,7 @@ package cn.langya.sun.ui.impl;
 
 import cn.langya.sun.events.impl.render.EventRender2D;
 import cn.langya.sun.ui.UI;
+import cn.langya.sun.utils.ClientUtils;
 import cn.langya.sun.utils.render.RenderUtil;
 import cn.langya.sun.utils.render.RoundedUtil;
 import com.cubk.event.annotations.EventTarget;
@@ -26,9 +27,9 @@ public class Test extends UI {
     }
 
 
-    @Override
     public void draw() {
         RoundedUtil.drawRound(50,50,50,50,0, Color.WHITE);
+        ClientUtils.logger.info("safoisabigsa");
         RenderUtil.resetColor();
     }
 }

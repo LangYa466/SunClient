@@ -8,11 +8,11 @@ import net.minecraft.client.settings.GameSettings;
 
 public class GuiPerformanceSettingsOF extends GuiScreen
 {
-    private GuiScreen prevScreen;
+    private final GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
-    private static GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.SMOOTH_FPS, GameSettings.Options.SMOOTH_WORLD, GameSettings.Options.FAST_RENDER, GameSettings.Options.FAST_MATH, GameSettings.Options.CHUNK_UPDATES, GameSettings.Options.CHUNK_UPDATES_DYNAMIC, GameSettings.Options.LAZY_CHUNK_LOADING};
-    private TooltipManager tooltipManager = new TooltipManager(this);
+    private final GameSettings settings;
+    private static final GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.SMOOTH_FPS, GameSettings.Options.SMOOTH_WORLD, GameSettings.Options.FAST_RENDER, GameSettings.Options.FAST_MATH, GameSettings.Options.CHUNK_UPDATES, GameSettings.Options.CHUNK_UPDATES_DYNAMIC, GameSettings.Options.LAZY_CHUNK_LOADING};
+    private final TooltipManager tooltipManager = new TooltipManager(this);
 
     public GuiPerformanceSettingsOF(GuiScreen p_i52_1_, GameSettings p_i52_2_)
     {

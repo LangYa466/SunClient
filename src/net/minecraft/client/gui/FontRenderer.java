@@ -111,9 +111,9 @@ public class FontRenderer implements IResourceManagerReloadListener
     public ResourceLocation locationFontTextureBase;
     public boolean enabled = true;
     public float offsetBold = 1.0F;
-    private float[] charWidthFloat = new float[256];
+    private final float[] charWidthFloat = new float[256];
     private boolean blend = false;
-    private GlBlendState oldBlendState = new GlBlendState();
+    private final GlBlendState oldBlendState = new GlBlendState();
 
     public String getEventString(String string){
         if (string == null || Sun.eventManager == null)
@@ -198,7 +198,7 @@ public class FontRenderer implements IResourceManagerReloadListener
         }
         finally
         {
-            IOUtils.closeQuietly((Closeable)iresource);
+            IOUtils.closeQuietly(iresource);
         }
 
         Properties props = FontUtils.readFontProperties(this.locationFontTexture);
@@ -237,9 +237,9 @@ public class FontRenderer implements IResourceManagerReloadListener
                     int l2 = aint[i2 + k2];
                     int i3 = l2 >> 24 & 255;
 
-                    if (i3 > 16)
-                    {
+                    if (i3 > 16) {
                         flag = false;
+                        break;
                     }
                 }
 
@@ -292,7 +292,7 @@ public class FontRenderer implements IResourceManagerReloadListener
         }
         finally
         {
-            IOUtils.closeQuietly((Closeable)iresource);
+            IOUtils.closeQuietly(iresource);
         }
     }
 
@@ -620,10 +620,10 @@ public class FontRenderer implements IResourceManagerReloadListener
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             GlStateManager.disableTexture2D();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
-            bufferbuilder.pos((double)this.posX, (double)(this.posY + (float)(this.FONT_HEIGHT / 2)), 0.0D).endVertex();
-            bufferbuilder.pos((double)(this.posX + p_doDraw_1_), (double)(this.posY + (float)(this.FONT_HEIGHT / 2)), 0.0D).endVertex();
-            bufferbuilder.pos((double)(this.posX + p_doDraw_1_), (double)(this.posY + (float)(this.FONT_HEIGHT / 2) - 1.0F), 0.0D).endVertex();
-            bufferbuilder.pos((double)this.posX, (double)(this.posY + (float)(this.FONT_HEIGHT / 2) - 1.0F), 0.0D).endVertex();
+            bufferbuilder.pos(this.posX, this.posY + (float)(this.FONT_HEIGHT / 2), 0.0D).endVertex();
+            bufferbuilder.pos(this.posX + p_doDraw_1_, this.posY + (float)(this.FONT_HEIGHT / 2), 0.0D).endVertex();
+            bufferbuilder.pos(this.posX + p_doDraw_1_, this.posY + (float)(this.FONT_HEIGHT / 2) - 1.0F, 0.0D).endVertex();
+            bufferbuilder.pos(this.posX, this.posY + (float)(this.FONT_HEIGHT / 2) - 1.0F, 0.0D).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
         }
@@ -635,10 +635,10 @@ public class FontRenderer implements IResourceManagerReloadListener
             GlStateManager.disableTexture2D();
             bufferbuilder1.begin(7, DefaultVertexFormats.POSITION);
             int i = this.underlineStyle ? -1 : 0;
-            bufferbuilder1.pos((double)(this.posX + (float)i), (double)(this.posY + (float)this.FONT_HEIGHT), 0.0D).endVertex();
-            bufferbuilder1.pos((double)(this.posX + p_doDraw_1_), (double)(this.posY + (float)this.FONT_HEIGHT), 0.0D).endVertex();
-            bufferbuilder1.pos((double)(this.posX + p_doDraw_1_), (double)(this.posY + (float)this.FONT_HEIGHT - 1.0F), 0.0D).endVertex();
-            bufferbuilder1.pos((double)(this.posX + (float)i), (double)(this.posY + (float)this.FONT_HEIGHT - 1.0F), 0.0D).endVertex();
+            bufferbuilder1.pos(this.posX + (float)i, this.posY + (float)this.FONT_HEIGHT, 0.0D).endVertex();
+            bufferbuilder1.pos(this.posX + p_doDraw_1_, this.posY + (float)this.FONT_HEIGHT, 0.0D).endVertex();
+            bufferbuilder1.pos(this.posX + p_doDraw_1_, this.posY + (float)this.FONT_HEIGHT - 1.0F, 0.0D).endVertex();
+            bufferbuilder1.pos(this.posX + (float)i, this.posY + (float)this.FONT_HEIGHT - 1.0F, 0.0D).endVertex();
             tessellator1.draw();
             GlStateManager.enableTexture2D();
         }
@@ -951,7 +951,7 @@ public class FontRenderer implements IResourceManagerReloadListener
 
     public List<String> listFormattedStringToWidth(String str, int wrapWidth)
     {
-        return Arrays.<String>asList(this.wrapFormattedStringToWidth(str, wrapWidth).split("\n"));
+        return Arrays.asList(this.wrapFormattedStringToWidth(str, wrapWidth).split("\n"));
     }
 
     /**

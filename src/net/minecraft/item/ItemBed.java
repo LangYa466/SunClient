@@ -71,7 +71,7 @@ public class ItemBed extends Item
                     playerIn.setBlockState(worldIn, iblockstate2, 10);
                     playerIn.setBlockState(blockpos, iblockstate2.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD), 10);
                     SoundType soundtype = iblockstate2.getBlock().getSoundType();
-                    playerIn.playSound((EntityPlayer)null, worldIn, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+                    playerIn.playSound(null, worldIn, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
                     TileEntity tileentity = playerIn.getTileEntity(blockpos);
 
                     if (tileentity instanceof TileEntityBed)

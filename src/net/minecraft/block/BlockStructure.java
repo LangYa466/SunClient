@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 
 public class BlockStructure extends BlockContainer
 {
-    public static final PropertyEnum<TileEntityStructure.Mode> MODE = PropertyEnum.<TileEntityStructure.Mode>create("mode", TileEntityStructure.Mode.class);
+    public static final PropertyEnum<TileEntityStructure.Mode> MODE = PropertyEnum.create("mode", TileEntityStructure.Mode.class);
 
     public BlockStructure()
     {
@@ -39,7 +39,7 @@ public class BlockStructure extends BlockContainer
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing heldItem, float side, float hitX, float hitY)
     {
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity instanceof TileEntityStructure ? ((TileEntityStructure)tileentity).usedBy(playerIn) : false;
+        return tileentity instanceof TileEntityStructure && ((TileEntityStructure) tileentity).usedBy(playerIn);
     }
 
     /**
@@ -98,12 +98,12 @@ public class BlockStructure extends BlockContainer
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((TileEntityStructure.Mode)state.getValue(MODE)).getModeId();
+        return state.getValue(MODE).getModeId();
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {MODE});
+        return new BlockStateContainer(this, MODE);
     }
 
     /**

@@ -19,7 +19,7 @@ public class LanguageManager implements IResourceManagerReloadListener
     private final MetadataSerializer theMetadataSerializer;
     private String currentLanguage;
     protected static final Locale CURRENT_LOCALE = new Locale();
-    private final Map<String, Language> languageMap = Maps.<String, Language>newHashMap();
+    private final Map<String, Language> languageMap = Maps.newHashMap();
 
     public LanguageManager(MetadataSerializer theMetadataSerializerIn, String currentLanguageIn)
     {
@@ -36,7 +36,7 @@ public class LanguageManager implements IResourceManagerReloadListener
         {
             try
             {
-                LanguageMetadataSection languagemetadatasection = (LanguageMetadataSection)iresourcepack.getPackMetadata(this.theMetadataSerializer, "language");
+                LanguageMetadataSection languagemetadatasection = iresourcepack.getPackMetadata(this.theMetadataSerializer, "language");
 
                 if (languagemetadatasection != null)
                 {

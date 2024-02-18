@@ -221,7 +221,7 @@ public class ShaderUtil extends Utils {
         return shader;
     }
 
-    private String kawaseUpGlow = "#version 120\n" +
+    private final String kawaseUpGlow = "#version 120\n" +
             "\n" +
             "uniform sampler2D inTexture, textureToCheck;\n" +
             "uniform vec2 halfpixel, offset, iResolution;\n" +
@@ -260,7 +260,7 @@ public class ShaderUtil extends Utils {
             "    gl_FragColor = vec4(result.rgb / result.a, mix(result.a, 1.0 - exp(-result.a * exposure), step(0.0, lastPass)));\n" +
             "}";
 
-    private String glowShader = "#version 120\n" +
+    private final String glowShader = "#version 120\n" +
             "\n" +
             "uniform sampler2D textureIn, textureToCheck;\n" +
             "uniform vec2 texelSize, direction;\n" +
@@ -291,7 +291,7 @@ public class ShaderUtil extends Utils {
             "    gl_FragColor = vec4(innerColor.rgb / innerColor.a, mix(innerColor.a, 1.0 - exp(-innerColor.a * exposure), step(0.0, direction.y)));\n" +
             "}\n";
 
-    private String chams =
+    private final String chams =
             "#version 120\n" +
                     "\n" +
                     "uniform sampler2D textureIn;\n" +
@@ -302,7 +302,7 @@ public class ShaderUtil extends Utils {
                     "    gl_FragColor = vec4(color.rgb, color.a * mix(0.0, alpha, step(0.0, alpha)));\n" +
                     "}\n";
 
-    private String roundRectTexture = "#version 120\n" +
+    private final String roundRectTexture = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
             "uniform sampler2D textureIn;\n" +
@@ -319,7 +319,7 @@ public class ShaderUtil extends Utils {
             "    gl_FragColor = vec4(texture2D(textureIn, gl_TexCoord[0].st).rgb, smoothedAlpha);\n" +
             "}";
 
-    private String roundRectOutline = "#version 120\n" +
+    private final String roundRectOutline = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
             "uniform vec4 color, outlineColor;\n" +
@@ -339,7 +339,7 @@ public class ShaderUtil extends Utils {
             "\n" +
             "}";
 
-    private String kawaseUpBloom = "#version 120\n" +
+    private final String kawaseUpBloom = "#version 120\n" +
             "\n" +
             "uniform sampler2D inTexture, textureToCheck;\n" +
             "uniform vec2 halfpixel, offset, iResolution;\n" +
@@ -375,7 +375,7 @@ public class ShaderUtil extends Utils {
             "    vec4 result = sum / 12.0;\n" +
             "    gl_FragColor = vec4(result.rgb / result.a, mix(result.a, result.a * (1.0 - texture2D(textureToCheck, gl_TexCoord[0].st).a),check));\n" +
             "}";
-    private String bloom = "#version 120\n" +
+    private final String bloom = "#version 120\n" +
             "\n" +
             "uniform sampler2D inTexture, textureToCheck;\n" +
             "uniform vec2 texelSize, direction;\n" +
@@ -395,7 +395,7 @@ public class ShaderUtil extends Utils {
             "\n" +
             "    gl_FragColor = vec4(0.0, 0.0, 0.0, blr);\n" +
             "}\n";
-    private String arc = "#version 120\n" +
+    private final String arc = "#version 120\n" +
             "\n" +
             "#define PI 3.14159265359\n" +
             "\n" +
@@ -416,7 +416,7 @@ public class ShaderUtil extends Utils {
             "\n" +
             "    gl_FragColor = mix(vec4(circleColor.rgb, 0.0), circleColor, smoothstep(0., radialSmoothness, change * (atan(st.y,st.x) - (progress-.5) * PI * 2.5)));\n" +
             "}";
-    private String kawaseDownBloom = "#version 120\n" +
+    private final String kawaseDownBloom = "#version 120\n" +
             "\n" +
             "uniform sampler2D inTexture;\n" +
             "uniform vec2 offset, halfpixel, iResolution;\n" +
@@ -442,7 +442,7 @@ public class ShaderUtil extends Utils {
             "    gl_FragColor = vec4(result.rgb / result.a, result.a);\n" +
             "}";
 
-    private String kawaseUp = "#version 120\n" +
+    private final String kawaseUp = "#version 120\n" +
             "\n" +
             "uniform sampler2D inTexture, textureToCheck;\n" +
             "uniform vec2 halfpixel, offset, iResolution;\n" +
@@ -462,7 +462,7 @@ public class ShaderUtil extends Utils {
             "    gl_FragColor = vec4(sum.rgb /12.0, mix(1.0, texture2D(textureToCheck, gl_TexCoord[0].st).a, check));\n" +
             "}\n";
 
-    private String kawaseDown = "#version 120\n" +
+    private final String kawaseDown = "#version 120\n" +
             "\n" +
             "uniform sampler2D inTexture;\n" +
             "uniform vec2 offset, halfpixel, iResolution;\n" +
@@ -478,7 +478,7 @@ public class ShaderUtil extends Utils {
             "}\n";
 
 
-    private String gradientMask = "#version 120\n" +
+    private final String gradientMask = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
             "uniform sampler2D tex;\n" +
@@ -500,7 +500,7 @@ public class ShaderUtil extends Utils {
             "    gl_FragColor = vec4(createGradient(coords, color1, color2, color3, color4), texColorAlpha * alpha);\n" +
             "}";
 
-    private String mask = "#version 120\n" +
+    private final String mask = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
             "uniform sampler2D u_texture, u_texture2;\n" +
@@ -512,7 +512,7 @@ public class ShaderUtil extends Utils {
             "}";
 
 
-    private String gradient = "#version 120\n" +
+    private final String gradient = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
             "uniform sampler2D tex;\n" +
@@ -532,7 +532,7 @@ public class ShaderUtil extends Utils {
             "    gl_FragColor = createGradient(coords, color1, color2, color3, color4);\n" +
             "}";
 
-    private String roundedRectGradient = "#version 120\n" +
+    private final String roundedRectGradient = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
             "uniform vec4 color1, color2, color3, color4;\n" +
@@ -562,7 +562,7 @@ public class ShaderUtil extends Utils {
             "    gl_FragColor = vec4(gradient.rgb, gradient.a * smoothedAlpha);\n" +
             "}";
 
-    private String gradientround = "#version 120\n" +
+    private final String gradientround = "#version 120\n" +
             "\n" +
             "uniform vec2 u_size;\n" +
             "uniform float u_radius;\n" +
@@ -576,7 +576,7 @@ public class ShaderUtil extends Utils {
             "    vec4 color = mix(u_first_color, u_second_color, u_direction > 0.0 ? tex_coord.y : tex_coord.x);\n" +
             "    gl_FragColor = vec4(color.rgb, color.a * smoothstep(1.0, 0.0, length(max((abs(tex_coord - 0.5) + 0.5) * u_size - u_size + u_radius, 0.0)) - u_radius + 0.5));\n" +
             "}";
-    private String clickgui = "#define M_PI 3.1415926535897932384626433832795\n" +
+    private final String clickgui = "#define M_PI 3.1415926535897932384626433832795\n" +
             "#define M_TWO_PI (2.0 * M_PI)\n" +
             "\n" +
             "uniform float iTime;\n" +
@@ -653,7 +653,7 @@ public class ShaderUtil extends Utils {
             "\n" +
             "    fragColor = vec4(c1 + c2, 1.0);\n" +
             "}\n";
-    private String roundedRect = "#version 120\n" +
+    private final String roundedRect = "#version 120\n" +
             "\n" +
             "uniform vec2 location, rectSize;\n" +
             "uniform vec4 color;\n" +

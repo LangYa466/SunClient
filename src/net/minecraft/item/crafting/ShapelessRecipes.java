@@ -42,7 +42,7 @@ public class ShapelessRecipes implements IRecipe
 
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
-        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
+        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
 
         for (int i = 0; i < nonnulllist.size(); ++i)
         {
@@ -125,7 +125,7 @@ public class ShapelessRecipes implements IRecipe
 
     private static NonNullList<Ingredient> func_193364_a(JsonArray p_193364_0_)
     {
-        NonNullList<Ingredient> nonnulllist = NonNullList.<Ingredient>func_191196_a();
+        NonNullList<Ingredient> nonnulllist = NonNullList.func_191196_a();
 
         for (int i = 0; i < p_193364_0_.size(); ++i)
         {

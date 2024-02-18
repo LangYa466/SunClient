@@ -5,9 +5,9 @@ import net.minecraft.util.math.MathHelper;
 public class MapDecoration
 {
     private final MapDecoration.Type field_191181_a;
-    private byte x;
-    private byte y;
-    private byte rotation;
+    private final byte x;
+    private final byte y;
+    private final byte rotation;
 
     public MapDecoration(MapDecoration.Type p_i47236_1_, byte p_i47236_2_, byte p_i47236_3_, byte p_i47236_4_)
     {
@@ -89,7 +89,7 @@ public class MapDecoration
         return i;
     }
 
-    public static enum Type
+    public enum Type
     {
         PLAYER(false),
         FRAME(true),
@@ -106,12 +106,12 @@ public class MapDecoration
         private final boolean field_191176_l;
         private final int field_191177_m;
 
-        private Type(boolean p_i47343_3_)
+        Type(boolean p_i47343_3_)
         {
             this(p_i47343_3_, -1);
         }
 
-        private Type(boolean p_i47344_3_, int p_i47344_4_)
+        Type(boolean p_i47344_3_, int p_i47344_4_)
         {
             this.field_191175_k = (byte)this.ordinal();
             this.field_191176_l = p_i47344_3_;

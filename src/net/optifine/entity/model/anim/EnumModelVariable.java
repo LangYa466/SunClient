@@ -18,10 +18,10 @@ public enum EnumModelVariable
     SCALE_Y("sy"),
     SCALE_Z("sz");
 
-    private String name;
+    private final String name;
     public static EnumModelVariable[] VALUES = values();
 
-    private EnumModelVariable(String name)
+    EnumModelVariable(String name)
     {
         this.name = name;
     }

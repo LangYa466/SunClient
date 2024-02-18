@@ -87,7 +87,7 @@ public class RenderEntityItem extends Render<EntityItem>
     {
         ItemStack itemstack = entity.getEntityItem();
         int i = itemstack.func_190926_b() ? 187 : Item.getIdFromItem(itemstack.getItem()) + itemstack.getMetadata();
-        this.random.setSeed((long)i);
+        this.random.setSeed(i);
         boolean flag = false;
 
         if (this.bindEntityTexture(entity))
@@ -102,7 +102,7 @@ public class RenderEntityItem extends Render<EntityItem>
         RenderHelper.enableStandardItemLighting();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.pushMatrix();
-        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entity.world, (EntityLivingBase)null);
+        IBakedModel ibakedmodel = this.itemRenderer.getItemModelWithOverrides(itemstack, entity.world, null);
         int j = this.transformModelCount(entity, x, y, z, partialTicks, ibakedmodel);
         float f = ibakedmodel.getItemCameraTransforms().ground.scale.x;
         float f1 = ibakedmodel.getItemCameraTransforms().ground.scale.y;

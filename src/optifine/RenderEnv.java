@@ -2,6 +2,7 @@ package optifine;
 
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
@@ -25,22 +26,22 @@ public class RenderEnv
     private int metadata = -1;
     private int breakingAnimation = -1;
     private int smartLeaves = -1;
-    private float[] quadBounds = new float[EnumFacing.VALUES.length * 2];
-    private BitSet boundsFlags = new BitSet(3);
-    private BlockModelRenderer.AmbientOcclusionFace aoFace = new BlockModelRenderer.AmbientOcclusionFace();
+    private final float[] quadBounds = new float[EnumFacing.VALUES.length * 2];
+    private final BitSet boundsFlags = new BitSet(3);
+    private final BlockModelRenderer.AmbientOcclusionFace aoFace = new BlockModelRenderer.AmbientOcclusionFace();
     private BlockPosM colorizerBlockPosM = null;
     private boolean[] borderFlags = null;
     private boolean[] borderFlags2 = null;
     private boolean[] borderFlags3 = null;
     private EnumFacing[] borderDirections = null;
-    private List<BakedQuad> listQuadsCustomizer = new ArrayList<BakedQuad>();
-    private List<BakedQuad> listQuadsCtmMultipass = new ArrayList<BakedQuad>();
-    private BakedQuad[] arrayQuadsCtm1 = new BakedQuad[1];
-    private BakedQuad[] arrayQuadsCtm2 = new BakedQuad[2];
-    private BakedQuad[] arrayQuadsCtm3 = new BakedQuad[3];
-    private BakedQuad[] arrayQuadsCtm4 = new BakedQuad[4];
+    private final List<BakedQuad> listQuadsCustomizer = new ArrayList<BakedQuad>();
+    private final List<BakedQuad> listQuadsCtmMultipass = new ArrayList<BakedQuad>();
+    private final BakedQuad[] arrayQuadsCtm1 = new BakedQuad[1];
+    private final BakedQuad[] arrayQuadsCtm2 = new BakedQuad[2];
+    private final BakedQuad[] arrayQuadsCtm3 = new BakedQuad[3];
+    private final BakedQuad[] arrayQuadsCtm4 = new BakedQuad[4];
     private RegionRenderCacheBuilder regionRenderCacheBuilder = null;
-    private ListQuadsOverlay[] listsQuadsOverlay = new ListQuadsOverlay[BlockRenderLayer.values().length];
+    private final ListQuadsOverlay[] listsQuadsOverlay = new ListQuadsOverlay[BlockRenderLayer.values().length];
     private boolean overlaysRendered = false;
     private static final int UNKNOWN = -1;
     private static final int FALSE = 0;
@@ -281,11 +282,7 @@ public class RenderEnv
 
         if (p_getListQuadsCtmMultipass_1_ != null)
         {
-            for (int i = 0; i < p_getListQuadsCtmMultipass_1_.length; ++i)
-            {
-                BakedQuad bakedquad = p_getListQuadsCtmMultipass_1_[i];
-                this.listQuadsCtmMultipass.add(bakedquad);
-            }
+            Collections.addAll(this.listQuadsCtmMultipass, p_getListQuadsCtmMultipass_1_);
         }
 
         return this.listQuadsCtmMultipass;

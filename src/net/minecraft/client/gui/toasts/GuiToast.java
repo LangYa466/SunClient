@@ -15,7 +15,7 @@ public class GuiToast extends Gui
 {
     private final Minecraft field_191790_f;
     private final GuiToast.ToastInstance<?>[] field_191791_g = new GuiToast.ToastInstance[5];
-    private final Deque<IToast> field_191792_h = Queues.<IToast>newArrayDeque();
+    private final Deque<IToast> field_191792_h = Queues.newArrayDeque();
 
     public GuiToast(Minecraft p_i47388_1_)
     {
@@ -64,12 +64,12 @@ public class GuiToast extends Gui
             }
         }
 
-        return (T)null;
+        return null;
     }
 
     public void func_191788_b()
     {
-        Arrays.fill(this.field_191791_g, (Object)null);
+        Arrays.fill(this.field_191791_g, null);
         this.field_191792_h.clear();
     }
 

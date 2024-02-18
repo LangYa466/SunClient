@@ -31,7 +31,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
     private static final DynamicTexture TEXTURE_BRIGHTNESS = new DynamicTexture(16, 16);
     public ModelBase mainModel;
     protected FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
-    protected List<LayerRenderer<T>> layerRenderers = Lists.<LayerRenderer<T>>newArrayList();
+    protected List<LayerRenderer<T>> layerRenderers = Lists.newArrayList();
     protected boolean renderMarker;
     public static float NAME_TAG_RANGE = 64.0F;
     public static float NAME_TAG_RANGE_SNEAK = 32.0F;
@@ -71,7 +71,6 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
 
         for (f = yawOffset - prevYawOffset; f < -180.0F; f += 360.0F)
         {
-            ;
         }
 
         while (f >= 180.0F)
@@ -227,7 +226,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
             }
             catch (Exception exception1)
             {
-                LOGGER.error("Couldn't render entity", (Throwable)exception1);
+                LOGGER.error("Couldn't render entity", exception1);
             }
 
             GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
@@ -475,7 +474,7 @@ public abstract class RenderLivingBase<T extends EntityLivingBase> extends Rende
         {
             String s = TextFormatting.getTextWithoutFormattingCodes(entityLiving.getName());
 
-            if (s != null && ("Dinnerbone".equals(s) || "Grumm".equals(s)) && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer)entityLiving).isWearing(EnumPlayerModelParts.CAPE)))
+            if (("Dinnerbone".equals(s) || "Grumm".equals(s)) && (!(entityLiving instanceof EntityPlayer) || ((EntityPlayer) entityLiving).isWearing(EnumPlayerModelParts.CAPE)))
             {
                 GlStateManager.translate(0.0F, entityLiving.height + 0.1F, 0.0F);
                 GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);

@@ -14,7 +14,7 @@ import net.minecraft.util.IStringSerializable;
 public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends PropertyHelper<T>
 {
     private final ImmutableSet<T> allowedValues;
-    private final Map<String, T> nameToValue = Maps.<String, T>newHashMap();
+    private final Map<String, T> nameToValue = Maps.newHashMap();
 
     protected PropertyEnum(String name, Class<T> valueClass, Collection<T> allowedValues)
     {
@@ -23,7 +23,7 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
 
         for (T t : allowedValues)
         {
-            String s = ((IStringSerializable)t).getName();
+            String s = t.getName();
 
             if (this.nameToValue.containsKey(s))
             {
@@ -41,7 +41,7 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
 
     public Optional<T> parseValue(String value)
     {
-        return Optional.<T>fromNullable(this.nameToValue.get(value));
+        return Optional.fromNullable(this.nameToValue.get(value));
     }
 
     /**
@@ -49,7 +49,7 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
      */
     public String getName(T value)
     {
-        return ((IStringSerializable)value).getName();
+        return value.getName();
     }
 
     public boolean equals(Object p_equals_1_)

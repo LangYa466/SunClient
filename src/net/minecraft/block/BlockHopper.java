@@ -161,7 +161,7 @@ public class BlockHopper extends BlockContainer
     {
         boolean flag = !worldIn.isBlockPowered(pos);
 
-        if (flag != ((Boolean)state.getValue(ENABLED)).booleanValue())
+        if (flag != state.getValue(ENABLED).booleanValue())
         {
             worldIn.setBlockState(pos, state.withProperty(ENABLED, Boolean.valueOf(flag)), 4);
         }
@@ -253,9 +253,9 @@ public class BlockHopper extends BlockContainer
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
+        i = i | state.getValue(FACING).getIndex();
 
-        if (!((Boolean)state.getValue(ENABLED)).booleanValue())
+        if (!state.getValue(ENABLED).booleanValue())
         {
             i |= 8;
         }
@@ -269,7 +269,7 @@ public class BlockHopper extends BlockContainer
      */
     public IBlockState withRotation(IBlockState state, Rotation rot)
     {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     /**
@@ -278,12 +278,12 @@ public class BlockHopper extends BlockContainer
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING, ENABLED});
+        return new BlockStateContainer(this, FACING, ENABLED);
     }
 
     public BlockFaceShape func_193383_a(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)

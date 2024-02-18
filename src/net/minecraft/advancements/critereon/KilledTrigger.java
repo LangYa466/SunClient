@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
 {
-    private final Map<PlayerAdvancements, KilledTrigger.Listeners> field_192213_a = Maps.<PlayerAdvancements, KilledTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, KilledTrigger.Listeners> field_192213_a = Maps.newHashMap();
     private final ResourceLocation field_192214_b;
 
     public KilledTrigger(ResourceLocation p_i47433_1_)
@@ -92,14 +92,14 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
 
         public boolean func_192270_a(EntityPlayerMP p_192270_1_, Entity p_192270_2_, DamageSource p_192270_3_)
         {
-            return !this.field_192272_b.func_193418_a(p_192270_1_, p_192270_3_) ? false : this.field_192271_a.func_192482_a(p_192270_1_, p_192270_2_);
+            return this.field_192272_b.func_193418_a(p_192270_1_, p_192270_3_) && this.field_192271_a.func_192482_a(p_192270_1_, p_192270_2_);
         }
     }
 
     static class Listeners
     {
         private final PlayerAdvancements field_192505_a;
-        private final Set<ICriterionTrigger.Listener<KilledTrigger.Instance>> field_192506_b = Sets.<ICriterionTrigger.Listener<KilledTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<KilledTrigger.Instance>> field_192506_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47455_1_)
         {
@@ -127,11 +127,11 @@ public class KilledTrigger implements ICriterionTrigger<KilledTrigger.Instance>
 
             for (ICriterionTrigger.Listener<KilledTrigger.Instance> listener : this.field_192506_b)
             {
-                if (((KilledTrigger.Instance)listener.func_192158_a()).func_192270_a(p_192503_1_, p_192503_2_, p_192503_3_))
+                if (listener.func_192158_a().func_192270_a(p_192503_1_, p_192503_2_, p_192503_3_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<KilledTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

@@ -37,12 +37,9 @@ public class EnchantmentPredicate
                 return false;
             }
 
-            int i = ((Integer)p_192463_1_.get(this.field_192467_b)).intValue();
+            int i = p_192463_1_.get(this.field_192467_b).intValue();
 
-            if (this.field_192468_c != null && !this.field_192468_c.func_192514_a((float)i))
-            {
-                return false;
-            }
+            return this.field_192468_c == null || this.field_192468_c.func_192514_a((float) i);
         }
         else if (this.field_192468_c != null)
         {

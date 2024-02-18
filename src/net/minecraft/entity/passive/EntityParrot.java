@@ -82,7 +82,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 public class EntityParrot extends EntityShoulderRiding implements EntityFlying
 {
-    private static final DataParameter<Integer> field_192013_bG = EntityDataManager.<Integer>createKey(EntityParrot.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> field_192013_bG = EntityDataManager.createKey(EntityParrot.class, DataSerializers.VARINT);
     private static final Predicate<EntityLiving> field_192014_bH = new Predicate<EntityLiving>()
     {
         public boolean apply(@Nullable EntityLiving p_apply_1_)
@@ -214,7 +214,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
     {
         if (!p_192006_1_.isSilent() && p_192006_0_.rand.nextInt(50) == 0)
         {
-            List<EntityLiving> list = p_192006_0_.<EntityLiving>getEntitiesWithinAABB(EntityLiving.class, p_192006_1_.getEntityBoundingBox().expandXyz(20.0D), field_192014_bH);
+            List<EntityLiving> list = p_192006_0_.getEntitiesWithinAABB(EntityLiving.class, p_192006_1_.getEntityBoundingBox().expandXyz(20.0D), field_192014_bH);
 
             if (!list.isEmpty())
             {
@@ -223,7 +223,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
                 if (!entityliving.isSilent())
                 {
                     SoundEvent soundevent = func_191999_g(EntityList.field_191308_b.getIDForObject(entityliving.getClass()));
-                    p_192006_0_.playSound((EntityPlayer)null, p_192006_1_.posX, p_192006_1_.posY, p_192006_1_.posZ, soundevent, p_192006_1_.getSoundCategory(), 0.7F, func_192000_b(p_192006_0_.rand));
+                    p_192006_0_.playSound(null, p_192006_1_.posX, p_192006_1_.posY, p_192006_1_.posZ, soundevent, p_192006_1_.getSoundCategory(), 0.7F, func_192000_b(p_192006_0_.rand));
                     return true;
                 }
             }
@@ -249,7 +249,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
 
             if (!this.isSilent())
             {
-                this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, SoundEvents.field_192797_eu, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+                this.world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.field_192797_eu, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
             }
 
             if (!this.world.isRemote)
@@ -344,7 +344,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
     {
         if (!p_192005_1_.isSilent() && !func_192006_b(p_192005_0_, p_192005_1_) && p_192005_0_.rand.nextInt(200) == 0)
         {
-            p_192005_0_.playSound((EntityPlayer)null, p_192005_1_.posX, p_192005_1_.posY, p_192005_1_.posZ, func_192003_a(p_192005_0_.rand), p_192005_1_.getSoundCategory(), 1.0F, func_192000_b(p_192005_0_.rand));
+            p_192005_0_.playSound(null, p_192005_1_.posX, p_192005_1_.posY, p_192005_1_.posZ, func_192003_a(p_192005_0_.rand), p_192005_1_.getSoundCategory(), 1.0F, func_192000_b(p_192005_0_.rand));
         }
     }
 
@@ -364,7 +364,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
         if (p_192003_0_.nextInt(1000) == 0)
         {
             List<Integer> list = new ArrayList<Integer>(field_192017_bK.keySet());
-            return func_191999_g(((Integer)list.get(p_192003_0_.nextInt(list.size()))).intValue());
+            return func_191999_g(list.get(p_192003_0_.nextInt(list.size())).intValue());
         }
         else
         {
@@ -374,7 +374,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
 
     public static SoundEvent func_191999_g(int p_191999_0_)
     {
-        return field_192017_bK.containsKey(p_191999_0_) ? (SoundEvent)field_192017_bK.get(p_191999_0_) : SoundEvents.field_192792_ep;
+        return field_192017_bK.containsKey(p_191999_0_) ? field_192017_bK.get(p_191999_0_) : SoundEvents.field_192792_ep;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_184601_1_)
@@ -459,7 +459,7 @@ public class EntityParrot extends EntityShoulderRiding implements EntityFlying
 
     public int func_191998_ds()
     {
-        return MathHelper.clamp(((Integer)this.dataManager.get(field_192013_bG)).intValue(), 0, 4);
+        return MathHelper.clamp(this.dataManager.get(field_192013_bG).intValue(), 0, 4);
     }
 
     public void func_191997_m(int p_191997_1_)

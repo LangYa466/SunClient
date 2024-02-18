@@ -153,7 +153,7 @@ public class TileEntityCommandBlock extends TileEntity
 
         if (this.isConditional())
         {
-            BlockPos blockpos = this.pos.offset(((EnumFacing)this.world.getBlockState(this.pos).getValue(BlockCommandBlock.FACING)).getOpposite());
+            BlockPos blockpos = this.pos.offset(this.world.getBlockState(this.pos).getValue(BlockCommandBlock.FACING).getOpposite());
 
             if (this.world.getBlockState(blockpos).getBlock() instanceof BlockCommandBlock)
             {
@@ -200,7 +200,7 @@ public class TileEntityCommandBlock extends TileEntity
     public boolean isConditional()
     {
         IBlockState iblockstate = this.world.getBlockState(this.getPos());
-        return iblockstate.getBlock() instanceof BlockCommandBlock ? ((Boolean)iblockstate.getValue(BlockCommandBlock.CONDITIONAL)).booleanValue() : false;
+        return iblockstate.getBlock() instanceof BlockCommandBlock && iblockstate.getValue(BlockCommandBlock.CONDITIONAL).booleanValue();
     }
 
     /**
@@ -212,10 +212,10 @@ public class TileEntityCommandBlock extends TileEntity
         super.validate();
     }
 
-    public static enum Mode
+    public enum Mode
     {
         SEQUENCE,
         AUTO,
-        REDSTONE;
+        REDSTONE
     }
 }

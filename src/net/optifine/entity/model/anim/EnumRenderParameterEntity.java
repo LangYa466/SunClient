@@ -14,11 +14,11 @@ public enum EnumRenderParameterEntity implements IExpression
     HEAD_PITCH("head_pitch"),
     SCALE("scale");
 
-    private String name;
-    private RenderManager renderManager;
+    private final String name;
+    private final RenderManager renderManager;
     private static final EnumRenderParameterEntity[] VALUES = values();
 
-    private EnumRenderParameterEntity(String name)
+    EnumRenderParameterEntity(String name)
     {
         this.name = name;
         this.renderManager = Minecraft.getMinecraft().getRenderManager();

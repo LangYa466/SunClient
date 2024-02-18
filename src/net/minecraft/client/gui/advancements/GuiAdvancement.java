@@ -29,7 +29,7 @@ public class GuiAdvancement extends Gui
     private final List<String> field_192997_l;
     private final Minecraft field_191833_k;
     private GuiAdvancement field_191834_l;
-    private final List<GuiAdvancement> field_191835_m = Lists.<GuiAdvancement>newArrayList();
+    private final List<GuiAdvancement> field_191835_m = Lists.newArrayList();
     private AdvancementProgress field_191836_n;
     private final int field_191837_o;
     private final int field_191826_p;
@@ -62,7 +62,7 @@ public class GuiAdvancement extends Gui
     {
         if (p_192995_1_.isEmpty())
         {
-            return Collections.<String>emptyList();
+            return Collections.emptyList();
         }
         else
         {
@@ -182,7 +182,7 @@ public class GuiAdvancement extends Gui
             GlStateManager.enableBlend();
             this.drawTexturedModalRect(p_191817_1_ + this.field_191837_o + 3, p_191817_2_ + this.field_191826_p, this.field_191830_h.func_192291_d().func_192309_b(), 128 + advancementstate.func_192667_a() * 26, 26, 26);
             RenderHelper.enableGUIStandardItemLighting();
-            this.field_191833_k.getRenderItem().renderItemAndEffectIntoGUI((EntityLivingBase)null, this.field_191830_h.func_192298_b(), p_191817_1_ + this.field_191837_o + 8, p_191817_2_ + this.field_191826_p + 5);
+            this.field_191833_k.getRenderItem().renderItemAndEffectIntoGUI(null, this.field_191830_h.func_192298_b(), p_191817_1_ + this.field_191837_o + 8, p_191817_2_ + this.field_191826_p + 5);
         }
 
         for (GuiAdvancement guiadvancement : this.field_191835_m)
@@ -310,7 +310,7 @@ public class GuiAdvancement extends Gui
         }
 
         RenderHelper.enableGUIStandardItemLighting();
-        this.field_191833_k.getRenderItem().renderItemAndEffectIntoGUI((EntityLivingBase)null, this.field_191830_h.func_192298_b(), p_191821_1_ + this.field_191837_o + 8, p_191821_2_ + this.field_191826_p + 5);
+        this.field_191833_k.getRenderItem().renderItemAndEffectIntoGUI(null, this.field_191830_h.func_192298_b(), p_191821_1_ + this.field_191837_o + 8, p_191821_2_ + this.field_191826_p + 5);
     }
 
     protected void func_192994_a(int p_192994_1_, int p_192994_2_, int p_192994_3_, int p_192994_4_, int p_192994_5_, int p_192994_6_, int p_192994_7_, int p_192994_8_, int p_192994_9_)

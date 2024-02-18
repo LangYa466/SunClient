@@ -61,7 +61,7 @@ public class ChunkProviderClient implements IChunkProvider
     @Nullable
     public Chunk getLoadedChunk(int x, int z)
     {
-        return (Chunk)this.chunkMapping.get(ChunkPos.asLong(x, z));
+        return this.chunkMapping.get(ChunkPos.asLong(x, z));
     }
 
     /**
@@ -77,7 +77,7 @@ public class ChunkProviderClient implements IChunkProvider
 
     public Chunk provideChunk(int x, int z)
     {
-        return (Chunk)MoreObjects.firstNonNull(this.getLoadedChunk(x, z), this.blankChunk);
+        return MoreObjects.firstNonNull(this.getLoadedChunk(x, z), this.blankChunk);
     }
 
     /**
@@ -96,7 +96,7 @@ public class ChunkProviderClient implements IChunkProvider
 
         if (System.currentTimeMillis() - i > 100L)
         {
-            LOGGER.info("Warning: Clientside chunk ticking took {} ms", (long)(System.currentTimeMillis() - i));
+            LOGGER.info("Warning: Clientside chunk ticking took {} ms", System.currentTimeMillis() - i);
         }
 
         return false;

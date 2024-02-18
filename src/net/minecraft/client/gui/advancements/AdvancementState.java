@@ -7,7 +7,7 @@ public enum AdvancementState
 
     private final int field_192671_d;
 
-    private AdvancementState(int p_i47384_3_)
+    AdvancementState(int p_i47384_3_)
     {
         this.field_192671_d = p_i47384_3_;
     }

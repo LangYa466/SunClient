@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 
 public class DynamicLights
 {
-    private static Map<Integer, DynamicLight> mapDynamicLights = new HashMap<Integer, DynamicLight>();
+    private static final Map<Integer, DynamicLight> mapDynamicLights = new HashMap<Integer, DynamicLight>();
     private static long timeUpdateMs = 0L;
     private static final double MAX_DIST = 7.5D;
     private static final double MAX_DIST_SQ = 56.25D;
@@ -125,7 +125,7 @@ public class DynamicLights
 
     public static int getCombinedLight(Entity p_getCombinedLight_0_, int p_getCombinedLight_1_)
     {
-        double d0 = (double)getLightLevel(p_getCombinedLight_0_);
+        double d0 = getLightLevel(p_getCombinedLight_0_);
         p_getCombinedLight_1_ = getCombinedLight(d0, p_getCombinedLight_1_);
         return p_getCombinedLight_1_;
     }
@@ -355,7 +355,7 @@ public class DynamicLights
 
     public static ItemStack getItemStack(EntityItem p_getItemStack_0_)
     {
-        ItemStack itemstack = (ItemStack)p_getItemStack_0_.getDataManager().get(PARAMETER_ITEM_STACK);
+        ItemStack itemstack = p_getItemStack_0_.getDataManager().get(PARAMETER_ITEM_STACK);
         return itemstack;
     }
 }

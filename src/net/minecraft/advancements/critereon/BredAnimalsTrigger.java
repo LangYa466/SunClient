@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.Instance>
 {
     private static final ResourceLocation field_192171_a = new ResourceLocation("bred_animals");
-    private final Map<PlayerAdvancements, BredAnimalsTrigger.Listeners> field_192172_b = Maps.<PlayerAdvancements, BredAnimalsTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, BredAnimalsTrigger.Listeners> field_192172_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -106,7 +106,7 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
     static class Listeners
     {
         private final PlayerAdvancements field_192344_a;
-        private final Set<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> field_192345_b = Sets.<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>> field_192345_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47409_1_)
         {
@@ -134,11 +134,11 @@ public class BredAnimalsTrigger implements ICriterionTrigger<BredAnimalsTrigger.
 
             for (ICriterionTrigger.Listener<BredAnimalsTrigger.Instance> listener : this.field_192345_b)
             {
-                if (((BredAnimalsTrigger.Instance)listener.func_192158_a()).func_192246_a(p_192342_1_, p_192342_2_, p_192342_3_, p_192342_4_))
+                if (listener.func_192158_a().func_192246_a(p_192342_1_, p_192342_2_, p_192342_3_, p_192342_4_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<BredAnimalsTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

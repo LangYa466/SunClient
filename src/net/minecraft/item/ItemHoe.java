@@ -62,7 +62,7 @@ public class ItemHoe extends Item
 
                 if (block == Blocks.DIRT)
                 {
-                    switch ((BlockDirt.DirtType)iblockstate.getValue(BlockDirt.VARIANT))
+                    switch (iblockstate.getValue(BlockDirt.VARIANT))
                     {
                         case DIRT:
                             this.setBlock(itemstack, stack, playerIn, worldIn, Blocks.FARMLAND.getDefaultState());
@@ -124,7 +124,7 @@ public class ItemHoe extends Item
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
         {
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0.0D, 0));
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)(this.speed - 4.0F), 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.speed - 4.0F, 0));
         }
 
         return multimap;

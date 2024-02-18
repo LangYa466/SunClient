@@ -81,7 +81,7 @@ public class SlotCrafting extends Slot
         if (irecipe != null && !irecipe.func_192399_d())
         {
             this.thePlayer.func_192021_a(Lists.newArrayList(irecipe));
-            inventorycraftresult.func_193056_a((IRecipe)null);
+            inventorycraftresult.func_193056_a(null);
         }
     }
 

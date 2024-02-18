@@ -77,7 +77,7 @@ public class ReflectorRaw
         try
         {
             Field[] afield = p_getFieldsAfter_0_.getDeclaredFields();
-            List<Field> list = Arrays.<Field>asList(afield);
+            List<Field> list = Arrays.asList(afield);
             int i = list.indexOf(p_getFieldsAfter_1_);
 
             if (i < 0)
@@ -87,7 +87,7 @@ public class ReflectorRaw
             else
             {
                 List<Field> list1 = list.subList(i + 1, list.size());
-                Field[] afield1 = (Field[])list1.toArray(new Field[list1.size()]);
+                Field[] afield1 = list1.toArray(new Field[list1.size()]);
                 return getFields(afield1, p_getFieldsAfter_2_);
             }
         }
@@ -120,7 +120,7 @@ public class ReflectorRaw
                         {
                             list.add(field);
                         }
-                        else if (object != null && p_getFields_3_ != null && object.equals(p_getFields_3_))
+                        else if (object != null && object.equals(p_getFields_3_))
                         {
                             list.add(field);
                         }
@@ -128,7 +128,7 @@ public class ReflectorRaw
                 }
             }
 
-            Field[] afield = (Field[])list.toArray(new Field[list.size()]);
+            Field[] afield = list.toArray(new Field[list.size()]);
             return afield;
         }
         catch (Exception var9)
@@ -187,7 +187,7 @@ public class ReflectorRaw
         }
         else
         {
-            return !reflectorfield.exists() ? false : Reflector.setFieldValue(p_setFieldValue_0_, reflectorfield, p_setFieldValue_3_);
+            return reflectorfield.exists() && Reflector.setFieldValue(p_setFieldValue_0_, reflectorfield, p_setFieldValue_3_);
         }
     }
 
@@ -201,7 +201,7 @@ public class ReflectorRaw
         }
         else
         {
-            return !reflectorfield.exists() ? false : Reflector.setFieldValue(p_setFieldValue_0_, reflectorfield, p_setFieldValue_4_);
+            return reflectorfield.exists() && Reflector.setFieldValue(p_setFieldValue_0_, reflectorfield, p_setFieldValue_4_);
         }
     }
 

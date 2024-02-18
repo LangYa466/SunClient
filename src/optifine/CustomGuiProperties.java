@@ -194,7 +194,7 @@ public class CustomGuiProperties
             }
             else
             {
-                VillagerProfession[] avillagerprofession = (VillagerProfession[])list.toArray(new VillagerProfession[list.size()]);
+                VillagerProfession[] avillagerprofession = list.toArray(new VillagerProfession[list.size()]);
                 return avillagerprofession;
             }
         }
@@ -628,10 +628,7 @@ public class CustomGuiProperties
             {
                 String s = iworldnameable.getName();
 
-                if (!this.nbtName.matchesValue(s))
-                {
-                    return false;
-                }
+                return this.nbtName.matchesValue(s);
             }
 
             return true;
@@ -664,10 +661,7 @@ public class CustomGuiProperties
             {
                 String s = tileentitybeacon.getName();
 
-                if (!this.nbtName.matchesValue(s))
-                {
-                    return false;
-                }
+                return this.nbtName.matchesValue(s);
             }
 
             return true;
@@ -706,7 +700,7 @@ public class CustomGuiProperties
 
     private boolean matchesEnderChest(TileEntityEnderChest p_matchesEnderChest_1_, BlockPos p_matchesEnderChest_2_, IBlockAccess p_matchesEnderChest_3_)
     {
-        return this.matchesChest(false, false, false, true, (String)null);
+        return this.matchesChest(false, false, false, true, null);
     }
 
     private boolean matchesChest(boolean p_matchesChest_1_, boolean p_matchesChest_2_, boolean p_matchesChest_3_, boolean p_matchesChest_4_, String p_matchesChest_5_)
@@ -759,10 +753,7 @@ public class CustomGuiProperties
             {
                 CustomGuiProperties.EnumVariant customguiproperties$enumvariant = this.getDispenserVariant(tileentitydispenser);
 
-                if (!Config.equalsOne(customguiproperties$enumvariant, this.variants))
-                {
-                    return false;
-                }
+                return Config.equalsOne(customguiproperties$enumvariant, this.variants);
             }
 
             return true;
@@ -800,10 +791,7 @@ public class CustomGuiProperties
             {
                 EnumDyeColor enumdyecolor = tileentityshulkerbox.func_190592_s();
 
-                if (!Config.equalsOne(enumdyecolor, this.colors))
-                {
-                    return false;
-                }
+                return Config.equalsOne(enumdyecolor, this.colors);
             }
 
             return true;
@@ -873,10 +861,7 @@ public class CustomGuiProperties
                         }
                     }
 
-                    if (!flag)
-                    {
-                        return false;
-                    }
+                    return flag;
                 }
 
                 return true;
@@ -913,10 +898,7 @@ public class CustomGuiProperties
                 EntityLlama entityllama = (EntityLlama)abstracthorse;
                 EnumDyeColor enumdyecolor = entityllama.func_190704_dO();
 
-                if (!Config.equalsOne(enumdyecolor, this.colors))
-                {
-                    return false;
-                }
+                return Config.equalsOne(enumdyecolor, this.colors);
             }
 
             return true;
@@ -959,7 +941,7 @@ public class CustomGuiProperties
         return "name: " + this.fileName + ", container: " + this.container + ", textures: " + this.textureLocations;
     }
 
-    public static enum EnumContainer
+    public enum EnumContainer
     {
         ANVIL,
         BEACON,
@@ -974,16 +956,16 @@ public class CustomGuiProperties
         VILLAGER,
         SHULKER_BOX,
         CREATIVE,
-        INVENTORY;
+        INVENTORY
     }
 
-    private static enum EnumVariant
+    private enum EnumVariant
     {
         HORSE,
         DONKEY,
         MULE,
         LLAMA,
         DISPENSER,
-        DROPPER;
+        DROPPER
     }
 }

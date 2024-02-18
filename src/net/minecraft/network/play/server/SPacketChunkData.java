@@ -36,7 +36,7 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient>
         boolean flag = p_i47124_1_.getWorld().provider.func_191066_m();
         this.buffer = new byte[this.calculateChunkSize(p_i47124_1_, flag, p_i47124_2_)];
         this.availableSections = this.extractChunkData(new PacketBuffer(this.getWriteBuffer()), p_i47124_1_, flag, p_i47124_2_);
-        this.tileEntityTags = Lists.<NBTTagCompound>newArrayList();
+        this.tileEntityTags = Lists.newArrayList();
 
         for (Entry<BlockPos, TileEntity> entry : p_i47124_1_.getTileEntityMap().entrySet())
         {
@@ -72,7 +72,7 @@ public class SPacketChunkData implements Packet<INetHandlerPlayClient>
             this.buffer = new byte[i];
             buf.readBytes(this.buffer);
             int j = buf.readVarIntFromBuffer();
-            this.tileEntityTags = Lists.<NBTTagCompound>newArrayList();
+            this.tileEntityTags = Lists.newArrayList();
 
             for (int k = 0; k < j; ++k)
             {

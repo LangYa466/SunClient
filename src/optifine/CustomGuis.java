@@ -32,9 +32,9 @@ import net.minecraft.world.IBlockAccess;
 
 public class CustomGuis
 {
-    private static Minecraft mc = Config.getMinecraft();
+    private static final Minecraft mc = Config.getMinecraft();
     private static PlayerControllerOF playerControllerOF = null;
-    private static CustomGuiProperties[][] guiProperties = (CustomGuiProperties[][])null;
+    private static CustomGuiProperties[][] guiProperties = null;
     public static boolean isChristmas = isChristmas();
 
     public static ResourceLocation getTextureLocation(ResourceLocation p_getTextureLocation_0_)
@@ -206,7 +206,7 @@ public class CustomGuis
 
     public static void update()
     {
-        guiProperties = (CustomGuiProperties[][])null;
+        guiProperties = null;
 
         if (Config.isCustomGuis())
         {
@@ -227,7 +227,7 @@ public class CustomGuis
     {
         if (p_propertyListToArray_0_.isEmpty())
         {
-            return (CustomGuiProperties[][])null;
+            return null;
         }
         else
         {
@@ -237,11 +237,11 @@ public class CustomGuis
             {
                 if (p_propertyListToArray_0_.size() > i)
                 {
-                    List<CustomGuiProperties> list = (List)p_propertyListToArray_0_.get(i);
+                    List<CustomGuiProperties> list = p_propertyListToArray_0_.get(i);
 
                     if (list != null)
                     {
-                        CustomGuiProperties[] acustomguiproperties1 = (CustomGuiProperties[])list.toArray(new CustomGuiProperties[list.size()]);
+                        CustomGuiProperties[] acustomguiproperties1 = list.toArray(new CustomGuiProperties[list.size()]);
                         acustomguiproperties[i] = acustomguiproperties1;
                     }
                 }
@@ -253,8 +253,8 @@ public class CustomGuis
 
     private static void update(IResourcePack p_update_0_, List<List<CustomGuiProperties>> p_update_1_)
     {
-        String[] astring = ResUtils.collectFiles(p_update_0_, "optifine/gui/container/", ".properties", (String[])null);
-        Arrays.sort((Object[])astring);
+        String[] astring = ResUtils.collectFiles(p_update_0_, "optifine/gui/container/", ".properties", null);
+        Arrays.sort(astring);
 
         for (int i = 0; i < astring.length; ++i)
         {
@@ -306,10 +306,10 @@ public class CustomGuis
 
             while (p_addToList_1_.size() <= i)
             {
-                p_addToList_1_.add((List<CustomGuiProperties>)null);
+                p_addToList_1_.add(null);
             }
 
-            List<CustomGuiProperties> list = (List)p_addToList_1_.get(i);
+            List<CustomGuiProperties> list = p_addToList_1_.get(i);
 
             if (list == null)
             {

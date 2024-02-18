@@ -36,7 +36,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 public class EntityVex extends EntityMob
 {
-    protected static final DataParameter<Byte> field_190664_a = EntityDataManager.<Byte>createKey(EntityVex.class, DataSerializers.BYTE);
+    protected static final DataParameter<Byte> field_190664_a = EntityDataManager.createKey(EntityVex.class, DataSerializers.BYTE);
     private EntityLiving field_190665_b;
     @Nullable
     private BlockPos field_190666_c;
@@ -86,7 +86,7 @@ public class EntityVex extends EntityMob
         this.tasks.addTask(8, new EntityVex.AIMoveRandom());
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
         this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityVex.class}));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityVex.class));
         this.targetTasks.addTask(2, new EntityVex.AICopyOwnerTarget(this));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
     }
@@ -165,13 +165,13 @@ public class EntityVex extends EntityMob
 
     private boolean func_190656_b(int p_190656_1_)
     {
-        int i = ((Byte)this.dataManager.get(field_190664_a)).byteValue();
+        int i = this.dataManager.get(field_190664_a).byteValue();
         return (i & p_190656_1_) != 0;
     }
 
     private void func_190660_a(int p_190660_1_, boolean p_190660_2_)
     {
-        int i = ((Byte)this.dataManager.get(field_190664_a)).byteValue();
+        int i = this.dataManager.get(field_190664_a).byteValue();
 
         if (p_190660_2_)
         {
@@ -356,7 +356,7 @@ public class EntityVex extends EntityMob
                 double d1 = this.posY - EntityVex.this.posY;
                 double d2 = this.posZ - EntityVex.this.posZ;
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                d3 = (double)MathHelper.sqrt(d3);
+                d3 = MathHelper.sqrt(d3);
 
                 if (d3 < EntityVex.this.getEntityBoundingBox().getAverageEdgeLength())
                 {

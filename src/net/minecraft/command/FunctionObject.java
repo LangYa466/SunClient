@@ -23,7 +23,7 @@ public class FunctionObject
 
     public static FunctionObject func_193527_a(FunctionManager p_193527_0_, List<String> p_193527_1_)
     {
-        List<FunctionObject.Entry> list = Lists.<FunctionObject.Entry>newArrayListWithCapacity(p_193527_1_.size());
+        List<FunctionObject.Entry> list = Lists.newArrayListWithCapacity(p_193527_1_.size());
 
         for (String s : p_193527_1_)
         {
@@ -53,7 +53,7 @@ public class FunctionObject
             }
         }
 
-        return new FunctionObject((FunctionObject.Entry[])list.toArray(new FunctionObject.Entry[list.size()]));
+        return new FunctionObject(list.toArray(new Entry[list.size()]));
     }
 
     public static class CacheableFunction
@@ -93,7 +93,7 @@ public class FunctionObject
 
         public String toString()
         {
-            return String.valueOf((Object)this.field_193520_b);
+            return String.valueOf(this.field_193520_b);
         }
     }
 

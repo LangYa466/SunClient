@@ -73,7 +73,7 @@ public class AdvancementToast implements IToast
             }
 
             RenderHelper.enableGUIStandardItemLighting();
-            p_193653_1_.func_192989_b().getRenderItem().renderItemAndEffectIntoGUI((EntityLivingBase)null, displayinfo.func_192298_b(), 8, 8);
+            p_193653_1_.func_192989_b().getRenderItem().renderItemAndEffectIntoGUI(null, displayinfo.func_192298_b(), 8, 8);
             return p_193653_2_ >= 5000L ? IToast.Visibility.HIDE : IToast.Visibility.SHOW;
         }
         else

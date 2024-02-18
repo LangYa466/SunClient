@@ -9,7 +9,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class CooldownTracker
 {
-    private final Map<Item, CooldownTracker.Cooldown> cooldowns = Maps.<Item, CooldownTracker.Cooldown>newHashMap();
+    private final Map<Item, CooldownTracker.Cooldown> cooldowns = Maps.newHashMap();
     private int ticks;
 
     public boolean hasCooldown(Item itemIn)
@@ -43,7 +43,7 @@ public class CooldownTracker
 
             while (iterator.hasNext())
             {
-                Entry<Item, CooldownTracker.Cooldown> entry = (Entry)iterator.next();
+                Entry<Item, CooldownTracker.Cooldown> entry = iterator.next();
 
                 if ((entry.getValue()).expireTicks <= this.ticks)
                 {

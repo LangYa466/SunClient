@@ -15,7 +15,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
     public GuiScreenRealmsProxy(RealmsScreen proxyIn)
     {
         this.proxy = proxyIn;
-        this.buttonList = Collections.<GuiButton>synchronizedList(Lists.newArrayList());
+        this.buttonList = Collections.synchronizedList(Lists.newArrayList());
     }
 
     public RealmsScreen getProxy()
@@ -168,7 +168,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
 
     public List<RealmsButton> buttons()
     {
-        List<RealmsButton> list = Lists.<RealmsButton>newArrayListWithExpectedSize(this.buttonList.size());
+        List<RealmsButton> list = Lists.newArrayListWithExpectedSize(this.buttonList.size());
 
         for (GuiButton guibutton : this.buttonList)
         {

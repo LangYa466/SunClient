@@ -24,7 +24,7 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
     {
         if (!this.field_190859_a.getLeashed() && !this.field_190859_a.func_190718_dR())
         {
-            List<EntityLlama> list = this.field_190859_a.world.<EntityLlama>getEntitiesWithinAABB(this.field_190859_a.getClass(), this.field_190859_a.getEntityBoundingBox().expand(9.0D, 4.0D, 9.0D));
+            List<EntityLlama> list = this.field_190859_a.world.getEntitiesWithinAABB(this.field_190859_a.getClass(), this.field_190859_a.getEntityBoundingBox().expand(9.0D, 4.0D, 9.0D));
             EntityLlama entityllama = null;
             double d0 = Double.MAX_VALUE;
 
@@ -137,7 +137,7 @@ public class EntityAILlamaFollowCaravan extends EntityAIBase
         if (this.field_190859_a.func_190718_dR())
         {
             EntityLlama entityllama = this.field_190859_a.func_190716_dS();
-            double d0 = (double)this.field_190859_a.getDistanceToEntity(entityllama);
+            double d0 = this.field_190859_a.getDistanceToEntity(entityllama);
             float f = 2.0F;
             Vec3d vec3d = (new Vec3d(entityllama.posX - this.field_190859_a.posX, entityllama.posY - this.field_190859_a.posY, entityllama.posZ - this.field_190859_a.posZ)).normalize().scale(Math.max(d0 - 2.0D, 0.0D));
             this.field_190859_a.getNavigator().tryMoveToXYZ(this.field_190859_a.posX + vec3d.xCoord, this.field_190859_a.posY + vec3d.yCoord, this.field_190859_a.posZ + vec3d.zCoord, this.field_190860_b);

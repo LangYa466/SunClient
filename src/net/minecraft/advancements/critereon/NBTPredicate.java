@@ -15,7 +15,7 @@ import net.minecraft.util.JsonUtils;
 
 public class NBTPredicate
 {
-    public static final NBTPredicate field_193479_a = new NBTPredicate((NBTTagCompound)null);
+    public static final NBTPredicate field_193479_a = new NBTPredicate(null);
     @Nullable
     private final NBTTagCompound field_193480_b;
 
@@ -26,12 +26,12 @@ public class NBTPredicate
 
     public boolean func_193478_a(ItemStack p_193478_1_)
     {
-        return this == field_193479_a ? true : this.func_193477_a(p_193478_1_.getTagCompound());
+        return this == field_193479_a || this.func_193477_a(p_193478_1_.getTagCompound());
     }
 
     public boolean func_193475_a(Entity p_193475_1_)
     {
-        return this == field_193479_a ? true : this.func_193477_a(CommandBase.entityToNBT(p_193475_1_));
+        return this == field_193479_a || this.func_193477_a(CommandBase.entityToNBT(p_193475_1_));
     }
 
     public boolean func_193477_a(@Nullable NBTBase p_193477_1_)

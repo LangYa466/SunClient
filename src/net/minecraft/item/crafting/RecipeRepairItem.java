@@ -15,7 +15,7 @@ public class RecipeRepairItem implements IRecipe
      */
     public boolean matches(InventoryCrafting inv, World worldIn)
     {
-        List<ItemStack> list = Lists.<ItemStack>newArrayList();
+        List<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i)
         {
@@ -45,7 +45,7 @@ public class RecipeRepairItem implements IRecipe
      */
     public ItemStack getCraftingResult(InventoryCrafting inv)
     {
-        List<ItemStack> list = Lists.<ItemStack>newArrayList();
+        List<ItemStack> list = Lists.newArrayList();
 
         for (int i = 0; i < inv.getSizeInventory(); ++i)
         {
@@ -99,7 +99,7 @@ public class RecipeRepairItem implements IRecipe
 
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
     {
-        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
+        NonNullList<ItemStack> nonnulllist = NonNullList.func_191197_a(inv.getSizeInventory(), ItemStack.field_190927_a);
 
         for (int i = 0; i < nonnulllist.size(); ++i)
         {

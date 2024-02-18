@@ -19,7 +19,7 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockStone extends Block
 {
-    public static final PropertyEnum<BlockStone.EnumType> VARIANT = PropertyEnum.<BlockStone.EnumType>create("variant", BlockStone.EnumType.class);
+    public static final PropertyEnum<BlockStone.EnumType> VARIANT = PropertyEnum.create("variant", BlockStone.EnumType.class);
 
     public BlockStone()
     {
@@ -41,7 +41,7 @@ public class BlockStone extends Block
      */
     public MapColor getMapColor(IBlockState state, IBlockAccess p_180659_2_, BlockPos p_180659_3_)
     {
-        return ((BlockStone.EnumType)state.getValue(VARIANT)).getMapColor();
+        return state.getValue(VARIANT).getMapColor();
     }
 
     /**
@@ -58,7 +58,7 @@ public class BlockStone extends Block
      */
     public int damageDropped(IBlockState state)
     {
-        return ((BlockStone.EnumType)state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     /**
@@ -85,15 +85,15 @@ public class BlockStone extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((BlockStone.EnumType)state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {VARIANT});
+        return new BlockStateContainer(this, VARIANT);
     }
 
-    public static enum EnumType implements IStringSerializable
+    public enum EnumType implements IStringSerializable
     {
         STONE(0, MapColor.STONE, "stone", true),
         GRANITE(1, MapColor.DIRT, "granite", true),
@@ -110,12 +110,12 @@ public class BlockStone extends Block
         private final MapColor mapColor;
         private final boolean field_190913_m;
 
-        private EnumType(int p_i46383_3_, MapColor p_i46383_4_, String p_i46383_5_, boolean p_i46383_6_)
+        EnumType(int p_i46383_3_, MapColor p_i46383_4_, String p_i46383_5_, boolean p_i46383_6_)
         {
             this(p_i46383_3_, p_i46383_4_, p_i46383_5_, p_i46383_5_, p_i46383_6_);
         }
 
-        private EnumType(int p_i46384_3_, MapColor p_i46384_4_, String p_i46384_5_, String p_i46384_6_, boolean p_i46384_7_)
+        EnumType(int p_i46384_3_, MapColor p_i46384_4_, String p_i46384_5_, String p_i46384_6_, boolean p_i46384_7_)
         {
             this.meta = p_i46384_3_;
             this.name = p_i46384_5_;

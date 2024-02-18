@@ -17,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTrigger.Instance>
 {
     private static final ResourceLocation field_192232_a = new ResourceLocation("summoned_entity");
-    private final Map<PlayerAdvancements, SummonedEntityTrigger.Listeners> field_192233_b = Maps.<PlayerAdvancements, SummonedEntityTrigger.Listeners>newHashMap();
+    private final Map<PlayerAdvancements, SummonedEntityTrigger.Listeners> field_192233_b = Maps.newHashMap();
 
     public ResourceLocation func_192163_a()
     {
@@ -92,7 +92,7 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
     static class Listeners
     {
         private final PlayerAdvancements field_192535_a;
-        private final Set<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> field_192536_b = Sets.<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>>newHashSet();
+        private final Set<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>> field_192536_b = Sets.newHashSet();
 
         public Listeners(PlayerAdvancements p_i47372_1_)
         {
@@ -120,11 +120,11 @@ public class SummonedEntityTrigger implements ICriterionTrigger<SummonedEntityTr
 
             for (ICriterionTrigger.Listener<SummonedEntityTrigger.Instance> listener : this.field_192536_b)
             {
-                if (((SummonedEntityTrigger.Instance)listener.func_192158_a()).func_192283_a(p_192533_1_, p_192533_2_))
+                if (listener.func_192158_a().func_192283_a(p_192533_1_, p_192533_2_))
                 {
                     if (list == null)
                     {
-                        list = Lists.<ICriterionTrigger.Listener<SummonedEntityTrigger.Instance>>newArrayList();
+                        list = Lists.newArrayList();
                     }
 
                     list.add(listener);

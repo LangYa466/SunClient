@@ -30,7 +30,7 @@ public class ItemGlassBottle extends Item
 
     public ActionResult<ItemStack> onItemRightClick(World itemStackIn, EntityPlayer worldIn, EnumHand playerIn)
     {
-        List<EntityAreaEffectCloud> list = itemStackIn.<EntityAreaEffectCloud>getEntitiesWithinAABB(EntityAreaEffectCloud.class, worldIn.getEntityBoundingBox().expandXyz(2.0D), new Predicate<EntityAreaEffectCloud>()
+        List<EntityAreaEffectCloud> list = itemStackIn.getEntitiesWithinAABB(EntityAreaEffectCloud.class, worldIn.getEntityBoundingBox().expandXyz(2.0D), new Predicate<EntityAreaEffectCloud>()
         {
             public boolean apply(@Nullable EntityAreaEffectCloud p_apply_1_)
             {
@@ -43,7 +43,7 @@ public class ItemGlassBottle extends Item
         {
             EntityAreaEffectCloud entityareaeffectcloud = list.get(0);
             entityareaeffectcloud.setRadius(entityareaeffectcloud.getRadius() - 0.5F);
-            itemStackIn.playSound((EntityPlayer)null, worldIn.posX, worldIn.posY, worldIn.posZ, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            itemStackIn.playSound(null, worldIn.posX, worldIn.posY, worldIn.posZ, SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             return new ActionResult(EnumActionResult.SUCCESS, this.turnBottleIntoItem(itemstack, worldIn, new ItemStack(Items.DRAGON_BREATH)));
         }
         else

@@ -8,10 +8,10 @@ import optifine.BlockPosM;
 
 public class IteratorAxis implements Iterator<BlockPos>
 {
-    private double yDelta;
-    private double zDelta;
-    private int xStart;
-    private int xEnd;
+    private final double yDelta;
+    private final double zDelta;
+    private final int xStart;
+    private final int xEnd;
     private double yStart;
     private double yEnd;
     private double zStart;
@@ -19,7 +19,7 @@ public class IteratorAxis implements Iterator<BlockPos>
     private int xNext;
     private double yNext;
     private double zNext;
-    private BlockPosM pos = new BlockPosM(0, 0, 0);
+    private final BlockPosM pos = new BlockPosM(0, 0, 0);
     private boolean hasNext = false;
 
     public IteratorAxis(BlockPos posStart, BlockPos posEnd, double yDelta, double zDelta)
@@ -28,9 +28,9 @@ public class IteratorAxis implements Iterator<BlockPos>
         this.zDelta = zDelta;
         this.xStart = posStart.getX();
         this.xEnd = posEnd.getX();
-        this.yStart = (double)posStart.getY();
+        this.yStart = posStart.getY();
         this.yEnd = (double)posEnd.getY() - 0.5D;
-        this.zStart = (double)posStart.getZ();
+        this.zStart = posStart.getZ();
         this.zEnd = (double)posEnd.getZ() - 0.5D;
         this.xNext = this.xStart;
         this.yNext = this.yStart;
@@ -51,7 +51,7 @@ public class IteratorAxis implements Iterator<BlockPos>
         }
         else
         {
-            this.pos.setXyz((double)this.xNext, this.yNext, this.zNext);
+            this.pos.setXyz(this.xNext, this.yNext, this.zNext);
             this.nextPos();
             this.hasNext = this.xNext < this.xEnd && this.yNext < this.yEnd && this.zNext < this.zEnd;
             return this.pos;
@@ -80,7 +80,6 @@ public class IteratorAxis implements Iterator<BlockPos>
 
                 if (this.xNext >= this.xEnd)
                 {
-                    ;
                 }
             }
         }

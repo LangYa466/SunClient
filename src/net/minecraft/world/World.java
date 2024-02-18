@@ -69,14 +69,14 @@ public abstract class World implements IBlockAccess
      * boolean; if true updates scheduled by scheduleBlockUpdate happen immediately
      */
     protected boolean scheduledUpdatesAreImmediate;
-    public final List<Entity> loadedEntityList = Lists.<Entity>newArrayList();
-    protected final List<Entity> unloadedEntityList = Lists.<Entity>newArrayList();
-    public final List<TileEntity> loadedTileEntityList = Lists.<TileEntity>newArrayList();
-    public final List<TileEntity> tickableTileEntities = Lists.<TileEntity>newArrayList();
-    private final List<TileEntity> addedTileEntityList = Lists.<TileEntity>newArrayList();
-    private final List<TileEntity> tileEntitiesToBeRemoved = Lists.<TileEntity>newArrayList();
-    public final List<EntityPlayer> playerEntities = Lists.<EntityPlayer>newArrayList();
-    public final List<Entity> weatherEffects = Lists.<Entity>newArrayList();
+    public final List<Entity> loadedEntityList = Lists.newArrayList();
+    protected final List<Entity> unloadedEntityList = Lists.newArrayList();
+    public final List<TileEntity> loadedTileEntityList = Lists.newArrayList();
+    public final List<TileEntity> tickableTileEntities = Lists.newArrayList();
+    private final List<TileEntity> addedTileEntityList = Lists.newArrayList();
+    private final List<TileEntity> tileEntitiesToBeRemoved = Lists.newArrayList();
+    public final List<EntityPlayer> playerEntities = Lists.newArrayList();
+    public final List<Entity> weatherEffects = Lists.newArrayList();
     protected final IntHashMap<Entity> entitiesById = new IntHashMap<Entity>();
     private final long cloudColour = 16777215L;
 
@@ -244,7 +244,6 @@ public abstract class World implements IBlockAccess
 
         for (blockpos = new BlockPos(pos.getX(), this.getSeaLevel(), pos.getZ()); !this.isAirBlock(blockpos.up()); blockpos = blockpos.up())
         {
-            ;
         }
 
         return this.getBlockState(blockpos);
@@ -357,7 +356,7 @@ public abstract class World implements IBlockAccess
 
     public boolean func_190526_b(int p_190526_1_, int p_190526_2_)
     {
-        return this.isChunkLoaded(p_190526_1_, p_190526_2_, false) ? true : this.chunkProvider.func_191062_e(p_190526_1_, p_190526_2_);
+        return this.isChunkLoaded(p_190526_1_, p_190526_2_, false) || this.chunkProvider.func_191062_e(p_190526_1_, p_190526_2_);
     }
 
     /**
@@ -460,7 +459,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).notifyBlockUpdate(this, pos, oldState, newState, flags);
+            this.eventListeners.get(i).notifyBlockUpdate(this, pos, oldState, newState, flags);
         }
     }
 
@@ -507,7 +506,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).markBlockRangeForRenderUpdate(x1, y1, z1, x2, y2, z2);
+            this.eventListeners.get(i).markBlockRangeForRenderUpdate(x1, y1, z1, x2, y2, z2);
         }
     }
 
@@ -915,7 +914,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).notifyLightSet(pos);
+            this.eventListeners.get(i).notifyLightSet(pos);
         }
     }
 
@@ -1172,7 +1171,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).playSoundToAllNearExcept(player, soundIn, category, x, y, z, volume, pitch);
+            this.eventListeners.get(i).playSoundToAllNearExcept(player, soundIn, category, x, y, z, volume, pitch);
         }
     }
 
@@ -1184,7 +1183,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).playRecord(soundEventIn, blockPositionIn);
+            this.eventListeners.get(i).playRecord(soundEventIn, blockPositionIn);
         }
     }
 
@@ -1197,7 +1196,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).func_190570_a(p_190523_1_, false, true, p_190523_2_, p_190523_4_, p_190523_6_, p_190523_8_, p_190523_10_, p_190523_12_, p_190523_14_);
+            this.eventListeners.get(i).func_190570_a(p_190523_1_, false, true, p_190523_2_, p_190523_4_, p_190523_6_, p_190523_8_, p_190523_10_, p_190523_12_, p_190523_14_);
         }
     }
 
@@ -1210,7 +1209,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).spawnParticle(particleID, ignoreRange, xCood, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
+            this.eventListeners.get(i).spawnParticle(particleID, ignoreRange, xCood, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters);
         }
     }
 
@@ -1261,7 +1260,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).onEntityAdded(entityIn);
+            this.eventListeners.get(i).onEntityAdded(entityIn);
         }
     }
 
@@ -1269,7 +1268,7 @@ public abstract class World implements IBlockAccess
     {
         for (int i = 0; i < this.eventListeners.size(); ++i)
         {
-            ((IWorldEventListener)this.eventListeners.get(i)).onEntityRemoved(entityIn);
+            this.eventListeners.get(i).onEntityRemoved(entityIn);
         }
     }
 
@@ -1417,7 +1416,7 @@ public abstract class World implements IBlockAccess
 
     public List<AxisAlignedBB> getCollisionBoxes(@Nullable Entity entityIn, AxisAlignedBB aabb)
     {
-        List<AxisAlignedBB> list = Lists.<AxisAlignedBB>newArrayList();
+        List<AxisAlignedBB> list = Lists.newArrayList();
         this.func_191504_a(entityIn, aabb, false, list);
 
         if (entityIn != null)
@@ -1480,7 +1479,7 @@ public abstract class World implements IBlockAccess
      */
     public boolean collidesWithAnyBlock(AxisAlignedBB bbox)
     {
-        return this.func_191504_a((Entity)null, bbox, true, Lists.newArrayList());
+        return this.func_191504_a(null, bbox, true, Lists.newArrayList());
     }
 
     /**
@@ -1567,10 +1566,10 @@ public abstract class World implements IBlockAccess
             f12 = f12 * 0.45F;
             f3 = f3 * (1.0F - f12) + 0.8F * f12;
             f4 = f4 * (1.0F - f12) + 0.8F * f12;
-            f5 = f5 * (1.0F - f12) + 1.0F * f12;
+            f5 = f5 * (1.0F - f12) + f12;
         }
 
-        return new Vec3d((double)f3, (double)f4, (double)f5);
+        return new Vec3d(f3, f4, f5);
     }
 
     /**
@@ -1636,7 +1635,7 @@ public abstract class World implements IBlockAccess
             f4 = f4 * f8 + f10 * (1.0F - f8);
         }
 
-        return new Vec3d((double)f2, (double)f3, (double)f4);
+        return new Vec3d(f2, f3, f4);
     }
 
     /**
@@ -1849,7 +1848,7 @@ public abstract class World implements IBlockAccess
                     {
                         this.theProfiler.func_194340_a(() ->
                         {
-                            return String.valueOf((Object)TileEntity.func_190559_a(tileentity.getClass()));
+                            return String.valueOf(TileEntity.func_190559_a(tileentity.getClass()));
                         });
                         ((ITickable)tileentity).update();
                         this.theProfiler.endSection();
@@ -2009,12 +2008,12 @@ public abstract class World implements IBlockAccess
             entityIn.posZ = entityIn.lastTickPosZ;
         }
 
-        if (Double.isNaN((double)entityIn.rotationPitch) || Double.isInfinite((double)entityIn.rotationPitch))
+        if (Double.isNaN(entityIn.rotationPitch) || Double.isInfinite(entityIn.rotationPitch))
         {
             entityIn.rotationPitch = entityIn.prevRotationPitch;
         }
 
-        if (Double.isNaN((double)entityIn.rotationYaw) || Double.isInfinite((double)entityIn.rotationYaw))
+        if (Double.isNaN(entityIn.rotationYaw) || Double.isInfinite(entityIn.rotationYaw))
         {
             entityIn.rotationYaw = entityIn.prevRotationYaw;
         }
@@ -2063,7 +2062,7 @@ public abstract class World implements IBlockAccess
      */
     public boolean checkNoEntityCollision(AxisAlignedBB bb)
     {
-        return this.checkNoEntityCollision(bb, (Entity)null);
+        return this.checkNoEntityCollision(bb, null);
     }
 
     /**
@@ -2071,7 +2070,7 @@ public abstract class World implements IBlockAccess
      */
     public boolean checkNoEntityCollision(AxisAlignedBB bb, @Nullable Entity entityIn)
     {
-        List<Entity> list = this.getEntitiesWithinAABBExcludingEntity((Entity)null, bb);
+        List<Entity> list = this.getEntitiesWithinAABBExcludingEntity(null, bb);
 
         for (int j2 = 0; j2 < list.size(); ++j2)
         {
@@ -2224,7 +2223,7 @@ public abstract class World implements IBlockAccess
 
                         if (iblockstate1.getMaterial() == materialIn)
                         {
-                            double d0 = (double)((float)(i4 + 1) - BlockLiquid.getLiquidHeightPercent(((Integer)iblockstate1.getValue(BlockLiquid.LEVEL)).intValue()));
+                            double d0 = (float)(i4 + 1) - BlockLiquid.getLiquidHeightPercent(iblockstate1.getValue(BlockLiquid.LEVEL).intValue());
 
                             if ((double)i3 >= d0)
                             {
@@ -2712,7 +2711,7 @@ public abstract class World implements IBlockAccess
                 IBlockState iblockstate1 = this.getBlockState(pos);
                 Block block = iblockstate1.getBlock();
 
-                if ((block == Blocks.WATER || block == Blocks.FLOWING_WATER) && ((Integer)iblockstate1.getValue(BlockLiquid.LEVEL)).intValue() == 0)
+                if ((block == Blocks.WATER || block == Blocks.FLOWING_WATER) && iblockstate1.getValue(BlockLiquid.LEVEL).intValue() == 0)
                 {
                     if (!noWaterAdj)
                     {
@@ -2721,10 +2720,7 @@ public abstract class World implements IBlockAccess
 
                     boolean flag = this.isWater(pos.west()) && this.isWater(pos.east()) && this.isWater(pos.north()) && this.isWater(pos.south());
 
-                    if (!flag)
-                    {
-                        return true;
-                    }
+                    return !flag;
                 }
             }
 
@@ -2759,10 +2755,7 @@ public abstract class World implements IBlockAccess
             {
                 IBlockState iblockstate1 = this.getBlockState(pos);
 
-                if (iblockstate1.getMaterial() == Material.AIR && Blocks.SNOW_LAYER.canPlaceBlockAt(this, pos))
-                {
-                    return true;
-                }
+                return iblockstate1.getMaterial() == Material.AIR && Blocks.SNOW_LAYER.canPlaceBlockAt(this, pos);
             }
 
             return false;
@@ -3013,7 +3006,7 @@ public abstract class World implements IBlockAccess
 
     public List<Entity> getEntitiesInAABBexcluding(@Nullable Entity entityIn, AxisAlignedBB boundingBox, @Nullable Predicate <? super Entity > predicate)
     {
-        List<Entity> list = Lists.<Entity>newArrayList();
+        List<Entity> list = Lists.newArrayList();
         int j2 = MathHelper.floor((boundingBox.minX - 2.0D) / 16.0D);
         int k2 = MathHelper.floor((boundingBox.maxX + 2.0D) / 16.0D);
         int l2 = MathHelper.floor((boundingBox.minZ - 2.0D) / 16.0D);
@@ -3035,7 +3028,7 @@ public abstract class World implements IBlockAccess
 
     public <T extends Entity> List<T> getEntities(Class <? extends T > entityType, Predicate <? super T > filter)
     {
-        List<T> list = Lists.<T>newArrayList();
+        List<T> list = Lists.newArrayList();
 
         for (Entity entity4 : this.loadedEntityList)
         {
@@ -3050,7 +3043,7 @@ public abstract class World implements IBlockAccess
 
     public <T extends Entity> List<T> getPlayers(Class <? extends T > playerType, Predicate <? super T > filter)
     {
-        List<T> list = Lists.<T>newArrayList();
+        List<T> list = Lists.newArrayList();
 
         for (Entity entity4 : this.playerEntities)
         {
@@ -3065,7 +3058,7 @@ public abstract class World implements IBlockAccess
 
     public <T extends Entity> List<T> getEntitiesWithinAABB(Class <? extends T > classEntity, AxisAlignedBB bb)
     {
-        return this.<T>getEntitiesWithinAABB(classEntity, bb, EntitySelectors.NOT_SPECTATING);
+        return this.getEntitiesWithinAABB(classEntity, bb, EntitySelectors.NOT_SPECTATING);
     }
 
     public <T extends Entity> List<T> getEntitiesWithinAABB(Class <? extends T > clazz, AxisAlignedBB aabb, @Nullable Predicate <? super T > filter)
@@ -3074,7 +3067,7 @@ public abstract class World implements IBlockAccess
         int k2 = MathHelper.ceil((aabb.maxX + 2.0D) / 16.0D);
         int l2 = MathHelper.floor((aabb.minZ - 2.0D) / 16.0D);
         int i3 = MathHelper.ceil((aabb.maxZ + 2.0D) / 16.0D);
-        List<T> list = Lists.<T>newArrayList();
+        List<T> list = Lists.newArrayList();
 
         for (int j3 = j2; j3 < k2; ++j3)
         {
@@ -3093,7 +3086,7 @@ public abstract class World implements IBlockAccess
     @Nullable
     public <T extends Entity> T findNearestEntityWithinAABB(Class <? extends T > entityType, AxisAlignedBB aabb, T closestTo)
     {
-        List<T> list = this.<T>getEntitiesWithinAABB(entityType, aabb);
+        List<T> list = this.getEntitiesWithinAABB(entityType, aabb);
         T t = null;
         double d0 = Double.MAX_VALUE;
 
@@ -3261,7 +3254,7 @@ public abstract class World implements IBlockAccess
                         else
                         {
                             j2 = Math.max(j2, this.getStrongPower(pos.east(), EnumFacing.EAST));
-                            return j2 >= 15 ? j2 : j2;
+                            return j2;
                         }
                     }
                 }
@@ -3405,13 +3398,13 @@ public abstract class World implements IBlockAccess
     @Nullable
     public EntityPlayer getNearestAttackablePlayer(Entity entityIn, double maxXZDistance, double maxYDistance)
     {
-        return this.getNearestAttackablePlayer(entityIn.posX, entityIn.posY, entityIn.posZ, maxXZDistance, maxYDistance, (Function)null, (Predicate)null);
+        return this.getNearestAttackablePlayer(entityIn.posX, entityIn.posY, entityIn.posZ, maxXZDistance, maxYDistance, null, null);
     }
 
     @Nullable
     public EntityPlayer getNearestAttackablePlayer(BlockPos pos, double maxXZDistance, double maxYDistance)
     {
-        return this.getNearestAttackablePlayer((double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), maxXZDistance, maxYDistance, (Function)null, (Predicate)null);
+        return this.getNearestAttackablePlayer((float)pos.getX() + 0.5F, (float)pos.getY() + 0.5F, (float)pos.getZ() + 0.5F, maxXZDistance, maxYDistance, null, null);
     }
 
     @Nullable
@@ -3443,12 +3436,12 @@ public abstract class World implements IBlockAccess
                         f = 0.1F;
                     }
 
-                    d2 *= (double)(0.7F * f);
+                    d2 *= 0.7F * f;
                 }
 
                 if (playerToDouble != null)
                 {
-                    d2 *= ((Double)MoreObjects.firstNonNull(playerToDouble.apply(entityplayer1), Double.valueOf(1.0D))).doubleValue();
+                    d2 *= MoreObjects.firstNonNull(playerToDouble.apply(entityplayer1), Double.valueOf(1.0D)).doubleValue();
                 }
 
                 if ((maxYDistance < 0.0D || Math.abs(entityplayer1.posY - posY) < maxYDistance * maxYDistance) && (maxXZDistance < 0.0D || d1 < d2 * d2) && (d0 == -1.0D || d1 < d0))
@@ -3717,7 +3710,7 @@ public abstract class World implements IBlockAccess
             }
             else
             {
-                return this.canSnowAt(strikePosition, false) ? false : biome.canRain();
+                return !this.canSnowAt(strikePosition, false) && biome.canRain();
             }
         }
     }
@@ -3767,13 +3760,13 @@ public abstract class World implements IBlockAccess
     {
         for (int j2 = 0; j2 < this.eventListeners.size(); ++j2)
         {
-            ((IWorldEventListener)this.eventListeners.get(j2)).broadcastSound(id, pos, data);
+            this.eventListeners.get(j2).broadcastSound(id, pos, data);
         }
     }
 
     public void playEvent(int type, BlockPos pos, int data)
     {
-        this.playEvent((EntityPlayer)null, type, pos, data);
+        this.playEvent(null, type, pos, data);
     }
 
     public void playEvent(@Nullable EntityPlayer player, int type, BlockPos pos, int data)
@@ -3782,7 +3775,7 @@ public abstract class World implements IBlockAccess
         {
             for (int j2 = 0; j2 < this.eventListeners.size(); ++j2)
             {
-                ((IWorldEventListener)this.eventListeners.get(j2)).playEvent(player, type, pos, data);
+                this.eventListeners.get(j2).playEvent(player, type, pos, data);
             }
         }
         catch (Throwable throwable3)

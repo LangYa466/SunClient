@@ -1,5 +1,6 @@
 package optifine;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.client.settings.GameSettings;
@@ -45,7 +46,7 @@ public class CrashReporter
             extendCrashReport(p_onCrashReport_1_);
             String s = "http://optifine.net/crashReport";
             String s1 = makeReport(p_onCrashReport_0_);
-            byte[] abyte = s1.getBytes("ASCII");
+            byte[] abyte = s1.getBytes(StandardCharsets.US_ASCII);
             IFileUploadListener ifileuploadlistener = new IFileUploadListener()
             {
                 public void fileUploadFinished(String p_fileUploadFinished_1_, byte[] p_fileUploadFinished_2_, Throwable p_fileUploadFinished_3_)
@@ -68,13 +69,12 @@ public class CrashReporter
 
     private static String makeReport(CrashReport p_makeReport_0_)
     {
-        StringBuffer stringbuffer = new StringBuffer();
-        stringbuffer.append("OptiFineVersion: " + Config.getVersion() + "\n");
-        stringbuffer.append("Summary: " + makeSummary(p_makeReport_0_) + "\n");
-        stringbuffer.append("\n");
-        stringbuffer.append(p_makeReport_0_.getCompleteReport());
-        stringbuffer.append("\n");
-        return stringbuffer.toString();
+        String stringbuffer = "OptiFineVersion: " + Config.getVersion() + "\n" +
+                "Summary: " + makeSummary(p_makeReport_0_) + "\n" +
+                "\n" +
+                p_makeReport_0_.getCompleteReport() +
+                "\n";
+        return stringbuffer;
     }
 
     private static String makeSummary(CrashReport p_makeSummary_0_)
@@ -113,10 +113,10 @@ public class CrashReporter
             p_extendCrashReport_0_.addCrashSection("Multitexture", "" + Config.isMultiTexture());
         }
 
-        p_extendCrashReport_0_.addCrashSection("Shaders", "" + Shaders.getShaderPackName());
-        p_extendCrashReport_0_.addCrashSection("OpenGlVersion", "" + Config.openGlVersion);
-        p_extendCrashReport_0_.addCrashSection("OpenGlRenderer", "" + Config.openGlRenderer);
-        p_extendCrashReport_0_.addCrashSection("OpenGlVendor", "" + Config.openGlVendor);
+        p_extendCrashReport_0_.addCrashSection("Shaders", Shaders.getShaderPackName());
+        p_extendCrashReport_0_.addCrashSection("OpenGlVersion", Config.openGlVersion);
+        p_extendCrashReport_0_.addCrashSection("OpenGlRenderer", Config.openGlRenderer);
+        p_extendCrashReport_0_.addCrashSection("OpenGlVendor", Config.openGlVendor);
         p_extendCrashReport_0_.addCrashSection("CpuCount", "" + Config.getAvailableProcessors());
     }
 }

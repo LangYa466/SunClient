@@ -22,7 +22,7 @@ public class InventoryBasic implements IInventory
         this.inventoryTitle = title;
         this.hasCustomName = customName;
         this.slotsCount = slotCount;
-        this.inventoryContents = NonNullList.<ItemStack>func_191197_a(slotCount, ItemStack.field_190927_a);
+        this.inventoryContents = NonNullList.func_191197_a(slotCount, ItemStack.field_190927_a);
     }
 
     public InventoryBasic(ITextComponent title, int slotCount)
@@ -37,7 +37,7 @@ public class InventoryBasic implements IInventory
     {
         if (this.changeListeners == null)
         {
-            this.changeListeners = Lists.<IInventoryChangedListener>newArrayList();
+            this.changeListeners = Lists.newArrayList();
         }
 
         this.changeListeners.add(listener);
@@ -56,7 +56,7 @@ public class InventoryBasic implements IInventory
      */
     public ItemStack getStackInSlot(int index)
     {
-        return index >= 0 && index < this.inventoryContents.size() ? (ItemStack)this.inventoryContents.get(index) : ItemStack.field_190927_a;
+        return index >= 0 && index < this.inventoryContents.size() ? this.inventoryContents.get(index) : ItemStack.field_190927_a;
     }
 
     /**
@@ -200,7 +200,7 @@ public class InventoryBasic implements IInventory
      */
     public ITextComponent getDisplayName()
     {
-        return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]);
     }
 
     /**
@@ -221,7 +221,7 @@ public class InventoryBasic implements IInventory
         {
             for (int i = 0; i < this.changeListeners.size(); ++i)
             {
-                ((IInventoryChangedListener)this.changeListeners.get(i)).onInventoryChanged(this);
+                this.changeListeners.get(i).onInventoryChanged(this);
             }
         }
     }
