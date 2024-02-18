@@ -38,30 +38,6 @@ public class GradientUtil extends Utils {
         GLUtil.endBlend();
     }
 
-    public static void drawGradient(float x, float y, float width, float height, Color bottomLeft, Color topLeft, Color bottomRight, Color topRight) {
-        ScaledResolution sr = new ScaledResolution(mc);
-
-        RenderUtil.resetColor();
-        GLUtil.startBlend();
-        gradientShader.init();
-        gradientShader.setUniformf("location", x * sr.getScaleFactor(), (Minecraft.getMinecraft().displayHeight - (height * sr.getScaleFactor())) - (y * sr.getScaleFactor()));
-        gradientShader.setUniformf("rectSize", width * sr.getScaleFactor(), height * sr.getScaleFactor());
-        // Bottom Left
-        gradientShader.setUniformf("color1", bottomLeft.getRed() / 255f, bottomLeft.getGreen() / 255f, bottomLeft.getBlue() / 255f, bottomLeft.getAlpha() / 255f);
-        //Top left
-        gradientShader.setUniformf("color2", topLeft.getRed() / 255f, topLeft.getGreen() / 255f, topLeft.getBlue() / 255f, topLeft.getAlpha() / 255f);
-        //Bottom Right
-        gradientShader.setUniformf("color3", bottomRight.getRed() / 255f, bottomRight.getGreen() / 255f, bottomRight.getBlue() / 255f, bottomRight.getAlpha() / 255f);
-        //Top Right
-        gradientShader.setUniformf("color4", topRight.getRed() / 255f, topRight.getGreen() / 255f, topRight.getBlue() / 255f, topRight.getAlpha() / 255f);
-
-        //Apply the gradient to whatever is put here
-        ShaderUtil.drawQuads(x, y, width, height);
-
-        gradientShader.unload();
-        GLUtil.endBlend();
-    }
-
     public static void drawGradientLR(float x, float y, float width, float height, float alpha, Color left, Color right) {
         drawGradient(x, y, width, height, alpha, left, left, right, right);
     }

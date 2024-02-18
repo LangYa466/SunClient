@@ -6,6 +6,7 @@ import com.cubk.event.annotations.EventTarget;
 import com.cubk.event.impl.Event;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

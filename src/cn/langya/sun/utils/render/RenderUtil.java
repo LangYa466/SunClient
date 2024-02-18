@@ -66,7 +66,7 @@ public class RenderUtil extends Utils {
         return framebuffer == null || framebuffer.framebufferWidth != mc.displayWidth || framebuffer.framebufferHeight != mc.displayHeight;
     }
 
-        public static void glColor(int hex) {
+    public static void glColor(int hex) {
         float alpha = ((hex >> 24) & 0xFF) / 255f;
         float red = ((hex >> 16) & 0xFF) / 255f;
         float green = ((hex >> 8) & 0xFF) / 255f;

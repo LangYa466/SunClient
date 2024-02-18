@@ -2,6 +2,7 @@ package cn.langya.sun.modules;
 
 import cn.langya.sun.Sun;
 import cn.langya.sun.events.impl.misc.EventKeyPress;
+import cn.langya.sun.events.impl.misc.EventTick;
 import cn.langya.sun.events.impl.player.EventUpdate;
 import cn.langya.sun.events.impl.render.EventRender2D;
 import cn.langya.sun.modules.impl.move.*;
@@ -100,10 +101,16 @@ public class ModuleManager {
     }
     @EventTarget
     private void onKeyPress(EventKeyPress event) {
-        for (final Module m : modules) {
+        for (Module m : modules) {
             if (m.keyCode == event.getKeyCode() && event.getKeyCode() != -1) {
                 m.toggle();
             }
+        }
+    }
+
+    @EventTarget
+    void onT(EventTick e) {
+        for (final Module m : modules) {
         }
     }
 

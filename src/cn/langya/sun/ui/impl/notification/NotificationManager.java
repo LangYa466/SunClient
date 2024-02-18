@@ -73,11 +73,13 @@ public class NotificationManager {
             Runnable task = () -> {
                 TimeUtil t = new TimeUtil();
                 if (t.hasTimePassed(5000)) {
-                    notifications.remove(notification);
+                    notification.setShow(false);
                 }
             };
 
             new Thread(task).start();
+
+            notifications.removeIf(notifications -> !notification.isShow());
 
         }
 

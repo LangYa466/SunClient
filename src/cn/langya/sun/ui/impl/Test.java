@@ -29,7 +29,5 @@ public class Test extends UI {
 
     public void draw() {
         RoundedUtil.drawRound(50,50,50,50,0, Color.WHITE);
-        ClientUtils.logger.info("safoisabigsa");
-        RenderUtil.resetColor();
     }
 }
