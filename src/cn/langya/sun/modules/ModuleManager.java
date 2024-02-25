@@ -108,21 +108,6 @@ public class ModuleManager {
         }
     }
 
-    @EventTarget
-    void onT(EventTick e) {
-        for (final Module m : modules) {
-        }
-    }
-
-
-    @EventTarget
-    private void onUpdate(EventUpdate event) {}
-
-    @EventTarget
-    public void onRender2D(EventRender2D event) {
-
-    }
-
     private void registerModule(Module module) {
         modules.add(module);
         Sun.eventManager.register(module);

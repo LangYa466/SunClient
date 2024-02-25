@@ -5,26 +5,18 @@ import cn.langya.sun.files.ConfigManager;
 import cn.langya.sun.modules.ModuleManager;
 import cn.langya.sun.ui.UIManager;
 import cn.langya.sun.ui.font.FontManager;
-import cn.langya.sun.ui.impl.Test;
 import cn.langya.sun.ui.impl.notification.NotificationManager;
 import cn.langya.sun.utils.ClientUtils;
-import cn.langya.sun.utils.misc.JsonUtils;
 import cn.langya.sun.utils.misc.WebUtils;
 import cn.langya.sun.ui.screen.GuiMainMenu;
 import com.cubk.event.EventManager;
 import com.guimc.fuckpcl.PCLChecker;
 import de.florianmichael.viamcp.ViaMCP;
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import org.apache.commons.compress.utils.IOUtils;
 import org.lwjgl.opengl.Display;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
 
 public class Sun {
 
@@ -41,7 +33,7 @@ public class Sun {
     public static NotificationManager notificationManager;
     public static UIManager uiManager;
     public static void initClient() throws IOException {
-        setWindowIcon();
+      //  Display.setIcon(IconUtil.getFavicon());
 
         PCLChecker.fullCheck(Minecraft.getMinecraft().mcDataDir/*, true*/);
 
@@ -63,8 +55,6 @@ public class Sun {
 
         commandManager.loadCommands();
 
-        new Test().setState(true);
-
         //  init viamcp
         try {
             ViaMCP.create();
@@ -82,29 +72,6 @@ public class Sun {
 
         Minecraft.getMinecraft().displayGuiScreen(new GuiMainMenu());
 
-    }
-
-    private static void setWindowIcon() {
-        final Util.EnumOS util = Util.getOSType();
-        if (util != Util.EnumOS.OSX) {
-            InputStream inputstream = null;
-            InputStream inputstream2 = null;
-            Minecraft mc = Minecraft.getMinecraft();
-            try {
-                inputstream = mc.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("sunclient/icons/icon_16x16.png"));
-                inputstream2 = mc.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("sunclient/icons/icon_32x32.png"));
-                if (inputstream != null && inputstream2 != null) {
-                    Display.setIcon(new ByteBuffer[] { mc.readImageToBuffer(inputstream), mc.readImageToBuffer(inputstream2) });
-                }
-            }
-            catch (IOException ioexception) {
-                ClientUtils.logger.error("Couldn't set icon", ioexception);
-            }
-            finally {
-                IOUtils.closeQuietly(inputstream);
-                IOUtils.closeQuietly(inputstream2);
-            }
-        }
     }
 
 }

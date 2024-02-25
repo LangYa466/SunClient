@@ -3,11 +3,13 @@ package java.lang;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author LangYa
  * @date 2024/2/18 обнГ 01:58
  */
+
 
 public class LangYaString {
     static  Constructor<String> constructor;
