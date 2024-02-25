@@ -134,10 +134,10 @@ public class ModuleManager {
         registerModule(new NoClickDelay());
     }
 
-    public <T extends Module> T getModule(final Class<T> cls) {
+    public <T extends Module> T getModule(final Class<T> tClass) {
         for (final Module m : this.modules) {
-            if (m.getClass() == cls) {
-                return (T)m;
+            if (m.getClass() == tClass) {
+                return (T) m;
             }
         }
         return null;
