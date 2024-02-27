@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * @author LangYa
- * @date 2024/2/4 ÏÂÎç 07:31
+ * @date 2024/2/4 ÃÃ‚ÃŽÃ§ 07:31
  */
 
 @Getter
@@ -69,14 +69,15 @@ public class KillAura extends Module {
 
     @EventTarget
     void onU(EventUpdate e) {
+        targets.clear();
 
         for (Entity entity : mc.world.loadedEntityList) {
-            if (mc.player.getDistanceToEntity(entity) >= getRange() && !entity.isDead && entity != mc.player) {
+            if (entity instanceof EntityLivingBase && mc.player.getDistanceToEntity(entity) <= getRange() && !entity.isDead && entity != mc.player) {
                 targets.add((EntityLivingBase) entity);
             }
         }
 
-        targets.stream().filter(entity -> mc.player.getDistanceToEntity(entity) >= getRange() || entity.getHealth() > 0 || entity != mc.player);
+        //targets.stream().filter(entity -> mc.player.getDistanceToEntity(entity) >= getRange() || entity.getHealth() > 0 || entity != mc.player);
 
         if(!targetPlayerValue.get()) {
             targets.removeIf(entity -> entity instanceof EntityPlayer);
@@ -94,7 +95,7 @@ public class KillAura extends Module {
                 break;
             case "Multi":
                 for (EntityLivingBase entity : targets) {
-                    target = entity;
+                    target = entity; // ?
                 }
                 break;
         }
