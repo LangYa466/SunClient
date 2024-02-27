@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author LangYa
- * @date 2024/2/7 œ¬ŒÁ 05:23
+ * @date 2024/2/7 √è√Ç√é√ß 05:23
  */
 
 public class RotationUtil extends Utils {
@@ -25,8 +25,6 @@ public class RotationUtil extends Utils {
         Entity mcPointedEntity = null;
 
         if (entity != null && mc.world != null) {
-
-            mc.mcProfiler.startSection("pick");
             final double d0 = mc.playerController.getBlockReachDistance();
             objectMouseOver = entity.rayTrace(d0, partialTicks);
             double d1 = d0;
@@ -77,8 +75,6 @@ public class RotationUtil extends Utils {
                     mcPointedEntity = pointedEntity;
                 }
             }
-
-            mc.mcProfiler.endSection();
 
             return mcPointedEntity == target;
         }
